@@ -18,6 +18,8 @@
 ehthumbs.db
 Thumbs.db
 config.xml
+commit-template.txt
+.vscode
 
 # 프로젝트정보 파일 제외
 .metadata
