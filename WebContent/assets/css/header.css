@@ -1,0 +1,83 @@
+@charset "utf-8";
+body {
+  padding-top: 66px;
+  padding-bottom: 20px;
+}
+.navbar {
+  font-size: 1.3em;
+  border-bottom: 2px solid #f0f0f0;
+  background-color: #fff;
+}
+.navbar > .container:first-child {
+  height: 66px;
+}
+.glyphicon {
+  color: #3a3a3a;
+}
+.ico-wrap {
+  width: 100%;
+  position: relative;
+}
+#btnAlarm,
+#btnNav,
+#btnSearch {
+  position: absolute;
+  top: -27px;
+}
+#logo {
+  position: relative;
+  top: 10px;
+  width: 30%;
+  margin: auto;
+}
+#logo > a > img {
+  max-width: 100px;
+}
+#btnAlarm {
+  width: 1em;
+  height: 1.3em;
+  right: 70px;
+  top: -29px;
+}
+#btnSearch {
+  right: 15px;
+}
+#searchBox {
+  display: none;
+  position: relative;
+  margin-bottom: 5px;
+}
+#searchBox .form-control {
+  border-radius: 0;
+  height: 50px;
+  background-color: #fafafa;
+}
+.btnSearch-s {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: none;
+}
+.btnSearch-s i {
+  color: #018e40;
+}
+/* button rounded */
+.btn-primary, .btn-warning, .btn-info, .btn-danger {
+	border-radius: 200px;
+}
+.btn-primary:focus, .btn-warning:focus, .btn-info:focus, .btn-danger:focus {
+	outline: none;
+}
+a {
+	color: #3a3a3a;
+}
+.sb_address {
+	font-size: 0.8em;
+	color: #999;
+	padding-top: 40px;
+	text-align: center;	
+}
+.sb_address img {
+	width: 70px;
+	margin-bottom: 10px;
+}
