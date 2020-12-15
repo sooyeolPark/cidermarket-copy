@@ -62,22 +62,32 @@ body {
   color: #018e40;
 }
 /* button rounded */
-.btn-primary, .btn-warning, .btn-info, .btn-danger {
-	border-radius: 200px;
+.btn-primary,
+.btn-warning,
+.btn-info,
+.btn-danger {
+  border-radius: 200px;
 }
-.btn-primary:focus, .btn-warning:focus, .btn-info:focus, .btn-danger:focus {
-	outline: none;
+.btn-primary:focus,
+.btn-warning:focus,
+.btn-info:focus,
+.btn-danger:focus {
+  outline: none;
 }
 a {
-	color: #3a3a3a;
+  color: #3a3a3a;
 }
 .sb_address {
-	font-size: 0.8em;
-	color: #999;
-	padding-top: 40px;
-	text-align: center;	
+  font-size: 0.8em;
+  color: #999;
+  padding-top: 40px;
+  text-align: center;
 }
 .sb_address img {
-	width: 70px;
-	margin-bottom: 10px;
+  width: 70px;
+  margin-bottom: 10px;
+}
+h2,
+h3 {
+  font-weight: bold;
 }
