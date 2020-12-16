@@ -77,7 +77,7 @@
                         </div>
                         </div>
                     </div>
-                </div>
+                </div><!-- Modal -->
 
                 <div class="item-row">
                     <select class="form-control" id="item-select">
@@ -91,97 +91,10 @@
                     </div>
                 </div>
 
-                <div class="box" id="center">
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다디올 조던 팝니다디올 조던 팝니다디올 조던 팝니다디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 item-list">
-                        <a href="#">
-                            <div class="sorting thumbnail">
-                                <img alt="디올 조던" class="img-rounded" src="img/item.png">
-                                <div class="caption">
-                                    <h5>디올 조던 팝니다</h5>
-                                    <h4>1,000,000원</h4>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
+                <div class="box" id="item-list">
+                    <!-- Ajax로 로드한 결과가 표시될 곳 -->
                 </div>
+                <button type="button" id="more" class="btn btn-primary btn-block btn-lg">더보기</button>
                 
             </div>
         </section>
@@ -189,6 +102,23 @@
         <!-- footer 시작 -->
         <footer></footer>
         <!-- // footer 끝 -->
+
+        <!-- template -->
+		<script id="item_tmpl" type="text/x-handlebars-template">
+			{{#each item}}
+			<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+                <a href="{{href}}">
+                    <div class="sorting thumbnail">
+                        <img alt="{{title}}" class="img-rounded" src="{{imgurl}}">
+                        <div class="caption">
+                            <h5>{{title}}</h5>
+                            <h4>{{price}}원</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+			{{/each}}
+		</script>
 
         <!-- Javascript -->
         <script src="assets/js/jquery.min.js"></script>
@@ -224,5 +154,31 @@
                 });
             });
         </script>
+        <!-- ajax-helper -->
+	    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+	    <script src="plugins/ajax/ajax_helper.js"></script>
+	    <!-- handlebar plugin -->
+	    <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+        <!-- 사용자 정의 스크립트 -->
+		<script type="text/javascript">
+			/** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+			function get_list() {
+				$.get("plugins/ajax/item.json", function(req) {
+					// 미리 준비한 HTML틀을 읽어온다.
+					var template = Handlebars.compile($("#item_tmpl").html());
+					// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+					var html = template(req);
+					// #dept_list_body 읽어온 내용을 추가한다.
+					$("#item-list").append(html);
+				});
+			}
+
+			$(function() {
+				get_list();		// 페이지가 열림과 동시에 호출된다.
+				$("#more").click(function(e) {
+					get_list(); // 버튼이 클릭되면 호출된다.
+				});
+			});
+		</script>
     </body>
 </html>

@@ -76,6 +76,7 @@ body {
 }
 a {
   color: #3a3a3a;
+  text-decoration: none;
 }
 .sb_address {
   font-size: 0.8em;

@@ -86,8 +86,8 @@
 
 /* 상품 리스트형 보기 */
 .itemList {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
   border-top: 1px solid #eee;
 }
 .itemList img {
@@ -99,4 +99,51 @@
   display: inline-block;
   width: 65%;
   padding-left: 4%;
+}
+
+/* 거래내역 */
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+.tab {
+  width: 100%;
+  margin: 20px auto;
+}
+
+/** 개별 버튼에 대한 기본 크기와 가로 정렬 */
+.tab-button-item-link {
+  width: 50%;
+  font-size: 1.5em;
+  padding-bottom: 7px;
+  border-bottom: 3px solid #f0f0f0;
+}
+/** 현재 활성 탭의 배경 이미지 별도 처리 */
+.tab-button-item-link.selected {
+  border-bottom-color: #31a05f;
+  font-weight: bold;
+  color: #31a05f;
+}
+
+.tab-panel {
+  padding: 20px 10px;
+}
+
+.recordSort > .btn {
+  margin: 0 10px 10px;
+}
+.caption .label {
+  display: inline-block;
+  padding: 7px 10px;
+  font-size: 0.9em;
+  border: 1px solid #31a05f;
+  color: #31a05f;
+}
+.caption .label.label2 {
+  border: 1px solid #555;
+  color: #555;
+}
+.resultBtn button:first-child {
+  margin-right: 10px;
 }

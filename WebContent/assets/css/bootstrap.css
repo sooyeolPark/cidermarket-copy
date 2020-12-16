@@ -3156,6 +3156,8 @@ fieldset[disabled] .btn {
   cursor: not-allowed;
   filter: alpha(opacity=65);
   opacity: 0.65;
+  background-color: #999;
+  border-color: #999;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
