@@ -36,7 +36,6 @@
       href="assets/css/ie10.css" /> <script type="text/javascript"
       src="assets/js/ie10.js"></script> <![endif]-->
   <title>상품상세 - 사이다마켓</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 </head>
 
 <body>
@@ -46,7 +45,7 @@
 
   <!-- content 시작 -->
   <section>
-    <div class="container">
+    <div>
       <!-- Slider main container -->
       <div class="swiper-container">
         <!-- Additional required wrapper -->
@@ -58,7 +57,7 @@
               <img src="img/item.png" width="100%" /></a></div>
           <div class="swiper-slide"><a href="img/item.png" data-lightbox="my-gallery">
               <img src="img/item.png" width="100%" /></a></div>
-          
+
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
@@ -117,18 +116,20 @@
                 </div>
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-link"></i></div>
-                  <div class="col-xs-11"><a href="#"><span>#디올조던</span></a><a href="#"><span>#270</span></a><a href="#"><span>#나이키신발</span></a></div>
+                  <div class="col-xs-11"><a href="#"><span>#디올조던</span></a><a href="#"><span>#270</span></a><a
+                      href="#"><span>#나이키신발</span></a></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-tag"></i></div>
-                  <div class="col-xs-11"><a href="#"><span>신발/가방/잡화</span></a>&gt;<a href="#"><span>운동화/기능화</span></a></div>
+                  <div class="col-xs-11"><a href="#"><span>신발/가방/잡화</span></a>&gt;<a href="#"><span>운동화/기능화</span></a>
+                  </div>
                 </div>
               </div>
               <div class="user_info clearfix">
                 <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_thumb1.jpg" width="50"
                     height="50" alt="Generic placeholder image"> </a>
                 <div class="user_info_detail clearfix">
-                  
+
                   <div id="user_id"><a href="#">귀염티거</a></div>
                   <div id="user_info_item" class="pull-right">상품 <span>258</span></div>
                   <div id="user_lv">Lv 2 블루</div>
@@ -146,7 +147,7 @@
                 </li>
 
               </div>
-            
+
               <div class="item-repl">
                 <form role="form">
                   <fieldset>
@@ -183,19 +184,19 @@
                         <p>팔렸나요?</p>
                         <button type="submit" class="btn btn-danger pull-right reply">답글</button>
                         <div class=" repl_form">
-                        <form role="form repl_form">
-                          <fieldset>
-                            <!-- 입력양식 -->
-                            <div class="form-group">
-                              <textarea class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-                            </div>
-                            <div class="form-group clearfix">
-                              <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
-                            </div>
-                            <!--// 입력양식 -->
-                          </fieldset>
-                        </form>
-                      </div>
+                          <form role="form repl_form">
+                            <fieldset>
+                              <!-- 입력양식 -->
+                              <div class="form-group">
+                                <textarea class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                              </div>
+                              <div class="form-group clearfix">
+                                <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
+                              </div>
+                              <!--// 입력양식 -->
+                            </fieldset>
+                          </form>
+                        </div>
                       </div>
                       <div class="media">
                         <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_thumb1.jpg"
@@ -211,7 +212,8 @@
                             <p>아직이용~</p>
                           </div>
                         </div>
-                      </div> </div>
+                      </div>
+                    </div>
                   </li>
                   <!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
                   <li class="media">
@@ -228,18 +230,18 @@
                         <p>디자인이 좀 아쉽네요...</p>
                         <button type="submit" class="btn btn-danger pull-right reply">답글</button>
                         <div class=" repl_form">
-                        <form role="form">
-                          <fieldset>
-                            <!-- 입력양식 -->
-                            <div class="form-group">
-                              <textarea class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-                            </div>
-                            <div class="form-group clearfix">
-                              <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
-                            </div>
-                            <!--// 입력양식 -->
-                          </fieldset>
-                        </form>
+                          <form role="form">
+                            <fieldset>
+                              <!-- 입력양식 -->
+                              <div class="form-group">
+                                <textarea class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                              </div>
+                              <div class="form-group clearfix">
+                                <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
+                              </div>
+                              <!--// 입력양식 -->
+                            </fieldset>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -247,9 +249,9 @@
                 </ul>
               </div>
               <div class="div_blank"></div>
-              <div class="item_more">
-                <h1>이런 상품은 어때요?</h1>
-                <div class="box" id="center">
+              <div class="item_more ">
+                <h3>이런 상품은 어때요?</h3>
+                <div class="box clearfix" id="center">
                   <div class="col-xs-6 item-list">
                     <a href="#">
                       <div class="thumbnail">
@@ -299,8 +301,8 @@
               </div>
             </div>
             <div id="tab-page-2" class="hide">
-              <h1>귀염티거 님의 다른 상품</h1>
-              <div class="box" id="center">
+              <h3>귀염티거 님의 다른 상품</h3>
+              <div class="box clearfix id="center">
                 <div class="col-xs-6 item-list">
                   <a href="#">
                     <div class="thumbnail">
@@ -398,15 +400,14 @@
       </div>
       <div id="anou">
         <p>(주)사이다마켓은 통신판매중개자로서 거래당사자가 아니며,
-          <br /> 판매자가 등록한 상품정보 및 거래에 대해 (주)사이다마켓은 일체 책임을 지지 않습니다</p>
+          <br /> 판매자가 등록한 상품정보 및 거래에 대해 (주)사이다마켓은 일체 책임을 지지 않습니다
+        </p>
       </div>
   </section>
   <div class="row fixed-btn">
     <div class="col-xs-2 zzim"><a href="#">찜하기</a></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-warning"><span id="cool">쿨 하 게</span><span
-          id="trade">직 거 래</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-primary"><span id="cool">쿨 하 게</span><span
-          id="trade">바 로 결 제</span></button></div>
+    <div class="col-xs-5"><button type="submit" class="btn btn-warning"><span id="cool">쿨하게</span><span id="trade">직거래</span></button></div>
+    <div class="col-xs-5"><button type="submit" class="btn btn-primary"><span id="cool">쿨하게</span><span id="trade">바로결제</span></button></div>
   </div>
 
   <!-- Javascript -->
@@ -457,10 +458,10 @@
         $(".tab-panel > div").not($(target)).addClass('hide');
       });
 
-    $(".reply").click(function(e){
-      e.preventDefault();
-      $(this).next().slideToggle(300);
-    });
+      $(".reply").click(function (e) {
+        e.preventDefault();
+        $(this).next().slideToggle(300);
+      });
     });
   </script>
 </body>
