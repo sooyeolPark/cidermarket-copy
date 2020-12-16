@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!-- 모바일 웹 페이지 설정 -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+
+    <!-- noto sans 웹 폰트 적용 -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/nav.css" />
+
+    <!-- css 적용 -->
+    <link rel="stylesheet" type="text/css" href="assets/css/order_sheet.css" />
+    <!-- 반응형 웹을 지원하지 않을 경우 -->
+    <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
+
+    <!-- IE8 이하 버전 지원 -->
+    <!--[if lt IE 9]> <script type="text/javascript"
+        src="assets/js/html5shiv.js"></script> <script type="text/javascript"
+        src="assets/js/respond.min.js"></script> <![endif]-->
+
+    <!-- IE10 반응형 웹 버그 보완 -->
+    <!--[if gt IE 9]> <link rel="stylesheet" type="text/css"
+        href="assets/css/ie10.css" /> <script type="text/javascript"
+        src="assets/js/ie10.js"></script> <![endif]-->
+    <title>주문서</title>
+</head>
+
+<body>
+    <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
+  <div class='gray_layer' id='background'></div>
+  <div class='over_layer' id='front'>
+    <div>주소찾기 구현하기</div>
+  </div>
+    <!-- nav 시작 -->
+    <header></header>
+    <!-- // nav 끝 -->
+
+    <section>
+        <div class="container">
+            <div id="order">
+            주문서
+            </div>
+            <div id="order_cont">
+                <div class="order_name">주문내용</div>
+                <div class="media clearfix">
+                    <a class="pull-left" href="#"> <img class="media-object" src="img/item.png" width="80" height="80"
+                            alt="Generic placeholder image"> </a>
+                    <div class="media-body">
+                        <div class="clearfix">
+                            <h4 class="media-heading pull-left" id="item_name">디올 조던 265 거의 새상품 판매 합니다아아아아아아아아아이이이이아이이
+                            </h4>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <div class="clearfix" id="item_price">
+                            <p>1,000,000원</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="order_adr">
+                <div class="order_name">배송지</div>
+                <form class="form-horizontal" role="form">
+                    <fieldset>
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="select_adr" class="col-xs-2 control-label">배송지선택</label>
+                            <div class="col-xs-8">
+                                <select class="form-control" id="select_adr">
+                                    <option selected>배송지를 선택해 주세요</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <button type="reset" class="btn btn-danger col-xs-2">새 주소 등록</button>
+                        </div>
+
+
+                        <!--// 입력양식 -->
+
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="user_name" class="col-xs-2 control-label">이름</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="user_name" placeholder="이름 입력">
+                            </div>
+                        </div>
+                        <!--// 입력양식 -->
+
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="user_tel" class="col-xs-2 control-label">연락처</label>
+                            <div class="col-xs-10">
+                                <input type="tel" class="form-control" id="user_tel" placeholder="숫자만 입력">
+                            </div>
+                        </div>
+                        <!--// 입력양식 -->
+
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="user_adr1" class="col-xs-2 control-label">내용</label>
+                            <div class="col-xs-4">
+                                <input type="tel" class="form-control" id="user_adr1" placeholder="우편번호 입력" disabled>
+                            </div>
+                            <div class="col-xs-2">
+                                <button type="button" class="btn btn-info" id="find_adr">주소 찾기</button>
+                            </div>
+                            <div class="col-xs-4">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_adr2" class="col-xs-2 control-label"></label>
+                            <div class="col-xs-4">
+                                <input type="tel" class="form-control" id="user_adr2" placeholder="기본주소 입력" disabled>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="tel" class="form-control" id="user_adr3" placeholder="상세주소 입력">
+                            </div>
+                        </div>
+                        <!--// 입력양식 -->
+                    </fieldset>
+                </form>
+            </div>
+            <div id="how_pay">
+                <div class="order_name">결제수단</div>
+                <form role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="how_pay" id="mtj" value="M" checked>
+                                무통장입금 </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="how_pay" id="card" value="C">
+                                카드결제 </label>
+                        </div>
+                    </fieldset>
+                </form>
+                <div id="how_pay_anou">
+                    <h3>유의 사항</h3>
+                    <p>1. 금융 거래시에는 상대방의정보를 꼼꼼히 확인하세요.</p>
+                    <p>2. 분실, 파손 등의 모든 문제데 대한 책임은 거래 당사자에게 있습니다.</p>
+                    <p>3. 거래시 발생하는 회원 간 거래분쟁은 상호 합의로 해결해야 하며 사이다마켓이 개입하지 않습니다.</p>
+                    <p>4. 구매자 상품 수령 전 선 구매확정 하는 행위는 엄격히 금지됩니다.</p>
+                </div>
+            </div>
+            <div id="final">
+                <div class="order_name">최종결제금액</div>
+                <table>
+                    <tr id="original-price">
+                        <td class="price_cont">상품가격</td>
+                        <td class="price_won">1,000,000원</td>
+                    </tr>
+                    <tr id="del_fee">
+                        <td class="price_cont">배송비</td>
+                        <td class="price_won">3,000원</td>
+                    </tr>
+                </table>
+                <div id="final_price">
+                    <table>
+                        <tr id="original-price">
+                            <td class="price_cont">최종결제금액</td>
+                            <td class="price_won">1,003,000원</td>
+                        </tr>
+                    </table>
+                </div>
+                <form role="form">
+                    <fieldset>
+                        <!-- 체크박스 -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="checkbox1" type="checkbox" value="">
+                                    결제하기 클릭시 <a href="#">결제시 유의사항</a> 및 <a href="#">반품환불정책</a>을 모두 이해하고 이에 동의함을 의미합니다.
+                                </label>
+                            </div>
+                        </div>
+                        <button id="allow" type="button" class="btn btn-primary btn-block" disabled>
+                            결 제 하 기
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+        <div id="anou">
+            <p>(주)사이다마켓은 통신판매중개자로서 거래당사자가 아니며,
+              <br /> 판매자가 등록한 상품정보 및 거래에 대해 (주)사이다마켓은 일체 책임을 지지 않습니다
+            </p>
+          </div>
+    </section>
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/asidebar.jquery.js"></script>
+    <script src="assets/js/searchbox.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("header").load("header.html");
+            $("footer").load("footer.html");
+            // 체크박스 미체크시 결제하기 버튼 비활성화 기능
+            $("#checkbox1").change(function(){
+                var chk = $(this).prop("checked");
+                if(chk){
+                    $("#allow").prop("disabled", false);
+                } else {
+                    $("#allow").prop("disabled", true);
+                }
+            });
+                  /** modal 링크를 클릭한 경우 */
+      $("#find_adr").click(function(e) {
+                e.preventDefault();             // 페이지 이동 방지
+                $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
+                $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+                
+            });
+
+            /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
+            $("#background").click(function() {
+                $(this).fadeOut(300);       // 배경 레이어의 숨김
+                $("#front").fadeOut(200);   // 이미지 레이어의 숨김
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -39,6 +39,11 @@
 </head>
 
 <body>
+  <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
+  <div class='gray_layer' id='background'></div>
+  <div class='over_layer' id='front'>
+    <div>쪽지보내기 구현하기</div>
+  </div>
   <!-- nav 시작 -->
   <header></header>
   <!-- // nav 끝 -->
@@ -112,7 +117,7 @@
               <div class="info_etc">
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-time"></i></div>
-                  <div class="col-xs-11">38분 전</div>
+                  <div class="col-xs-11"><span id="reg_time">38분 전</span></div>
                 </div>
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-link"></i></div>
@@ -405,9 +410,9 @@
       </div>
   </section>
   <div class="row fixed-btn">
-    <div class="col-xs-2 zzim"><a href="#">찜하기</a></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-warning"><span id="cool">쿨하게</span><span id="trade">직거래</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-primary"><span id="cool">쿨하게</span><span id="trade">바로결제</span></button></div>
+    <div class="col-xs-2 zzim"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i></a></div>
+    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span id="cool">쿨하게</span><span id="trade">직거래</span></button></div>
+    <div class="col-xs-5"><button type="submit" class="btn btn-primary" id="dir_pay"><span id="cool">쿨하게</span><span id="trade">바로결제</span></button></div>
   </div>
 
   <!-- Javascript -->
@@ -462,6 +467,35 @@
         e.preventDefault();
         $(this).next().slideToggle(300);
       });
+
+      $(".zzim>a").click(function (e) {
+        e.preventDefault();
+        var heart = $(this).find("i").hasClass("glyphicon-heart");
+        if(heart){
+          $(this).find("i").removeClass("glyphicon-heart").addClass("glyphicon-heart-empty");
+        } else {
+          $(this).find("i").removeClass("glyphicon-heart-empty").addClass("glyphicon-heart");
+        }
+      });
+
+      /** modal 링크를 클릭한 경우 */
+      $("#dir_trade").click(function(e) {
+                e.preventDefault();             // 페이지 이동 방지
+                $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
+                $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+                
+            });
+
+            /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
+            $("#background").click(function() {
+                $(this).fadeOut(300);       // 배경 레이어의 숨김
+                $("#front").fadeOut(200);   // 이미지 레이어의 숨김
+            });
+
+            $("#dir_pay").click(function(e){
+              e.preventDefault();
+              window.open("order_sheet.html");
+            });
     });
   </script>
 </body>
