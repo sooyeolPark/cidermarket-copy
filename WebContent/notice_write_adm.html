@@ -13,7 +13,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
     <!-- 나눔고딕 웹 폰트 적용 -->
-    <link rel="stylesheet" type="text/css" href="assets/css/board_adm.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/notice_write_adm.css" />
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -110,98 +110,73 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             </div>
             <div class="col-lg-10">
             
-                <div class="title-menu clearfix">
+                <!-- <div class="title-menu clearfix">
                     <h4>공지사항</h4>
-                    <select class="form-control" id="align-number">
+                    <select class="form-control clearfix" id="align-number">
                         <option value>10개씩보기</option>
                         <option value="lowprice">20개씩보기</option>
                     </select>
-                    <select class="form-control" id="align-menu">
+                    <select class="form-control clearfix" id="align-menu">
                         <option value>작성일순</option>
                         <option value="lowprice">조회수순</option>
                     </select>
-                </div>
+                </div> -->
 
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th class="text-center">번호</th>
-                            <th class="text-center">제목</th>
-                            <th class="text-center">작성자</th>
-                            <th class="text-center">작성일</th>
-                            <th class="text-center">조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="input-group">
+                <form class="form-horizontal" role="form">
+                    <fieldset>
+
+                        
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="subject" class="col-md-2 control-label">글 제목</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="subject" placeholder="제목을 입력하세요.">
+                            </div>
+                        </div>
+                        <!--// 입력양식 -->
+                        
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="writer" class="col-md-2 control-label">작성자 이름</label>
+                            <div class="col-lg-10">
+                                <input type="password" class="form-control" id="writer" placeholder="이름을 입력하세요.">
+                            </div>
+                        </div>
+                        <!--// 입력양식 -->
+                        
+                        <!-- 입력양식 -->
+
+                        <!--// 입력양식 -->
+                        
+                        <!-- 입력양식 -->
+                        <div class="form-group">
+                            <label for="content" class="col-md-2 control-label">내용</label>
+                            <div class="col-md-10">
+                                <textarea id="content" class="form-control" rows="15" placeholder="내용을 입력하세요."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-md-2 control-label">파일첨부</label>
+                            <div class="col-md-2">
+
+                                <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg">
+
+                            </div>
+                        </div>
+                        <form class="form-inline">
+                            <div class="regi_cancel">
+                            <button type="submit" class="btn btn-primary">등록</button>
+                            <button type="submit" class="btn btn-default">취소</button>
+                          </form>
+                        <!--// 입력양식 -->
+                        
+                        <!-- 입력양식 -->
+
+                        <!--// 입력양식 -->
+                    </fieldset>
+                </form>
+                <!-- <div class="input-group">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="button"><span
                                 class="glyphicon glyphicon-search"></span></button>
@@ -210,14 +185,13 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 </div>
                 <ul class="pagination">
                     <li class="disabled"><a href="#">&laquo;</a></li>
-                    <!-- 활성화 버튼은 아래의 구조로 구성하시면 됩니다. sr-only는 스크린리더 전용 입니다 .-->
                     <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
                     <li><a href="#">&raquo;</a></li>
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>

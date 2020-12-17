@@ -77,11 +77,10 @@ ul {
   width: 100%;
   margin-bottom: 10px;
 }
-.form-control {
-  width: 13%;
+#align-number,
+#align-menu {
+  width: 12%;
   float: right;
-}
-.form-control:nth-child(1) {
   margin-top: 16px;
 }
 
@@ -247,4 +246,8 @@ th {
 .list-group-item > p {
   margin: 0;
   padding: 10px;
+}
+
+.regi_cancel {
+  margin-left: 88%;
 }

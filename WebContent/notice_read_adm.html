@@ -13,7 +13,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
     <!-- 나눔고딕 웹 폰트 적용 -->
-    <link rel="stylesheet" type="text/css" href="assets/css/board_adm.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/notice_read_adm.css" />
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -110,98 +110,51 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             </div>
             <div class="col-lg-10">
             
-                <div class="title-menu clearfix">
+                <!-- <div class="title-menu clearfix">
                     <h4>공지사항</h4>
-                    <select class="form-control" id="align-number">
+                    <select class="form-control clearfix" id="align-number">
                         <option value>10개씩보기</option>
                         <option value="lowprice">20개씩보기</option>
                     </select>
-                    <select class="form-control" id="align-menu">
+                    <select class="form-control clearfix" id="align-menu">
                         <option value>작성일순</option>
                         <option value="lowprice">조회수순</option>
                     </select>
+                </div> -->
+
+                <div>
+                    <div class="title_read clearfix">
+                        <span class="pull-left title">신규가입 쿠폰 안내입니다.</span>
+                        <span class="pull-right view_num">999</span>
+                        <span class="pull-right date_view">/ 조회수 </span>
+                        <span class="pull-right date_num">2020-11-01</span>
+                        <span class="pull-right date">작성일</span>
+                    </div>
+                    <p class="content_body">
+                    사이다마켓 공지사항<br>
+                    <br>
+                    <br>
+                    사이다마켓은 공유를 통해 삶의 여유를 제공하는 개인간거래 중심의 마켓입니다.<br>
+                    누구나 사고 팔고 나누는 공간으로, 다양한 개인들이 모여 자유롭고 편리하게 안전한 거래를 할 수 있습니다.
+                    <br> 서로 존중하고 배려하는 건강한 개인간거래 문화를 회원 여러분과 함께 만들어가기 위해 아래의 운영정책을 공지합니다.<br>
+                    운영정책은 개인간거래에 적합한 원칙과 기준으로 지속적으로 개선해나아가겠습니다.<br>
+                    ※ 건강한 마켓 환경과 다수의 정상적인 회원 보호를 위해, 운영정책을 준수하지 않은 경우 헬로마켓은 관련 행위를 확인 후 결과에 따라 주의를 당부하거나, 사전안내 없이 서비스 이용을 한시적/영구적으로 일부 또는 전체 제한할 수 있습니다.
+
+
+
+
+                    </p>
+
+
+                    <form class="form-inline">
+                        <div class="regi_cancel">
+                        <button type="submit" class="btn btn-primary">수정</button>
+                        <button type="submit" class="btn btn-warning">삭제</button>
+                      </form>
+
                 </div>
 
-
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th class="text-center">번호</th>
-                            <th class="text-center">제목</th>
-                            <th class="text-center">작성자</th>
-                            <th class="text-center">작성일</th>
-                            <th class="text-center">조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="button"><span
                                 class="glyphicon glyphicon-search"></span></button>
@@ -210,14 +163,13 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 </div>
                 <ul class="pagination">
                     <li class="disabled"><a href="#">&laquo;</a></li>
-                    <!-- 활성화 버튼은 아래의 구조로 구성하시면 됩니다. sr-only는 스크린리더 전용 입니다 .-->
                     <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
                     <li><a href="#">&raquo;</a></li>
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>
