@@ -145,13 +145,19 @@ table {
 /** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
 .over_layer {
   /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
-  width: 50%;
-  height: 50%;
+  width: 75%;
+  height: 75%;
   position: fixed;
-  top: 25%;
-  left: 25%;
-  /* 요소의 크기/2 만큼 왼쪽,상단 방향으로 이동시켜 가운데 배치한다 */
+  top: 12%;
+  left: 12%;
+  padding: 20px;
   display: none;
   z-index: 9999999;
   background-color: #ccc;
+}
+
+#refund_policy,
+#pay_warning {
+  background-color: #7ac297;
+  overflow: scroll;
 }
