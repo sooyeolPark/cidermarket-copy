@@ -44,32 +44,42 @@
             <div class="container">
                 <h3 class="text-center">회원가입</h3>
                 <!-- login form -->
-                <form role="form">
+                <form role="form" id="join-form">
                   <fieldset>
                     <legend class="sr-only">회원가입</legend>
           
-                    <div class="form-group">
-                      <label for="user_id">아이디(이메일)</label>
-                      <input type="text" id="user_id" class="form-control" placeholder="이메일을 입력하세요."/>
-                      <span class="help-block">아이디는 필수 입력입니다</span>
+                    <div class="form-group clearfix">
+                      <label for="user_id" class="col-sm-2">아이디(이메일) <span class="star">*</span></label>
+                      <div class="col-sm-10">
+                        <input type="email" id="user_id" name="user_id" class="form-control" placeholder="이메일을 입력하세요."/>
+                        <span class="help-block">아이디는 필수 입력입니다</span>
+                      </div>
                     </div>
           
-                    <div class="form-group">
-                      <label for="user_pw">비밀번호</label>
-                      <div class="password_icon">
-                        <input type="password" id="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
+                    <div class="form-group clearfix">
+                      <label for="user_pw" class="col-sm-2">비밀번호 <span class="star">*</span></label>
+                      <div class="password_icon col-sm-10">
+                        <input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
                         <i id="eyeicon" class="glyphicon glyphicon-eye-close"></i>
+                        <span class="help-block">영문, 숫자 포함 5~15자</span>
                       </div>
-                      <span class="help-block">영문, 숫자, 특수문자 포함 5~15자</span>
                     </div>
 
-                    <div class="form-group">
-                      <label for="user_phone">휴대폰번호</label>
-                      <div class="input-group">
-                        <input type="text" id="user_phone" class="form-control" placeholder="휴대폰번호를 입력하세요"/>
+                    <div class="form-group clearfix">
+                        <label for='user_pw_re' class="col-sm-2">비밀번호 확인 <span class="star">*</span></label>
+                        <div class="password_icon col-sm-10">
+                          <input type="password" id="user_pw_re" name="user_pw_re" class="form-control" placeholder="비밀번호를 입력하세요."/>
+                          <i id="eyeicon" class="glyphicon glyphicon-eye-close"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                      <label for="tel" class="col-sm-2">휴대폰번호 <span class="star">*</span></label>
+                      <div class="input-group col-sm-10">
+                        <input type="tel" id="tel" name="tel" class="form-control" placeholder="연락처를 입력하세요"/>
                         <span class="input-group-btn"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">인증요청</button></span>
                       </div>
-                      <span class="help-block">숫자만 입력하세요</span>
+                      <span class="help-block col-sm-offset-2 phone-help-block">숫자만 입력하세요.</span>
                     </div>
                     
                     <div class="join_info">
@@ -116,6 +126,7 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/asidebar.jquery.js"></script>
         <script src="assets/js/searchbox.js"></script>
+        <script src="assets/js/regex.js"></script>
         <script type="text/javascript">
           $(function() {
             $("header").load("header.html");
@@ -132,6 +143,27 @@
                 $("#eyeicon").addClass("glyphicon-eye-close");
                 var type = $("#user_pw").attr("type", "password");
               }
+            });
+
+            $("#join-form").submit(function(e) {
+              e.preventDefault();
+              /** 이름 검사 */
+              if (!regex.value('#user_id', '아이디(이메일)을 입력하세요.')) { return false; }
+              if (!regex.email('#user_id', '이메일 주소가 잘못되었습니다.')) { return false; }
+
+              /** 비밀번호 검사 */
+              if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) { return false; }
+              if (!regex.eng_num('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
+              if (!regex.min_length('#user_pw', 5, '비밀번호는 최소 5자 이상 입력 가능합니다.')) { return false; }
+              if (!regex.max_length('#user_pw', 15, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
+              if (!regex.compare_to('#user_pw', '#user_pw_re', '비밀번호 확인이 잘못되었습니다.')) { return false; }
+              
+              /** 연락처 검사 */
+              if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
+              if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
+              
+              // 처리 완료
+              alert("입력형식 검사 완료!!!");
             });
           });
         </script>

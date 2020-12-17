@@ -38,29 +38,34 @@
         <header></header>
         <!-- // nav 끝 -->
 		
-		    <!-- content 시작 -->
+        <!-- content 시작 -->
         <section>
             <!-- Item 영역 -->
             <div class="container">
                 <h3 class="text-center">로그인</h3>
                 <!-- login form -->
-                <form role="form">
+                <form role="form" id="login-form">
                   <fieldset>
                     <legend class="sr-only">로그인</legend>
           
-                    <div class="form-group">
-                      <label for="user_id">아이디</label>
-                      <input type="text" id="user_id" class="form-control" placeholder="아이디를 입력하세요."/>
-                      <span class="help-block">아이디는 필수 입력입니다.</span>
+                    <div class="form-group clearfix">
+                      <label for="user_id" class="col-sm-2">아이디</label>
+                      <div class="col-sm-10">
+                        <input type="email" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요."/>
+                        <span class="help-block">아이디는 필수 입력입니다.</span>
+                      </div>
                     </div>
           
-                    <div class="form-group">
-                      <label for="user_pw">비밀번호</label>
-                      <input type="password" id="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
-                      <span class="help-block">비밀번호 오류 3회 이후에는 로그인 하실 수 없습니다.</span>
+                    <div class="form-group clearfix">
+                      <label for="user_pw" class="col-sm-2">비밀번호</label>
+                      <div class="password_icon col-sm-10">
+                        <input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
+                        <i id="eyeicon" class="glyphicon glyphicon-eye-close"></i>
+                        <span class="help-block ">비밀번호 오류 3회 이후에는 로그인 하실 수 없습니다.</span>
+                      </div>
                     </div>
 
-                    <div class="checkbox">
+                    <div class="checkbox col-sm-offset-2">
                       <label><input type="checkbox">아이디 저장</label>
                       <label><input type="checkbox">로그인 상태유지</label>
                     </div>
@@ -90,10 +95,40 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/asidebar.jquery.js"></script>
         <script src="assets/js/searchbox.js"></script>
+        <script src="assets/js/regex.js"></script>
         <script type="text/javascript">
           $(function() {
               $("header").load("header.html");
               $("footer").load("footer.html");
+
+              $("#eyeicon").click(function() {
+                console.log(type);
+                if ($("#eyeicon").hasClass("glyphicon-eye-close")) {
+                  $("#eyeicon").removeClass("glyphicon-eye-close");
+                  $("#eyeicon").addClass("glyphicon-eye-open");
+                  var type = $("#user_pw").attr("type", "text");
+                } else {
+                  $("#eyeicon").removeClass("glyphicon-eye-open");
+                  $("#eyeicon").addClass("glyphicon-eye-close");
+                  var type = $("#user_pw").attr("type", "password");
+                }
+              });
+
+              $("#login-form").submit(function(e) {
+                e.preventDefault();
+                /** 이름 검사 */
+                if (!regex.value('#user_id', '아이디(이메일)을 입력하세요.')) { return false; }
+                if (!regex.email('#user_id', '이메일 주소가 잘못되었습니다.')) { return false; }
+
+                /** 비밀번호 검사 */
+                if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) { return false; }
+                if (!regex.eng_num('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
+                if (!regex.min_length('#user_pw', 5, '비밀번호는 최소 5자 이상 입력 가능합니다.')) { return false; }
+                if (!regex.max_length('#user_pw', 15, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
+                
+                // 처리 완료
+                alert("입력형식 검사 완료!!!");
+              });
           });
         </script>
     </body>

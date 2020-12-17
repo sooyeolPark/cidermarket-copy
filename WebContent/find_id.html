@@ -44,13 +44,15 @@
             <div class="container">
                 <h3 class="text-center">아이디 찾기</h3>
                 <!-- login form -->
-                <form role="form">
+                <form role="form" id="findid-form">
                   <fieldset>
                     <legend class="sr-only">아이디 찾기</legend>
           
-                    <div class="form-group">
-                      <label for="user_id">휴대폰번호</label>
-                      <input type="text" id="user_id" class="form-control" placeholder="휴대폰번호를 숫자만 입력하세요."/>
+                    <div class="form-group clearfix">
+                      <label for="tel" class="col-sm-2">휴대폰번호</label>
+                      <div class="col-sm-10">
+                        <input type="tel" id="tel" name="tel" class="form-control" placeholder="휴대폰번호를 숫자만 입력하세요."/>
+                      </div>
                     </div>
           
                     <button type="submit" class="btn btn-primary btn-block">찾 기</button>
@@ -75,10 +77,21 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/asidebar.jquery.js"></script>
         <script src="assets/js/searchbox.js"></script>
+        <script src="assets/js/regex.js"></script>
         <script type="text/javascript">
           $(function() {
               $("header").load("header.html");
               $("footer").load("footer.html");
+
+              $("#login-form").submit(function(e) {
+                e.preventDefault();
+                /** 연락처 검사 */
+                if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
+                if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
+                
+                // 처리 완료
+                alert("입력형식 검사 완료!!!");
+              });
           });
         </script>
     </body>
