@@ -1,0 +1,90 @@
+body {
+  padding-bottom: 0;
+}
+#anou {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  background-color: #fef4eb;
+  padding: 15px 0;
+}
+
+#order {
+  padding: 15px 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.order_name {
+  font-weight: bold;
+  font-size: 2em;
+  color: #31a05f;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  margin-top: 70px;
+}
+
+#order_cont > .order_name {
+  margin-top: 0;
+}
+
+.media-body {
+  padding-left: 0.5em;
+  padding-right: 8em;
+}
+
+#item_name {
+  font-size: 1.5em;
+  line-height: 1.2em;
+  margin: 0;
+}
+
+#item_price {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.ok_subject {
+  text-align: left;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ok_content {
+  text-align: left;
+  font-size: 1.3em;
+}
+
+table {
+  width: 100%;
+}
+
+#final_price {
+  width: 99%;
+  background-color: #f0f0f0;
+  margin: 20px auto;
+  padding: 0.5em 1em;
+}
+#final_price .price_cont {
+  font-weight: bold;
+  text-align: left;
+  font-size: 1.4em;
+  line-height: 2em;
+}
+#final_price .price_won {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: right;
+  line-height: 2em;
+}
+
+#final button {
+  height: 50px;
+  font-size: 1.5em;
+  margin-top: 80px;
+  margin-bottom: 30px;
+}

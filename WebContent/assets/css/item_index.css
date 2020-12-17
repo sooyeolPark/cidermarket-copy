@@ -1,4 +1,3 @@
-
 section {
   padding-bottom: 50px;
 }
@@ -21,8 +20,7 @@ ul {
 /** 개별 버튼에 대한 기본 크기와 가로 정렬 */
 .tab-button-item {
   width: 50%;
-  font-size: 1.8em;
-
+  font-size: 1.5em;
 }
 .item_title h3 {
   color: #333;
@@ -44,7 +42,6 @@ ul {
   text-decoration: none;
   height: 50px;
   border-bottom: 3px solid #f0f0f0;
-  
 }
 
 .tab-panel {
@@ -75,12 +72,12 @@ ul {
 
 .item_title {
   padding: 3em 1em;
-  box-shadow: 0 -5px 20px gray ;
+  box-shadow: 0 -5px 20px gray;
   z-index: 99;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top:-10px;
+  top: -10px;
   background-color: #fff;
 }
 
@@ -90,7 +87,8 @@ ul {
   color: #31a05f;
 }
 
-.glyphicon-heart:before, .glyphicon-heart-empty:before {
+.glyphicon-heart:before,
+.glyphicon-heart-empty:before {
   color: #ff5937;
 }
 
@@ -122,9 +120,9 @@ ul {
   background-color: #f0f0f0;
   width: 100%;
   height: 20px;
-  position:relative;
-  top:-10px;
-  z-index:100;
+  position: relative;
+  top: -10px;
+  z-index: 100;
 }
 
 .info_etc .row span {
@@ -133,7 +131,7 @@ ul {
   text-decoration: underline;
 }
 
-#reg_time{
+#reg_time {
   text-decoration: none;
 }
 
@@ -209,7 +207,7 @@ h3 {
 }
 
 .media {
-  margin:0;
+  margin: 0;
 }
 li.media {
   border-bottom: 1px solid #f0f0f0;
@@ -257,22 +255,17 @@ div.media {
 }
 
 .fixed-btn {
-  width: 102%;
-  height: 80px;
+  width: 100%;
+  padding: 15px 10px;
   position: fixed;
   z-index: 100;
   bottom: 0;
   background-color: #fff;
-}
-
-.zzim {
-  height: 100%;
-  padding-top: 15px;
-  padding-left: 2.5em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .zzim > a {
-  display:block;
+  display: block;
   width: 51px;
   height: 51px;
   font-size: 2em;
@@ -283,7 +276,7 @@ div.media {
   margin: auto;
 }
 
-.zzim > a >i{
+.zzim > a > i {
   display: block;
   margin-top: 9px;
   position: absolute;
@@ -295,47 +288,48 @@ div.media {
   display: inline-block;
   width: 100%;
   height: 50px;
-  margin-top: 15px;
 }
 
-#cool {
-  display: inline-block
-  font-size: 0.4em;
+.fixed-btn > .col-xs-5 {
+  padding-right: 0;
 }
 
-#trade {
-  display: inline-block;
-  font-size: 1.5em;
-  margin-left: 0.5em;
+.cool {
+  font-size: 0.9em;
+}
+
+.trade {
+  font-size: 1.3em;
+  margin-left: 0.25em;
 }
 
 .repl_form {
   display: none;
 }
 
-        /** 화면 전체를 덮는 배경 레이어의 위치, 크기, 투명도 지정 > 기본적으로 표시되지 않도록 설정 */
-        .gray_layer {
-          position: fixed;
-          left: 0;
-          top: 0;
-          height: 100%;
-          width: 100%;
-          background: black;
-          opacity: 0.60;
-          display: none;
-          z-index: 9999999;
-      }
+/** 화면 전체를 덮는 배경 레이어의 위치, 크기, 투명도 지정 > 기본적으로 표시되지 않도록 설정 */
+.gray_layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.6;
+  display: none;
+  z-index: 9999999;
+}
 
-      /** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
-      .over_layer {
-          /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
-          width: 50%;
-          height: 50%;
-          position: fixed;
-          top: 25%;
-          left: 25%;
-          /* 요소의 크기/2 만큼 왼쪽,상단 방향으로 이동시켜 가운데 배치한다 */
-          display: none;
-          z-index: 9999999;
-          background-color: #fff;
-      }
+/** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
+.over_layer {
+  /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
+  width: 50%;
+  height: 50%;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  /* 요소의 크기/2 만큼 왼쪽,상단 방향으로 이동시켜 가운데 배치한다 */
+  display: none;
+  z-index: 9999999;
+  background-color: #fff;
+}
