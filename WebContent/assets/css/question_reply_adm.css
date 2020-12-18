@@ -77,11 +77,10 @@ ul {
   width: 100%;
   margin-bottom: 10px;
 }
-.form-control {
-  width: 13%;
+#align-number,
+#align-menu {
+  width: 12%;
   float: right;
-}
-.form-control:nth-child(1) {
   margin-top: 16px;
 }
 
@@ -168,6 +167,47 @@ th {
 #search_btn {
   width: 80%;
 }
+/* hover 이벤트 */
+.sub-menu {
+  position: absolute;
+  background: #f0f0f0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s ease-in;
+}
+
+.sub-menu {
+  width: 100%;
+  padding: 0;
+  border-radius: 10px;
+}
+.sub-menu > li {
+  width: 100%;
+}
+
+.sub-menu > li > a {
+  display: block;
+  height: 50px;
+  color: #f0f0f0;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #aeaeae;
+  font-size: 1em;
+  padding-top: 12px;
+}
+
+#nav_bar_menu > li:hover .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  background-color: #73af86;
+  z-index: 10;
+}
+
+.sub-menu > li > a:hover {
+  background: #31a05f;
+  border-radius: 10px;
+}
+/* ----------------------------------------------------- */
 
 .table > thead > tr > th:nth-child(1) {
   width: 2%;
@@ -211,3 +251,55 @@ th {
   margin: 0;
   padding: 10px;
 }
+
+.regi_cancel {
+  margin-left: 88%;
+}
+
+/* ----------공지사항 읽기 타이틀 및 본문------------ */
+.title_read {
+  border: 1px solid #aeaeae;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 30px;
+  margin-bottom: 1px;
+}
+.title {
+  font-size: 1.1em;
+  font-weight: 700;
+}
+.pull-right {
+  margin-right: 10px;
+}
+.content_body {
+  padding: 30px;
+  min-height: 400px;
+  border: 1px solid #aeaeae;
+  border-radius: 5px;
+  font-size: 1.1em;
+  white-space: normal;
+}
+.row1 {
+  padding: 15px;
+  min-height: 100px;
+  border: 1px solid #aeaeae;
+  border-radius: 5px;
+  margin: 0;
+  margin-bottom: 1px;
+}
+
+.reply_info {
+  font-size: 1.1em;
+  white-space: normal;
+  margin: 0 0 1px 0;
+  text-align: left;
+  color: #aeaeae;
+}
+.reply_info > span {
+  display: block;
+}
+#content {
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* ----------------------------------------- */

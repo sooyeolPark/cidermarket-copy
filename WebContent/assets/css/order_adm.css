@@ -181,6 +181,7 @@ th {
 .sub-menu {
   width: 100%;
   padding: 0;
+  border-radius: 10px;
 }
 .sub-menu > li {
   width: 100%;
@@ -189,19 +190,23 @@ th {
 .sub-menu > li > a {
   display: block;
   height: 50px;
-  color: #3a3a3a;
+  color: #f0f0f0;
   text-align: center;
   width: 100%;
   border-bottom: 1px solid #aeaeae;
-  font-size: 15px;
+  font-size: 1em;
   padding-top: 12px;
 }
 
 #nav_bar_menu > li:hover .sub-menu {
   opacity: 1;
   visibility: visible;
+  background-color: #73af86;
+  z-index: 10;
 }
 
 .sub-menu > li > a:hover {
-  background: #aeaeae;
+  background: #31a05f;
+  border-radius: 10px;
 }
+/* ----------------------------------------------------- */
