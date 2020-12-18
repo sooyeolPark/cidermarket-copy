@@ -91,6 +91,7 @@ body {
 }
 
 #item_tag {
+  display: block;
   width: 8em;
   font-weight: bold;
 }
@@ -120,11 +121,71 @@ body {
   padding-left: 0;
 }
 
-label.checkbox-inline input {
+label.radio-inline input {
   margin-top: 6px;
 }
-#reg_info label.checkbox-inline {
+#reg_info label.radio-inline {
   margin-right: 3em;
   font-weight: 400;
   font-size: 1.1em;
+}
+
+.gray_layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  /* opacity: 0.6; */
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+}
+
+#modal_name {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  color: #31a05f;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+#modal_content .input-group {
+  margin-top: 15px;
+}
+.tag_list {
+  margin-top: 15px;
+}
+
+.tag_list > li {
+  border: 1px solid #ccc;
+  border-radius: 3em;
+  height: 50px;
+  padding: 0.9em 1em 0 1em;
+  margin: 0.5em;
+}
+
+.tag_list .glyphicon-remove:before {
+  font-size: 1px;
+  color: #aaa;
+}
+.tag_list a {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+
+#modal_content .modal_btn {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+.modal_btn button {
+  width: 25%;
+  margin: 0 2em;
 }

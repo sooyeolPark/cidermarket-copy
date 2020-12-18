@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <!-- 모바일 웹 페이지 설정 -->
+  <link rel="shortcut icon" href="assets/ico/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+
+  <!-- noto sans 웹 폰트 적용 -->
+  <link rel="stylesheet" type="text/css" href="assets/css/font.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/header.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/nav.css" />
+
+  <!-- mystore.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/mystore.css" />
+  <!-- 반응형 웹을 지원하지 않을 경우 -->
+  <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
+
+  <!-- IE8 이하 버전 지원 -->
+  <!--[if lt IE 9]> <script type="text/javascript"
+        src="assets/js/html5shiv.js"></script> <script type="text/javascript"
+        src="assets/js/respond.min.js"></script> <![endif]-->
+
+  <!-- IE10 반응형 웹 버그 보완 -->
+  <!--[if gt IE 9]> <link rel="stylesheet" type="text/css"
+        href="assets/css/ie10.css" /> <script type="text/javascript"
+        src="assets/js/ie10.js"></script> <![endif]-->
+  <title>내상점</title>
+</head>
+
+<body>
+  <!-- nav 시작 -->
+  <header></header>
+  <!-- // nav 끝 -->
+
+  <section>
+    <div class="container">
+      <!-- 유저 프로필 고정부분 -->
+      <ul class="media-list" id="user_profile">
+        <li class="media clearfix">
+          <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_jordan.jpg" width="110"
+              height="110" alt="Generic placeholder image"> </a>
+          <div class="media-body">
+            <div id="user_id">마이클조던</div>
+            <div id="user_date">2020년 10월 가입</div>
+            <div id="user_intro">
+              신발 파는 신발 매니아입니다.<br />
+              주로 거래하는 브랜드는 나이키입니다.
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!-- 탭 메뉴 시작 -->
+      <ul class="my_ctg">
+        <li class="active"><a href="#mystore" data-toggle="tab">내상점</a></li>
+        <li><a href="#myreview" data-toggle="tab">거래후기</a></li>
+        <li><a href="#mygrade " data-toggle="tab">나의 등급</a></li>
+        <li><a href="#myinfo" data-toggle="tab">내정보 설정</a></li>
+      </ul>
+    </div>
+    <div class="div_blank"></div>
+      <!--// 탭 메뉴 끝 -->
+      <!-- 탭 화면 시작 -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="mystore">
+          <p>내상점</p>
+        </div>
+        <div class="tab-pane fade" id="myreview">
+          <p>거래후기</p>
+        </div>
+        <div class="tab-pane fade" id="mygrade">
+          <p>나의 등급</p>
+        </div>
+        <div class="tab-pane fade" id="myinfo">
+          <p>내정보 설정</p>
+        </div>
+      </div>
+      <!--// 탭 화면 끝 -->
+  </section>
+
+
+  <!-- Javascript -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/asidebar.jquery.js"></script>
+  <script src="assets/js/searchbox.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("header").load("header.html");
+    });
+  </script>
+  </script>
+</body>
+
+</html>
