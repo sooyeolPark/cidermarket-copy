@@ -286,3 +286,37 @@ ol {
   color: rgba(255, 255, 255, 0.8);
   margin-right: 5px;
 }
+
+/* 공지사항 */
+#notice-list,
+#event-list {
+  margin-top: 20px;
+}
+.boardImg {
+  float: left;
+  margin-right: 10px;
+}
+.boardImg img {
+  width: 50px;
+  height: 50px;
+}
+.boardTitle {
+  margin-bottom: 5px;
+}
+.boardDate {
+  font-size: 0.7em;
+  color: #999;
+}
+.boardTitle-view {
+  font-size: 18px;
+  font-weight: bold;
+}
+.boardDate-view {
+  font-weight: normal;
+  display: block;
+  margin-top: 10px;
+}
+.boardImg-view img {
+  width: 100%;
+  margin-bottom: 20px;
+}

@@ -49,10 +49,10 @@
                     <!-- 탭 버튼 영역 -->
                     <ul class="row tab-button clearfix">
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="#tab-page-faq" class="tab-button-item-link3 pull-left">자주묻는질문</a>
+                            <a href="help.html?selected=faq" class="tab-button-item-link3 pull-left" id="faq">자주묻는질문</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="#tab-page-policy" class="tab-button-item-link3 pull-left">운영정책</a>
+                            <a href="help.html?selected=policy" class="tab-button-item-link3 pull-left" id="policy">운영정책</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
                             <a href="#tab-page-inquiry" class="tab-button-item-link3 pull-left selected">일반문의</a>
@@ -109,18 +109,7 @@
                 $("#tab-page-policy").load("policy.html");
                 $("#tab-page-inquiry").load("inquiry.html");
 
-                /** 탭 버튼의 클릭 처리 */
-                $(".tab-button-item-link3").click(function (e) {
-                    e.preventDefault();
-                    $(".tab-button-item-link3").not(this).removeClass("selected");
-                    $(this).addClass("selected");
-
-                    var target = $(this).attr('href');
-                    $(target).removeClass('hide');
-                    $(".tab-panel > div").not($(target)).addClass('hide');
-                });
-
-				        /** sorting */
+                /** sorting */
                 $(".recordSort > .btn").click(function(e) {
                     e.preventDefault();
                     if ($(this).hasClass("btn-info")) {

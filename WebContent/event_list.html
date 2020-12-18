@@ -29,7 +29,7 @@
         <!--[if gt IE 9]> <link rel="stylesheet" type="text/css"
         href="assets/css/ie10.css" /> <script type="text/javascript"
         src="assets/js/ie10.js"></script> <![endif]-->
-        <title>헬프센터 자주묻는질문 - 사이다마켓</title>
+        <title>이벤트 - 사이다마켓</title>
         <link rel="stylesheet" type="text/css" href="assets/css/index.css"/>
         <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
     </head>
@@ -42,14 +42,14 @@
         <section>
             <!-- Item 영역 -->
             <div class="container">
-                <h3 class="text-center">공지사항</h3>
-
-
-                <!-- 검색 -->
-                <div id="searchBox_help" class="container">
-                  <input type="text" class="form-control" placeholder="키워드를 입력해 주세요.">
-                  <button class="btn btnSearch-help" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                <h3 class="text-center">이벤트</h3>
+                
+                <!-- 목록 -->
+                <div class="list-group" id="event-list">
+                  <!-- Ajax로 로드한 결과가 표시될 곳 -->
                 </div>
+                <button type="button" id="more" class="btn btn-primary btn-block btn-lg" disabled>더보기</button>
+                
             </div>
         </section>
         
@@ -57,11 +57,23 @@
         <footer></footer>
         <!-- // footer 끝 -->
 
+        <!-- template -->
+        <script id="event_tmpl" type="text/x-handlebars-template">
+          {{#each eventList}}
+          <a href="{{href}}" class="list-group-item clearfix">
+            <span class="boardImg"><img src="{{imgUrl}}" alt="{{title}}"></span>
+            <p class="boardTitle">{{title}}</p>
+            <span class="boardDate">{{date}}</span>
+          </a>
+          {{/each}}
+        </script>
+
         <!-- Javascript -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/asidebar.jquery.js"></script>
         <script src="assets/js/searchbox.js"></script>
+        <script src="assets/js/noticeAjax.js"></script>
         <script type="text/javascript">
             $(function() {
                 $("header").load("header.html");
@@ -77,13 +89,13 @@
         <script type="text/javascript">
         /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
         function get_list() {
-          $.get("plugins/ajax/notice.json", function(req) {
+          $.get("plugins/ajax/event.json", function(req) {
             // 미리 준비한 HTML틀을 읽어온다.
-            var template = Handlebars.compile($("#notice_tmpl").html());
+            var template = Handlebars.compile($("#event_tmpl").html());
             // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
             var html = template(req);
             // #dept_list_body 읽어온 내용을 추가한다.
-            $("#item-list").append(html);
+            $("#event-list").append(html);
           });
         }
 

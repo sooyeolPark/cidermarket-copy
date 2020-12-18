@@ -56,3 +56,14 @@
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   transition: ease 0.3s;
 }
+.itemReg {
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+}
+.itemReg button {
+  margin: 15px auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}

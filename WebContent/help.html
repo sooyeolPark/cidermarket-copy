@@ -51,13 +51,13 @@
                     <!-- 탭 버튼 영역 -->
                     <ul class="row tab-button clearfix">
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="#tab-page-faq" class="tab-button-item-link3 pull-left selected">자주묻는질문</a>
+                            <a href="#tab-page-faq" class="tab-button-item-link3 pull-left selected" id="faq">자주묻는질문</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="#tab-page-policy" class="tab-button-item-link3 pull-left">운영정책</a>
+                            <a href="#tab-page-policy" class="tab-button-item-link3 pull-left" id="policy">운영정책</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="#tab-page-inquiry" class="tab-button-item-link3 pull-left" id="inquiry-form">일반문의</a>
+                            <a href="#tab-page-inquiry" class="tab-button-item-link3 pull-left" id="inquiry">일반문의</a>
                         </li>
                     </ul>
 
@@ -271,18 +271,17 @@
                 $("header").load("header.html");
                 $("footer").load("footer.html");
                 $("#tab-page-policy").load("policy.html");
-				$("#tab-page-inquiry").load("inquiry.html");
-				
-				var url = new URL(window.location.href);
-                var selector = url.searchParams.get("selected");
-				if (selector == "inquiry-form") {
-					$(".tab-button-item-link3").removeClass("selected");
-					$("#inquiry-form").prop("selected", true).addClass("selected");
-
-					var target = $("#inquiry-form").attr('href');
-					$(target).removeClass('hide');
-					$(".tab-panel > div").not($(target)).addClass('hide');
-				}
+								$("#tab-page-inquiry").load("inquiry.html");
+								
+								/** selected 파라미터 받아와서 1차 탭 선택함 */
+								var url = new URL(window.location.href);
+								var selector = url.searchParams.get("selected");
+								$(".tab-button-item-link3").removeClass("selected");
+								$("#"+selector).prop("selected", true).addClass("selected");
+								/** 선택된 1차 탭의 href값으로 탭 패널 열기 */
+								var target = $("#"+selector).attr('href');
+								$(target).removeClass('hide');
+								$(".tab-panel > div").not($(target)).addClass('hide');
 
                 /** 탭 버튼의 클릭 처리 */
                 $(".tab-button-item-link3").click(function (e) {
@@ -295,7 +294,7 @@
                     $(".tab-panel > div").not($(target)).addClass('hide');
                 });
 
-				/** sorting */
+								/** sorting */
                 $(".recordSort > .btn").click(function(e) {
                     e.preventDefault();
                     if ($(this).hasClass("btn-info")) {
