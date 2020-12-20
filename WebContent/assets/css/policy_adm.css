@@ -77,11 +77,10 @@ ul {
   width: 100%;
   margin-bottom: 10px;
 }
-.form-control {
-  width: 13%;
+#align-number,
+#align-menu {
+  width: 12%;
   float: right;
-}
-.form-control:nth-child(1) {
   margin-top: 16px;
 }
 
@@ -209,6 +208,7 @@ th {
   border-radius: 10px;
 }
 /* ----------------------------------------------------- */
+
 .table > thead > tr > th:nth-child(1) {
   width: 2%;
   text-align: left;
@@ -252,42 +252,44 @@ th {
   padding: 10px;
 }
 
-/* ---------------로고수정, 버튼수정------ */
-.logo_img_a {
-  display: block;
-  width: 150px;
-  height: 100px;
-  position: absolute;
-  left: 80px;
-  top: 20px;
-}
-.log_out {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
+.regi_cancel {
+  margin-left: 88%;
 }
 
-.logo > a > img {
-  width: 100%;
-  height: auto;
-}
-
-.logo_right {
-  display: inline-block;
-  font-size: 0.9em;
-}
-.nav_top_a {
-  display: inline-block;
-  margin-top: 66px;
-  font-size: 1.2em;
-  margin-right: 85px;
-  border: #aeaeae 1px solid;
+/* ----------공지사항 읽기 타이틀 및 본문------------ */
+.title_read {
+  border: 1px solid #aeaeae;
   border-radius: 5px;
-  padding: 4px;
+  padding: 10px;
+  padding-left: 30px;
+  margin-bottom: 1px;
 }
-.logo {
-  position: relative;
-  height: 100px;
+.title {
+  font-size: 1.1em;
+  font-weight: 700;
+}
+.pull-right {
+  margin-right: 10px;
+}
+.content_body {
+  padding: 30px;
+  min-height: 400px;
+  border: 1px solid #aeaeae;
+  border-radius: 5px;
+  font-size: 1.1em;
+  white-space: normal;
+}
+/* ----------------------------------------- */
+.rule_content {
+  padding: 15px;
+  border: 1px #aeaeae solid;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-/* ---------------로고수정------ */
+.title {
+  font-size: 1.2em;
+  color: #31a05f;
+  font-weight: 900;
+  margin-bottom: 30px;
+}

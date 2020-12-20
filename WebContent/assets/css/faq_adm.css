@@ -45,13 +45,6 @@ ul {
   height: auto;
 }
 
-.nav_top_a {
-  display: block;
-  float: right;
-  margin-top: 80px;
-  font-size: 18px;
-}
-
 #log-out-btn {
   margin-right: 30px;
   margin-left: 20px;
@@ -251,3 +244,43 @@ th {
   margin: 0;
   padding: 10px;
 }
+
+/* ---------------로고수정, 버튼수정------ */
+.logo_img_a {
+  display: block;
+  width: 150px;
+  height: 100px;
+  position: absolute;
+  left: 80px;
+  top: 20px;
+}
+.log_out {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+.logo > a > img {
+  width: 100%;
+  height: auto;
+}
+
+.logo_right {
+  display: inline-block;
+  font-size: 0.9em;
+}
+.nav_top_a {
+  display: inline-block;
+  margin-top: 66px;
+  font-size: 1.2em;
+  margin-right: 85px;
+  border: #aeaeae 1px solid;
+  border-radius: 5px;
+  padding: 4px;
+}
+.logo {
+  position: relative;
+  height: 100px;
+}
+
+/* ---------------로고수정------ */

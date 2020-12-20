@@ -31,36 +31,6 @@ ul {
   height: 150px;
 }
 
-.logo_img_a {
-  display: block;
-  width: 200px;
-  height: 100px;
-  position: absolute;
-  left: 100x;
-  top: 50px;
-}
-
-.logo > a > img {
-  width: 100%;
-  height: auto;
-}
-
-.nav_top_a {
-  display: block;
-  float: right;
-  margin-top: 80px;
-  font-size: 18px;
-}
-
-#log-out-btn {
-  margin-right: 30px;
-  margin-left: 20px;
-}
-.logo_right {
-  display: block;
-  font-size: 18px;
-}
-
 #nav_bar_menu {
   width: 100%;
 }
@@ -95,6 +65,7 @@ h2 {
   display: inline-block;
   font-weight: 900;
   margin: 0;
+  font-size: 1.4em;
 }
 
 h4,
@@ -102,6 +73,7 @@ h6 {
   display: inline-block;
 }
 h4 {
+  font-size: 14px;
   margin-left: 200px;
   margin-right: 5px;
   font-weight: 900;
@@ -152,6 +124,7 @@ address {
   position: fixed;
   bottom: 0px;
   background-color: #f0f0f0;
+  z-index: 100;
 }
 
 .pagination {
@@ -161,10 +134,14 @@ address {
 }
 
 input[type="checkbox"] {
-  zoom: 1.5;
+  zoom: 1.1;
 }
 th {
-  font-size: 18px;
+  font-size: 1em;
+}
+
+td {
+  font-size: 1em;
 }
 #search_btn {
   width: 80%;
@@ -210,3 +187,41 @@ th {
   border-radius: 10px;
 }
 /* ----------------------------------------------------- */
+.logo_img_a {
+  display: block;
+  width: 150px;
+  height: 100px;
+  position: absolute;
+  left: 80px;
+  top: 20px;
+}
+.log_out {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+.logo > a > img {
+  width: 100%;
+  height: auto;
+}
+
+.logo_right {
+  display: inline-block;
+  font-size: 0.9em;
+}
+.nav_top_a {
+  display: inline-block;
+  margin-top: 66px;
+  font-size: 1.2em;
+  margin-left: 953px;
+  border: #aeaeae 1px solid;
+  border-radius: 5px;
+  padding: 4px;
+}
+.logo {
+  position: relative;
+  height: 100px;
+}
+
+/* ---------------로고수정------ */
