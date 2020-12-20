@@ -117,9 +117,9 @@ var regex = {
 
         if (src.val() != dsc.val()) {   // 두 요소의 입력값이 다르다면?
             alert(msg);                 // 메시지 표시
-            src.val("");                // 원본요소의 입력값 지움
+            // src.val("");                // 원본요소의 입력값 지움
             dsc.val("");                // 검사 대상의 입력값 지움
-            src.focus();                // 원본 요소에게 포커스 강제 지정
+            dsc.focus();                // 원본 요소에게 포커스 강제 지정
             return false;               // 실패했음을 리턴
         }
         return true;                    // 성공했음을 리턴
@@ -171,6 +171,11 @@ var regex = {
         return this.field(selector, msg, /^[a-zA-Z0-9]*$/);
     },
 
+    // 영문과 숫자, 특수문자로 이루어 졌는지 검사
+    eng_num_spc: function(selector, msg) {
+        return this.field(selector, msg, /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*()_+|<>?:{}]).*$/);
+    },
+
     // 한글과 숫자로만 이루어 졌는지 검사
     kor_num: function(selector, msg) {
         return this.field(selector, msg, /^[ㄱ-ㅎ가-힣0-9]*$/);
@@ -179,7 +184,7 @@ var regex = {
     // 이메일주소 형식인지 검사
     email: function(selector, msg) {
         return this.field(selector, msg,
-            /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i);
+            /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/);
     },
 
     // 핸드폰 번호 형식인지 검사

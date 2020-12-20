@@ -66,16 +66,16 @@
                         <div id="tab-page-faq">
 							<!-- 검색 -->
 							<div id="searchBox_help" class="container">
-								<input type="text" class="form-control" placeholder="키워드를 입력해 주세요.">
+								<input type="text" class="form-control" id="myInput" placeholder="키워드를 입력해 주세요.">
 								<button class="btn btnSearch-help" type="button"><i class="glyphicon glyphicon-search"></i></button>
 							</div>
-                            <!-- sorting -->
-                            <div class="recordSort text-center">
-                                <button type="button" class="ing btn btn-primary">TOP 10</button>
-                                <button type="button" class="ing btn btn-info">이용방법</button>
-                                <button type="button" class="ing btn btn-info">택배</button>
-                                <button type="button" class="ing btn btn-info">결제</button>
-                            </div>
+							<!-- sorting -->
+							<div class="recordSort text-center">
+									<button type="button" class="ing btn btn-primary">TOP 10</button>
+									<button type="button" class="ing btn btn-info">이용방법</button>
+									<button type="button" class="ing btn btn-info">택배</button>
+									<button type="button" class="ing btn btn-info">결제</button>
+							</div>
 							<!-- 패널 -->
 							<div class="panel-group" id="accordion">
 								<!-- 리스트 -->
@@ -301,7 +301,14 @@
                         $(this).addClass("btn-primary").removeClass("btn-info");
                         $(".recordSort > .btn").not(this).removeClass("btn-primary").addClass("btn-info");
                     }
-				});
+								});
+
+								$("#myInput").on("keyup", function() {
+									var value = $(this).val();
+									$(".panel-faq h4").filter(function() {
+										$(this).toggle($(this).text().indexOf(value) > -1);
+									});
+								});
 
 				
             });

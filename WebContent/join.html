@@ -52,7 +52,7 @@
                       <label for="user_id" class="col-sm-2">아이디(이메일) <span class="star">*</span></label>
                       <div class="col-sm-10">
                         <input type="email" id="user_id" name="user_id" class="form-control" placeholder="이메일을 입력하세요."/>
-                        <span class="help-block">아이디는 필수 입력입니다</span>
+                        <p id="idc" class="pop"></p>
                       </div>
                     </div>
           
@@ -60,8 +60,11 @@
                       <label for="user_pw" class="col-sm-2">비밀번호 <span class="star">*</span></label>
                       <div class="password_icon col-sm-10">
                         <input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
-                        <i id="eyeicon" class="glyphicon glyphicon-eye-close"></i>
-                        <span class="help-block">영문, 숫자 포함 5~15자</span>
+                        <i class="eyeicon glyphicon glyphicon-eye-close"></i>
+                        <span class="in-eng">✔ 영어포함</span> 
+                        <span class="in-num">✔ 숫자포함</span> 
+                        <span class="in-spc">✔ 특수문자포함</span>
+                        <p id="pwc" class="pop"></p>
                       </div>
                     </div>
 
@@ -69,7 +72,7 @@
                         <label for='user_pw_re' class="col-sm-2">비밀번호 확인 <span class="star">*</span></label>
                         <div class="password_icon col-sm-10">
                           <input type="password" id="user_pw_re" name="user_pw_re" class="form-control" placeholder="비밀번호를 입력하세요."/>
-                          <i id="eyeicon" class="glyphicon glyphicon-eye-close"></i>
+                          <i class="eyeicon glyphicon glyphicon-eye-close"></i>
                         </div>
                     </div>
 
@@ -132,18 +135,48 @@
             $("header").load("header.html");
             $("footer").load("footer.html");
 
-            $("#eyeicon").click(function() {
-              console.log(type);
-              if ($("#eyeicon").hasClass("glyphicon-eye-close")) {
-                $("#eyeicon").removeClass("glyphicon-eye-close");
-                $("#eyeicon").addClass("glyphicon-eye-open");
-                var type = $("#user_pw").attr("type", "text");
+            $(".eyeicon").click(function() {
+              if ($(this).hasClass("glyphicon-eye-close")) {
+                $(this).removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                var type = $(this).prev("input[type='password']").attr("type", "text");
               } else {
-                $("#eyeicon").removeClass("glyphicon-eye-open");
-                $("#eyeicon").addClass("glyphicon-eye-close");
-                var type = $("#user_pw").attr("type", "password");
+                $(this).removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+                var type = $(this).prev("input[type='text']").attr("type", "password");
               }
             });
+
+            var check_num = /[0-9]/; // 숫자 
+            var check_eng = /[a-zA-Z]/; // 문자 
+            var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+            var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+
+            $('#user_id').keyup(function(){
+              var msg = '', val = this.value;
+              if(!check_email.test(val)){
+                msg = '이메일 형식으로 입력하세요.'
+                $('#idc').html(msg).css('visibility', 'visible');
+              } else {
+                $('#idc').css('visibility', 'hidden');
+              };
+            });
+
+            $('#user_pw').keyup(function(){
+              var msg = '', val = this.value;
+              msg = GetAjaxPW(val);
+              if( val.length > 7 && val.length < 21 ){
+                msg = GetAjaxPW(val);
+                $('#pwc').css('visibility', 'hidden');
+                }else{
+                    msg = '8 ~ 20자 이내로 입력하세요.'
+                    $('#pwc').html(msg).css('visibility', 'visible');
+                };
+            });
+            var GetAjaxPW = function(val){
+              if(check_eng.test(val)) { $('.in-eng').css('color', '#ff8e18') } else {$('.in-eng').css('color', '#aaa')}
+              if(check_num.test(val)) { $('.in-num').css('color', '#ff8e18') } else {$('.in-num').css('color', '#aaa')}
+              if(check_spc.test(val)) { $('.in-spc').css('color', '#ff8e18') } else {$('.in-spc').css('color', '#aaa')}
+              return false;
+            };
 
             $("#join-form").submit(function(e) {
               e.preventDefault();
@@ -153,9 +186,9 @@
 
               /** 비밀번호 검사 */
               if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) { return false; }
-              if (!regex.eng_num('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
-              if (!regex.min_length('#user_pw', 5, '비밀번호는 최소 5자 이상 입력 가능합니다.')) { return false; }
-              if (!regex.max_length('#user_pw', 15, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
+              if (!regex.eng_num_spc('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
+              if (!regex.min_length('#user_pw', 8, '비밀번호는 최소 5자 이상 입력 가능합니다.')) { return false; }
+              if (!regex.max_length('#user_pw', 20, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
               if (!regex.compare_to('#user_pw', '#user_pw_re', '비밀번호 확인이 잘못되었습니다.')) { return false; }
               
               /** 연락처 검사 */

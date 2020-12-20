@@ -7,9 +7,14 @@ body {
   font-size: 1.3em;
   border-bottom: 2px solid #f0f0f0;
   background-color: #fff;
+  transition: 0.2s;
 }
 .navbar > .container:first-child {
   height: 66px;
+}
+.nav_up {
+  top: -66px;
+  transition: 0.2s;
 }
 .glyphicon {
   color: #3a3a3a;
@@ -83,7 +88,8 @@ body {
 .btn-danger:focus {
   outline: none;
 }
-a {
+a,
+a:focus {
   color: #3a3a3a;
   text-decoration: none;
 }
@@ -124,6 +130,9 @@ h3 {
   border: 1px solid #ccc;
   color: #31a05f;
   font-weight: bold;
+}
+#pagination .active a {
+  color: #31a05f;
 }
 #pagination .arr a {
   background-color: #31a05f;

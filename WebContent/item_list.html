@@ -171,13 +171,27 @@
 					// #dept_list_body 읽어온 내용을 추가한다.
 					$("#item-list").append(html);
 				});
-			}
+            }
+            function get_sort() {
+                if($("#sortList").hasClass("active")) {
+                    $(".item-list").removeClass("col-xs-6 col-sm-4 col-md-3");
+                    $(".item-list").addClass("col-xs-12 col-sm-6 col-md-6");
+                    $(".sorting").removeClass("thumbnail");
+                    $(".sorting").addClass("itemList");
+                } else if ($("#sortThumb").hasClass("active")) {
+                    $(".item-list").removeClass("col-xs-12 col-sm-6 col-md-6");
+                    $(".item-list").addClass("col-xs-6 col-sm-4 col-md-3");
+                    $(".sorting").removeClass("itemList");
+                    $(".sorting").addClass("thumbnail");
+                };
+            }
 
 			$(function() {
 				get_list();		// 페이지가 열림과 동시에 호출된다.
 				$("#more").click(function(e) {
-					get_list(); // 버튼이 클릭되면 호출된다.
-				});
+                    get_list();
+                    setTimeout(get_sort, 10);  // 0.01초 뒤 실행
+                });
 			});
 		</script>
     </body>
