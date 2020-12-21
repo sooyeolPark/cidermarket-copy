@@ -28,6 +28,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <![endif]-->
 </head>
 
+<body>
 <header>
     <div class="container">
         <div class="logo ">
@@ -82,18 +83,12 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     </div><!-- /.navbar -->
 </header>
 
-<body>
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <nav class="list-group">
+                <nav class="list-group board_left">
                     <!-- 목록의 아이템 -->
-                    <p>게시판관리</p>
-                    <a href="#" class="list-group-item"><p>공지사항</p></a>
-                    <a href="#" class="list-group-item"><p>이벤트 게시판</p></a>
-                    <a href="#" class="list-group-item"><p>일반문의<span class="badge"> 10</span></p></a>
-                    <a href="#" class="list-group-item"><p>자주묻는질문</p></a>
-                    <a href="#" class="list-group-item"><p>운영정책</p></a>
+
                 </nav>
 
 
@@ -186,8 +181,10 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- Javascript -->
 
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            $(".board_left").load("board_adm_left.html");
 
         });
 
