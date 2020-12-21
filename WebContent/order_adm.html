@@ -93,8 +93,12 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             </select>
             <select class="form-control" id="align-menu">
                 <option value>구매금액순</option>
-                <option value="lowprice">거래방법순</option>
-                <option value="highprice">상태순</option>
+                <option value="lowprice">거래중</option>
+                <option value="highprice">거래완료</option>
+                <option value="highprice">반품요청(구매자)</option>
+                <option value="highprice">반품확인(판매자)</option>
+                <option value="highprice">환불승인</option>
+
             </select>   
         </div>    
 
@@ -110,6 +114,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         <th class="text-center">거래방법</th>
                         <th class="text-center">상태</th>
                         <th class="text-center">정산</th>
+                        <th class="text-center">환불</th>
 
                     </tr>
                 </thead>
@@ -123,117 +128,56 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         <td class="text-center">택배</td>
                         <td class="text-center">거래중</td>
                         <td class="text-center">정산완료</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">대일이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산대기</td>
+                        <td class="text-center"><button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">환불승인</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox"></td>
                         <td class="text-center">11234561231234124</td>
                         <td class="text-center">20000</td>
-                        <td class="text-center">수열이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래취소</td>
-                        <td class="text-center">환불승인</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
                         <td class="text-center">동훈이얌</td>
                         <td class="text-center">2020.12.21</td>
                         <td class="text-center">택배</td>
-                        <td class="text-center">거래취소</td>
-                        <td class="text-center">환불완료</td>
+                        <td class="text-center">반품확인(판매자)</td>
+                        <td class="text-center">정산완료</td>
+                        <td class="text-center"><button class="btn btn-danger" type="submit">환불승인</button></td>
                     </tr>
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">대일이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">수열이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
+                        <td class="text-center">11234561231234124</td>
                         <td class="text-center">20000</td>
                         <td class="text-center">동훈이얌</td>
                         <td class="text-center">2020.12.21</td>
                         <td class="text-center">택배</td>
                         <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
+                        <td class="text-center">정산완료</td>
+                        <td class="text-center"><button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">환불승인</button></td>
+
                     </tr>
+
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
+                        <td class="text-center">11234561231234124</td>
                         <td class="text-center">20000</td>
-                        <td class="text-center">대일이얌</td>
+                        <td class="text-center">동훈이얌</td>
                         <td class="text-center">2020.12.21</td>
                         <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
+                        <td class="text-center">반품요청(구매자)</td>
+                        <td class="text-center">정산완료</td>
+                        <td class="text-center"><button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">환불승인</button></td>
                     </tr>
+
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">수열이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
+                        <td class="text-center">11234561231234124</td>
                         <td class="text-center">20000</td>
                         <td class="text-center">동훈이얌</td>
                         <td class="text-center">2020.12.21</td>
                         <td class="text-center">택배</td>
                         <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
+                        <td class="text-center">정산완료</td>
+                        <td class="text-center"><button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">환불승인</button></td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">대일이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td class="text-center">1123456</td>
-                        <td class="text-center">20000</td>
-                        <td class="text-center">수열이얌</td>
-                        <td class="text-center">2020.12.21</td>
-                        <td class="text-center">택배</td>
-                        <td class="text-center">거래중</td>
-                        <td class="text-center">정산</ㅅ>
-                    </tr>
+
 
                     
                 </tbody>

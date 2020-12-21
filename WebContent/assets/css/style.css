@@ -382,3 +382,40 @@ ol {
   margin: 15px 0;
   cursor: pointer;
 }
+.item-img {
+  padding: 0.3em;
+  position: relative;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+}
+.item-img:before {
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  left: 10px;
+  color: #999;
+}
+.item-img:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.item-img .image_plus {
+  position: absolute;
+  display: block;
+  width: 90%;
+  height: 90%;
+  background-image: url("../../img/img_plus.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-indent: -999999px;
+}
+.remove_img {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  font-weight: bold;
+  right: 10px;
+  top: 10px;
+}

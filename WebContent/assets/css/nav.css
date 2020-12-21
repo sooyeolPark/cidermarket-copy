@@ -26,6 +26,13 @@
   float: right;
   cursor: pointer;
 }
+.aside-header > div {
+  display: inline-block;
+  margin-left: 5px;
+}
+#username {
+  color: #31a05f;
+}
 .aside.in {
   width: 15%;
   min-width: 85%;
@@ -48,14 +55,28 @@
   opacity: 0.5;
 }
 
+.btnn-logout > .btn-primary,
+.btnn-logout > .btn-info,
+.btnn-logout > .btn-danger,
+.btnn-logout > .btn-warning,
 .btnn-login > .btn-primary,
-.btnn-login > .btn-info {
-  margin-left: 10px;
-  width: 120px;
+.btnn-login > .btn-info,
+.btnn-login > .btn-danger,
+.btnn-login > .btn-warning {
+  margin-left: 8px;
+  width: 27%;
   height: 40px;
-  letter-spacing: 3px;
   font-weight: bold;
   line-height: 24px;
+}
+.logout {
+  margin-top: 15px;
+}
+.view-block {
+  display: block;
+}
+.view-none {
+  display: none;
 }
 
 .gory_title,
@@ -72,6 +93,9 @@
 .nav_bar {
   margin-top: 0;
   margin-bottom: 2px;
+}
+.btnn-logout .btn-danger {
+  margin-top: 15px;
 }
 .category ul {
   width: 100%;

@@ -48,7 +48,7 @@
                 <div class="list-group" id="notice-list">
                   <!-- Ajax로 로드한 결과가 표시될 곳 -->
                 </div>
-                <div id="pagination" class="clearfix text-center">
+                <div class="clearfix text-center pagination">
                     <ul>
                         <li class="arr disabled"><a href="#">&laquo;</a></li>
                         <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
@@ -116,9 +116,9 @@
         $(function() {
           get_list();
 
-          $("#pagination li").click(function(e) {
+          $(".pagination li").click(function(e) {
             e.preventDefault();
-            $("#pagination li").not(this).removeClass("active");
+            $(".pagination li").not(this).removeClass("active");
             $(this).addClass("active");
             $("#notice-list").empty();
             get_list();
