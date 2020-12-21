@@ -20,6 +20,7 @@
   <link rel="stylesheet" type="text/css" href="assets/css/nav.css" />
 
   <!-- mystore.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/mystore_common.css" />
   <link rel="stylesheet" type="text/css" href="assets/css/mystore.css" />
   <!-- 반응형 웹을 지원하지 않을 경우 -->
   <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
@@ -60,138 +61,93 @@
       </ul>
       <!-- 탭 메뉴 시작 -->
       <ul class="my_ctg">
-        <li class="active"><a href="#mystore" data-toggle="tab">내상점</a></li>
-        <li><a href="#myreview" data-toggle="tab">거래후기</a></li>
-        <li><a href="#mygrade " data-toggle="tab">나의 등급</a></li>
-        <li><a href="#myinfo" data-toggle="tab">내정보 설정</a></li>
+        <li class="active"><a href="mystore.html">내상점</a></li>
+        <li><a href="mystore_review.html">거래후기</a></li>
+        <li><a href="mystore_mygrade.html">나의 등급</a></li>
+        <li><a href="mystore_myinfo.html">내정보 설정</a></li>
       </ul>
     </div>
     <div class="div_blank"></div>
     <!--// 탭 메뉴 끝 -->
     <!-- 탭 화면 시작 -->
+    <div id="mystore">
+      <!-- 탭 메뉴 시작 -->
+      <ul class="nav nav-tabs">
+        <li class="active col-sm-4"><a href="#">판매상품</a></li>
+        <li class="col-sm-4"><a href="#">숨긴상품</a></li>
+        <li class="col-sm-4"><a href="#">찜상품</a></li>
+      </ul>
+      <!--// 탭 메뉴 끝 -->
+      <!-- 탭 화면 시작 -->
+      <div class="container">
+              <div id="si_top" class="clearfix">
+                <div id="si_total" class="pull-left">전체 <b>20</b></div>
+                <div id="si_ctg" class="pull-right">
+                  <select class="form-control" id="item_categoty">
+                    <option selected>카테고리 전체</option>
+                    <option value="ctg01">핸드메이드</option>
+                    <option value="ctg02">휴대폰/태블릭</option>
+                    <option value="ctg03">가구</option>
+                    <option>문구</option>
+                    <option>자동차용품</option>
+                    <option>유아용/완구</option>
+                    <option>컴퓨터/주변기기</option>
+                    <option>생활</option>
+                    <option>스타굿즈</option>
+                    <option>반려동품용품</option>
+                    <option>뷰티</option>
+                    <option>카메라</option>
+                    <option>여성의류</option>
+                    <option>디지털/가전</option>
+                    <option>피규어/키덜트</option>
+                    <option>스포츠/레저</option>
+                    <option>남성의류</option>
+                    <option>티켓</option>
+                    <option>예술/미술</option>
+                    <option>게임</option>
+                    <option>신발/가방/잡화</option>
+                    <option>음향기기/악기</option>
+                    <option>도서</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+              </div>
+              <div class="item-row clearfix">
+                <div id="searchbox1" class="input-group pull-left">
+                  <span id="sbox_addon" class="input-group-addon"><a href="#"><i
+                        class="glyphicon glyphicon-search"></i></a></span>
+                  <input id="sbox_input" type="text" class="form-control" placeholder="상품 제목 검색">
+                </div>
+                <div class="btn-group pull-right">
+                  <button id="sortList" type="button" class="btn btn-default btn-list"><span
+                      class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로
+                      보기</span></button>
+                  <button id="sortThumb" type="button" class="btn btn-default btn-list active"><span
+                      class="glyphicon glyphicon glyphicon-th-large"></span><span class="sr-only">리스트로
+                      보기</span></button>
+                </div>
+              </div>
 
-    <div class="tab-content">
-      <div class="tab-pane fade in active" id="mystore">
-        <!-- 탭 메뉴 시작 -->
-        <ul class="nav nav-tabs row">
-          <li class="active col-sm-4"><a href="#selling_item" data-toggle="tab">판매상품</a></li>
-          <li class="col-sm-4"><a href="#hidden_item" data-toggle="tab">숨긴상품</a></li>
-          <li class="col-sm-4"><a href="#zzim_item" data-toggle="tab">찜상품</a></li>
+              <div class="box" id="item-list">
+                <!-- Ajax로 로드한 결과가 표시될 곳 -->
+              </div>
+            
+      </div>
+      <div class="clearfix text-center pagination">
+        <ul>
+          <li class="arr disabled"><a href="#">&laquo;</a></li>
+          <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li class="arr"><a href="#">&raquo;</a></li>
         </ul>
-        <!--// 탭 메뉴 끝 -->
-        <!-- 탭 화면 시작 -->
-        <div class="container">
-          <div class="tab-content">
-            <div class="container">
-              <div class="tab-pane fade in active">
-                <div id="si_top" class="clearfix">
-                  <div id="si_total" class="pull-left">전체 <b>20</b></div>
-                  <div id="si_ctg" class="pull-right">
-                    <select class="form-control" id="item_categoty">
-                      <option selected>카테고리 전체</option>
-                      <option value="ctg01">핸드메이드</option>
-                      <option value="ctg02">휴대폰/태블릭</option>
-                      <option value="ctg03">가구</option>
-                      <option>문구</option>
-                      <option>자동차용품</option>
-                      <option>유아용/완구</option>
-                      <option>컴퓨터/주변기기</option>
-                      <option>생활</option>
-                      <option>스타굿즈</option>
-                      <option>반려동품용품</option>
-                      <option>뷰티</option>
-                      <option>카메라</option>
-                      <option>여성의류</option>
-                      <option>디지털/가전</option>
-                      <option>피규어/키덜트</option>
-                      <option>스포츠/레저</option>
-                      <option>남성의류</option>
-                      <option>티켓</option>
-                      <option>예술/미술</option>
-                      <option>게임</option>
-                      <option>신발/가방/잡화</option>
-                      <option>음향기기/악기</option>
-                      <option>도서</option>
-                      <option>기타</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="item-row clearfix">
-                  <div id="searchbox1" class="input-group pull-left">
-                    <span id="sbox_addon" class="input-group-addon"><a href="#"><i
-                          class="glyphicon glyphicon-search"></i></a></span>
-                    <input id="sbox_input" type="text" class="form-control" placeholder="상품 제목 검색">
-                  </div>
-                  <div class="btn-group pull-right">
-                    <button id="sortList" type="button" class="btn btn-default btn-list"><span
-                        class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로
-                        보기</span></button>
-                    <button id="sortThumb" type="button" class="btn btn-default btn-list active"><span
-                        class="glyphicon glyphicon glyphicon-th-large"></span><span class="sr-only">리스트로
-                        보기</span></button>
-                  </div>
-                </div>
-
-                <div class="box" id="item-list">
-                  <!-- Ajax로 로드한 결과가 표시될 곳 -->
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        <div id="pagination" class="clearfix text-center">
-          <ul>
-              <li class="arr disabled"><a href="#">&laquo;</a></li>
-              <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li class="arr"><a href="#">&raquo;</a></li>
-          </ul>
-      </div>
-      </div>
-      <div class="tab-pane fade in" id="myreview">
-        <div id="myreview_subject">
-          <h1>5.0</h1>
-          <div id="user_star">
-            <img src="img/star_full.png" alt="별점 1점">
-            <img src="img/star_full.png" alt="별점 1점">
-            <img src="img/star_full.png" alt="별점 1점">
-            <img src="img/star_full.png" alt="별점 1점">
-            <img src="img/star_blank.png" alt="별점 0점">
-            <span class="badge">3</span></a>
-          </div>
-        </div>
-          <div class="review2u">
-            <div class="media">
-              <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_thumb1.jpg"
-                  width="60" height="60px" alt="Generic placeholder image"> </a>
-              <div class="media-body">
-                <div class="clearfix">
-                  <h4 class="media-heading pull-left re_user_name">귀염티커 <small>1분전</small></h4>
-                  <div class="pull-right">
-                    <span class="label label-info">Default</span>
-                  </div>
-                </div>
-                <div class="clearfix re_user_rpl">
-                  <p>아직이용~</p>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class="tab-pane fade in" id="mygrade">
-        나의등급
-      </div>
-      <div class="tab-pane fade in" id="myinfo">
-        내정보설정
       </div>
     </div>
+    </div>
   </section>
-
-  <!-- template -->
+  <!-- template1 -->
   <script id="item_tmpl" type="text/x-handlebars-template">
   {{#each item}}
   <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
@@ -218,6 +174,17 @@
   <!-- handlebar plugin -->
   <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
   <script type="text/javascript">
+    /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+    function get_list() {
+      $.get("plugins/ajax/item_01.json", function (req) {
+        // 미리 준비한 HTML틀을 읽어온다.
+        var template = Handlebars.compile($("#item_tmpl").html());
+        // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+        var html = template(req);
+        // #dept_list_body 읽어온 내용을 추가한다.
+        $("#item-list").html(html);
+      });
+    }
     $(function () {
       $("header").load("header.html");
       get_list();
@@ -225,7 +192,11 @@
       $(".btn-tag").click(function () {
         $(this).toggleClass('active');
       });
-
+      // nav 바
+      $(".nav-tabs li").click(function(e){
+        $(this).addClass('active');
+        $(".nav-tabs li").not(this).removeClass('active');
+      })
       /* 상품리스트형 */
       $(".btn-list").click(function () {
         $(".btn-list").not(this).removeClass('active');
@@ -243,25 +214,14 @@
           $(".sorting").addClass("thumbnail");
         };
       });
-      /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
-      function get_list() {
-        $.get("plugins/ajax/item_01.json", function (req) {
-          // 미리 준비한 HTML틀을 읽어온다.
-          var template = Handlebars.compile($("#item_tmpl").html());
-          // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-          var html = template(req);
-          // #dept_list_body 읽어온 내용을 추가한다.
-          $("#item-list").html(html);
-        });
-      }
 
-      $("#pagination li").click(function(e) {
-            e.preventDefault();
-            $("#pagination li").not(this).removeClass("active");
-            $(this).addClass("active");
-            $("#notice-list").empty();
-            get_list();
-          });
+
+      $("#mystore .pagination li").click(function (e) {
+        e.preventDefault();
+        $("#mystore .pagination li").not(this).removeClass("active");
+        $(this).addClass("active");
+        get_list();
+      });
     });
   </script>
   </script>

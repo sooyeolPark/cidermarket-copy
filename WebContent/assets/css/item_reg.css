@@ -73,6 +73,10 @@ body {
   right: 10%;
   top: 3%;
 }
+.form-horizontal .form-group {
+  margin-left: 0px;
+  margin-right: 0px;
+}
 #reg_cont > .order_name {
   margin-top: 0;
 }
@@ -104,28 +108,34 @@ body {
   margin-right: 0.5em;
 }
 .btn-list:focus {
-  width: 8em;
   border: 1px solid #31a05f;
   color: #31a05f;
   font-weight: bold;
   margin-right: 0.5em;
   background-color: #fff;
 }
+
 .active {
   background-color: #31a05f !important;
   color: #fff !important;
 }
+
+#item_delfee,
+#item_price {
+  display: inline-block;
+  width: 90%;
+}
 .won {
+  display: inline-block;
   color: #777;
-  padding-top: 5px;
-  padding-left: 0;
+  padding-left: 0.5em;
 }
 
 label.radio-inline input {
   margin-top: 6px;
 }
 #reg_info label.radio-inline {
-  margin-right: 3em;
+  margin-right: 1.5em;
   font-weight: 400;
   font-size: 1.1em;
 }

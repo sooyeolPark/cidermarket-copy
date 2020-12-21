@@ -107,13 +107,13 @@ h2,
 h3 {
   font-weight: bold;
 }
-#pagination {
+.pagination {
   width: 100%;
 }
-#pagination ul li {
+.pagination ul li {
   display: inline-block;
 }
-#pagination ul li {
+.pagination ul li {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -121,20 +121,20 @@ h3 {
   margin: 5px;
   border-radius: 100px;
 }
-#pagination ul li a {
+.pagination ul li a {
   display: block;
 }
-#pagination .active {
+.pagination .active {
   display: inline-block;
   border-radius: 100px;
   border: 1px solid #ccc;
   color: #31a05f;
   font-weight: bold;
 }
-#pagination .active a {
+.pagination .active a {
   color: #31a05f;
 }
-#pagination .arr a {
+.pagination .arr a {
   background-color: #31a05f;
   color: #fff;
   border-radius: 100px;
