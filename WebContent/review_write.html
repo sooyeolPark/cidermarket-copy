@@ -61,7 +61,7 @@
                         </div>
                         <div class="panel-body">
                           <div class="foryou">To. <b>귀염티거</b>님과 거래가 어떠셨나요?</div>
-                          <form id="review-form" role="form">
+                          <form id="review-form" role="form" enctype="multipart/form-data">
                             <div class="reviewStar text-center">
                               <img src="img/star_full.png" alt="별점" data-star="1">
                               <img src="img/star_full.png" alt="별점" data-star="2">
@@ -73,6 +73,26 @@
                               <label for="content" class="sr-only">내용</label>
                               <textarea type="text" name="content" id="content" maxlength="200" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
                               <span class="help-block">* 200자 이내</span>
+                            </div>
+                            <!-- 사진첨부 -->
+                            <div class="form-group">
+                              <label for="file" class="sr-only">사진첨부</label>
+                              <div class="col-xs-3 item-img glyphicon glyphicon-camera">
+                                <input type="file" id="file1" name="file1" class="image_plus" accept="image/*" />
+                                <a class="remove_img" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
+                              </div>
+                              <div class="col-xs-3 item-img glyphicon glyphicon-camera">
+                                <input type="file" id="file2" name="file2" class="image_plus" accept="image/*" />
+                                <a class="remove_img" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
+                              </div>
+                              <div class="col-xs-3 item-img glyphicon glyphicon-camera">
+                                <input type="file" id="file3" name="file3" class="image_plus" accept="image/*" />
+                                <a class="remove_img" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
+                              </div>
+                              <div class="col-xs-3 item-img glyphicon glyphicon-camera">
+                                <input type="file" id="file4" name="file4" class="image_plus" accept="image/*" />
+                                <a class="remove_img" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
+                              </div>
                             </div>
                             <!-- button -->
                             <div class="text-center">
@@ -137,6 +157,45 @@
                   if (!regex.value('#content', '내용을 입력하세요.')) { return false; }
                 });
 
+                // 등록 이미지 등록 미리보기
+                function readInputFile(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $(input).css('background-image', 'url(\"' + e.target.result + '\")');
+                            $(input).next().css('display', 'block');
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $(".image_plus").on('change', function () {
+                    readInputFile(this);
+                    $(this).parent(".item-img").removeClass("glyphicon glyphicon-camera");
+                });
+
+                //등록 이미지 삭제
+                function resetInputFile($input) {
+                    var agent = navigator.userAgent.toLowerCase();
+                    if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+                        // ie 일때
+                        $input.replaceWith($input.clone(true));
+                    } else {
+                        //other
+                        $input.val("");
+                    }
+                }
+
+                $(".remove_img").click(function (e) {
+                    e.preventDefault();
+                    var ok = confirm("사진을 삭제하시겠습니까?");
+                    if (ok) {
+                        $(this).css('display', 'none');
+                        $(this).prev().css('background-image', 'url("img/img_plus.png")');
+                        var $input = $(this).prev();
+                        resetInputFile($input);
+                    }
+                });
             });
         </script>
     </body>
