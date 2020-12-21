@@ -70,7 +70,7 @@ body {
   font-size: 1.2em;
   padding: 0;
 }
-#mystore ul a {
+#mystore > ul a {
   border: 0;
   border-bottom: 3px solid #f0f0f0;
   border-radius: 0;
@@ -168,4 +168,22 @@ body {
 .item-list a:hover img {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   transition: ease 0.3s;
+}
+
+#myreview_subject {
+  text-align: center;
+}
+
+#myreview_subject > h1 {
+  font-weight: bold;
+}
+
+#myreview_subject img {
+  height: 13px;
+}
+
+#myreview_subject span {
+  font-size: 0.4em;
+  margin-left: 1em;
+  background-color: #ccc;
 }

@@ -69,7 +69,7 @@
     <div class="div_blank"></div>
     <!--// 탭 메뉴 끝 -->
     <!-- 탭 화면 시작 -->
-    <div class="container">
+
     <div class="tab-content">
       <div class="tab-pane fade in active" id="mystore">
         <!-- 탭 메뉴 시작 -->
@@ -80,64 +80,114 @@
         </ul>
         <!--// 탭 메뉴 끝 -->
         <!-- 탭 화면 시작 -->
-        <div class="tab-content">
-          <div class="tab-pane fade in active">
+        <div class="container">
+          <div class="tab-content">
             <div class="container">
-              <div id="si_top" class="clearfix">
-                <div id="si_total" class="pull-left">전체 <b>20</b></div>
-                <div id="si_ctg" class="pull-right">
-                  <select class="form-control" id="item_categoty">
-                    <option selected>카테고리 전체</option>
-                    <option value="ctg01">핸드메이드</option>
-                    <option value="ctg02">휴대폰/태블릭</option>
-                    <option value="ctg03">가구</option>
-                    <option>문구</option>
-                    <option>자동차용품</option>
-                    <option>유아용/완구</option>
-                    <option>컴퓨터/주변기기</option>
-                    <option>생활</option>
-                    <option>스타굿즈</option>
-                    <option>반려동품용품</option>
-                    <option>뷰티</option>
-                    <option>카메라</option>
-                    <option>여성의류</option>
-                    <option>디지털/가전</option>
-                    <option>피규어/키덜트</option>
-                    <option>스포츠/레저</option>
-                    <option>남성의류</option>
-                    <option>티켓</option>
-                    <option>예술/미술</option>
-                    <option>게임</option>
-                    <option>신발/가방/잡화</option>
-                    <option>음향기기/악기</option>
-                    <option>도서</option>
-                    <option>기타</option>
-                  </select>
+              <div class="tab-pane fade in active">
+                <div id="si_top" class="clearfix">
+                  <div id="si_total" class="pull-left">전체 <b>20</b></div>
+                  <div id="si_ctg" class="pull-right">
+                    <select class="form-control" id="item_categoty">
+                      <option selected>카테고리 전체</option>
+                      <option value="ctg01">핸드메이드</option>
+                      <option value="ctg02">휴대폰/태블릭</option>
+                      <option value="ctg03">가구</option>
+                      <option>문구</option>
+                      <option>자동차용품</option>
+                      <option>유아용/완구</option>
+                      <option>컴퓨터/주변기기</option>
+                      <option>생활</option>
+                      <option>스타굿즈</option>
+                      <option>반려동품용품</option>
+                      <option>뷰티</option>
+                      <option>카메라</option>
+                      <option>여성의류</option>
+                      <option>디지털/가전</option>
+                      <option>피규어/키덜트</option>
+                      <option>스포츠/레저</option>
+                      <option>남성의류</option>
+                      <option>티켓</option>
+                      <option>예술/미술</option>
+                      <option>게임</option>
+                      <option>신발/가방/잡화</option>
+                      <option>음향기기/악기</option>
+                      <option>도서</option>
+                      <option>기타</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="item-row clearfix">
-                <div id="searchbox1" class="input-group pull-left">
-                  <span id="sbox_addon" class="input-group-addon"><a href="#"><i
-                        class="glyphicon glyphicon-search"></i></a></span>
-                  <input id="sbox_input" type="text" class="form-control" placeholder="상품 제목 검색">
+                <div class="item-row clearfix">
+                  <div id="searchbox1" class="input-group pull-left">
+                    <span id="sbox_addon" class="input-group-addon"><a href="#"><i
+                          class="glyphicon glyphicon-search"></i></a></span>
+                    <input id="sbox_input" type="text" class="form-control" placeholder="상품 제목 검색">
+                  </div>
+                  <div class="btn-group pull-right">
+                    <button id="sortList" type="button" class="btn btn-default btn-list"><span
+                        class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로
+                        보기</span></button>
+                    <button id="sortThumb" type="button" class="btn btn-default btn-list active"><span
+                        class="glyphicon glyphicon glyphicon-th-large"></span><span class="sr-only">리스트로
+                        보기</span></button>
+                  </div>
                 </div>
-                <div class="btn-group pull-right">
-                  <button id="sortList" type="button" class="btn btn-default btn-list"><span
-                      class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로 보기</span></button>
-                  <button id="sortThumb" type="button" class="btn btn-default btn-list active"><span
-                      class="glyphicon glyphicon glyphicon-th-large"></span><span class="sr-only">리스트로
-                      보기</span></button>
-                </div>
-              </div>
 
-              <div class="box" id="item-list">
-                <!-- Ajax로 로드한 결과가 표시될 곳 -->
+                <div class="box" id="item-list">
+                  <!-- Ajax로 로드한 결과가 표시될 곳 -->
+                </div>
               </div>
             </div>
           </div>
+          
         </div>
+        <div id="pagination" class="clearfix text-center">
+          <ul>
+              <li class="arr disabled"><a href="#">&laquo;</a></li>
+              <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li class="arr"><a href="#">&raquo;</a></li>
+          </ul>
       </div>
-    </div>
+      </div>
+      <div class="tab-pane fade in" id="myreview">
+        <div id="myreview_subject">
+          <h1>5.0</h1>
+          <div id="user_star">
+            <img src="img/star_full.png" alt="별점 1점">
+            <img src="img/star_full.png" alt="별점 1점">
+            <img src="img/star_full.png" alt="별점 1점">
+            <img src="img/star_full.png" alt="별점 1점">
+            <img src="img/star_blank.png" alt="별점 0점">
+            <span class="badge">3</span></a>
+          </div>
+        </div>
+          <div class="review2u">
+            <div class="media">
+              <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_thumb1.jpg"
+                  width="60" height="60px" alt="Generic placeholder image"> </a>
+              <div class="media-body">
+                <div class="clearfix">
+                  <h4 class="media-heading pull-left re_user_name">귀염티커 <small>1분전</small></h4>
+                  <div class="pull-right">
+                    <span class="label label-info">Default</span>
+                  </div>
+                </div>
+                <div class="clearfix re_user_rpl">
+                  <p>아직이용~</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="tab-pane fade in" id="mygrade">
+        나의등급
+      </div>
+      <div class="tab-pane fade in" id="myinfo">
+        내정보설정
+      </div>
     </div>
   </section>
 
@@ -195,15 +245,23 @@
       });
       /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
       function get_list() {
-        $.get("plugins/ajax/item.json", function (req) {
+        $.get("plugins/ajax/item_01.json", function (req) {
           // 미리 준비한 HTML틀을 읽어온다.
           var template = Handlebars.compile($("#item_tmpl").html());
           // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
           var html = template(req);
           // #dept_list_body 읽어온 내용을 추가한다.
-          $("#item-list").append(html);
+          $("#item-list").html(html);
         });
       }
+
+      $("#pagination li").click(function(e) {
+            e.preventDefault();
+            $("#pagination li").not(this).removeClass("active");
+            $(this).addClass("active");
+            $("#notice-list").empty();
+            get_list();
+          });
     });
   </script>
   </script>
