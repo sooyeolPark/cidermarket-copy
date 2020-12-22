@@ -23,7 +23,7 @@
   border-bottom: 3px solid #31a05f;
 }
 #si_top {
-  margin-top: 15px;
+  margin: 15px 5px 0;
 }
 #si_total {
   padding-top: 10px;
@@ -64,7 +64,7 @@
   height: 35px;
 }
 .item-row {
-  margin-top: 15px;
+  margin: 15px 5px 0;
 }
 
 .item-row .btn-group .glyphicon {

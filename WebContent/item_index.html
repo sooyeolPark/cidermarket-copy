@@ -42,7 +42,43 @@
   <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
   <div class='gray_layer' id='background'></div>
   <div class='over_layer' id='front'>
-    <div>쪽지보내기 구현하기</div>
+    <div class="modal_name">쪽지보내기</div>
+        <div class="modal_content">
+            <form role="form">
+                <div class="form-group">
+                    <span id="to_user"></span>
+                    <span class="help-block">님에게 쪽지보내기</span>
+                    <textarea rows="5" id="send_input" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+                    <div class="modal_btn">
+                        <button id="send_ok" type="button" class="btn btn-primary">보내기</button>
+                        <button id="send_cancle" type="button" class="btn btn-info">취소</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+  </div>
+  <div class='over_layer' id="singo">
+    <div class="modal_name">신고하기</div>
+        <div class="modal_content">
+            <form role="form">
+                <div class="form-group">
+                  <span id="singo_name"></span>
+                    <span class="help-block">게시글을 신고하는 이유를 선택해주세요.</span>
+                    <select class="form-control" id="singo_category">
+                      <option selected>신고 이유를 선택해주세요</option>
+                      <option>판매금지 품목이에요</option>
+                      <option>거래 게시글이 아니에요</option>
+                      <option>사기글 같아요</option>
+                      <option>기타 사유</option>
+                  </select>
+                    <textarea rows="2" id="singo_input" class="form-control" placeholder="신고사유를 입력해주세요."></textarea>
+                    <div class="modal_btn">
+                        <button id="singo_ok" type="button" class="btn btn-primary">신고하기</button>
+                        <button id="singo_cancle" type="button" class="btn btn-info">취소</button>
+                    </div>
+                </div>
+            </form>
+        </div>
   </div>
   <!-- nav 시작 -->
   <header></header>
@@ -70,7 +106,8 @@
       <div class="item_title clearfix">
         <span class="label">거의새것</span>
         <span class="label">배송비 미포함</span>
-        <a href="#" class="pull-right"><i class="glyphicon glyphicon-heart"></i> 32</a>
+        <a href="#" id="like_this" class="pull-right"><i class="glyphicon glyphicon-heart"></i>32</a>
+        <a href="#" id="flag_this" class="pull-right"><i class="glyphicon glyphicon-flag"></i></a>
         <h3>디올 조던 새상품 270 팔아요요리요이료요요요요요오롤로로요로로리이히</h3>
         <h1><b>1,000,000원</b></h1>
       </div>
@@ -425,6 +462,7 @@
   <!-- ligthbox pulgin 참조 -->
   <link rel="stylesheet" href="plugins/lightbox/css/lightbox.css" />
   <script src="plugins/lightbox/js/lightbox.min.js"></script>
+  <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
   <script type="text/javascript">
     var mySwiper = new Swiper('.swiper-container', {
 
@@ -448,7 +486,27 @@
     });
     $(function () {
       $("header").load("header.html");
-
+       /** 신고하기 링크를 클릭한 경우 */
+       $("#flag_this").click(function (e) {
+        e.preventDefault(); 
+        var user = $(".item_title>h3").html();
+        $("#singo_name").html(user);
+        $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
+        $("#singo").fadeIn(200);
+       });
+       $("#singo_cancle").click(function (e) {
+                $("#background").fadeOut(300);
+                $("#singo").fadeOut(200);
+                $("#singo_input").val('');
+                $("#singo_category> option:eq(0)").prop('selected', true);
+            });
+      $("#singo_ok").click(function (e) {
+                swal("신고가 접수되었습니다.");
+                $("#background").fadeOut(300);
+                $("#singo").fadeOut(200);
+                $("#singo_category> option:eq(0)").prop('selected', true);
+                $("#singo_input").val('');
+            });
       /** 탭 버튼의 클릭 처리 */
       $(".tab-button-item-link").click(function (e) {
         // 페이지 이동 방지
@@ -482,17 +540,36 @@
 
       /** modal 링크를 클릭한 경우 */
       $("#dir_trade").click(function (e) {
-        e.preventDefault();             // 페이지 이동 방지
+        e.preventDefault(); 
+        var user = $("#user_id>a").html();
+        $("#to_user").html(user);  
         $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
         $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
 
       });
-
-      /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
-      $("#background").click(function () {
-        $(this).fadeOut(300);       // 배경 레이어의 숨김
-        $("#front").fadeOut(200);   // 이미지 레이어의 숨김
-      });
+      $("#send_cancle").click(function (e) {
+                $("#send_input").val('');
+                $("#background").fadeOut(300);
+                $("#front").fadeOut(200);
+            });
+      $("#send_ok").click(function (e) {
+        $("#send_input").val('');
+                $("#background").fadeOut(300);
+                $("#front").fadeOut(200);
+        swal({
+        title: '쪽지를 보냈습니다.',                // 제목
+        text: "쪽지함으로 이동하시겠습니까?",  // 내용
+        // type: 'info',              // 종류
+        confirmButtonText: '쪽지함으로 이동',     // 확인버튼 표시 문구
+        showCancelButton: true,       // 취소버튼 표시 여부
+        cancelButtonText: '이 페이지 계속 보기',       // 취소버튼 표시 문구
+      }).then(function (result) {        // 버튼이 눌러졌을 경우의 콜백 연결
+        if (result.value) {   
+          window.open("msgbox.html", "_self");          // 확인 버튼이 눌러진 경우
+        } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우  
+        }
+      });     
+            });
 
       $("#dir_pay").click(function (e) {
         e.preventDefault();

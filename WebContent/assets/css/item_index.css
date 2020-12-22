@@ -86,7 +86,20 @@ ul {
   border: 1px solid #31a05f;
   color: #31a05f;
 }
-
+#flag_this {
+  margin-top: 2px;
+  margin-right: 1.5em;
+}
+.glyphicon-flag:before {
+  color: #aaa;
+  font-size: 1.4em;
+}
+#like_this {
+  font-size: 1.4em;
+}
+#like_this > .glyphicon-heart:before {
+  margin-right: 0.2em;
+}
 .glyphicon-heart:before,
 .glyphicon-heart-empty:before {
   color: #ff5937;
@@ -322,14 +335,64 @@ div.media {
 
 /** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
 .over_layer {
-  /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
-  width: 50%;
+  width: 75%;
   height: 50%;
   position: fixed;
   top: 25%;
-  left: 25%;
-  /* 요소의 크기/2 만큼 왼쪽,상단 방향으로 이동시켜 가운데 배치한다 */
+  left: 12%;
   display: none;
   z-index: 9999999;
   background-color: #fff;
+  padding: 1em 2em;
+}
+
+.modal_name {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+.modal_content .input-group {
+  margin-top: 15px;
+}
+
+#to_user {
+  color: #31a05f;
+  display: inline;
+  font-weight: bold;
+  font-size: 2em;
+}
+textarea {
+  width: 100%;
+  resize: none;
+}
+.modal_content .modal_btn {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+.modal_btn button {
+  width: 25%;
+  margin: 0 2em;
+}
+
+#singo_name {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: text-top;
+  color: #31a05f;
+}
+select {
+  margin-bottom: 10px;
 }
