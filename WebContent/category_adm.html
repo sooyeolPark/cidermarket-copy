@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>관리자페이지</title>
+    <!-- 모바일 웹 페이지 설정 -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+    <!-- 나눔고딕 웹 폰트 적용 -->
+    <link rel="stylesheet" type="text/css" href="assets/css/category_adm.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+    <!-- 반응형 웹을 지원하지 않을 경우 -->
+    <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
+    <!-- IE8 이하 버전 지원 -->
+    <!--[if lt IE 9]>
+<script type="text/javascript" src="assets/js/html5shiv.js"></script>
+<script type="text/javascript" src="assets/js/respond.min.js"></script>
+<![endif]-->
+    <!-- IE10 반응형 웹 버그 보완 -->
+    <!--[if gt IE 9]>
+<link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
+<script type="text/javascript" src="assets/js/ie10.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo ">
+
+                <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
+                <button class="btn btn-default log_out" type="submit">로그아웃</button>
+                <a class="nav_top_a" href="index.html">User_Page <span
+                        class="logo_right glyphicon glyphicon-user"></span></a>
+
+            </div>
+        </div>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+
+                <div class="collapse navbar-collapse">
+                    <ul id="nav_bar_menu" class="nav navbar-nav">
+
+                        <li class="nav_menu">
+                            <a href="home_adm.html">Home</a>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="order_adm.html">주문관리</a>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="board_adm.html">공지사항</a></li>
+                                <li><a href="event_adm.html">이벤트게시판</a></li>
+                                <li><a href="question_adm.html">일반문의</a></li>
+                                <li><a href="faq_adm.html">자주묻는질문</a></li>
+                                <li><a href="policy_adm.html">운영정책</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="member_adm.html">회원관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="member_adm.html">회원정보조회</a></li>
+                                <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="product_adm.html">상품관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="product_adm.html">상품목록</a></li>
+                                <li><a href="category_adm.html">상품분류</a></li>
+                                <li><a href="display_adm.html">상품진열</a></li>
+                                <li><a href="singo_adm.html">신고상품</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div><!-- /.container -->
+        </div><!-- /.navbar -->
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <nav class="list-group">
+                    <!-- 목록의 아이템 -->
+                    <p>상품관리</p>
+                    <a href="product_adm.html" class="list-group-item">
+                        <p>상품목록</p>
+                    </a>
+                    <a href="category_adm.html" class="list-group-item">
+                        <p>상품분류</p>
+                    </a>
+                    <a href="display_adm.html" class="list-group-item">
+                        <p>상품진열</p>
+                    </a>
+                    <a href="singo_adm.html" class="list-group-item">
+                        <p>신고상품</p>
+                    </a>
+                </nav>
+
+
+            </div>
+            <div class="col-lg-10">
+
+
+
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">대분류</th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">핸드메이드</td>
+                            <td class="text-center">휴대폰/태블릿</td>
+                            <td class="text-center">가구</td>
+                            <td class="text-center">문구</td>
+                            <td class="text-center">자동차용품</td>
+                            <td class="text-center">유아용/완구</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">컴퓨터/주변기기</td>
+                            <td class="text-center">생활</td>
+                            <td class="text-center">스타굿즈</td>
+                            <td class="text-center">반려동물용품</td>
+                            <td class="text-center">뷰티</td>
+                            <td class="text-center">카메라</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">여성의류</td>
+                            <td class="text-center">디지털/가전</td>
+                            <td class="text-center">피규어/키덜트</td>
+                            <td class="text-center">스포츠/레저</td>
+                            <td class="text-center">남성의류</td>
+                            <td class="text-center">티켓</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">예술/미술</td>
+                            <td class="text-center">게임</td>
+                            <td class="text-center">신발/가방/잡화</td>
+                            <td class="text-center">음향기기/악기</td>
+                            <td class="text-center">도서</td>
+                            <td class="text-center">기타</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                
+                    <div class="item-img">
+                        <input type="file" id="image0" class="image_plus " accept="image/*"/>
+                        <input type="text" class="form-control" id="revise">
+                    </div>
+                
+                <form class="form-inline clearfix">
+                    <div class="regi_cancel">
+                        <button type="submit" class="btn btn-danger">삭제</button>
+                        <button type="submit" class="btn btn-warning">수정</button>
+                        <button type="submit" class="btn btn-primary">추가</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!--/row-->
+    <footer class="footer">
+
+        <!-- <a href="#" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-triangle-left"></span> 이전
+                  </a>
+                  <a href="#" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-triangle-right"></span> 다음
+                  </a> -->
+
+        <address>
+            <strong>&copy; (주)사이다마켓.All right reserved</strong><br>
+        </address>
+    </footer>
+
+    <!--/.container-->
+    <!-- Javascript -->
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // 등록 이미지 등록 미리보기
+            function readInputFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(input).css('background-image', 'url(\"' + e.target.result + '\")');
+                        $(input).next().css('display', 'inline');
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".image_plus").on('change', function () {
+                readInputFile(this);
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

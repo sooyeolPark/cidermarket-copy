@@ -21,7 +21,7 @@
 
   <!-- mystore.css -->
   <link rel="stylesheet" type="text/css" href="assets/css/mystore_common.css" />
-  <link rel="stylesheet" type="text/css" href="assets/css/mystore_info.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/mystore_mygrade.css" />
   <!-- 반응형 웹을 지원하지 않을 경우 -->
   <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
 
@@ -34,10 +34,15 @@
   <!--[if gt IE 9]> <link rel="stylesheet" type="text/css"
         href="assets/css/ie10.css" /> <script type="text/javascript"
         src="assets/js/ie10.js"></script> <![endif]-->
-  <title>내상점-내정보설정</title>
+  <title>내상점-나의등급</title>
 </head>
 
 <body>
+  <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
+  <div class='gray_layer' id='background'></div>
+  <div class='over_layer' id='front'>
+
+  </div>
   <!-- nav 시작 -->
   <header></header>
   <!-- // nav 끝 -->
@@ -63,13 +68,62 @@
       <ul class="my_ctg">
         <li><a href="mystore.html">내상점</a></li>
         <li><a href="mystore_review.html">거래후기</a></li>
-        <li><a href="mystore_mygrade.html">나의 등급</a></li>
-        <li class="active"><a href="mystore_myinfo.html">내정보 설정</a></li>
+        <li class="active"><a href="mystore_mygrade.html">나의 등급</a></li>
+        <li><a href="mystore_myinfo.html">내정보 설정</a></li>
       </ul>
     </div>
     <div class="div_blank"></div>
+    <!--// 탭 메뉴 끝 -->
+    <!-- 탭 화면 시작 -->
     <div id="myinfo">
-        내정보설정
+      <div class="container">
+        <div class="media clearfix">
+
+          <!-- 조던이미지 -->
+          <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_jordan.jpg" width="110"
+            height="110" alt="Generic placeholder image"> </a>
+
+          <!-- 이미지파일추가 -->
+
+        </div>
+
+        <!-- ---------------------------------------------------- -->
+        <div id="trade_ea">
+          <div class="nick-name col-xs-2"><span>닉네임</span></div>
+          <div class="nick-name col-xs-8"><input type="text" class="form-control"></div>
+          <div class="nick-name col-xs-2"><button</div>
+          <table>
+            <tr>
+              <td></td>
+              <td>12월</td>
+              <td>1월</td>
+              <td>2월</td>
+            </tr>
+            <tr>
+              <td>판매</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>구매</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </table>
+        </div>
+        <div id="trade_anou">
+          <div id="trade_anou_subject">
+            유의사항
+          </div>
+          <ul id="trade_anou_cont">
+            <li>등급은 최근 90일간 실적을 반영하여 매월 1일에 적용됩니다.</li>
+            <li>등급 산정 및 헤택은 당사 사정에 의해 변경될 수 있습니다.</li>
+            <li>부정한 방법으로 등급을 획득한 경우, 등급이 조정되거나 회원제재가 진행될 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
   <!-- Javascript -->
@@ -83,6 +137,20 @@
   <script type="text/javascript">
     $(function () {
       $("header").load("header.html");
+
+      /** modal 링크를 클릭한 경우 */
+      $("#modal").click(function (e) {
+        e.preventDefault();             // 페이지 이동 방지
+        $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
+        $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+
+      });
+
+      /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
+      $("#background").click(function () {
+        $(this).fadeOut(300);       // 배경 레이어의 숨김
+        $("#front").fadeOut(200);   // 이미지 레이어의 숨김
+      });
     });
   </script>
   </script>
