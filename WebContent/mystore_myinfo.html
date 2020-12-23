@@ -21,7 +21,7 @@
 
   <!-- mystore.css -->
   <link rel="stylesheet" type="text/css" href="assets/css/mystore_common.css" />
-  <link rel="stylesheet" type="text/css" href="assets/css/mystore_mygrade.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/mystore_myinfo.css" />
   <!-- 반응형 웹을 지원하지 않을 경우 -->
   <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
 
@@ -77,53 +77,83 @@
     <!-- 탭 화면 시작 -->
     <div id="myinfo">
       <div class="container">
-        <div class="media clearfix">
+        <div class="media">
 
           <!-- 조던이미지 -->
-          <a class="pull-left" href="#"> <img class="media-object img-circle" src="img/user_jordan.jpg" width="110"
-            height="110" alt="Generic placeholder image"> </a>
+          <span> <img class="media-object img-circle" src="img/user_jordan.jpg" width="110" height="110"
+              alt="Generic placeholder image"> </span>
 
           <!-- 이미지파일추가 -->
 
         </div>
 
         <!-- ---------------------------------------------------- -->
-        <div id="trade_ea">
-          <div class="nick-name col-xs-2"><span>닉네임</span></div>
-          <div class="nick-name col-xs-8"><input type="text" class="form-control"></div>
-          <div class="nick-name col-xs-2"><button</div>
-          <table>
-            <tr>
-              <td></td>
-              <td>12월</td>
-              <td>1월</td>
-              <td>2월</td>
-            </tr>
-            <tr>
-              <td>판매</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>구매</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-          </table>
+        <div class="row">
+          <div class="col-sm-2 my_title"><span>닉네임</span></div>
         </div>
-        <div id="trade_anou">
-          <div id="trade_anou_subject">
-            유의사항
+        <div class="row">
+          <div class="col-xs-9"><span type="text" class="form-control">jodan123</span></div>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"><span>소개글</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9 form-group">
+            <span type="text" class="form-control intro"></span>
           </div>
-          <ul id="trade_anou_cont">
-            <li>등급은 최근 90일간 실적을 반영하여 매월 1일에 적용됩니다.</li>
-            <li>등급 산정 및 헤택은 당사 사정에 의해 변경될 수 있습니다.</li>
-            <li>부정한 방법으로 등급을 획득한 경우, 등급이 조정되거나 회원제재가 진행될 수 있습니다.</li>
-          </ul>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-sm-2"><span>상점주소</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9"><span type="text" class="form-control"></span></div>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
+          <div class="col-xs-10"><span class="write-rule">* 6-15자 영문 소문자, 순자로 입력해주세요.(숫자만 불가)</span></div>
+          <div class="col-xs-10"><span class="write-rule">* 한 번 설정한 주소는 30일 이후 변경할 수 있습니다. </span></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"><span class=>아이디</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9 bottom"><span type="text" class="form-control">hoony@gmail.com</span></div>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"><span>휴대폰</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9"><span type="text" class="form-control">0101234567</span></div>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"><span>비밀번호</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9"><span type="text" class="form-control">**********</span></div>
+          <div class="col-xs-3"><button class="btn btn-warning" type="button">변경</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2"><span>수신설정</span></div>
+        </div>
+        <div class="row">
+          <div class="col-xs-9">
+            <input type="checkbox" id="email" name="email" value="yes">
+            <span>email</span>
+            <input type="checkbox" id="email" name="email" value="yes">
+            <span>SMS</span>
+            <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-3 col-xs-offset-8"><button class="btn btn-default" type="button">회원탈퇴</button></div>
+        </div>
+
+        
+      
+
+
     </div>
   </section>
   <!-- Javascript -->
