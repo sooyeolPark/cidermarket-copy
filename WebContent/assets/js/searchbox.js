@@ -1,5 +1,5 @@
 $(function() {
-  $("#btnSearch").click(function(e) { 
+  $("#btnSearch, #searchClose").click(function(e) { 
     e.preventDefault();
     $("#searchBox").slideToggle(100); 
   });

@@ -125,43 +125,13 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/asidebar.jquery.js"></script>
         <script src="assets/js/searchbox.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                $("header").load("header.html");
-                $("footer").load("footer.html");
-
-                /* 상품필터 */
-                $(".btn-tag").click(function() {
-                    $(this).toggleClass('active');
-                });
-
-                /* 상품리스트형 */
-                $(".btn-list").click(function() {
-                    $(".btn-list").not(this).removeClass('active');
-                    $(this).toggleClass('active');
-                    
-                    if($("#sortList").hasClass("active")) {
-                        $(".item-list").removeClass("col-xs-6 col-sm-4 col-md-3");
-                        $(".item-list").addClass("col-xs-12 col-sm-6 col-md-6");
-                        $(".sorting").removeClass("thumbnail");
-                        $(".sorting").addClass("itemList");
-                    } else if ($("#sortThumb").hasClass("active")) {
-                        $(".item-list").removeClass("col-xs-12 col-sm-6 col-md-6");
-                        $(".item-list").addClass("col-xs-6 col-sm-4 col-md-3");
-                        $(".sorting").removeClass("itemList");
-                        $(".sorting").addClass("thumbnail");
-                    };
-                });
-            });
-        </script>
         <!-- ajax-helper -->
 	    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
 	    <script src="plugins/ajax/ajax_helper.js"></script>
 	    <!-- handlebar plugin -->
 	    <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
-        <!-- 사용자 정의 스크립트 -->
-		<script type="text/javascript">
-			/** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+        <script type="text/javascript">
+            /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
 			function get_list() {
 				$.get("plugins/ajax/item.json", function(req) {
 					// 미리 준비한 HTML틀을 읽어온다.
@@ -185,14 +155,29 @@
                     $(".sorting").addClass("thumbnail");
                 };
             }
+            $(function() {
+                $("header").load("header.html");
+                $("footer").load("footer.html");
+                get_list();		// 페이지가 열림과 동시에 호출된다.
+                
+                /* 상품필터 */
+                $(".btn-tag").click(function() {
+                    $(this).toggleClass('active');
+                });
 
-			$(function() {
-				get_list();		// 페이지가 열림과 동시에 호출된다.
+                /* 상품리스트형 */
+                $(".btn-list").click(function() {
+                    $(".btn-list").not(this).removeClass('active');
+                    $(this).toggleClass('active');
+                    get_sort();
+                });
+                
+                /* 상품 더보기 */
 				$("#more").click(function(e) {
                     get_list();
                     setTimeout(get_sort, 10);  // 0.01초 뒤 실행
                 });
-			});
+            });
 		</script>
     </body>
 </html>

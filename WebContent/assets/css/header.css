@@ -75,6 +75,40 @@ body {
 .btnSearch-s i {
   color: #018e40;
 }
+.interest,
+.latest {
+  margin: 10px 0;
+  min-height: 326px;
+  border-left: 1px solid #eee;
+}
+.latest {
+  border-right: 1px solid #eee;
+}
+.interest ul,
+.latest ul {
+  padding: 10px 0 0;
+  font-size: 16px;
+}
+#searchBox div ul li {
+  list-style: none;
+  line-height: 1.8em;
+}
+.interest li span:first-child {
+  color: #ff8e18;
+  font-size: 12px;
+  display: inline-block;
+  width: 14px;
+}
+#searchBox #searchClose {
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  background-color: #eee;
+  margin-top: 0;
+  cursor: pointer;
+}
+
 /* button rounded */
 .btn-primary,
 .btn-warning,
@@ -106,6 +140,11 @@ a:focus {
 h2,
 h3 {
   font-weight: bold;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
 }
 .pagination {
   width: 100%;

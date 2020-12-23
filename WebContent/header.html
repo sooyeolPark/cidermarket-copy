@@ -17,7 +17,16 @@
 	</div>
 	<div id="searchBox" class="container">
 	  <input type="text" class="form-control" placeholder="키워드를 입력해 주세요.">
-	  <button class="btn btnSearch-s" type="button"><i class="glyphicon glyphicon-search"></i></button>
+		<button class="btn btnSearch-s" type="button"><i class="glyphicon glyphicon-search"></i></button>
+		<div class="interest col-xs-6">
+			<h5 class="label label-warning">인기 키워드</h5>
+			<ul id="i-key"></ul>
+		</div>
+		<div class="latest col-xs-6">
+			<h5 class="label label-default">최근 검색</h5>
+			<ul id="l-key"></ul>
+		</div>
+		<div id="searchClose" class="col-xs-12 text-center">닫기</div>
 	</div>
 </div>
 <!-- 사이드바 시작 -->
@@ -78,14 +87,44 @@
   </div>
 </div>
 <div class="aside-backdrop"></div>
+
+
+<!-- template -->
+<script id="key_tmpl" type="text/x-handlebars-template">
+	{{#each i-key}}
+	<li><a href="{{khref}}"><span>{{knum}}</span> <span>{{ktitle}}</span></a></li>
+	{{/each}}
+</script>
+
 <!-- // 사이드바 시작 -->
 <script src="assets/js/searchbox.js"></script>
 <script src="assets/js/headerScroll.js"></script>
+<!-- ajax-helper -->
+<link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+<script src="plugins/ajax/ajax_helper.js"></script>
+<!-- handlebar plugin -->
+<script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+<!-- 사용자 정의 스크립트 -->
 <script type="text/javascript">
+	/** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+	function get_key_list() {
+		$.get("plugins/ajax/interest_keyword.json", function(req) {
+			// 미리 준비한 HTML틀을 읽어온다.
+			var template = Handlebars.compile($("#key_tmpl").html());
+			// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+			var html = template(req);
+			// #dept_list_body 읽어온 내용을 추가한다.
+			$("#i-key").append(html);
+		});
+	}
+
 	$(function(){
+		get_key_list();
+
 		$('.templogin, .logout').click(function(){
 			$('.btnn-login, .btnn-logout').toggleClass('view-none');
 			$('.btnn-logout').toggleClass('view-block');
 		});
 	});
+
 </script>

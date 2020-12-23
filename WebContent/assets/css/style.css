@@ -122,6 +122,7 @@
 }
 .item-row {
   position: relative;
+  margin: 0 5px;
 }
 .item-row .btn-group .glyphicon {
   color: #555;
@@ -132,7 +133,7 @@
 }
 .item-row .btn-group {
   position: absolute;
-  right: 0;
+  right: 1px;
 }
 
 /* 상품 리스트형 보기 */
@@ -153,11 +154,6 @@
 }
 
 /* 거래내역 */
-ul,
-ol {
-  list-style: none;
-  padding: 0;
-}
 .tab {
   width: 100%;
   margin: 20px auto;
@@ -381,6 +377,10 @@ ol {
 .reviewStar {
   margin: 15px 0;
   cursor: pointer;
+}
+.review_img img {
+  width: 100%;
+  margin-bottom: 10px;
 }
 .item-img {
   padding: 0.3em;
