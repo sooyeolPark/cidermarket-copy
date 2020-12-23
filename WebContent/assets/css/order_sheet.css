@@ -1,12 +1,16 @@
 body {
   padding-bottom: 0;
 }
+.form-horizontal .form-group {
+  margin-right: -10px;
+  margin-left: -10px;
+}
 #anou {
   width: 100%;
   text-align: center;
   font-weight: 600;
   background-color: #fef4eb;
-  padding: 15px 0;
+  padding: 15px;
 }
 
 #order {
@@ -24,7 +28,7 @@ body {
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
   margin-bottom: 20px;
-  margin-top: 70px;
+  margin-top: 40px;
 }
 
 #order_cont > .order_name {
@@ -33,7 +37,6 @@ body {
 
 .media-body {
   padding-left: 0.5em;
-  padding-right: 8em;
 }
 
 #item_name {
@@ -60,7 +63,7 @@ body {
 #how_pay label {
   font-size: 1.4em;
   font-weight: bold;
-  margin-right: 4em;
+  margin-right: 1em;
 }
 
 #how_pay input {
@@ -70,7 +73,7 @@ body {
 #how_pay_anou {
   width: 100%;
   background-color: #f0f0f0;
-  padding: 1em 3em 1.5em 3em;
+  padding: 1.5em;
   border-radius: 5px;
 }
 
@@ -111,6 +114,7 @@ table {
 }
 #final_price .price_cont {
   font-weight: bold;
+  font-weight: 1.2em;
 }
 #final_price .price_won {
   font-size: 2em;
@@ -136,7 +140,7 @@ table {
   top: 0;
   height: 100%;
   width: 100%;
-  background: #fff;
+  background: #000;
   opacity: 0.6;
   display: none;
   z-index: 9999999;
@@ -158,6 +162,28 @@ table {
 
 #refund_policy,
 #pay_warning {
-  background-color: #7ac297;
+  background-color: #fff;
   overflow: scroll;
+}
+/* 주소창 css */
+#ipostcode {
+  width: 49%;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+#find_pc {
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+#iroadAddress,
+#iextraAddress {
+  width: 49%;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+#ijibunAddress,
+#idetailAddress {
+  width: 49%;
+  display: inline-block;
+  margin-bottom: 0.5em;
 }

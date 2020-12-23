@@ -39,9 +39,6 @@
 <body>
     <!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
     <div class='gray_layer' id='background'></div>
-    <div class='over_layer' id='front'>
-        <div>주소찾기 구현하기</div>
-    </div>
     <div class='over_layer' id='pay_warning'>
     </div>
     <!-- nav 시작 -->
@@ -75,28 +72,10 @@
                 <div class="order_name">배송지</div>
                 <form class="form-horizontal" role="form">
                     <fieldset>
-                        <!-- 입력양식 -->
+                       <!-- 입력양식 -->
                         <div class="form-group">
-                            <label for="select_adr" class="col-xs-2 control-label">배송지선택</label>
-                            <div class="col-xs-8">
-                                <select class="form-control" id="select_adr">
-                                    <option selected>배송지를 선택해 주세요</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                            <button type="reset" class="btn btn-danger col-xs-2">새 주소 등록</button>
-                        </div>
-
-
-                        <!--// 입력양식 -->
-
-                        <!-- 입력양식 -->
-                        <div class="form-group">
-                            <label for="user_name" class="col-xs-2 control-label">이름</label>
-                            <div class="col-xs-10">
+                            <label for="user_name" class="col-sm-2 control-label">이름</label>
+                            <div class="col-sm-10">
                                 <input type="text" class="form-control" id="user_name" placeholder="이름 입력">
                             </div>
                         </div>
@@ -104,8 +83,8 @@
 
                         <!-- 입력양식 -->
                         <div class="form-group">
-                            <label for="user_tel" class="col-xs-2 control-label">연락처</label>
-                            <div class="col-xs-10">
+                            <label for="user_tel" class="col-sm-2 control-label">연락처</label>
+                            <div class="col-sm-10">
                                 <input type="tel" class="form-control" id="user_tel" placeholder="숫자만 입력">
                             </div>
                         </div>
@@ -113,25 +92,15 @@
 
                         <!-- 입력양식 -->
                         <div class="form-group">
-                            <label for="user_adr1" class="col-xs-2 control-label">내용</label>
-                            <div class="col-xs-4">
-                                <input type="tel" class="form-control" id="user_adr1" placeholder="우편번호 입력" disabled>
-                            </div>
-                            <div class="col-xs-2">
-                                <button type="button" class="btn btn-info" id="find_adr">주소 찾기</button>
-                            </div>
-                            <div class="col-xs-4">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_adr2" class="col-xs-2 control-label"></label>
-                            <div class="col-xs-4">
-                                <input type="tel" class="form-control" id="user_adr2" placeholder="기본주소 입력" disabled>
-                            </div>
-                            <div class="col-xs-6">
-                                <input type="tel" class="form-control" id="user_adr3" placeholder="상세주소 입력">
-                            </div>
+                            <label for="user_adr1" class="col-sm-2 control-label">주소</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="ipostcode" disabled placeholder="우편번호">
+                            <button type="button" class="btn btn-info" id="find_pc" onclick="iexecDaumPostcode()">우편번호 찾기</button><br>
+                            <input type="text" class="form-control" id="iroadAddress" disabled placeholder="도로명주소">
+                            <input type="text" class="form-control" id="ijibunAddress" disabled placeholder="지번주소">
+                            <input type="text" class="form-control" id="iextraAddress" disabled placeholder="참고항목">
+                            <input type="text" class="form-control" id="idetailAddress" placeholder="상세주소">
+                        </div>    
                         </div>
                         <!--// 입력양식 -->
                     </fieldset>
@@ -211,7 +180,47 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/asidebar.jquery.js"></script>
     <script src="assets/js/searchbox.js"></script>
+    <!-- 주소 찾기 참조 -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript">
+        function iexecDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('ipostcode').value = data.zonecode;
+                document.getElementById("iroadAddress").value = roadAddr;
+                document.getElementById("ijibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("iextraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("iextraAddress").value = '';
+                }
+            }
+        }).open();
+    }
         $(function () {
             $("header").load("header.html");
             $("footer").load("footer.html");
@@ -223,13 +232,6 @@
                 } else {
                     $("#allow").prop("disabled", true);
                 }
-            });
-            /** modal 링크를 클릭한 경우 */
-            $("#find_adr").click(function (e) {
-                e.preventDefault();             // 페이지 이동 방지
-                $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
-                $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
-
             });
             $("#clk_pay_warning").click(function (e) {
                 e.preventDefault();             // 페이지 이동 방지

@@ -6,9 +6,11 @@ body {
   text-align: center;
   font-weight: 600;
   background-color: #fef4eb;
-  padding: 15px 0;
+  padding: 15px;
 }
-
+.row {
+  margin-bottom: 15px;
+}
 #order {
   padding: 15px 0;
   width: 100%;
@@ -33,7 +35,6 @@ body {
 
 .media-body {
   padding-left: 0.5em;
-  padding-right: 8em;
 }
 
 #item_name {

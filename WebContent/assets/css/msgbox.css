@@ -42,7 +42,7 @@ ul#msg_tabs .active a {
 #msgbox_index {
   margin-top: 15px;
 }
-#msgbox_table {
+table#msgbox_table {
   width: 100%;
 }
 
@@ -51,7 +51,6 @@ ul#msg_tabs .active a {
 }
 .msgbox_num {
   width: 5%;
-  margin-right: 1em;
   text-align: left;
   padding: 1em 0;
 }
@@ -61,17 +60,15 @@ ul#msg_tabs .active a {
   padding: 1em;
 }
 .user_id {
+  display: inline-block;
   color: #31a05f;
   vertical-align: text-top;
 }
 
 .msg_cont {
-  color: #ff8e19;
-  max-width: 40%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   vertical-align: text-top;
+  display: inline-block;
+  color: #ff8e19;
 }
 
 .msg_date {
@@ -135,9 +132,8 @@ ul#msg_tabs .active a {
 .over_layer {
   /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
   width: 75%;
-  height: 50%;
   position: fixed;
-  top: 25%;
+  top: 15%;
   left: 12%;
   display: none;
   z-index: 9999999;
@@ -149,8 +145,8 @@ ul#msg_tabs .active a {
   font-weight: bold;
   font-size: 2em;
   border-bottom: 1px solid #ccc;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   margin-top: 0px;
 }
 #modal_content .input-group {
@@ -176,6 +172,6 @@ textarea {
 }
 
 .modal_btn button {
-  width: 25%;
-  margin: 0 2em;
+  width: 30%;
+  margin: 0 0.2em;
 }

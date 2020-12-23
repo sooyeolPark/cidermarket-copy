@@ -336,9 +336,8 @@ div.media {
 /** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
 .over_layer {
   width: 75%;
-  height: 50%;
   position: fixed;
-  top: 25%;
+  top: 15%;
   left: 12%;
   display: none;
   z-index: 9999999;
@@ -351,8 +350,8 @@ div.media {
   font-weight: bold;
   font-size: 2em;
   border-bottom: 1px solid #ccc;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   margin-top: 0px;
 }
 .modal_content .input-group {
@@ -378,8 +377,8 @@ textarea {
 }
 
 .modal_btn button {
-  width: 25%;
-  margin: 0 2em;
+  width: 30%;
+  margin: 0 0.2em;
 }
 
 #singo_name {
