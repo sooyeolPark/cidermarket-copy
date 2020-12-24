@@ -112,8 +112,8 @@
   font-weight: 700;
 }
 .write-rule {
-  font-size: 0.9em;
-  color: #707070;
+  font-size: 0.8em;
+  color: #aeaeae;
 }
 
 .intro {
@@ -124,4 +124,20 @@
 }
 .bottom {
   vertical-align: bottom;
+}
+.hide-id {
+  display: none;
+}
+
+#show1,
+#show2,
+#show3,
+#show4,
+#show5,
+#show6,
+#show7,
+#show8,
+#show9,
+#show10 {
+  margin-top: 2px;
 }
