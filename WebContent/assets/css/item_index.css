@@ -69,7 +69,13 @@ ul {
   font-weight: bold;
   letter-spacing: -0.8px;
 }
-
+.thumbnail img {
+  border: 1px solid #eee;
+}
+.item-list a:hover img {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  transition: ease 0.3s;
+}
 .item_title {
   padding: 3em 1em;
   box-shadow: 0 -5px 20px gray;
