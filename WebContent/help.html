@@ -245,17 +245,17 @@
                     $(".tab-panel > div").not($(target)).addClass('hide');
                 });
 
-								/** sorting */
+								/** 자주묻는질문 하위탭 분류 */
                 $(".recordSort > .btn").click(function(e) {
 										e.preventDefault();
-										$("#accordion").empty();
-										var faq = '';
+										$("#accordion").empty();   // 불러오기 전 기존 데이터 비우기
+										var tab = $(this).data("faq");  // 탭 버튼별 데이터-속성값 가져오기.(함수명으로 사용)
                     if ($(this).hasClass("btn-info")) {
                         $(this).addClass("btn-primary").removeClass("btn-info");
 												$(".recordSort > .btn").not(this).removeClass("btn-primary").addClass("btn-info");
-												window[$(this).data("faq")]();
+												window[tab]();  // 클릭된 데이터-속성값과 동일한 이름의 함수 호출
 										} else {
-											window[$(this).data("faq")]();
+											window[tab]();
 										}
 								});
 
