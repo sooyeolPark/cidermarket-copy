@@ -273,7 +273,7 @@ th {
 }
 .content_body {
   padding: 30px;
-  min-height: 300px;
+  min-height: 200px;
   border: 1px solid #aeaeae;
   border-radius: 5px;
   font-size: 1.1em;
@@ -289,7 +289,7 @@ th {
 }
 
 .reply_info {
-  font-size: 1.1em;
+  font-size: 0.8em;
   white-space: normal;
   margin: 0 0 1px 0;
   text-align: left;

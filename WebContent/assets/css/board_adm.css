@@ -291,6 +291,7 @@ th {
 }
 
 /* ---------------로고수정------ */
-.btn-primary {
-  margin-left: 80px;
+.btn-primary,
+.btn-warning {
+  margin-left: 5px;
 }

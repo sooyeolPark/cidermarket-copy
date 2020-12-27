@@ -15,6 +15,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="assets/css/board_adm.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+    <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -30,59 +31,59 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
-<header>
-    <div class="container">
-        <div class="logo ">
-    
-            <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
-            <button class="btn btn-default log_out" type="submit">로그아웃</button>
-            <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
-    
-        </div>
-        </div>
-    <div class="navbar navbar-default" role="navigation">
+    <header>
         <div class="container">
-
-            <div class="collapse navbar-collapse">
-                <ul id="nav_bar_menu" class="nav navbar-nav">
-
-                    <li class="nav_menu">
-                        <a href="home_adm.html">Home</a>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="order_adm.html">주문관리</a>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="board_adm.html">공지사항</a></li>
-                            <li><a href="event_adm.html">이벤트게시판</a></li>
-                            <li><a href="question_adm.html">일반문의</a></li>
-                            <li><a href="faq_adm.html">자주묻는질문</a></li>
-                            <li><a href="policy_adm.html">운영정책</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="member_adm.html">회원관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="member_adm.html">회원정보조회</a></li>
-                            <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="product_adm.html">상품관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="product_adm.html">상품목록</a></li>
-                            <li><a href="category_adm.html">상품분류</a></li>
-                            <li><a href="display_adm.html">상품진열</a></li>
-                            <li><a href="singo_adm.html">신고상품</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.nav-collapse -->
-        </div><!-- /.container -->
-    </div><!-- /.navbar -->
-</header>
+            <div class="logo ">
+        
+                <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
+                <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
+                <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
+        
+            </div>
+            </div>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+    
+                <div class="collapse navbar-collapse">
+                    <ul id="nav_bar_menu" class="nav navbar-nav">
+    
+                        <li class="nav_menu">
+                            <a href="home_adm.html">Home</a>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="order_adm.html">주문관리</a>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="board_adm.html">공지사항</a></li>
+                                <li><a href="event_adm.html">이벤트게시판</a></li>
+                                <li><a href="question_adm.html">일반문의</a></li>
+                                <li><a href="faq_adm.html">자주묻는질문</a></li>
+                                <li><a href="policy_adm.html">운영정책</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="member_adm.html">회원관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="member_adm.html">회원정보조회</a></li>
+                                <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_menu">
+                            <a class="nav_menu_a" href="product_adm.html">상품관리</a>
+                            <ul class="sub-menu">
+                                <li><a href="product_adm.html">상품목록</a></li>
+                                <li><a href="category_adm.html">상품분류</a></li>
+                                <li><a href="display_adm.html">상품진열</a></li>
+                                <li><a href="singo_adm.html">신고상품</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div><!-- /.container -->
+        </div><!-- /.navbar -->
+    </header>
 
 
     <div class="container">
@@ -113,7 +114,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox" id="all-check"></th>
                             <th class="text-center">번호</th>
                             <th class="text-center">제목</th>
                             <th class="text-center">작성자</th>
@@ -123,67 +124,67 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
                             <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">299</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.2</a></td>
                             <td class="text-center">이동훈</td>
                             <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">399</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.3</a></td>
                             <td class="text-center">이동훈</td>
                             <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">499</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
                             <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">699</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">2020.12.22</td>
+                            <td class="text-center">599</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">2020.12.23</td>
+                            <td class="text-center">799</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">999</td>
+                            <td class="text-center">2020.12.24</td>
+                            <td class="text-center">899</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="board"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">나를 지금 원해? eh 김이모 김이모 김이모 김이모 baby baby</a></td>
+                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
                             <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
+                            <td class="text-center">2020.12.25</td>
                             <td class="text-center">999</td>
                         </tr>
 
@@ -197,6 +198,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </div>
                     <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
                     <a class="btn btn-primary"  id = "write-btn" href="notice_write_adm.html" role="button">글쓰기</a>
+                    <button id="delete"class="btn btn-warning"  role="button">삭제</button>
+                    
                 </div>
                 
                 <ul class="pagination">
@@ -234,13 +237,68 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!--/.container-->
     <!-- Javascript -->
 
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/asidebar.jquery.js"></script>
+    <script src="assets/js/searchbox.js"></script>
+    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- ajax-helper -->
+    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+    <script src="plugins/ajax/ajax_helper.js"></script>
+    <script src="plugins/validate/jquery.validate.min.js"></script>
+    <script src="plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".board_left").load("board_adm_left.html");
 
+
+
+            // 추가기능------------------------------------------------------------
+         //필터 
+
+
+        // 로그아웃
+            $("#log-out").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 로그아웃 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
         });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+      $("#delete").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 삭제 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
+        });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+
+    //   전체선택
+      $("#all-check").change(function(){
+          $(".board").prop('checked',$(this).prop('checked'));
+      });
+
+    });
 
     </script>
 

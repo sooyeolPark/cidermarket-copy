@@ -66,6 +66,18 @@ th {
   margin: 0;
   padding: 10px;
 }
+
 .btn-warning {
+  margin-top: 4px;
+  height: 30%;
+  width: 80%;
+  font-size: 1em;
   background-color: orangered;
+}
+
+.text-center {
+  vertical-align: middle !important;
+}
+.table > tbody > tr > td:nth-child(10) {
+  padding: 2px;
 }

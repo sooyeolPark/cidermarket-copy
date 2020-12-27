@@ -15,6 +15,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="assets/css/event_adm.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+    <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -34,8 +35,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <div class="container">
         <div class="logo ">
     
-            <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
-            <button class="btn btn-default log_out" type="submit">로그아웃</button>
+            <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
+            <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
             <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
     
         </div>
@@ -113,7 +114,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input id="all-check" type="checkbox"></th>
                             <th class="text-center">번호</th>
                             <th class="text-center">제목</th>
                             <th class="text-center">작성자</th>
@@ -123,7 +124,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -131,7 +132,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center">999</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -139,7 +140,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center">999</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -147,7 +148,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center">999</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -155,7 +156,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center">999</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -163,7 +164,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center">999</td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input class="board"type="checkbox"></td>
                             <td class="text-center">1</td>
                             <td class="text-center"><a href="notice_read_adm.html">사이다 마켓 택배 오픈! 지역/크기 상관없이 2,000원!</a></td>
                             <td class="text-center">이동훈</td>
@@ -182,6 +183,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </div>
                     <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
                     <a class="btn btn-primary" href="notice_write_adm.html" role="button">글쓰기</a>
+                    <button id="delete"class="btn btn-warning"  role="button">삭제</button>
                 </div>
                 <ul class="pagination">
                     <li class="disabled"><a href="#">&laquo;</a></li>
@@ -217,14 +219,68 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
     <!--/.container-->
     <!-- Javascript -->
-
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/asidebar.jquery.js"></script>
+    <script src="assets/js/searchbox.js"></script>
+    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- ajax-helper -->
+    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+    <script src="plugins/ajax/ajax_helper.js"></script>
+    <script src="plugins/validate/jquery.validate.min.js"></script>
+    <script src="plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".board_left").load("board_adm_left.html");
 
+
+
+            // 추가기능------------------------------------------------------------
+         //필터 
+            
+
+        // 로그아웃
+            $("#log-out").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 로그아웃 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
         });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+      $("#delete").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 삭제 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
+        });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+
+    //   전체선택
+      $("#all-check").change(function(){
+          $(".board").prop('checked',$(this).prop('checked'));
+      });
+
+    });
 
     </script>
 
