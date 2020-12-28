@@ -14,6 +14,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="assets/css/notice_write_adm.css" />
+    <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
+  
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -33,7 +35,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <div class="container">
         <div class="logo ">
     
-            <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
+            <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
             <button class="btn btn-default log_out" type="submit">로그아웃</button>
             <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
     
@@ -160,8 +162,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         </div>
                         <form class="form-inline">
                             <div class="regi_cancel">
-                            <button type="submit" class="btn btn-primary">등록</button>
-                            <button type="submit" class="btn btn-default">취소</button>
+                            <button id="regi" type="button" class="btn btn-primary">등록</button>
+                            <button id="cancel" type="button" class="btn btn-default">취소</button>
                          </form>
                         <!--// 입력양식 -->
                         
@@ -210,14 +212,57 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
     <!--/.container-->
     <!-- Javascript -->
-
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/asidebar.jquery.js"></script>
+    <script src="assets/js/searchbox.js"></script>
+    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- ajax-helper -->
+    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+    <script src="plugins/ajax/ajax_helper.js"></script>
+    <script src="plugins/validate/jquery.validate.min.js"></script>
+    <script src="plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".board_left").load("board_adm_left.html");
 
+            $("#regi").click(function () {
+        swal({ 
+          title: '등록',
+          text: "글을 등록 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
         });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+
+      $("#cancel").click(function () {
+        swal({ 
+          title: '취소',
+          text: "글작성을 취소 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
+        });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+
+    });
 
     </script>
 

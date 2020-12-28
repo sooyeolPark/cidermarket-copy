@@ -107,6 +107,12 @@
   margin: 0 auto;
 }
 
+.col-sm-2 {
+  margin-bottom: 4px;
+}
+.col-xs-9 {
+}
+
 .col-sm-2 > span {
   font-size: 1em;
   font-weight: 700;
@@ -140,4 +146,82 @@
 #show9,
 #show10 {
   margin-top: 2px;
+}
+
+margin-bt {
+  margin-bottom: 2px;
+}
+.margin-top {
+  margin-top: 2px;
+}
+
+.email {
+  margin-right: 100px;
+}
+
+.out-btn {
+  margin-left: 15px;
+}
+
+.last-div {
+  margin-bottom: 30px;
+}
+#address {
+  width: 70%;
+}
+#store-id {
+  width: 34%;
+  display: inline;
+}
+
+/* 이미지 업로드 */
+.media > span {
+  position: relative;
+}
+
+.item-img {
+  padding: 0.3em;
+  position: relative;
+}
+
+.item-img:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.image_plus {
+  position: absolute;
+  display: block;
+  width: 5%;
+  height: 20%;
+  background-image: url("../../img/camera3.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-indent: -999999px;
+  z-index: 1000;
+  top: 75%;
+  left: 55%;
+}
+
+#first_img {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  z-index: 3;
+  padding: 0 0.7em;
+  border-radius: 1em;
+  margin: 0.4em;
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.remove_img {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  font-weight: bold;
+  right: 10%;
+  top: 3%;
 }

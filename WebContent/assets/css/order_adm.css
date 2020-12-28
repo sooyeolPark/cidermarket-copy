@@ -26,11 +26,6 @@ ul {
   text-align: center;
 }
 
-.logo {
-  position: relative;
-  height: 150px;
-}
-
 #nav_bar_menu {
   width: 100%;
 }
@@ -112,19 +107,9 @@ address {
   margin-top: 20px;
 }
 
-.footer > a {
-  position: relative;
-}
 .btn-sm {
   position: absolute;
   left: 200px;
-}
-.footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0px;
-  background-color: #f0f0f0;
-  z-index: 100;
 }
 
 .pagination {
@@ -187,41 +172,41 @@ td {
   border-radius: 10px;
 }
 /* ----------------------------------------------------- */
-.logo_img_a {
-  display: block;
-  width: 150px;
-  height: 100px;
-  position: absolute;
-  left: 80px;
-  top: 20px;
-}
-.log_out {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-}
-
-.logo > a > img {
-  width: 100%;
-  height: auto;
-}
-
-.logo_right {
-  display: inline-block;
-  font-size: 0.9em;
-}
-.nav_top_a {
-  display: inline-block;
-  margin-top: 66px;
-  font-size: 1.2em;
-  margin-left: 953px;
-  border: #aeaeae 1px solid;
-  border-radius: 5px;
-  padding: 4px;
-}
-.logo {
-  position: relative;
-  height: 100px;
-}
 
 /* ---------------로고수정------ */
+.table > thead > tr > th:nth-child(1) {
+  width: 2%;
+  text-align: left;
+}
+
+.table > thead > tr > th:nth-child(2) {
+  width: 5%;
+}
+
+.table > thead > tr > th:nth-child(3) {
+  width: 25%;
+}
+.table > thead > tr > th:nth-child(4) {
+  width: 10%;
+}
+.table > thead > tr > th:nth-child(5) {
+  width: 10%;
+}
+.table > thead > tr > th:nth-child(6) {
+  width: 10%;
+}
+
+.table > tbody > tr > td:nth-child(10) {
+  padding: 2px;
+}
+
+.btn-danger {
+  margin-top: 4px;
+  height: 30%;
+  width: 80%;
+  font-size: 1em;
+}
+
+.text-center {
+  vertical-align: middle !important;
+}

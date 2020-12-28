@@ -32,6 +32,12 @@
   margin-top: 5px;
   width: 100%;
 }
+.item-list > a:hover,
+.item-list > a:hover .caption {
+  text-decoration: none;
+  color: #31a05f;
+  transition: 0.3s;
+}
 .thumbnail {
   border: 0;
   padding: 5px;
@@ -66,4 +72,17 @@
 .itemReg button {
   margin: 15px auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  animation: fadeIn 0.5s linear;
 }

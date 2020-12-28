@@ -34,8 +34,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <div class="container">
             <div class="logo ">
 
-                <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
-                <button class="btn btn-default log_out" type="submit">로그아웃</button>
+                <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
+                <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
                 <a class="nav_top_a" href="index.html">User_Page <span
                         class="logo_right glyphicon glyphicon-user"></span></a>
 
@@ -197,8 +197,16 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!--/.container-->
     <!-- Javascript -->
 
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/asidebar.jquery.js"></script>
+    <script src="assets/js/searchbox.js"></script>
+    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- ajax-helper -->
+    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+    <script src="plugins/ajax/ajax_helper.js"></script>
+    <script src="plugins/validate/jquery.validate.min.js"></script>
+    <script src="plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript">
         $(function () {
             // 등록 이미지 등록 미리보기
@@ -217,7 +225,27 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 readInputFile(this);
             });
 
+        $("#log-out").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 로그아웃 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
         });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
+    
+
+
+    });
     </script>
 
 </body>

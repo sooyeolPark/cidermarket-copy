@@ -184,5 +184,7 @@ address {
   position: relative;
   height: 100px;
 }
-
+h5 {
+  display: inline;
+}
 /* ---------------로고수정------ */
