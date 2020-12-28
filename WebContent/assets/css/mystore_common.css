@@ -5,6 +5,14 @@ body {
 #user_profile {
   margin-top: 20px;
 }
+ul#user_profile a {
+  position: relative;
+}
+#user_grade {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+}
 #user_id {
   color: #31a05f;
   font-size: 1.5em;
