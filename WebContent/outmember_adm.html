@@ -35,7 +35,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     
             <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
             <button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
-            <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
+            <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
     
         </div>
         </div>
@@ -149,7 +149,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">관리자</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -166,7 +166,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -183,7 +183,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -200,7 +200,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -217,7 +217,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -234,7 +234,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -251,7 +251,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -268,7 +268,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -285,7 +285,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <td class="text-center" id="no_vertical">2020-12-25</td>
                             <td class="text-center" id="no_vertical">개인탈퇴</td>
                             <td class="text-center">
-                                <button type="submit" class="btn btn-primary">복구</button>
+                                <button type="submit" class="btn btn-primary rollback">복구</button>
                             </td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-danger">삭제</button>
@@ -398,7 +398,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         // });
       });
 
-      $(".btn-primary").click(function () {
+      $(".rollback").click(function () {
         swal({ 
           title: '확인',
           text: "정말 복구 시키시겠습니까?" ,

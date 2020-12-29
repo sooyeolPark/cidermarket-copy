@@ -36,7 +36,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         
                 <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
                 <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
-                <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
+                <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
         
             </div>
             </div>
@@ -115,6 +115,12 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         </ul>
     </div>
 </div>
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+
+    </p>
+</figure>
 
 
 
@@ -146,6 +152,11 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <script src="plugins/ajax/ajax_helper.js"></script>
     <script src="plugins/validate/jquery.validate.min.js"></script>
     <script src="plugins/validate/additional-methods.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".board_left").load("board_adm_left.html");
@@ -199,34 +210,17 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
     //   오늘날짜 대입
     
-    todayIs();
 
-    function todayIs() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; // Jan is 0
-        var yyyy = today.getFullYear();
- 
-        if(dd<10){
-            dd = '0'+dd
-        }
-        if(mm<10){
-            mm = '0'+mm
-        }
- 
-        today = yyyy + '-' + mm + '-' + dd;
-        //alert(today);
-        document.getElementById("today").innerHTML = today;
-        //$('#date').text(today);
-    } 
 
-    todayIs();
 
-function todayIs() {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; // Jan is 0
-    var yyyy = today.getFullYear();
+
+function todayTime() {
+    var todayTime = new Date();
+    var dd = todayTime.getDate();
+    var mm = todayTime.getMonth()+1; // Jan is 0
+    var yyyy = todayTime.getFullYear();
+    var hh =todayTime.getHours();
+    var mi =todayTime.getMinutes();
 
     if(dd<10){
         dd = '0'+dd
@@ -236,33 +230,78 @@ function todayIs() {
     }
 
     today = yyyy + '-' + mm + '-' + dd;
+    todayTime = "("+hh+"시"+mi+"분"+"기준"+")" ;
     //alert(today);
     document.getElementById("today").innerHTML = today;
+    document.getElementById("today-time").innerHTML = todayTime;
     //$('#date').text(today);
 } 
 
 todayTime();
 
-function todayTime() {
-    var todayTime = new Date();
-    var dd = todayTime.getDate();
-    var mm = todayTime.getMonth()+1; // Jan is 0
-    var yyyy = todayTime.getFullYear();
-    var hh =todayTime.getHours();
-    var mm =todayTime.getMinutes();
 
-    if(dd<10){
-        dd = '0'+dd
-    }
-    if(mm<10){
-        mm = '0'+mm
-    }
+// ---------------차트기능추가
+Highcharts.getJSON(
+    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
+    function (data) {
 
-    todayTime = "("+hh+"시"+mm+"분"+"기준"+")" ;
-    //alert(today);
-    document.getElementById("today-time").innerHTML = todayTime;
-    //$('#date').text(today);
-} 
+        Highcharts.chart('container', {
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    '' : 'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: '거래건수'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+                // 데이타삽입
+            series: [{
+                type: 'area',
+                name: 'USD to EUR',
+                data: data
+            }]
+        });
+    }
+);
 
     
 
