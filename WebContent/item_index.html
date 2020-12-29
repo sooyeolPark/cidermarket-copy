@@ -539,6 +539,13 @@
         $("#front").fadeOut(200);
       });
       $("#send_ok").click(function (e) {
+        var input = $("#send_input").val();
+      if (!input || input.trim() == "") {
+        alert("쪽지 내용을 작성해 주세요.");
+        $("#send_input").val('');
+        $("#send_input").focus();
+        return false;
+      }
         $("#send_input").val('');
         $("#background").fadeOut(300);
         $("#front").fadeOut(200);
