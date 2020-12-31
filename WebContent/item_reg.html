@@ -125,9 +125,9 @@
                             <div class="col-sm-5">
                                 <select class="form-control" id="item_categoty">
                                     <option selected>카테고리</option>
-                                    <option value="ctg01">핸드메이드</option>
-                                    <option value="ctg02">휴대폰/태블릿</option>
-                                    <option value="ctg03">가구</option>
+                                    <option>핸드메이드</option>
+                                    <option>휴대폰/태블릿</option>
+                                    <option>가구</option>
                                     <option>문구</option>
                                     <option>자동차용품</option>
                                     <option>유아용/완구</option>
@@ -149,11 +149,6 @@
                                     <option>음향기기/악기</option>
                                     <option>도서</option>
                                     <option>기타</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-5">
-                                <select class="form-control" id="item_categoty_1">
-                                    <option>카테고리</option>
                                 </select>
                             </div>
                         </div>
@@ -250,12 +245,6 @@
             </p>
         </div>
     </section>
-    <!-- Ajax로 읽어온 내용을 출력하는데 사용될 HTML 템플릿 -->
-    <script id="category_item_tmpl" type="text/x-handlebars-template">
-	{{#each item}}
-	<option value="{{value}}">{{text}}</option>
-	{{/each}}
-</script>
     <script id="tag_list_tmpl" type="text/x-handlebars-template">
 
 	<li>{{content}}<a class="remove_tag" href="#"><i class="glyphicon glyphicon-remove"></i></a></li>
@@ -328,26 +317,6 @@
                 }
 
             });
-            /** 드롭다운의 선택 변경 이벤트 */
-            $("#item_categoty").change(function () {
-                // 결과가 표시될 #child에 내용 지우기
-                $("#item_categoty_1").empty();
-                // 사용자 선택값 가져오기
-                var choice = $(this).find("option:selected").val();
-                // 선택값이 없다면 처리 중단
-                if (!choice) {
-                    return false;
-                }
-
-                $.get('api/category.do', { type: choice }, function (req) {
-                    // 미리 준비한 HTML틀을 읽어온다.
-                    var template = Handlebars.compile($("#category_item_tmpl").html());
-                    // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-                    var html = template(req);
-                    // #child 읽어온 내용을 추가한다.
-                    $("#item_categoty_1").append(html);
-                }); // end $.get
-            }); // end change
             $("#tag_input").keyup(function (e) {
                 // 특수문자 정규식 변수(공백 포함)
                 var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>\/.\`:\"\\,\[\]?|{}\s]/gi;

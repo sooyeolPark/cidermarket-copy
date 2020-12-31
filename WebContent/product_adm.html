@@ -261,11 +261,13 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 e.preventDefault();
                 var is_ok = confirm("선택하신 게시글을 삭제하시겠습니까?");
                 if (is_ok) {
-                    for(var i=0; i<$("tbody tr").length; i++){
-                    var chk = $("tbody tr:eq("+i+") input").prop('checked');   
-                    if(chk){
-                        $("tbody tr:eq("+i+") input").parents("tr").remove();
-                    }
+                    if($("input").is(":checked") == true){ //체크된 요소가 있으면               
+                        var i = $("input:checked").parents("tr");
+                       i.remove();
+                    
+                    }else {
+                    alert("삭제할 항목을 선택해주세요!")
+
                     }
                 }
             });
