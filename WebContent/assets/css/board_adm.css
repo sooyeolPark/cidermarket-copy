@@ -209,6 +209,7 @@ th {
   border-radius: 10px;
 }
 /* ----------------------------------------------------- */
+
 .table > thead > tr > th:nth-child(1) {
   width: 2%;
   text-align: left;

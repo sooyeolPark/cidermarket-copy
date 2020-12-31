@@ -214,7 +214,8 @@ address {
 .log_out {
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  bottom: 10px;
+  vertical-align: middle;
 }
 
 .logo > a > img {
@@ -228,7 +229,7 @@ address {
 }
 .nav_top_a {
   display: inline-block;
-  margin-top: 66px;
+  margin-top: 56px;
   font-size: 1.2em;
   margin-right: 85px;
   border: #aeaeae 1px solid;

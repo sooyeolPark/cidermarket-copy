@@ -36,8 +36,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <div class="logo ">
     
             <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
-            <button class="btn btn-default log_out" type="submit">로그아웃</button>
-            <a class="nav_top_a" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
+            <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
+            <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
     
         </div>
         </div>
@@ -213,6 +213,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   <script src="plugins/ajax/ajax_helper.js"></script>
   <!-- handlebar plugin -->
   <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+  <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
     Handlebars.registerHelper('plus', function(h) {
             return 1+h;
@@ -271,7 +272,20 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     }
                 }
             });
+
+            $("#log-out").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 로그아웃 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
         });
+      });
+            
+        });
+        
     </script>
 
 </body>
