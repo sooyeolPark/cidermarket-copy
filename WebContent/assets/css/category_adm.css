@@ -16,26 +16,18 @@ th {
   border-bottom: none;
 }
 
-.table > thead > tr > th:nth-child(1) {
-  width: 16%;
+td {
+  width: 20%;
+  display: block;
+  float: left;
+}
+thead {
+  width: 100%;
+}
+
+.table thead > th:nth-child(1) {
+  width: 20%;
   text-align: cetner;
-}
-
-.table > thead > tr > th:nth-child(2) {
-  width: 16%;
-}
-
-.table > thead > tr > th:nth-child(3) {
-  width: 16%;
-}
-.table > thead > tr > th:nth-child(4) {
-  width: 16%;
-}
-.table > thead > tr > th:nth-child(5) {
-  width: 16%;
-}
-.table > thead > tr > th:nth-child(6) {
-  width: 16%;
 }
 
 .table td:hover {
@@ -93,4 +85,8 @@ th {
 
 input[type="file"] {
   display: inline-block !important;
+}
+
+#inputbox {
+  width: 50%;
 }

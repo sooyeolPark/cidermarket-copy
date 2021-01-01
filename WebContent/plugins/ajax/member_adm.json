@@ -1,0 +1,126 @@
+{
+  "boardlist": [
+      {
+          "number": "1",
+          "id":"hoony",
+          "nickname": "후니허니",
+          "amount": "1,000,000",
+          "qty": "23",
+          "phone": "010-6547-9874",
+          "join-date": "2020-12-25",
+          "last-access":"2021-01-01",
+          "out" : "탈퇴"
+
+      },
+      {
+        "number": "2",
+        "id":"maxone",
+        "nickname": "맥스원",
+        "amount": "200,000",
+        "qty": "15",
+        "phone": "010-1234-4567",
+        "join-date": "2020-12-25",
+        "last-access":"2021-01-01",
+        "out" : "탈퇴"
+
+    },
+    {
+      "number": "3",
+      "id":"waterfire",
+      "nickname": "물수불열",
+      "amount": "10,000",
+      "qty": "2",
+      "phone": "010-7894-9874",
+      "join-date": "2020-12-25",
+      "last-access":"2021-01-01",
+      "out" : "탈퇴"
+
+  },
+  {
+    "number": "4",
+    "id":"harry",
+    "nickname": "해리",
+    "amount": "400,000",
+    "qty": "31",
+    "phone": "010-6547-9874",
+    "join-date": "2020-12-25",
+    "last-access":"2021-01-01",
+    "out" : "탈퇴"
+
+},
+{
+  "number": "5",
+  "id":"roony",
+  "nickname": "루니",
+  "amount": "700,000",
+  "qty": "7",
+  "phone": "010-9654-9123",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+},
+{
+  "number": "6",
+  "id":"hoony",
+  "nickname": "후니허니",
+  "amount": "1,000,000",
+  "qty": "23",
+  "phone": "010-6547-9874",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+},
+{
+  "number": "7",
+  "id":"doby",
+  "nickname": "더비",
+  "amount": "100,000",
+  "qty": "5",
+  "phone": "010-6542-8521",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+},
+{
+  "number": "8",
+  "id":"hoony",
+  "nickname": "후니허니",
+  "amount": "1,000,000",
+  "qty": "23",
+  "phone": "010-6547-9874",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+},
+{
+  "number": "9",
+  "id":"soojin",
+  "nickname": "수진",
+  "amount": "100,000",
+  "qty": "3",
+  "phone": "010-7412-8523",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+},
+{
+  "number": "10",
+  "id":"uejju",
+  "nickname": "의주찡",
+  "amount": "23,000",
+  "qty": "4",
+  "phone": "010-7613-9461",
+  "join-date": "2020-12-25",
+  "last-access":"2021-01-01",
+  "out" : "탈퇴"
+
+}
+
+
+  ]
+}

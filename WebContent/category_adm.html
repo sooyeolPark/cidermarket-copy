@@ -116,62 +116,52 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     <thead>
                         <tr>
                             <th class="text-center">대분류</th>
-                            <th class="text-center"></th>
-                            <th class="text-center"></th>
-                            <th class="text-center"></th>
-                            <th class="text-center"></th>
-                            <th class="text-center"></th>
+                     
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">핸드메이드</td>
-                            <td class="text-center">휴대폰/태블릿</td>
-                            <td class="text-center">가구</td>
-                            <td class="text-center">문구</td>
-                            <td class="text-center">자동차용품</td>
-                            <td class="text-center">유아용/완구</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">컴퓨터/주변기기</td>
-                            <td class="text-center">생활</td>
-                            <td class="text-center">스타굿즈</td>
-                            <td class="text-center">반려동물용품</td>
-                            <td class="text-center">뷰티</td>
-                            <td class="text-center">카메라</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">여성의류</td>
-                            <td class="text-center">디지털/가전</td>
-                            <td class="text-center">피규어/키덜트</td>
-                            <td class="text-center">스포츠/레저</td>
-                            <td class="text-center">남성의류</td>
-                            <td class="text-center">티켓</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">예술/미술</td>
-                            <td class="text-center">게임</td>
-                            <td class="text-center">신발/가방/잡화</td>
-                            <td class="text-center">음향기기/악기</td>
-                            <td class="text-center">도서</td>
-                            <td class="text-center">기타</td>
-                        </tr>
-                        <tr id="result"></tr>
+                        <tr id="cate_tr" class="clearfix" >
+                            <td class="text-center cate_td">핸드메이드</td>
+                            <td class="text-center cate_td">휴대폰/태블릿</td>
+                            <td class="text-center cate_td">가구</td>
+                            <td class="text-center cate_td">문구</td>
+                            <td class="text-center cate_td">자동차용품</td>
+                            <td class="text-center cate_td">유아용/완구</td>
+                            <td class="text-center cate_td">컴퓨터/주변기기</td>
+                            <td class="text-center cate_td">생활</td>
+                            <td class="text-center cate_td">스타굿즈</td>
+                            <td class="text-center cate_td">반려동물용품</td>
+                            <td class="text-center cate_td">뷰티</td>
+                            <td class="text-center cate_td">카메라</td>
+                            <td class="text-center cate_td">여성의류</td>
+                            <td class="text-center cate_td">디지털/가전</td>
+                            <td class="text-center cate_td">피규어/키덜트</td>
+                            <td class="text-center cate_td">스포츠/레저</td>
+                            <td class="text-center cate_td">남성의류</td>
+                            <td class="text-center cate_td">티켓</td>
+                            <td class="text-center cate_td">예술/미술</td>
+                            <td class="text-center cate_td">게임</td>
+                            <td class="text-center cate_td">신발/가방/잡화</td>
+                            <td class="text-center cate_td">음향기기/악기</td>
+                            <td class="text-center cate_td">도서</td>
+                            <td class="text-center cate_td">기타</td>
+                            
+                        </tr>    
 
 
                     </tbody>
                 </table>
                 
-                    <div class="item-img">
+                    <div id="inputbox"class="item-img">
                         <input type="file" id="image0" class="image_plus " accept="image/*"/>
                         <input type="text" class="form-control" id="revise">
                     </div>
                 
                 <form class="form-inline clearfix">
                     <div class="regi_cancel">
-                        <button id="delete1"type="submit" class="btn btn-danger">삭제</button>
-                        <button id="revise1"type="submit" class="btn btn-warning">수정</button>
-                        <button id="add1"type="submit" class="btn btn-primary">추가</button>
+                        <button id="delete1"type="button" class="btn btn-danger">삭제</button>
+                        <button id="revise1"type="button" class="btn btn-warning">수정</button>
+                        <button id="add1"type="button" class="btn btn-primary">추가</button>
                 </form>
 
             </div>
@@ -250,12 +240,22 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
       });
 
     //   추가,수정,삭제 ajax 기능 넣기 핸들바 아마
+    //추가
+    $("#add1").click(function(){
+        var td_new = $("<td>");
+            td_new.addClass("text-center cate_td");
 
+            //input에 글씨 써서 추가하기 
+            var input = $("#revise").val()
+            td_new.html(input);
 
-    
-
-
+    $("#cate_tr").append(td_new);
     });
+
+    $("#delete1").click(function(){
+    $("#td").remove(".cate_td");
+    });
+});
     </script>
 
 </body>

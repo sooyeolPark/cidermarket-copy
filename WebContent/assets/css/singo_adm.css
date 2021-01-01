@@ -225,10 +225,10 @@ th {
   width: 10%;
 }
 .table > thead > tr > th:nth-child(5) {
-  width: 15%;
+  width: 19%;
 }
 .table > thead > tr > th:nth-child(6) {
-  width: 10%;
+  width: 15%;
 }
 .table > tbody > tr > td:nth-child(3) {
   width: 40%;

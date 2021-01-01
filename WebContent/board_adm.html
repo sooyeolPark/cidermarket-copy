@@ -122,91 +122,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <th class="text-center">조회수</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">299</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.2</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">399</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.3</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">499</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.21</td>
-                            <td class="text-center">699</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.22</td>
-                            <td class="text-center">599</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.23</td>
-                            <td class="text-center">799</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.24</td>
-                            <td class="text-center">899</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.25</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.25</td>
-                            <td class="text-center">999</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" class="board"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center"><a href="notice_read_adm.html">신규가입 쿠폰안내입니다.</a></td>
-                            <td class="text-center">이동훈</td>
-                            <td class="text-center">2020.12.25</td>
-                            <td class="text-center">999</td>
-                        </tr>
+                    <tbody id="board_body">
                          <tbody id="result"></tbody>
-
-
-                        
                     </tbody>
                 </table>
                 <div class="input-group">
@@ -280,6 +197,18 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         </tr>
         {{/boardlist}}
     </script>
+        <script id="board_tmpl2" type/x-handlebars-template">
+            {{#boardlist}}
+            <tr>
+            <td><input type="checkbox" class="board "/></td>
+            <td class="text-center ">{{number}}</td>
+            <td class="text-center "><a href="{{url}}">{{title}}</a></td>
+            <td class="text-center ">{{writer}}</td>
+            <td class="text-center ">{{date}}</td>
+            <td class="text-center ">{{hit}}</td>
+            </tr>
+            {{/boardlist}}
+        </script>
     <script type="text/javascript">
         $(function () {
             $(".board_left").load("board_adm_left.html");
@@ -307,7 +236,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
           $(".board").prop('checked',$(this).prop('checked'));
       });
 
-
+// --------------------------------------------추가기능-------------------------------------
 
     //   드롭다운의 변경이벤트
         $("#align-number").change(function(){
@@ -350,23 +279,22 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                        i.remove();
                     
                     }else {
-                    alert("삭제할 항목을 선택해주세요!")
+                    swal("삭제할 항목을 선택해주세요!")
                 }
-
-
-
-
-                       
-                        // for(var i=0; i<$("tbody tr").length; i++){
-                        // var chk = $("tbody tr:eq("+i+") input").prop('checked');   
-                        // if(chk){
-                        // $("tbody tr:eq("+i+") input").parents("tr").remove();
-                        //         }
-                        //     }
                         }
 
                 });
                 
+            });
+
+            // --------게시글 불러오기-----
+            $.get("plugins/ajax/board_list.json", function (req) {
+                // 미리 준비한 HTML틀을 읽어온다.
+                var template = Handlebars.compile($("#board_tmpl2").html());
+                // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+                var html = template(req);
+                // #dept_list_body 읽어온 내용을 추가한다.
+                $("#board_body").html(html);
             });
 
     });
