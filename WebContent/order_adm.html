@@ -193,7 +193,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <td class="text-center board-group-item">{{status}}</td>
         <td class="text-center board-group-item">{{payment}}</td>
         <td class="text-center board-group-item">
-            <button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">{{refund}}</button></td>
+            <button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" >{{refund}}</button></td>
         </tr>
         {{/boardlist}}
     </script>
@@ -211,14 +211,36 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <td class="text-center">{{status}}</td>
     <td class="text-center">{{payment}}</td>
     <td class="text-center">
-        <button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" disabled="">{{refund}}</button></td>
+        <button class="btn btn-danger" type="submit" id="button_refund" value="환불승인" >{{refund}}</button></td>
     </tr>
     {{/boardlist}}
 </script>
 
         
     <script type="text/javascript">
+        $(document).on('click','.btn-danger', function(e){
+               swal({ 
+                title: '확인',
+                text: "정말 삭제 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                });
+            });
         $(function () {
+
+            
+            // Handlebars.registerHelper('refund', function(s) {
+            // if (s == "y") {
+            //     return "거래중";
+            // } else {
+            //     return "거래정지";
+            // }
+            // });
+
+            // 동적으로 생성된 요소에 대한 disable 적용
+        
             
             // 상태값에 따라 disable 변화
             Handlebars.registerHelper('convertDisable', function(h) {
@@ -360,6 +382,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 // #dept_list_body 읽어온 내용을 추가한다.
                 $("#board_body").html(html);
             });
+
+
 
     });
 

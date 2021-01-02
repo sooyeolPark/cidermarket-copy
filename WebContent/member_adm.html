@@ -229,6 +229,16 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             {{/boardlist}}
         </script>
     <script type="text/javascript">
+            $(document).on('click','.btn-warning', function(e){
+               swal({ 
+                title: '확인',
+                text: "정말 탈퇴처리 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                });
+            });
         $(function () {
             $(".board_left").load("board_adm_left.html");
 

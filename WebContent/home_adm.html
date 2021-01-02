@@ -113,14 +113,12 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <span>전체 회원수</span>
             </li>                                   
         </ul>
+        <div id="chart">
+        <div id="transaction_qty" style="width:500px;height:400px;"></div>
+        <div id="new_member" style="width:500px;height:400px;"></div>
+        </div>
     </div>
 </div>
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-
-    </p>
-</figure>
 
 
 
@@ -239,77 +237,69 @@ function todayTime() {
 
 todayTime();
 
-
-// ---------------차트기능추가
-Highcharts.getJSON(
-    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
-    function (data) {
-
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'x'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                    '' : 'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: '거래건수'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-                // 데이타삽입
-            series: [{
-                type: 'area',
-                name: 'USD to EUR',
-                data: data
-            }]
-        });
-    }
-);
-
-    
-
-
     });
-
-
     </script>
+
+    <!-- 구글차트 -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['date', 'qty'],
+          ['2020-12-21', 1201],
+          ['2020-12-22', 850],
+          ['2020-12-23', 991],
+          ['2020-12-24', 300],
+          ['2020-12-25', 750],
+          ['2020-12-26', 750],
+          ['2020-12-27',800]
+
+
+        ]);
+
+        var options = {
+          chart: {
+            title: '일주일간 거래건수'
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('transaction_qty'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['bar']});
+            google.charts.setOnLoadCallback(drawChart);
+      
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ['date', 'qty'],
+                ['2020-12-21', 85],
+                ['2020-12-22', 58],
+                ['2020-12-23', 30],
+                ['2020-12-24', 200],
+                ['2020-12-25', 26],
+                ['2020-12-26', 180],
+                ['2020-12-27',100]
+      
+      
+              ]);
+      
+              var options = {
+                chart: {
+                  title: '일주일간 회원가입'
+                }
+              };
+      
+              var chart = new google.charts.Bar(document.getElementById('new_member'));
+      
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
+          </script>
 
 </body>
 </html>
