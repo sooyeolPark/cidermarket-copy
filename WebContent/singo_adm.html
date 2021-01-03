@@ -15,6 +15,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="assets/css/singo_adm.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+ 
 
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
@@ -143,6 +145,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     <tbody id="result"></tbody>
                     </tbody>
                 </table>
+                <table id="example"></table>
                 <div class="input-group">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="button"><span
@@ -201,7 +204,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!-- 유효성검사 -->
     <script src="plugins/validate/jquery.validate.min.js"></script>
     <script src="plugins/validate/additional-methods.min.js"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
     <script id="board_tmpl" type/x-handlebars-template">
         {{#boardlist}}
         <tr>
@@ -351,7 +354,6 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 $("#board_body").html(html);
 
             });
-
 
 });
 

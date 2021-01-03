@@ -148,8 +148,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
                     <form class="form-inline">
                         <div class="regi_cancel">
-                        <button type="button" class="btn btn-primary">등록</button>
-                        <button type="button" class="btn btn-warning">취소</button>
+                        <button id="regi"type="button" class="btn btn-primary">등록</button>
+                        <button id="cancel"type="button" class="btn btn-warning">취소</button>
                       </form>
 
                 </div>
@@ -235,45 +235,55 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         // });
       });
       
-      $(".btn-warning").click(function () {
-        swal({ 
-          title: '확인',
-          text: "취소 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-        // .then(function(result){
-        //   if(result.value) {   //확인버튼이 눌러진 경우 
-        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-        //     swal('취소', '취소하였습니다.', 'error');
-        //   }
-        // });
-      });
-      $(".btn-primary").click(function () {
-        swal({ 
-          title: '확인',
-          text: "답변등록 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-        // .then(function(result){
-        //   if(result.value) {   //확인버튼이 눌러진 경우 
-        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-        //     swal('취소', '취소하였습니다.', 'error');
-        //   }
-        // });
-      });
+    
 
     //   전체선택
       $("#all-check").change(function(){
           $(".board").prop('checked',$(this).prop('checked'));
       });
+
+                    // 글쓰기 등록 후 이동 
+                    $("#regi").click(function(e){
+                e.preventDefault();
+                swal({ 
+                title: '등록',
+                text: "글을 등록 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                }).then(function(result){
+                    if(result.value) {
+                        window.open("question_adm.html", "_self");
+                    } else {
+                     swal("취소하였습니다.")
+                    }
+                        
+
+
+                 });
+             });
+
+             $("#cancel").click(function(e){
+                e.preventDefault();
+                swal({ 
+                title: '등록',
+                text: "글작성을 취소 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                }).then(function(result){
+                    if(result.value) {
+                        window.open("question_adm.html", "_self");
+                    } else {
+                     swal("취소하였습니다.")
+                    }
+                        
+
+
+                 });
+             });
 
     });
 

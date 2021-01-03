@@ -121,30 +121,30 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </thead>
                     <tbody>
                         <tr id="cate_tr" class="clearfix" >
-                            <td class="text-center cate_td">핸드메이드</td>
-                            <td class="text-center cate_td">휴대폰/태블릿</td>
-                            <td class="text-center cate_td">가구</td>
-                            <td class="text-center cate_td">문구</td>
-                            <td class="text-center cate_td">자동차용품</td>
-                            <td class="text-center cate_td">유아용/완구</td>
-                            <td class="text-center cate_td">컴퓨터/주변기기</td>
-                            <td class="text-center cate_td">생활</td>
-                            <td class="text-center cate_td">스타굿즈</td>
-                            <td class="text-center cate_td">반려동물용품</td>
-                            <td class="text-center cate_td">뷰티</td>
-                            <td class="text-center cate_td">카메라</td>
-                            <td class="text-center cate_td">여성의류</td>
-                            <td class="text-center cate_td">디지털/가전</td>
-                            <td class="text-center cate_td">피규어/키덜트</td>
-                            <td class="text-center cate_td">스포츠/레저</td>
-                            <td class="text-center cate_td">남성의류</td>
-                            <td class="text-center cate_td">티켓</td>
-                            <td class="text-center cate_td">예술/미술</td>
-                            <td class="text-center cate_td">게임</td>
-                            <td class="text-center cate_td">신발/가방/잡화</td>
-                            <td class="text-center cate_td">음향기기/악기</td>
-                            <td class="text-center cate_td">도서</td>
-                            <td class="text-center cate_td">기타</td>
+                            <td class="text-center cate_td"><input type="checkbox">핸드메이드</td>
+                            <td class="text-center cate_td"><input type="checkbox">휴대폰/태블릿</td>
+                            <td class="text-center cate_td"><input type="checkbox">가구</td>
+                            <td class="text-center cate_td"><input type="checkbox">문구</td>
+                            <td class="text-center cate_td"><input type="checkbox">자동차용품</td>
+                            <td class="text-center cate_td"><input type="checkbox">유아용/완구</td>
+                            <td class="text-center cate_td"><input type="checkbox">컴퓨터/주변기기</td>
+                            <td class="text-center cate_td"><input type="checkbox">생활</td>
+                            <td class="text-center cate_td"><input type="checkbox">스타굿즈</td>
+                            <td class="text-center cate_td"><input type="checkbox">반려동물용품</td>
+                            <td class="text-center cate_td"><input type="checkbox">뷰티</td>
+                            <td class="text-center cate_td"><input type="checkbox">카메라</td>
+                            <td class="text-center cate_td"><input type="checkbox">여성의류</td>
+                            <td class="text-center cate_td"><input type="checkbox">디지털/가전</td>
+                            <td class="text-center cate_td"><input type="checkbox">피규어/키덜트</td>
+                            <td class="text-center cate_td"><input type="checkbox">스포츠/레저</td>
+                            <td class="text-center cate_td"><input type="checkbox">남성의류</td>
+                            <td class="text-center cate_td"><input type="checkbox">티켓</td>
+                            <td class="text-center cate_td"><input type="checkbox">예술/미술</td>
+                            <td class="text-center cate_td"><input type="checkbox">게임</td>
+                            <td class="text-center cate_td"><input type="checkbox">신발/가방/잡화</td>
+                            <td class="text-center cate_td"><input type="checkbox">음향기기/악기</td>
+                            <td class="text-center cate_td"><input type="checkbox">도서</td>
+                            <td class="text-center cate_td"><input type="checkbox">기타</td>
                             
                         </tr>    
 
@@ -152,19 +152,17 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     </tbody>
                 </table>
                 
-                    <div id="inputbox"class="item-img">
+                    <div id="inputbox" >
                         <input type="file" id="image0" class="image_plus " accept="image/*"/>
                         <input type="text" class="form-control" id="revise">
                     </div>
                 
-                <form class="form-inline clearfix">
                     <div class="regi_cancel">
                         <button id="delete1"type="button" class="btn btn-danger">삭제</button>
                         <button id="revise1"type="button" class="btn btn-warning">수정</button>
                         <button id="add1"type="button" class="btn btn-primary">추가</button>
-                </form>
 
-            </div>
+                    </div>
         </div>
     </div>
     </div>
@@ -198,6 +196,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <script src="plugins/ajax/ajax_helper.js"></script>
     <script src="plugins/validate/jquery.validate.min.js"></script>
     <script src="plugins/validate/additional-methods.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script id="category_tmpl" type/x-handlebars-template">
     
 
@@ -230,31 +229,88 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
           showCancelButton:true, //취소버튼 표시여부
           cancelButtonText:'아니오', //취소버튼 표시문구 
         });
-        // .then(function(result){
-        //   if(result.value) {   //확인버튼이 눌러진 경우 
-        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-        //     swal('취소', '취소하였습니다.', 'error');
-        //   }
-        // });
+
       });
 
     //   추가,수정,삭제 ajax 기능 넣기 핸들바 아마
     //추가
     $("#add1").click(function(){
-        var td_new = $("<td>");
+        var td_new = $('<td>');
             td_new.addClass("text-center cate_td");
-
             //input에 글씨 써서 추가하기 
             var input = $("#revise").val()
             td_new.html(input);
 
-    $("#cate_tr").append(td_new);
-    });
+        $("#cate_tr").append(td_new);
+        });
 
-    $("#delete1").click(function(){
-    $("#td").remove(".cate_td");
-    });
+        $(".cate_td").click(function(e){
+            $("#revise").focus();
+        });
+
+        // 선택
+        $(".cate_td").click(function(e){
+            // var idx = $(this).index();
+            // var td = '"td"+idx';
+            var cate = $(this).html();
+            $("#revise").val(cate);
+        });
+
+        
+  
+        
+        // 버튼삭제이벤트
+        $("#delete1").click(function(e){
+                e.preventDefault();
+                swal({ 
+                title: '확인',
+                text: "정말 삭제 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                }).then(function(result){
+                    if(result.value) {
+
+                        if($("input").is(":checked") == true){ //체크된 요소가 있으면               
+                        var i = $("input:checked").parent("td");
+                       i.remove();
+                    
+                    }else {
+                    swal("삭제할 항목을 선택해주세요!")
+                  }
+                        }
+
+                });
+                
+            });
+
+            //수정하기
+            $("#revise1").click(function(e){
+                e.preventDefault();
+                swal({ 
+                title: '확인',
+                text: "정말 수정 하시겠습니까?" ,
+                type:'warning', //종류
+                confirmButtonText:'네', //확인버튼 표시문구
+                showCancelButton:true, //취소버튼 표시여부
+                cancelButtonText:'아니오', //취소버튼 표시문구 
+                }).then(function(result){
+                    if(result.value) {
+                        var parent_td = $("input:checked").parent("td");
+                        var i = $("#revise").val();
+                        parent_td.html(i);
+                    
+                    }else {
+                    swal("수정할 항목을 선택해주세요!")
+                  }
+
+                });
+                
+     });
+
+
+
 });
     </script>
 

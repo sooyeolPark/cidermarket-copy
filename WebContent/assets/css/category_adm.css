@@ -58,13 +58,21 @@ thead {
   background-color: orangered;
 }
 
+.regi_cancel {
+  display: inline-block;
+  margin-bottom: -12px;
+  margin-left: 294px;
+}
 .regi_cancel > button {
   float: right;
   margin: 2px;
 }
 
+.form-inline {
+  display: inline-block;
+}
 #revise {
-  width: 30%;
+  width: 70%;
   float: none;
   display: inline;
 }
@@ -72,7 +80,7 @@ thead {
   margin-right: 10px;
 }
 
-.item-img .image_plus {
+.image_plus {
   display: block;
   width: 30px;
   height: 30px;
@@ -84,9 +92,15 @@ thead {
 }
 
 input[type="file"] {
-  display: inline-block !important;
+  display: inline-block;
 }
 
 #inputbox {
   width: 50%;
+  margin: 0;
+  display: inline-block !important;
+}
+
+.swal2-file {
+  display: none !important;
 }
