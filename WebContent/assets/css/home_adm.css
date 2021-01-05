@@ -64,6 +64,7 @@ h4 {
   width: 24%;
   height: 300px;
   border: 1px solid #aeaeae;
+  border-radius: 5px;
 }
 .home_ul > li > a {
   display: block;

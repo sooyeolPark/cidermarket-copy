@@ -235,25 +235,33 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     //   추가,수정,삭제 ajax 기능 넣기 핸들바 아마
     //추가
     $("#add1").click(function(){
-        var td_new = $('<td>');
+            var td_new = $('<td>');
             td_new.addClass("text-center cate_td");
-            //input에 글씨 써서 추가하기 
+            //input은 input에 있는 텍스트 내용 
             var input = $("#revise").val()
+            //<td cate_td> </td> 태그안에 input val값을 쓰기한다. 
             td_new.html(input);
-
-        $("#cate_tr").append(td_new);
+            //<td cate_td> 태그앞에 체크박스 추가한다. 
+            td_new.prepend('<input type=checkbox>');
+            
+            // cate table row 마지막에 td_new를 추가한다. 
+            $("#cate_tr").append(td_new);
         });
 
+        //클릭시 포커스 
         $(".cate_td").click(function(e){
             $("#revise").focus();
         });
 
-        // 선택
+        // 클릭시 내용 보여줌 
         $(".cate_td").click(function(e){
             // var idx = $(this).index();
             // var td = '"td"+idx';
             var cate = $(this).html();
-            $("#revise").val(cate);
+            var cate2=cate.substring(23);
+         
+            
+        $("#revise").val(cate2);
         });
 
         
@@ -300,6 +308,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         var parent_td = $("input:checked").parent("td");
                         var i = $("#revise").val();
                         parent_td.html(i);
+                        parent_td.prepend('<input type=checkbox>');
                     
                     }else {
                     swal("수정할 항목을 선택해주세요!")
@@ -307,7 +316,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
                 });
                 
-     });
+             });
 
 
 
