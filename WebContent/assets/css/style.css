@@ -296,6 +296,19 @@
   width: 150px;
   height: 150px;
 }
+.preview li i {
+  margin: 5px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.preview li i:before {
+  content: "\e014";
+  font-family: "Glyphicons Halflings";
+}
 /* 문의내역 리스트 */
 .recordSort2 {
   margin-top: 30px;

@@ -133,3 +133,10 @@
   width: 100%;
   height: auto;
 }
+
+.btnn-temp .btn-danger {
+  margin: 8px 0 0 8px;
+  width: 27%;
+  height: 40px;
+  line-height: 24px;
+}
