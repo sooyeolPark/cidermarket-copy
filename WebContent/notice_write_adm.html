@@ -36,7 +36,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <div class="logo ">
     
             <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
-            <button class="btn btn-default log_out" type="submit">로그아웃</button>
+            <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
             <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
     
         </div>
@@ -229,7 +229,16 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         $(function () {
             $(".board_left").load("board_adm_left.html");
 
+            //로그아웃
+            $("#log-out").click(function(e){
+                var result = confirm("로그아웃 하시겠습니까?");
 
+                if(result ==true) {
+                    location.replace('login_adm.html'); 
+                }else{
+
+                }
+            });
 
               // 글쓰기 등록 후 이동 
         $("#regi").click(function(e){
@@ -256,8 +265,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
              $("#cancel").click(function(e){
                 e.preventDefault();
                 swal({ 
-                title: '등록',
-                text: "글작성을 취소 하시겠습니까?" ,
+                title: '취소',
+                text: "취소 하시겠습니까?" ,
                 type:'warning', //종류
                 confirmButtonText:'네', //확인버튼 표시문구
                 showCancelButton:true, //취소버튼 표시여부

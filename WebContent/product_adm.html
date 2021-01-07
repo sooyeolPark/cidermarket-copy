@@ -114,8 +114,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <div class="title-menu clearfix">
                     <h4>상품목록</h4>
                     <select class="form-control" id="align-number">
-                        <option value>10개씩보기</option>
-                        <option value="lowprice">20개씩보기</option>
+                        <option value="1">10개씩보기</option>
+                        <option value="2">20개씩보기</option>
                     </select>
                     <select class="form-control" id="align-menu">
                         <option value>기본정렬</option>
@@ -140,8 +140,9 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                             <th class="text-center">상태</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
+                    <tbody id="board_body">
+                        <tbody id="result">
+                        </tbody>
                     </tbody>
                 </table>
                 <div class="input-group">
@@ -152,7 +153,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                     <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
                     <button class="btn btn-danger" type="submit" id="delete">삭제</button>
                     <button class="btn btn-primary" type="submit" id="re-start">거래재개</button>
-                    <button class="btn btn-warning" type="submit" id= "stop">거래중지</button>
+                    <button class="btn btn-warning" type="submit" id= "stop">거래정지</button>
                 </div>
                 
                 <ul class="pagination">
@@ -190,9 +191,9 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!--/.container-->
     <!-- handlebars template -->
     <script id="proadm_tmpl" type="text/x-handlebars-template">
-        {{#each item}}
+        {{#item}}
         <tr>
-            <td><input type="checkbox"></td>
+            <td class="board-group-item"><input type="checkbox"></td>
             <td class="text-center">{{plus @key}}</td>
             <td class="text-center"><a href="{{url}}">{{subject}}</a></td>
             <td class="text-center">{{ctg}}</td>
@@ -202,7 +203,23 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             {{#if (clr state)}}<td class="text-center">{{convertStat state}}</td>
             {{else}}<td style="color:red;" class="text-center"><b>{{convertStat state}}</b></td>{{/if}}
         </tr>
-        {{/each}}
+        {{/item}}
+      </script>
+
+      <script id="proadm_tmpl2" type="text/x-handlebars-template">
+        {{#item}}
+        <tr>
+            <td><input type="checkbox" class="board-group-item"></td>
+            <td class="text-center board-group-item">{{plus @key}}</td>
+            <td class="text-center board-group-item"><a href="{{url}}">{{subject}}</a></td>
+            <td class="text-center board-group-item">{{ctg}}</td>
+            <td class="text-center board-group-item">{{price}}원</td>
+            <td class="text-center board-group-item">{{convertHow how}}</td>
+            <td class="text-center board-group-item">{{date}}</td>
+            {{#if (clr state)}}<td class="text-center board-group-item">{{convertStat state}}</td>
+            {{else}}<td style="color:red;" class="text-center board-group-item"><b>{{convertStat state}}</b></td>{{/if}}
+        </tr>
+        {{/item}}
       </script>
     <!-- Javascript -->
 
@@ -243,13 +260,15 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         function get_list() {
       $.get("plugins/ajax/proadm.json", function (req) {
         // 미리 준비한 HTML틀을 읽어온다.
-        var template = Handlebars.compile($("#proadm_tmpl").html());
+        var template = Handlebars.compile($("#proadm_tmpl2").html());
         // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
         var html = template(req);
         // #dept_list_body 읽어온 내용을 추가한다.
-        $("tbody").html(html);
+        $("#board_body").html(html);
       });
     }
+
+    
         
         $(function () {
             $(".board_left").load("board_adm_left.html");
@@ -273,16 +292,58 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 }
             });
 
-            $("#log-out").click(function () {
+            $("#log-out").click(function(e){
+                var result = confirm("로그아웃 하시겠습니까?");
+
+                if(result ==true) {
+                    location.replace('login_adm.html'); 
+                }else{
+
+                }
+            });
+
+      $("#re-start").click(function () {
         swal({ 
           title: '확인',
-          text: "정말 로그아웃 하시겠습니까?" ,
+          text: "거래재개 하시겠습니까?" ,
           type:'warning', //종류
           confirmButtonText:'네', //확인버튼 표시문구
           showCancelButton:true, //취소버튼 표시여부
           cancelButtonText:'아니오', //취소버튼 표시문구 
         });
       });
+
+      $("#stop").click(function () {
+        swal({ 
+          title: '확인',
+          text: "거래정지 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
+        });
+      });
+
+                  //   드롭다운의 변경이벤트
+             $("#align-number").change(function(){
+            $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
+            var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
+            if (!choice) {//선택값이 없다면 처리 중단 
+                return false; 
+            }
+
+            //ajax요청
+            else if (choice==2) {
+            $.get('plugins/ajax/product_adm.json', function(req){
+                var template= Handlebars.compile($("#proadm_tmpl2").html());
+                var html = template(req);
+                $("#result").append(html);
+            });
+            }else if(choice==1) {
+                 $(".board-group-item").detach();
+                } // class가 "hello"인 요소를 모두 삭제한다.
+
+              });
             
         });
         

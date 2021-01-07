@@ -211,7 +211,9 @@ td {
 .table > tbody > tr > td:nth-child(10) {
   padding: 2px;
 }
-
+.table > tbody + tbody {
+  border-top: none;
+}
 .btn-danger {
   margin-top: 4px;
   height: 30%;

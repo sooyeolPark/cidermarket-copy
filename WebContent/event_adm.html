@@ -217,23 +217,15 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             
 
         // 로그아웃
-            $("#log-out").click(function () {
-        swal({ 
-          title: '확인',
-          text: "정말 로그아웃 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-        // .then(function(result){
-        //   if(result.value) {   //확인버튼이 눌러진 경우 
-        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-        //     swal('취소', '취소하였습니다.', 'error');
-        //   }
-        // });
-      });
+        $("#log-out").click(function(e){
+                var result = confirm("로그아웃 하시겠습니까?");
+
+                if(result ==true) {
+                    location.replace('login_adm.html'); 
+                }else{
+
+                }
+            });
       $("#delete").click(function () {
         swal({ 
           title: '확인',

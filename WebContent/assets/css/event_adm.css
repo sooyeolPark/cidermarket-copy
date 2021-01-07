@@ -169,6 +169,9 @@ th {
   width: 40%;
   text-align: left;
 }
+.table > tbody + tbody {
+  border-top: none;
+}
 
 .list-group {
   margin-top: 0px;

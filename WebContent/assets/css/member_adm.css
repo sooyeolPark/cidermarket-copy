@@ -81,3 +81,6 @@ th {
 .table > tbody > tr > td:nth-child(10) {
   padding: 2px;
 }
+.table > tbody + tbody {
+  border-top: none;
+}

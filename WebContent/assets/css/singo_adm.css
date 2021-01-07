@@ -298,3 +298,6 @@ th {
   float: right;
   margin-right: 5px;
 }
+.table > tbody + tbody {
+  border-top: none;
+}

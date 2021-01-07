@@ -45,13 +45,6 @@ ul {
   height: auto;
 }
 
-.nav_top_a {
-  display: block;
-  float: right;
-  margin-top: 80px;
-  font-size: 18px;
-}
-
 #log-out-btn {
   margin-right: 30px;
   margin-left: 20px;
@@ -235,10 +228,13 @@ address {
   border: #aeaeae 1px solid;
   border-radius: 5px;
   padding: 4px;
+  float: right;
 }
 .logo {
   position: relative;
   height: 100px;
 }
-
+.glyphicon-user {
+  font-size: 14px;
+}
 /* ---------------로고수정------ */

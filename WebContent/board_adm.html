@@ -220,16 +220,15 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
 
         // 로그아웃
-            $("#log-out").click(function () {
-        swal({ 
-          title: '확인',
-          text: "정말 로그아웃 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-      });
+        $("#log-out").click(function(e){
+                var result = confirm("로그아웃 하시겠습니까?");
+
+                if(result ==true) {
+                    location.replace('login_adm.html'); 
+                }else{
+
+                }
+            });
 
     //   전체선택
       $("#all-check").change(function(){

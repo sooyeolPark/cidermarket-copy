@@ -37,7 +37,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <div class="container">
             <div class="logo ">
 
-                <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
+                <a class="logo_img_a" href="index.html"><img src="img/logo.png" /></a>
                 <button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
                 <a class="nav_top_a btn-primary" href="index.html">User_Page <span
                         class="logo_right glyphicon glyphicon-user"></span></a>
@@ -205,7 +205,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <script src="plugins/validate/jquery.validate.min.js"></script>
     <script src="plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-    <script id="board_tmpl" type/x-handlebars-template">
+    <script id="board_tmpl" type="x-handlebars-template">
         {{#boardlist}}
         <tr>
             <td><input type="checkbox" class="board board-group-item" /></td>
@@ -219,7 +219,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     </script>
 
     <!-- //게시판 -->
-    <script id="board_tmpl2" type/x-handlebars-template">
+    <script id="board_tmpl2" type="x-handlebars-template">
             {{#boardlist}}
             <tr>
                 <td><input type="checkbox" class="board " /></td>
@@ -242,23 +242,15 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
 
                     // 로그아웃
-                    $("#log-out").click(function () {
-                        swal({
-                            title: '확인',
-                            text: "정말 로그아웃 하시겠습니까?",
-                            type: 'warning', //종류
-                            confirmButtonText: '네', //확인버튼 표시문구
-                            showCancelButton: true, //취소버튼 표시여부
-                            cancelButtonText: '아니오', //취소버튼 표시문구 
-                        });
-                        // .then(function(result){
-                        //   if(result.value) {   //확인버튼이 눌러진 경우 
-                        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-                        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-                        //     swal('취소', '취소하였습니다.', 'error');
-                        //   }
-                        // });
-                    });
+                    $("#log-out").click(function(e){
+                var result = confirm("로그아웃 하시겠습니까?");
+
+                if(result ==true) {
+                    location.replace('login_adm.html'); 
+                }else{
+
+                }
+            });
                     $("#stop").click(function () {
                         swal({
                             title: '확인',
@@ -295,7 +287,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         $(".board").prop('checked', $(this).prop('checked'));
                     });
 
-                       //   드롭다운의 변경이벤트
+            //   드롭다운의 변경이벤트
             $("#align-number").change(function(){
             $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
             var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
@@ -314,7 +306,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                  $(".board-group-item").detach();
                 } // class가 "hello"인 요소를 모두 삭제한다.
 
-        });
+              });
 
 
 
