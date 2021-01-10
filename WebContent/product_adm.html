@@ -191,9 +191,10 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <!--/.container-->
     <!-- handlebars template -->
     <script id="proadm_tmpl" type="text/x-handlebars-template">
+        <!-- //게시판 -->
         {{#item}}
         <tr>
-            <td class="board-group-item"><input type="checkbox"></td>
+            <td class="text-center"><input type="checkbox"></td>
             <td class="text-center">{{plus @key}}</td>
             <td class="text-center"><a href="{{url}}">{{subject}}</a></td>
             <td class="text-center">{{ctg}}</td>
@@ -206,6 +207,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         {{/item}}
       </script>
 
+    <!-- //20개보기 -->
       <script id="proadm_tmpl2" type="text/x-handlebars-template">
         {{#item}}
         <tr>
@@ -260,7 +262,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         function get_list() {
       $.get("plugins/ajax/proadm.json", function (req) {
         // 미리 준비한 HTML틀을 읽어온다.
-        var template = Handlebars.compile($("#proadm_tmpl2").html());
+        var template = Handlebars.compile($("#proadm_tmpl").html());
         // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
         var html = template(req);
         // #dept_list_body 읽어온 내용을 추가한다.
@@ -334,7 +336,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
             //ajax요청
             else if (choice==2) {
-            $.get('plugins/ajax/product_adm.json', function(req){
+            $.get('plugins/ajax/proadm.json', function(req){
                 var template= Handlebars.compile($("#proadm_tmpl2").html());
                 var html = template(req);
                 $("#result").append(html);

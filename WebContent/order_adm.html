@@ -222,7 +222,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         $(document).on('click','.btn-danger', function(e){
             e.preventDefault();                  
   
-            var yes = confirm("컨펌하시겠습니까");
+            var yes = confirm("환불승인 하시겠습니까?");
             if(yes==true) {
             var current_td = $(this).parent().prev().prev();
             current_td.html("환불완료");
