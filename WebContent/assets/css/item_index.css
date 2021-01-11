@@ -64,10 +64,15 @@ ul {
 }
 .thumbnail .caption {
   padding: 0;
+  height: 80px;
 }
 .thumbnail .caption h4 {
   font-weight: bold;
   letter-spacing: -0.8px;
+}
+.thumbnail .caption h5 {
+  font-size: 16px;
+  line-height: 20px;
 }
 .thumbnail img {
   border: 1px solid #eee;
@@ -75,6 +80,12 @@ ul {
 .item-list a:hover img {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
   transition: ease 0.3s;
+}
+.item-list > a:hover,
+.item-list > a:hover .caption {
+  text-decoration: none;
+  color: #31a05f;
+  transition: 0.3s;
 }
 .item_title {
   padding: 3em 1em;
