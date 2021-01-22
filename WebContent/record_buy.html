@@ -97,6 +97,7 @@
                         <h4><b>{{price}}</b></h4>
                         <div class="resultBtn">
                             <button type="button" class="ing btn btn-warning recordReturn {{hidden1}}" data-return="{{hidden1}}">반품요청</button>
+                            <button type="button" class="ing btn btn-danger retraction hidden">반품철회</button>
                             <button type="button" class="ing btn btn-primary recordConfirm {{hidden2}}">거래확정</button>
                         </div>
                     </div>
@@ -150,6 +151,8 @@
                     var html = template(req);
                     // #dept_list_body 읽어온 내용을 추가한다.
                     $("#tab-page-1").append(html);
+                    // 직거래일 경우 결제완료 뱃지 숨김
+                    $('.label:empty').addClass('hidden');
                     }
                 });
             }
@@ -165,6 +168,8 @@
                     var html = template(req);
                     // #dept_list_body 읽어온 내용을 추가한다.
                     $("#tab-page-2").append(html);
+                    // 직거래일 경우 결제완료 뱃지 숨김
+                    $('.label:empty').addClass('hidden');
                     }
                 });
             }
@@ -196,10 +201,6 @@
                         $(target).removeClass('hide');
                         $(".tab-panel > div").not($(target)).addClass('hide');
                     }
-                });
-                // 직거래일 경우 결제완료 뱃지 삭제
-                $(window).load(function(){
-                    $('.label:empty').remove();     
                 });
 
             });
@@ -242,12 +243,36 @@
                     if (result.value) {           // 확인 버튼이 눌러진 경우
                         swal('요청', '반품 요청 하셨습니다.', 'success');
                         if (ts.html() == '반품요청') {
-                            ts.html("반품철회").removeClass('btn-warning').addClass('btn-danger');
-                        } else {
-                            ts.html("반품요청").removeClass('btn-danger').addClass('btn-warning');
+                            ts.next('.retraction').removeClass('hidden');
+                            ts.addClass('hidden');
                         }
                     } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
                         swal('취소', '반품 요청을 취소 하셨습니다.', 'error');
+                    }
+                });
+            });
+
+            /** 반품철회 */
+            $(document).on('click', '.retraction', function(e) {
+                e.preventDefault();
+                var ts = $(this);
+                // 확인, 취소버튼에 따른 후속 처리 구현
+                swal({
+                    title: '반품철회',                // 제목
+                    text: "반품철회 하시겠습니까?",  // 내용
+                    type: 'warning',              // 종류
+                    confirmButtonText: '확인',     // 확인버튼 표시 문구
+                    showCancelButton: true,       // 취소버튼 표시 여부
+                    cancelButtonText: '취소',       // 취소버튼 표시 문구
+                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
+                    if (result.value) {           // 확인 버튼이 눌러진 경우
+                        swal('요청', '반품철회 하셨습니다.', 'success');
+                        if (ts.html() == '반품철회') {
+                            ts.prev('.recordReturn').removeClass('hidden');
+                            ts.addClass('hidden');
+                        }
+                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
+                        swal('취소', '반품철회를 취소 하셨습니다.', 'error');
                     }
                 });
             });

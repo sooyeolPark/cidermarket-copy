@@ -8,7 +8,7 @@
       "title": "에어팟맥스 임자 찾아유~~ 먼저 잡아가는 사람이 임자임",
       "price": "1,400,000원",
       "hidden1": "",
-      "hidden2": ""
+      "decide": ""
     },
     {
       "href": "item_index.html",
@@ -18,7 +18,7 @@
       "title": "에어팟프로 쿨거래 합니다",
       "price": "290,000원",
       "hidden1": "hidden",
-      "hidden2": ""
+      "decide": "contact"
     },
     {
       "href": "item_index.html",
@@ -28,7 +28,7 @@
       "title": "디올 조던 팝니다",
       "price": "1,000,000원",
       "hidden1": "",
-      "hidden2": ""
+      "decide": ""
     }
   ]
 }
