@@ -3,8 +3,7 @@
     {
       "href": "item_index.html",
       "imgurl": "img/item.png",
-      "label1": "",
-      "label2": "직거래",
+      "label": "직거래",
       "title": "디올 조던 팝니다",
       "price": "1,000,000원",
       "hidden1": "",
@@ -13,8 +12,7 @@
     {
       "href": "item_index.html",
       "imgurl": "img/item_03.jpg",
-      "label1": "결제완료",
-      "label2": "택배거래",
+      "label": "택배거래",
       "title": "에어팟맥스 임자 찾아유~~ 먼저 잡아가는 사람이 임자임",
       "price": "1,400,000원",
       "hidden1": "hidden",
@@ -23,8 +21,7 @@
     {
       "href": "item_index.html",
       "imgurl": "img/item_04.jpg",
-      "label1": "",
-      "label2": "택배거래",
+      "label": "택배거래",
       "title": "에어팟프로 쿨거래 합니다",
       "price": "290,000원",
       "hidden1": "hidden",

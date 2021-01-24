@@ -98,7 +98,7 @@
                             <option value="">귀염티거</option>
                             <option value="">역삼동그놈</option>
                             <option value="">보리멸치</option>
-                        </select
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-block">확인</button>
@@ -114,7 +114,7 @@
                 <div class="sorting itemList">
                     <img alt="{{title}}" class="img-rounded" src="{{imgurl}}">
                     <div class="caption">
-                        <span class="label">{{label1}}</span>
+                        <span class="label {{hidden1}}">{{label1}}</span>
                         <span class="label label2">{{label2}}</span>
                         <h4><a href="{{href}}">{{title}}</a></h4>
                         <h4><b>{{price}}</b></h4>
@@ -134,8 +134,7 @@
                 <div class="sorting itemList">
                     <img alt="{{title}}" class="img-rounded" src="{{imgurl}}">
                     <div class="caption">
-                        <span class="label">{{label1}}</span>
-                        <span class="label label2">{{label2}}</span>
+                        <span class="label">{{label}}</span>
                         <h4><a href="{{href}}">{{title}}</a></h4>
                         <h4><b>{{price}}</b></h4>
                         <div class="resultBtn">
@@ -174,8 +173,6 @@
                     var html = template(req);
                     // #dept_list_body 읽어온 내용을 추가한다.
                     $("#tab-page-1").append(html);
-                    // 직거래일 경우 결제완료 뱃지 숨김
-                    $('.label:empty').addClass('hidden');
                     }
                 });
             }
@@ -191,8 +188,6 @@
                     var html = template(req);
                     // #dept_list_body 읽어온 내용을 추가한다.
                     $("#tab-page-2").append(html);
-                    // 직거래일 경우 결제완료 뱃지 숨김
-                    $('.label:empty').addClass('hidden');
                     }
                 });
             }
