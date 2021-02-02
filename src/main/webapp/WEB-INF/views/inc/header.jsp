@@ -229,7 +229,7 @@
 </script>
 
 <!-- // 사이드바 시작 -->
-<script src="assets/js/searchbox.js"></script>
+<!-- <script src="assets/js/searchbox.js"></script> -->
 <script src="assets/js/headerScroll.js"></script>
 <!-- ajax-helper -->
 <link rel="stylesheet" href="assets/plugins/ajax/ajax_helper.css" />
@@ -256,6 +256,11 @@
     $(".templogin, .logout").click(function () {
       $(".btnn-login, .btnn-logout").toggleClass("view-none");
       $(".btnn-logout").toggleClass("view-block");
+    });
+    
+    $("#btnSearch, #searchClose").click(function(e) { 
+      e.preventDefault();
+      $("#searchBox").slideToggle(); 
     });
   });
 </script>

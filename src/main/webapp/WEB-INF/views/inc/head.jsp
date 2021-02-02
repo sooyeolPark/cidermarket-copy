@@ -16,6 +16,8 @@
 <link rel="stylesheet" type="text/css" href="assets/css/common/header.css"/>
 <link rel="stylesheet" type="text/css" href="assets/css/common/nav.css"/>
 
+<script src="assets/js/jquery.min.js"></script>
+
 <!-- 반응형 웹을 지원하지 않을 경우 -->
 <!-- <link rel="stylesheet" href="assets/css/common/non-responsive.css" /> -->
 
