@@ -9,12 +9,14 @@
 <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png"/>
 
 <!-- bootstrap -->
-<link rel="stylesheet" type="text/css" href="assets/css/common/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="assets/css/common/bootstrap.css"/>
 
 <!-- noto sans 웹 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="assets/css/common/font.css"/>
 <link rel="stylesheet" type="text/css" href="assets/css/common/header.css"/>
 <link rel="stylesheet" type="text/css" href="assets/css/common/nav.css"/>
+
+<script src="assets/js/jquery.min.js"></script>
 
 <!-- 반응형 웹을 지원하지 않을 경우 -->
 <!-- <link rel="stylesheet" href="assets/css/common/non-responsive.css" /> -->
