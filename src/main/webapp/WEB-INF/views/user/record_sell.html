@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+        <!-- 모바일 웹 페이지 설정 -->
+        <link rel="shortcut icon" href="assets/ico/favicon.ico"/>
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png"/>
+
+        <!-- bootstrap -->
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+
+        <!-- noto sans 웹 폰트 적용 -->
+        <link rel="stylesheet" type="text/css" href="assets/css/font.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/header.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/nav.css"/>
+
+        <!-- 반응형 웹을 지원하지 않을 경우 -->
+        <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
+
+        <!-- IE8 이하 버전 지원 -->
+        <!--[if lt IE 9]> <script type="text/javascript"
+        src="assets/js/html5shiv.js"></script> <script type="text/javascript"
+        src="assets/js/respond.min.js"></script> <![endif]-->
+
+        <!-- IE10 반응형 웹 버그 보완 -->
+        <!--[if gt IE 9]> <link rel="stylesheet" type="text/css"
+        href="assets/css/ie10.css" /> <script type="text/javascript"
+        src="assets/js/ie10.js"></script> <![endif]-->
+        <title>거래내역 - 사이다마켓</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+        <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
+    </head>
+
+    <body>
+        <!-- nav 시작 -->
+        <header></header>
+        <!-- // nav 끝 -->
+
+        <section>
+            <!-- Item 영역 -->
+            <div class="container">
+                <h3 class="text-center">거래내역</h3>
+
+                <!-- 탭의 전체 박스 -->
+                <div class="tab clearfix">
+                    
+                    <!-- 탭 버튼 영역 -->
+                    <ul class="row tab-button clearfix">
+                        <li role="presentation" class="tab-button-item text-center">
+                            <a href="record_sell.html?selected=selling" class="tab-button-item-link pull-left selected">판매</a>
+                        </li>
+                        <li role="presentation" class="tab-button-item text-center">
+                            <a href="record_buy.html?selected=selling" class="tab-button-item-link pull-left">구매</a>
+                        </li>
+                    </ul>
+
+                    <!-- 거래중/거래완료 sorting -->
+                    <div class="recordSort text-center">
+                        <a href="#tab-page-1" class="ing btn btn-lg btn-primary" id="selling">거래중</a>
+                        <a href="#tab-page-2" class="ing btn btn-lg btn-info" id="sellend">거래완료</a>
+                    </div>
+                    <!-- 내용영역 -->
+                    <div class="tab-panel">
+                        <!-- 탭1 -->
+                        <div id="tab-page-1">
+                            <!-- Ajax 구현 -->
+                        </div>
+                        <!-- 탭2 -->
+                        <div id="tab-page-2" class="hide">
+                            <!-- Ajax 구현 -->
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+        
+        <!-- footer 시작 -->
+        <footer></footer>
+        <!-- // footer 끝 -->
+
+        <!-- template -->
+		<script id="ing_item_tmpl" type="text/x-handlebars-template">
+			{{#each ing_item}}
+			<div class="col-xs-12 col-sm-6 col-md-6 item-list">
+                <div class="sorting itemList">
+                    <img alt="{{title}}" class="img-rounded" src="{{imgurl}}">
+                    <div class="caption">
+                        <span class="label">{{label1}}</span>
+                        <span class="label label2">{{label2}}</span>
+                        <h4><a href="{{href}}">{{title}}</a></h4>
+                        <h4><b>{{price}}</b></h4>
+                        <div class="resultBtn">
+                            <button type="button" class="ing btn btn-warning recordReturn {{hidden1}}" data-return="{{hidden1}}">반품승인</button>
+                            <button type="button" class="ing btn btn-primary recordConfirm {{hidden2}}">거래확정</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			{{/each}}
+        </script>
+        <!-- template -->
+		<script id="end_item_tmpl" type="text/x-handlebars-template">
+			{{#each end_item}}
+			<div class="col-xs-12 col-sm-6 col-md-6 item-list">
+                <div class="sorting itemList">
+                    <img alt="{{title}}" class="img-rounded" src="{{imgurl}}">
+                    <div class="caption">
+                        <span class="label">{{label1}}</span>
+                        <span class="label label2">{{label2}}</span>
+                        <h4><a href="{{href}}">{{title}}</a></h4>
+                        <h4><b>{{price}}</b></h4>
+                        <div class="resultBtn">
+                            <button type="button" class="ing btn btn-warning {{hidden1}}" disabled>정산완료</button>
+                            <button onclick="location.href='review_write.html'" type="button" class="ing btn btn-primary {{hidden2}}">후기 남기기</button>
+                            <button type="button" onclick="location.href='review_view.html'" class="ing btn btn-danger {{hidden3}}">후기 작성완료</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			{{/each}}
+		</script>
+
+        <!-- Javascript -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/asidebar.jquery.js"></script>
+        <script src="assets/js/searchbox.js"></script>
+        <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+        <!-- ajax-helper -->
+        <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
+        <script src="plugins/ajax/ajax_helper.js"></script>
+        <!-- handlebar plugin -->
+        <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+        <script type="text/javascript">
+            /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+            function get_ing_list() {
+                $.get("plugins/ajax/record_sell_ing.json", function(req) {
+                    console.log(req);
+                    if (!req) {
+                    $("#tab-page-1").append("<p>거래중인 상품이 없습니다.</p>");
+                    } else {
+                    // 미리 준비한 HTML틀을 읽어온다.
+                    var template = Handlebars.compile($("#ing_item_tmpl").html());
+                    // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+                    var html = template(req);
+                    // #dept_list_body 읽어온 내용을 추가한다.
+                    $("#tab-page-1").append(html);
+                    }
+                });
+            }
+            function get_end_list() {
+                $.get("plugins/ajax/record_sell_end.json", function(req) {
+                    console.log(req);
+                    if (!req) {
+                    $("#tab-page-2").append("<p>거래중인 상품이 없습니다.</p>");
+                    } else {
+                    // 미리 준비한 HTML틀을 읽어온다.
+                    var template = Handlebars.compile($("#end_item_tmpl").html());
+                    // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+                    var html = template(req);
+                    // #dept_list_body 읽어온 내용을 추가한다.
+                    $("#tab-page-2").append(html);
+                    }
+                });
+            }
+
+            $(function() {
+                $("header").load("header.html");
+                $("footer").load("footer.html");
+                get_ing_list();
+                get_end_list();
+                /** selected 파라미터 받아와서 1차 탭 선택함 */
+                var url = new URL(window.location.href);
+                var selector = url.searchParams.get("selected");
+                $("#"+selector).addClass("btn-primary").removeClass("btn-info");
+                $(".recordSort > .btn").not("#"+selector).removeClass("btn-primary").addClass("btn-info");
+                /** 선택된 1차 탭의 href값으로 탭 패널 열기 */
+                var target = $("#"+selector).attr('href');
+                $(target).removeClass('hide');
+                $(".tab-panel > div").not($(target)).addClass('hide');
+
+                /** 거래중/거래완료 탭 */
+                $(".recordSort > .btn").click(function(e) {
+                    e.preventDefault();
+                    if ($(this).hasClass("btn-info")) {
+                        $(this).addClass("btn-primary").removeClass("btn-info");
+                        $(".recordSort > .btn").not(this).removeClass("btn-primary").addClass("btn-info");
+
+                        var target = $(this).attr('href');
+                        $(target).removeClass('hide');
+                        $(".tab-panel > div").not($(target)).addClass('hide');
+                    }
+                });
+            });
+            // 직거래일 경우 결제완료 뱃지 삭제
+            $(window).load(function(){
+                $('.label:empty').remove();     
+            });
+            
+
+            /** 거래확정 모달 */
+            $(document).on("click", ".recordConfirm", function(e) {
+                e.preventDefault();
+                var ts = $(this)
+                var dis = ts.prev('.recordReturn').prop('disabled');
+                // 확인, 취소버튼에 따른 후속 처리 구현
+                swal({
+                    title: '확정',                // 제목
+                    text: "거래를 확정 하시겠습니까?",  // 내용
+                    type: 'warning',              // 종류
+                    confirmButtonText: '예',     // 확인버튼 표시 문구
+                    showCancelButton: true,       // 취소버튼 표시 여부
+                    cancelButtonText: '아니오',       // 취소버튼 표시 문구
+                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
+                    if (result.value) {           // 확인 버튼이 눌러진 경우
+                        swal('확정', '성공적으로 확정되었습니다.', 'success');
+                        console.log(ts.prev().data('return'));
+                        if (ts.prev().data('return') != 'hidden') {
+                            if (!dis) {
+                                swal('잠깐', '반품요청이 있습니다. 반품 승인/거절 여부 먼저 결정해 주세요.', 'error');
+                            } else {
+                                ts.parents('.item-list').remove();
+                            }
+                        } else {
+                            ts.parents('.item-list').remove();
+                        }
+                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
+                        swal('취소', '확정이 취소되었습니다.', 'error');
+                    }
+                });
+            });
+
+            /** 반품확정 */
+            $(document).on("click", ".recordReturn", function(e) {
+                e.preventDefault();
+                var ts = $(this);
+                // 확인, 취소버튼에 따른 후속 처리 구현
+                swal({
+                    title: '반품',                // 제목
+                    text: "반품을 승인 하시겠습니까?",  // 내용
+                    type: 'warning',              // 종류
+                    confirmButtonText: '승인',     // 확인버튼 표시 문구
+                    showCancelButton: true,       // 취소버튼 표시 여부
+                    cancelButtonText: '거절',       // 취소버튼 표시 문구
+                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
+                    if (result.value) {           // 확인 버튼이 눌러진 경우
+                        swal('승인', '반품을 승인 하셨습니다.', 'success');
+                        ts.prop('disabled', true);
+                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
+                        swal('거절', '반품을 거절 하셨습니다.', 'error');
+                        ts.prop('disabled', true).html('반품거절');
+                    }
+                });
+            });
+        </script>
+        
+        
+    </body>
+</html>
