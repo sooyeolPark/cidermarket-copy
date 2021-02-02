@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png"/>
 
 <!-- bootstrap -->
-<link rel="stylesheet" type="text/css" href="assets/css/common/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="assets/css/common/bootstrap.css"/>
 
 <!-- noto sans 웹 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="assets/css/common/font.css"/>
