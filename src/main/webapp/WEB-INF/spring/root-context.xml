@@ -22,7 +22,7 @@
 		<!-- 데이터베이스 이름 -->
 		<prop key="dbName">myschool</prop>
 		<!-- 데이터베이스 문자셋 -->
-		<prop key="dbCharset">urf8</prop>
+		<prop key="dbCharset">utf8</prop>
 		<!-- 데이터베이스 계정명 -->
 		<prop key="dbUsername">root</prop>
 		<!-- 데이터베이스 비밀번호 -->

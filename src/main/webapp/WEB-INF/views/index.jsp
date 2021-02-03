@@ -6,7 +6,7 @@
 <head>
     <%@ include file="inc/head.jsp" %>
     <title>쿨거래 할 땐 사이다마켓!</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/user/index.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/user/item_index.css"/>
 </head>
 
 <body>

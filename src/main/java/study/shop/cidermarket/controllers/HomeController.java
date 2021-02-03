@@ -34,4 +34,9 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/user/item_index.cider", method = RequestMethod.GET)
+	public String item_index(Locale locale, Model model) {
+		log.debug("item_index 화면이 실행되었습니다.");		
+		return "user/item_index";
+	}
 }

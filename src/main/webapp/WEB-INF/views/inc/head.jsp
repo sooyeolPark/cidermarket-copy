@@ -5,26 +5,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 <!-- 모바일 웹 페이지 설정 -->
-<link rel="shortcut icon" href="assets/ico/favicon.ico"/>
-<link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png"/>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/ico/favicon.ico"/>
+<link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-144-precomposed.png"/>
 
 <!-- bootstrap -->
-<link rel="stylesheet" type="text/css" href="assets/css/common/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/bootstrap.css"/>
 
 <!-- noto sans 웹 폰트 적용 -->
-<link rel="stylesheet" type="text/css" href="assets/css/common/font.css"/>
-<link rel="stylesheet" type="text/css" href="assets/css/common/header.css"/>
-<link rel="stylesheet" type="text/css" href="assets/css/common/nav.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/font.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/header.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/nav.css"/>
 
-<script src="assets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 
 <!-- 반응형 웹을 지원하지 않을 경우 -->
-<!-- <link rel="stylesheet" href="assets/css/common/non-responsive.css" /> -->
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common/non-responsive.css" /> -->
 
 <!-- IE8 이하 버전 지원 -->
-<!--[if lt IE 9]> <script type="text/javascript" src="assets/js/html5shiv.js"></script> 
-<script type="text/javascript" src="assets/js/respond.min.js"></script> <![endif]-->
+<!--[if lt IE 9]> <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/html5shiv.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/respond.min.js"></script> <![endif]-->
 
 <!-- IE10 반응형 웹 버그 보완 -->
-<!--[if gt IE 9]> <link rel="stylesheet" type="text/css" href="assets/css/common/ie10.css" /> 
-<script type="text/javascript" src="assets/js/ie10.js"></script> <![endif]-->
+<!--[if gt IE 9]> <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/ie10.css" /> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ie10.js"></script> <![endif]-->
