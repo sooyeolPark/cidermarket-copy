@@ -23,6 +23,7 @@ public class HomeController {
 	@Autowired RegexHelper regexHelper;
 	@Autowired SqlSession sqlSession;
 	
+	/** 메인 페이지 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		log.debug("index 화면이 실행되었습니다.");
@@ -34,9 +35,9 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/user/item_index.cider", method = RequestMethod.GET)
-	public String item_index(Locale locale, Model model) {
-		log.debug("item_index 화면이 실행되었습니다.");		
-		return "user/item_index";
-	}
+    /** 알람 페이지 */
+    @RequestMapping(value="/user/alarm.cider", method=RequestMethod.GET)
+    public String alarm() {
+        return "user/alarm";
+    }
 }

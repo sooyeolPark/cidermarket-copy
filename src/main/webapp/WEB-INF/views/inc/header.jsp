@@ -57,150 +57,150 @@
   </div>
   <div class="aside-contents">
     <div class="btnn-logout view-block">
-      <a href="${pageContext.request.contextPath}/user/login.jsp" class="btn btn-primary">로그인</a>
-      <a href="${pageContext.request.contextPath}/user/join.jsp" class="btn btn-info">회원가입</a>
-         <div class="btnn-temp">
-            <a href="${pageContext.request.contextPath}/admin/login_adm.jsp" class="btn btn-danger templogin">임시관리자</a>
-            <a href="#" class="btn btn-danger templogin">임시로그인</a>
-         </div>
-      </div>
+      <a href="${pageContext.request.contextPath}/user/login.cider" class="btn btn-primary">로그인</a>
+      <a href="${pageContext.request.contextPath}/user/join.cider" class="btn btn-info">회원가입</a>
+			<div class="btnn-temp">
+				<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
+				<a href="#" class="btn btn-danger templogin">임시로그인</a>
+			</div>
+		</div>
     </div>
     <div class="btnn-login view-none">
-      <a href="${pageContext.request.contextPath}/user/msgbox.jsp" class="btn btn-info">쪽지함</a>
-      <a href="${pageContext.request.contextPath}/user/record_sell.jsp?selected=selling" class="btn btn-info"
+      <a href="${pageContext.request.contextPath}/user/msgbox.cider" class="btn btn-info">쪽지함</a>
+      <a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info"
         >거래내역</a
       >
-      <a href="${pageContext.request.contextPath}/user/mystore.jsp" class="btn btn-info">내상점</a>
+      <a href="${pageContext.request.contextPath}/user/mystore.cider" class="btn btn-info">내상점</a>
     </div>
     <div class="gory_title">CATEGORY</div>
     <div class="category">
       <ul>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hba0000.png" />핸드메이드</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hak0000.png" />휴대폰/태블릿</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haf0000.png" />가 구</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haw0000.png" />문 구</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_har0000.png" />자동차용품</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hae0000.png" />유아용/완구</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hai0000.png" />컴퓨터/주변기기</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hag0000.png" />생활</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hax0000.png" />스타굿즈</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_pet_goods.png" />반려동물용품</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_had0000.png" />뷰티</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haj0000.png" />카메라</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haa0000.png" />여성의류</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hah0000.png" />디지털/가전</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hav0000.png" />피규어/키덜트</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hao0000.png" />스포츠/레저</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hab0000.png" />남성의류</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haq0000.png" />티켓</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_has0000.png" />예술/미술</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_han0000.png" />게임</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hac0000.png" />신발/가방/잡화</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_ham0000.png" />음향기기/악기</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hap0000.png" />도서</span></a
           >
         </li>
         <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.jsp"
+          <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hzz0000.png" />기타</span></a
           >
         </li>
       </ul>
     </div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.jsp">이벤트</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/notice_list.jsp">공지사항</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/help.jsp?selected=faq">헬프센터</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/protection.jsp">개인정보처리방침</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/notice_list.cider">공지사항</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/help.cider?selected=faq">헬프센터</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/protection.cider">개인정보처리방침</a></div>
     <div class="btnn-login view-none">
       <a href="#" class="btn btn-danger logout">로그아웃</a>
     </div>
@@ -229,6 +229,7 @@
 </script>
 
 <!-- // 사이드바 시작 -->
+<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
 <!-- ajax-helper -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
@@ -255,11 +256,6 @@
     $(".templogin, .logout").click(function () {
       $(".btnn-login, .btnn-logout").toggleClass("view-none");
       $(".btnn-logout").toggleClass("view-block");
-    });
-    
-    $("#btnSearch, #searchClose").click(function(e) { 
-      e.preventDefault();
-      $("#searchBox").slideToggle(150); 
     });
   });
 </script>

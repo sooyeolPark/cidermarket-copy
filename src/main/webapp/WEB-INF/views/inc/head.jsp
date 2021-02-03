@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/header.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/nav.css"/>
 
+<!-- jQuery -->
 <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 
 <!-- 반응형 웹을 지원하지 않을 경우 -->

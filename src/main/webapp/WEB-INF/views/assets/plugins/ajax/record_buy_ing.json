@@ -1,7 +1,7 @@
 {
   "ing_item": [
     {
-      "href": "item_index.html",
+      "href": "item_index.cider",
       "imgurl": "img/item_13.jpg",
       "label1": "",
       "label2": "직거래",
@@ -11,7 +11,7 @@
       "hidden2": ""
     },
     {
-      "href": "item_index.html",
+      "href": "item_index.cider",
       "imgurl": "img/item_14.jpg",
       "label1": "결제완료",
       "label2": "택배거래",

@@ -7,22 +7,22 @@
 <html>
 
 <head>
-    <%@ include file="/WEB-INF/views/inc/head.jsp" %>
-    <title>상품상세 - 사이다마켓</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/item_index.css"/>
-     <!-- 캐러셀 jqeury plugin 참조 -->
-  	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/swiper/swiper-bundle.css">
-  	<script src="${pageContext.request.contextPath}/assets/plugins/swiper/swiper-bundle.js"></script>
-  	    <!-- Javascript -->
-  <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
-  <!-- ligthbox pulgin 참조 -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/lightbox/css/lightbox.css" />
-  <script src="${pageContext.request.contextPath}/assets/plugins/lightbox/js/lightbox.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
+	<%@ include file="/WEB-INF/views/inc/head.jsp"%>
+	<title>상품상세 - 사이다마켓</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/item_index.css" />
+	<!-- 캐러셀 jqeury plugin 참조 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/swiper/swiper-bundle.css">
+	<script src="${pageContext.request.contextPath}/assets/plugins/swiper/swiper-bundle.js"></script>
+	<!-- Javascript -->
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
+	<!-- ligthbox pulgin 참조 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/lightbox/css/lightbox.css" />
+	<script src="${pageContext.request.contextPath}/assets/plugins/lightbox/js/lightbox.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
 </head>
 
 <body>
@@ -76,7 +76,6 @@
 
   <!-- content 시작 -->
   <section>
-    <div>
       <!-- Slider main container -->
       <div class="swiper-container">
         <!-- Additional required wrapper -->
@@ -174,9 +173,7 @@
                   </div>
                   <div id="user_string">6</div>
 
-
                 </div>
-                </li>
 
               </div>
 
@@ -443,14 +440,13 @@
 
     //현재 접속한 사람의 정보가 담긴 데이터
     var re_content = {
-      imgurl: "../assets/img/user_jordan.jpg",
+      imgurl: "${pageContext.request.contextPath}/assets/img/user_jordan.jpg",
       id: "마이클조단",
       time: "",
       content: ""
     };
 
     $(function () {
-      $("header").load("header.html");
       get_list();
       /** 신고하기 링크를 클릭한 경우 */
       $("#flag_this").click(function (e) {
