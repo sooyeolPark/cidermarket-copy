@@ -1,81 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <!doctype html>
-<html lang="ko">
-
+<html>
 <head>
-<%@ include file="/WEB-INF/views/inc/head.jsp"%>
-<title>로그인 - 사이다마켓</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/user/style.css" />
+<%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
+<title>관리자 로그인 - 사이다마켓</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/font.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/header.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/nav.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/login_adm.css" />
 </head>
 
 <body>
-	<!-- 헤더 영역 -->
-	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
-
 	<!-- content 시작 -->
 	<section>
 		<!-- Item 영역 -->
 		<div class="container">
-			<h3 class="text-center">로그인</h3>
+			<h3 class="text-center">관리자 로그인</h3>
+			<h5 class="text-center">강사님은 vvip! 그냥 로그인버튼을 눌러주세요!</h5>
 			<!-- login form -->
 			<form role="form" id="login-form">
 				<fieldset>
 					<legend class="sr-only">로그인</legend>
 
 					<div class="form-group clearfix">
-						<label for="user_id" class="col-sm-2">아이디</label>
-						<div class="col-sm-10">
-							<input type="email" id="user_id" name="user_id"
-								class="form-control" placeholder="아이디를 입력하세요." />
+						<label for="user_id">아이디</label>
+						<div>
+							<input type="email" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요." />
 							<p id="idc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
-						<label for="user_pw" class="col-sm-2">비밀번호</label>
-						<div class="password_icon col-sm-10">
-							<input type="password" id="user_pw" name="user_pw"
-								class="form-control" placeholder="비밀번호를 입력하세요." /> <i
-								class="eyeicon glyphicon glyphicon-eye-close"></i> <span
-								class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span>
-							<span class="in-spc">✔ 특수문자포함</span>
+						<label for="user_pw">비밀번호</label>
+						<div class="password_icon">
+							<input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요." />
+							<i class="eyeicon glyphicon glyphicon-eye-close"></i> <span class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span> <span class="in-spc">✔ 특수문자포함</span>
 							<p id="pwc" class="pop"></p>
 						</div>
 					</div>
 
-					<div class="checkbox col-sm-offset-2">
-						<label><input type="checkbox">아이디 저장</label> <label><input
-							type="checkbox">로그인 상태유지</label>
+					<div class="checkbox">
+						<label><input type="checkbox">아이디 저장</label> <label><input type="checkbox">로그인 상태유지</label>
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
-
-					<div class="find_id_pw text-center">
-						<a href="${pageContext.request.contextPath}/user/find_id.cider">아이디찾기</a>
-						<span>|</span> <a
-							href="${pageContext.request.contextPath}/user/find_pw.cider">비밀번호찾기</a>
-					</div>
-					<div class="join_info text-center">
-						처음이신가요? <a
-							href="${pageContext.request.contextPath}/user/join.cider">회원가입</a>
-					</div>
+					<a href="${pageContext.request.contextPath}/admin/home_adm.cider" type="submit" class="btn btn-primary btn-block btn-lg">로그인</a>
 				</fieldset>
 			</form>
-			<!-- // login form -->
-
 		</div>
+		<!-- // login form -->
 	</section>
 	<!-- // content 끝 -->
 
 	<!-- 푸터 영역 -->
-	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
 	<!-- Javascript -->
-	<script	src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script type="text/javascript">
           $(function() {
@@ -137,12 +118,11 @@
                 
                 // 처리 완료
                 alert("입력형식 검사 완료!!!");
+
               });
+
 
           });
         </script>
-
-
 </body>
-
 </html>

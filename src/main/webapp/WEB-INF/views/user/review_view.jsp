@@ -24,8 +24,8 @@
                     <div class="panel panel-default user-write">
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
-                          <a href="${pageContext.request.contextPath}/user/item_index.jsp" class="clearfix">
-                            <span class="boardImg"><img src="img/item_07.jpg" alt="에어팟프로 선물용 미개봉"></span>
+                          <a href="${pageContext.request.contextPath}/user/item_index.cider" class="clearfix">
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/item_07.jpg" alt="에어팟프로 선물용 미개봉"></span>
                             <span class="boardTitle">에어팟프로 선물용 미개봉</span>
                             <span class="boardDate">390,000원</span>
                           </a>                            
@@ -43,10 +43,7 @@
                     </div>
                     <!-- button -->
                     <div class="text-center">
-                        <button
-                            type="button"
-                            class="btn btn-lg btn-danger"
-                            onclick="javascript:history.back()">돌아가기</button>
+                        <button type="button" class="btn btn-lg btn-danger" onclick="javascript:history.back()">돌아가기</button>
                     </div>
                 </div>
 
@@ -59,27 +56,6 @@
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#tab-page-policy").load("policy.cider");
-                $("#tab-page-inquiry").load("inquiry.cider");
-
-                /** sorting */
-                $(".recordSort > .btn").click(function (e) {
-                    e.preventDefault();
-                    if ($(this).hasClass("btn-info")) {
-                        $(this)
-                            .addClass("btn-primary")
-                            .removeClass("btn-info");
-                        $(".recordSort > .btn")
-                            .not(this)
-                            .removeClass("btn-primary")
-                            .addClass("btn-info");
-                    }
-                });
-            });
-        </script>
 </body>
 
 </html>

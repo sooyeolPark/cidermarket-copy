@@ -4,14 +4,14 @@
 <html lang="ko">
 
 <head>
-	<%@ include file="/WEB-INF/views/inc/head.jsp"%>
+   <%@ include file="/WEB-INF/views/inc/head.jsp"%>
     <title>주문완료 - 사이다마켓</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/order_ok.css" />
 </head>
 
 <body>
     <!-- 헤더 영역 -->
-	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
+   <%@ include file="/WEB-INF/views/inc/header.jsp"%>
 
     <section>
         <div class="container">
@@ -21,7 +21,7 @@
             <div id="order_cont">
                 <div class="order_name">주문내용</div>
                 <div class="media clearfix">
-                    <a class="pull-left" href="#"> <img class="media-object" src="img/item.png" width="80" height="80"
+                    <a class="pull-left" href="#"> <img class="media-object" src="${pageContext.request.contextPath}/assets/img/item.png" width="80" height="80"
                             alt="Generic placeholder image"> </a>
                     <div class="media-body">
                         <div class="clearfix">
@@ -88,7 +88,7 @@
     </section>
     
     <!-- 푸터 영역 -->
-	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
+   <%@ include file="/WEB-INF/views/inc/footer.jsp"%>
 
     <!-- Javascript -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>

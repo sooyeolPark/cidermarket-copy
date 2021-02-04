@@ -59,7 +59,7 @@
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/inquiry_cider.html'">목록</button>
+                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/inquiry_cider.cider'">목록</button>
                     </div>
                 </div>
                 
@@ -76,9 +76,6 @@
 		<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
         <script type="text/javascript">
             $(function() {
-                $("#tab-page-policy").load("policy.cider");
-                $("#tab-page-inquiry").load("inquiry.cider");
-
                 /** sorting */
                 $(".recordSort > .btn").click(function(e) {
                     e.preventDefault();

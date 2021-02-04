@@ -53,10 +53,14 @@
 					</div>
 
 					<!-- 탭 - 운영정책 -->
-					<div id="tab-page-policy" class="hide"></div>
+					<div id="tab-page-policy" class="hide">
+						<%@ include file="/WEB-INF/views/user/policy.jsp"%>
+					</div>
 
 					<!-- 탭 - 일반문의 -->
-					<div id="tab-page-inquiry" class="hide"></div>
+					<div id="tab-page-inquiry" class="hide">
+						<%--@ include file="/WEB-INF/views/user/inquiry.jsp"--%>
+					</div>
 				</div>
 			</div>
 
@@ -69,72 +73,72 @@
 
 	<!-- template -->
 	<script id="faq1_tmpl" type="text/x-handlebars-template">
-					{{#each List}}
-					<div class="panel panel-faq">
-						<div class="panel-body">
-							<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
-								{{title}}
-							</h4>
-						</div>
-						<div id="collapse{{@key}}" class="panel-collapse collapse">
-							<div class="panel-footer">
-								<p>{{{content}}}</p>
-							</div>
-						</div>
-					</div><!-- // 리스트 끝 -->	
-					{{/each}}
-				</script>
+		{{#each List}}
+		<div class="panel panel-faq">
+			<div class="panel-body">
+				<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
+					{{title}}
+				</h4>
+			</div>
+			<div id="collapse{{@key}}" class="panel-collapse collapse">
+				<div class="panel-footer">
+					<p>{{{content}}}</p>
+				</div>
+			</div>
+		</div><!-- // 리스트 끝 -->	
+		{{/each}}
+	</script>
 	<!-- template -->
 	<script id="faq2_tmpl" type="text/x-handlebars-template">
-					{{#each List}}
-					<div class="panel panel-faq">
-						<div class="panel-body">
-							<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
-								{{title}}
-							</h4>
-						</div>
-						<div id="collapse{{@key}}" class="panel-collapse collapse">
-							<div class="panel-footer">
-								<p>{{{content}}}</p>
-							</div>
-						</div>
-					</div><!-- // 리스트 끝 -->	
-					{{/each}}
-				</script>
+		{{#each List}}
+		<div class="panel panel-faq">
+			<div class="panel-body">
+				<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
+					{{title}}
+				</h4>
+			</div>
+			<div id="collapse{{@key}}" class="panel-collapse collapse">
+				<div class="panel-footer">
+					<p>{{{content}}}</p>
+				</div>
+			</div>
+		</div><!-- // 리스트 끝 -->	
+		{{/each}}
+	</script>
 	<!-- template -->
 	<script id="faq3_tmpl" type="text/x-handlebars-template">
-					{{#each List}}
-					<div class="panel panel-faq">
-						<div class="panel-body">
-							<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
-								{{title}}
-							</h4>
-						</div>
-						<div id="collapse{{@key}}" class="panel-collapse collapse">
-							<div class="panel-footer">
-								<p>{{{content}}}</p>
-							</div>
-						</div>
-					</div><!-- // 리스트 끝 -->	
-					{{/each}}
-				</script>
+		{{#each List}}
+		<div class="panel panel-faq">
+			<div class="panel-body">
+				<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
+					{{title}}
+				</h4>
+			</div>
+			<div id="collapse{{@key}}" class="panel-collapse collapse">
+				<div class="panel-footer">
+					<p>{{{content}}}</p>
+				</div>
+			</div>
+		</div><!-- // 리스트 끝 -->	
+		{{/each}}
+	</script>
 	<!-- template -->
 	<script id="faq4_tmpl" type="text/x-handlebars-template">
-					{{#each List}}
-					<div class="panel panel-faq">
-						<div class="panel-body">
-							<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
-								{{title}}
-							</h4>
-						</div>
-						<div id="collapse{{@key}}" class="panel-collapse collapse">
-							<div class="panel-footer">
-								<p>{{{content}}}</p>
-							</div>
-						</div>
-					</div><!-- // 리스트 끝 -->	
-					{{/each}}
-				</script>
+		{{#each List}}
+		<div class="panel panel-faq">
+			<div class="panel-body">
+				<h4 class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{@key}}">
+					{{title}}
+				</h4>
+			</div>
+			<div id="collapse{{@key}}" class="panel-collapse collapse">
+				<div class="panel-footer">
+					<p>{{{content}}}</p>
+				</div>
+			</div>
+		</div><!-- // 리스트 끝 -->	
+		{{/each}}
+	</script>
 
 	<!-- Javascript -->
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
@@ -146,66 +150,38 @@
 	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
 	<script type="text/javascript">
 		function faq_list_01() {
-			$
-					.get(
-							"${pageContext.request.contextPath}/assets/plugins/ajax/faq_01.json",
-							function(req) {
-								// 미리 준비한 HTML틀을 읽어온다.
-								var template = Handlebars.compile($(
-										"#faq1_tmpl").html());
-								// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-								var html = template(req);
-								// #dept_list_body 읽어온 내용을 추가한다.
-								$("#accordion").append(html);
-							});
+			$.get("${pageContext.request.contextPath}/assets/plugins/ajax/faq_01.json",	function(req) {
+				// 미리 준비한 HTML틀을 읽어온다.
+				var template = Handlebars.compile($("#faq1_tmpl").html());
+				// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
+				var html = template(req);
+				// #dept_list_body 읽어온 내용을 추가한다.
+				$("#accordion").append(html);
+			});
 		}
 		function faq_list_02() {
-			$
-					.get(
-							"${pageContext.request.contextPath}/assets/plugins/ajax/faq_02.json",
-							function(req) {
-								// 미리 준비한 HTML틀을 읽어온다.
-								var template = Handlebars.compile($(
-										"#faq2_tmpl").html());
-								// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-								var html = template(req);
-								// #dept_list_body 읽어온 내용을 추가한다.
-								$("#accordion").append(html);
-							});
+			$.get("${pageContext.request.contextPath}/assets/plugins/ajax/faq_02.json",	function(req) {
+				var template = Handlebars.compile($("#faq2_tmpl").html());
+				var html = template(req);
+				$("#accordion").append(html);
+			});
 		}
 		function faq_list_03() {
-			$
-					.get(
-							"${pageContext.request.contextPath}/assets/plugins/ajax/faq_03.json",
-							function(req) {
-								// 미리 준비한 HTML틀을 읽어온다.
-								var template = Handlebars.compile($(
-										"#faq3_tmpl").html());
-								// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-								var html = template(req);
-								// #dept_list_body 읽어온 내용을 추가한다.
-								$("#accordion").append(html);
-							});
+			$.get("${pageContext.request.contextPath}/assets/plugins/ajax/faq_03.json",	function(req) {
+				var template = Handlebars.compile($("#faq3_tmpl").html());
+				var html = template(req);
+				$("#accordion").append(html);
+			});
 		}
 		function faq_list_04() {
-			$
-					.get(
-							"${pageContext.request.contextPath}/assets/plugins/ajax/faq_04.json",
-							function(req) {
-								// 미리 준비한 HTML틀을 읽어온다.
-								var template = Handlebars.compile($(
-										"#faq4_tmpl").html());
-								// Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-								var html = template(req);
-								// #dept_list_body 읽어온 내용을 추가한다.
-								$("#accordion").append(html);
-							});
+			$.get("${pageContext.request.contextPath}/assets/plugins/ajax/faq_04.json",	function(req) {
+				var template = Handlebars.compile($("#faq4_tmpl").html());
+				var html = template(req);
+				$("#accordion").append(html);
+			});
 		}
 		$(function() {
-			$("#tab-page-policy").load("user/policy.cider");
-			$("#tab-page-inquiry").load("user/inquiry.cider");
 			faq_list_01();
-
 			/** selected 파라미터 받아와서 1차 탭 선택함 */
 			var url = new URL(window.location.href);
 			var selector = url.searchParams.get("selected");
@@ -221,7 +197,6 @@
 				e.preventDefault();
 				$(".tab-button-item-link3").not(this).removeClass("selected");
 				$(this).addClass("selected");
-
 				var target = $(this).attr('href');
 				$(target).removeClass('hide');
 				$(".tab-panel > div").not($(target)).addClass('hide');

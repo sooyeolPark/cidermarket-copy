@@ -6,7 +6,6 @@
 <%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
 <title>관리자 홈 - 사이다마켓</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/home_adm.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 </head>
 

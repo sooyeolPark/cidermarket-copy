@@ -28,7 +28,7 @@
                             <span class="boardDate boardDate-view">2021-01-01</span>
                         </div>
                         <div class="panel-body">
-                            <div class="boardImg-view"><img src="img/banner_01.jpg" alt="사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!"></div>
+                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/img/banner_01.jpg" alt="사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!"></div>
                             <p>오픈을 기념해 100분께 애플 에어팟 맥스를 드립니다.<br><br>
                               응모기간 : 2021-01-01 ~ 2021-01-31<br>
                               응모대상 : 거래건수 상위 100분 추첨하여 증정<br>
@@ -60,27 +60,6 @@
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#tab-page-policy").load("policy.cider");
-                $("#tab-page-inquiry").load("inquiry.cider");
-
-                /** sorting */
-                $(".recordSort > .btn").click(function (e) {
-                    e.preventDefault();
-                    if ($(this).hasClass("btn-info")) {
-                        $(this)
-                            .addClass("btn-primary")
-                            .removeClass("btn-info");
-                        $(".recordSort > .btn")
-                            .not(this)
-                            .removeClass("btn-primary")
-                            .addClass("btn-info");
-                    }
-                });
-            });
-        </script>
 </body>
 
 </html>

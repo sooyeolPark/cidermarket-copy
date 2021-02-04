@@ -27,10 +27,10 @@
                     <!-- 탭 버튼 영역 -->
                     <ul class="row tab-button clearfix">
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="record_sell.html?selected=selling" class="tab-button-item-link pull-left">판매</a>
+                            <a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="tab-button-item-link pull-left">판매</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="record_buy.html?selected=selling" class="tab-button-item-link pull-left selected">구매</a>
+                            <a href="${pageContext.request.contextPath}/user/record_buy.cider?selected=selling" class="tab-button-item-link pull-left selected">구매</a>
                         </li>
                     </ul>
                     
@@ -66,7 +66,7 @@
                 <div class="sorting itemList">
                     <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
                     <div class="caption">
-                        <span class="label">{{label1}}</span>
+                        <span class="label {{hidden1}}">{{label1}}</span>
                         <span class="label label2">{{label2}}</span>
                         <h4><a href="${pageContext.request.contextPath}/user/{{href}}">{{title}}</a></h4>
                         <h4><b>{{price}}</b></h4>

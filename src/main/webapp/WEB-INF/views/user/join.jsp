@@ -7,8 +7,7 @@
 <head>
 <%@ include file="/WEB-INF/views/inc/head.jsp"%>
 <title>회원가입 - 사이다마켓</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/user/style.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/style.css" />
 </head>
 
 <body>
@@ -71,14 +70,9 @@
 					</div>
 
 					<div class="join_info">
-						<p>
-							가입시 <a href="${pageContext.request.contextPath}/user/terms.cider">이용약관</a>
-							및 <a
-								href="${pageContext.request.contextPath}/user/protection.cider">개인정보
-								취급방침</a>, <a
-								href="${pageContext.request.contextPath}/user/location.cider">위치정보제공</a>에
-							동의합니다.
-						</p>
+						<p>가입시 <a href="${pageContext.request.contextPath}/user/terms.cider">이용약관</a> 및 
+						<a href="${pageContext.request.contextPath}/user/protection.cider">개인정보 취급방침</a>, 
+						<a href="${pageContext.request.contextPath}/user/location.cider">위치정보제공</a>에 동의합니다.</p>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 					<div class="join_info text-center">
@@ -118,10 +112,8 @@
 	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<!-- Javascript -->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+	<script	src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script type="text/javascript">
           $(function() {

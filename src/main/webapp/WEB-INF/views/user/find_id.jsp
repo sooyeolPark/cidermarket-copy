@@ -49,7 +49,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<!-- Javascript -->
-	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>

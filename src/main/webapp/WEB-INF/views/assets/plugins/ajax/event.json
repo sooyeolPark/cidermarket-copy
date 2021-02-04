@@ -1,13 +1,13 @@
 {
   "eventList": [
       {
-        "href": "notice_view.cider",
+        "href": "event_view.cider",
         "imgUrl": "img/banner_01.jpg",
         "title": "사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!",
         "date": "2021-01-01"
       },
       {
-        "href": "notice_view.cider",
+        "href": "event_view.cider",
         "imgUrl": "img/banner_03.jpg",
         "title": "2021 새해 복 많이 받으세요!",
         "date": "2021-01-01"

@@ -67,27 +67,6 @@
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#tab-page-policy").load("policy.cider");
-                $("#tab-page-inquiry").load("inquiry.cider");
-
-                /** sorting */
-                $(".recordSort > .btn").click(function (e) {
-                    e.preventDefault();
-                    if ($(this).hasClass("btn-info")) {
-                        $(this)
-                            .addClass("btn-primary")
-                            .removeClass("btn-info");
-                        $(".recordSort > .btn")
-                            .not(this)
-                            .removeClass("btn-primary")
-                            .addClass("btn-info");
-                    }
-                });
-            });
-        </script>
 </body>
 
 </html>

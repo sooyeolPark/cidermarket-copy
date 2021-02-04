@@ -6,7 +6,7 @@
 <head>
 	<%@ include file="/WEB-INF/views/inc/head.jsp"%>
     <title>거래후기 - 사이다마켓</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/style.css"/>
 </head>
 
 <body>
@@ -24,8 +24,8 @@
                     <div class="panel panel-default user-write">
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
-                          <a href="${pageContext.request.contextPath}/user/item_index.jsp" class="clearfix">
-                            <span class="boardImg"><img src="img/item.png" alt="디올 조던 팝니다"></span>
+                          <a href="${pageContext.request.contextPath}/user/item_index.cider" class="clearfix">
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/item.png" alt="디올 조던 팝니다"></span>
                             <span class="boardTitle">디올 조던 팝니다</span>
                             <span class="boardDate">1,000,000원</span>
                           </a>                            
@@ -93,9 +93,6 @@
         <script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
         <script type="text/javascript">
             $(function () {
-                $("#tab-page-policy").load("policy.cider");
-                $("#tab-page-inquiry").load("inquiry.cider");
-
                 /** sorting */
                 $(".recordSort > .btn").click(function (e) {
                     e.preventDefault();

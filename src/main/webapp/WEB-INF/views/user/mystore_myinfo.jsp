@@ -167,8 +167,6 @@
           </div>
           </form>
 
-
-
           <!-- 수신설정 -->
           <div class="row margin-top">
             <div class="col-sm-2"><span>수신설정</span></div>
@@ -210,7 +208,6 @@
         e.preventDefault();             // 페이지 이동 방지
         $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
         $("#front").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
-
       });
 
       /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
