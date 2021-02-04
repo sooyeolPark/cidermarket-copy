@@ -440,7 +440,7 @@
 
     //현재 접속한 사람의 정보가 담긴 데이터
     var re_content = {
-      imgurl: "${pageContext.request.contextPath}/assets/img/user_jordan.jpg",
+      imgurl: "img/user_jordan.jpg",
       id: "마이클조단",
       time: "",
       content: ""
@@ -534,7 +534,7 @@
           cancelButtonText: '이 페이지 계속 보기',
         }).then(function (result) {
           if (result.value) {
-            window.open("msgbox.html", "_self");
+            window.open("${pageContext.request.contextPath}/user/msgbox.cider", "_self");
           } else if (result.dismiss === 'cancel') {
           }
         });
@@ -542,7 +542,7 @@
       // 바로 결제 누를때 주문서 화면으로 이동
       $("#dir_pay").click(function (e) {
         e.preventDefault();
-        window.open("order_sheet.html", "_self");
+        window.open("${pageContext.request.contextPath}/user/order_sheet.cider", "_self");
       });
 
       // 답글 달기
