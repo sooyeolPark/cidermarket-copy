@@ -147,8 +147,6 @@
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
   <script type="text/javascript">
     $(function () {
-      $("header").load("header.html");
-
       /** modal 링크를 클릭한 경우 */
       $("#modal").click(function (e) {
         e.preventDefault();             // 페이지 이동 방지

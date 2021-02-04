@@ -105,12 +105,21 @@
     </div>
     <div class="review_img">
       <a href="#">
+      {{#if img1}}
       <img src="${pageContext.request.contextPath}/assets/{{img1}}">
+      {{/if}}
+	  {{#if img2}}
       <img src="${pageContext.request.contextPath}/assets/{{img2}}">
+      {{/if}}
+      {{#if img3}}
       <img src="${pageContext.request.contextPath}/assets/{{img3}}">
+      {{/if}}
+      {{#if img4}}
       <img src="${pageContext.request.contextPath}/assets/{{img4}}">
+      {{/if}}
     </a>
     </div>
+	
   </div>
 </li>
 {{/each}}

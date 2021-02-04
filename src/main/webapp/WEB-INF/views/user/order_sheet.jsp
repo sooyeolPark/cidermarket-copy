@@ -12,7 +12,8 @@
 <body>
 	<!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
 	<div class='gray_layer' id='background'></div>
-	<div class='over_layer' id='pay_warning'></div>
+	<div class='over_layer' id='pay_warning'><%@ include file="/WEB-INF/views/user/pay_warning.jsp"%></div>
+	<div class='over_layer' id='pay_refund_policy'><%@ include file="/WEB-INF/views/user/refund_policy.jsp"%></div>
 	<!-- 헤더 영역 -->
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 
@@ -201,22 +202,21 @@
             $("#clk_pay_warning").click(function (e) {
                 e.preventDefault();             // 페이지 이동 방지
                 $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
-                $("#pay_warning").load("pay_warning.html");
                 $("#pay_warning").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
 
             });
             $("#clk_refund_policy").click(function (e) {
                 e.preventDefault();             // 페이지 이동 방지
                 $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
-                $("#pay_warning").load("refund_policy.html");
-                $("#pay_warning").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+                $("#pay_refund_policy").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
 
             });
             /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
             $("#background").click(function () {
                 $(this).fadeOut(300);       // 배경 레이어의 숨김
                 $("#front").fadeOut(200);
-                $("#pay_warning").fadeOut(200);
+                $(".over_layer").fadeOut(200);
+
 
             });
 

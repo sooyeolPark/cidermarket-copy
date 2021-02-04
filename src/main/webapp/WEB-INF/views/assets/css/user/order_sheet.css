@@ -160,11 +160,12 @@ table {
   background-color: #ccc;
 }
 
-#refund_policy,
-#pay_warning {
+#pay_warning,
+#pay_refund_policy {
   background-color: #fff;
   overflow: scroll;
 }
+
 /* 주소창 css */
 #ipostcode {
   width: 49%;

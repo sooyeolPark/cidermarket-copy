@@ -21,7 +21,7 @@
             <div id="order_cont">
                 <div class="order_name">주문내용</div>
                 <div class="media clearfix">
-                    <a class="pull-left" href="#"> <img class="media-object" src="img/item.png" width="80" height="80"
+                    <a class="pull-left" href="#"> <img class="media-object" src="${pageContext.request.contextPath}/assets/img/item.png" width="80" height="80"
                             alt="Generic placeholder image"> </a>
                     <div class="media-body">
                         <div class="clearfix">
