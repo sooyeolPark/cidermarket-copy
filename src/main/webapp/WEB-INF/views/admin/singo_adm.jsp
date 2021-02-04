@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,
-maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>관리자페이지</title>
-    <!-- 모바일 웹 페이지 설정 -->
-    <link rel="shortcut icon" href="assets/ico/favicon.png" />
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
-    <!-- 나눔고딕 웹 폰트 적용 -->
-    <link rel="stylesheet" type="text/css" href="assets/css/singo_adm.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+	<%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
+    <title>신고게시판 - 사이다마켓</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/singo_adm.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
- 
-
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -33,61 +25,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo ">
-
-                <a class="logo_img_a" href="index.html"><img src="img/logo.png" /></a>
-                <button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
-                <a class="nav_top_a btn-primary" href="index.html">User_Page <span
-                        class="logo_right glyphicon glyphicon-user"></span></a>
-
-            </div>
-        </div>
-        <div class="navbar navbar-default" role="navigation">
-            <div class="container">
-
-                <div class="collapse navbar-collapse">
-                    <ul id="nav_bar_menu" class="nav navbar-nav">
-
-                        <li class="nav_menu">
-                            <a href="home_adm.html">Home</a>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="order_adm.html">주문관리</a>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="board_adm.html">공지사항</a></li>
-                                <li><a href="event_adm.html">이벤트게시판</a></li>
-                                <li><a href="question_adm.html">일반문의</a></li>
-                                <li><a href="faq_adm.html">자주묻는질문</a></li>
-                                <li><a href="policy_adm.html">운영정책</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="member_adm.html">회원관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="member_adm.html">회원정보조회</a></li>
-                                <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="product_adm.html">상품관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="product_adm.html">상품목록</a></li>
-                                <li><a href="category_adm.html">상품분류</a></li>
-                                <li><a href="display_adm.html">상품진열</a></li>
-                                <li><a href="singo_adm.html">신고상품</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.nav-collapse -->
-            </div><!-- /.container -->
-        </div><!-- /.navbar -->
-    </header>
-
+    <!-- 헤더 영역 -->
+	<%@ include file="/WEB-INF/views/inc/header_adm.jsp"%>
 
     <div class="container">
         <div class="row">
@@ -95,16 +34,16 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <nav class="list-group">
                     <!-- 목록의 아이템 -->
                     <p>상품관리</p>
-                    <a href="product_adm.html" class="list-group-item">
+                    <a href="${pageContext.request.contextPath}/admin/product_adm.cider" class="list-group-item">
                         <p>상품목록</p>
                     </a>
-                    <a href="category_adm.html" class="list-group-item">
+                    <a href="${pageContext.request.contextPath}/admin/category_adm.cider" class="list-group-item">
                         <p>상품분류</p>
                     </a>
-                    <a href="display_adm.html" class="list-group-item">
+                    <a href="${pageContext.request.contextPath}/admin/display_adm.cider" class="list-group-item">
                         <p>상품진열</p>
                     </a>
-                    <a href="singo_adm.html" class="list-group-item">
+                    <a href="${pageContext.request.contextPath}/admin/singo_adm.cider" class="list-group-item">
                         <p>신고상품<span class="badge"> 10</span></p>
                     </a>
 
@@ -121,10 +60,10 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                         <option value="2">20개씩보기</option>
                     </select>
                     <select class="form-control" id="align-menu">
-                        <option value>사기글 같아요</option>
-                        <option value>전문 판매업자 같아요</option>
-                        <option value>판매금지 품목이에요</option>
-                        <option value>중거거래 게시글이 아니에요</option>
+                        <option value="">사기글 같아요</option>
+                        <option value="">전문 판매업자 같아요</option>
+                        <option value="">판매금지 품목이에요</option>
+                        <option value="">중거거래 게시글이 아니에요</option>
 
                     </select>
                 </div>
@@ -171,39 +110,18 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         </div>
     </div>
 
-
-
-    <!--/row-->
-    <hr>
-    <footer class="footer">
-
-        <!-- <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-left"></span> 이전
-                  </a>
-                  <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-right"></span> 다음
-                  </a> -->
-
-        <address>
-            <strong>&copy; (주)사이다마켓.All right reserved</strong><br>
-        </address>
-    </footer>
+	<!-- 푸터 영역 -->
+	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!--/.container-->
     <!-- Javascript -->
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/asidebar.jquery.js"></script>
-    <script src="assets/js/searchbox.js"></script>
-    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <!-- ajax-helper -->
-    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
-    <script src="plugins/ajax/ajax_helper.js"></script>
-    <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
     <!-- 유효성검사 -->
-    <script src="plugins/validate/jquery.validate.min.js"></script>
-    <script src="plugins/validate/additional-methods.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
     <script id="board_tmpl" type="x-handlebars-template">
         {{#boardlist}}
@@ -233,20 +151,11 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     </script>
     <script type="text/javascript">
                 $(function () {
-                    $(".board_left").load("board_adm_left.html");
-
-
-
-                    // 추가기능------------------------------------------------------------
-                    //필터 
-
-
-                    // 로그아웃
                     $("#log-out").click(function(e){
                 var result = confirm("로그아웃 하시겠습니까?");
 
                 if(result ==true) {
-                    location.replace('login_adm.html'); 
+                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
                 }else{
 
                 }
@@ -297,7 +206,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
             //ajax요청
             else if (choice==2) {
-            $.get('plugins/ajax/singo_adm.json', function(req){
+            $.get('${pageContext.request.contextPath}/assets/plugins/ajax/singo_adm.json', function(req){
                 var template= Handlebars.compile($("#board_tmpl").html());
                 var html = template(req);
                 $("#result").append(html);
@@ -337,7 +246,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             });
 
             // --------게시글 불러오기-----
-            $.get("plugins/ajax/singo_adm.json", function (req) {
+            $.get("${pageContext.request.contextPath}/assets/plugins/ajax/singo_adm.json", function (req) {
                 // 미리 준비한 HTML틀을 읽어온다.
                 var template = Handlebars.compile($("#board_tmpl2").html());
                 // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.

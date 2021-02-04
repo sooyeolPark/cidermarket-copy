@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,
-maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>관리자페이지</title>
-    <!-- 모바일 웹 페이지 설정 -->
-    <link rel="shortcut icon" href="assets/ico/favicon.png" />
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
-    <!-- 나눔고딕 웹 폰트 적용 -->
-    <link rel="stylesheet" type="text/css" href="assets/css/board_adm.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
-    <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
+	<%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
+    <title>일반문의 - 사이다마켓</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/question_adm.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -31,82 +25,27 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo ">
-        
-                <a class="logo_img_a" href="item_index.html"><img src="img/logo.png" /></a>
-                <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
-                <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
-        
-            </div>
-            </div>
-        <div class="navbar navbar-default" role="navigation">
-            <div class="container">
-    
-                <div class="collapse navbar-collapse">
-                    <ul id="nav_bar_menu" class="nav navbar-nav">
-    
-                        <li class="nav_menu">
-                            <a href="home_adm.html">Home</a>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="order_adm.html">주문관리</a>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="board_adm.html">공지사항</a></li>
-                                <li><a href="event_adm.html">이벤트게시판</a></li>
-                                <li><a href="question_adm.html">일반문의</a></li>
-                                <li><a href="faq_adm.html">자주묻는질문</a></li>
-                                <li><a href="policy_adm.html">운영정책</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="member_adm.html">회원관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="member_adm.html">회원정보조회</a></li>
-                                <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav_menu">
-                            <a class="nav_menu_a" href="product_adm.html">상품관리</a>
-                            <ul class="sub-menu">
-                                <li><a href="product_adm.html">상품목록</a></li>
-                                <li><a href="category_adm.html">상품분류</a></li>
-                                <li><a href="display_adm.html">상품진열</a></li>
-                                <li><a href="singo_adm.html">신고상품</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!-- /.nav-collapse -->
-            </div><!-- /.container -->
-        </div><!-- /.navbar -->
-    </header>
-
-
-    <div class="container">
+    <!-- 헤더 영역 -->
+	<%@ include file="/WEB-INF/views/inc/header_adm.jsp"%>
+	
+	<div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <nav class="list-group board_left">
-                    <!-- 목록의 아이템 -->
-                   
-                </nav>
-
-
+                <%@ include file="/WEB-INF/views/admin/board_adm_left.jsp"%>
             </div>
             <div class="col-lg-10">
             
                 <div class="title-menu clearfix">
-                    <h4>공지사항</h4>
+                    <h4>일반문의</h4>
                     <select class="form-control" id="align-number">
                         <option value="1">10개씩보기</option>
                         <option value="2">20개씩보기</option>
                     </select>
                     <select class="form-control" id="align-menu">
-                        <option value>작성일순</option>
-                        <option value="lowprice">조회수순</option>
+                        <option value="">답변대기</option>
+                        <option value="">답변완료</option>
+                        <option value="">작성일순</option>
+                        
                     </select>
                 </div>
 
@@ -114,17 +53,19 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="all-check"></th>
+                            <th><input id="all-check"type="checkbox"></th>
                             <th class="text-center">번호</th>
+                            <th class="text-center">유형</th>
                             <th class="text-center">제목</th>
                             <th class="text-center">작성자</th>
                             <th class="text-center">작성일</th>
-                            <th class="text-center">조회수</th>
+                            <th class="text-center">답변상태</th>
                         </tr>
                     </thead>
                     <tbody id="board_body">
-                         <tbody id="result"></tbody>
-                    </tbody>
+                        <tbody id="result"></tbody>
+                   </tbody>
+   
                 </table>
                 <div class="input-group">
                     <div class="input-group-btn">
@@ -132,11 +73,8 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                                 class="glyphicon glyphicon-search"></span></button>
                     </div>
                     <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
-                    <a class="btn btn-primary"  id = "write-btn" href="notice_write_adm.html" role="button">글쓰기</a>
                     <button id="delete"class="btn btn-warning"  role="button">삭제</button>
-                    
                 </div>
-                
                 <ul class="pagination">
                     <li class="disabled"><a href="#">&laquo;</a></li>
                     <!-- 활성화 버튼은 아래의 구조로 구성하시면 됩니다. sr-only는 스크린리더 전용 입니다 .-->
@@ -155,90 +93,87 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
     <!--/row-->
     <hr>
-    <footer class="footer">
+	<!-- 푸터 영역 -->
+	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
-        <!-- <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-left"></span> 이전
-                  </a>
-                  <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-right"></span> 다음
-                  </a> -->
-
-        <address>
-            <strong>&copy; (주)사이다마켓.All right reserved</strong><br>
-        </address>
-    </footer>
 
     <!--/.container-->
     <!-- Javascript -->
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/asidebar.jquery.js"></script>
-    <script src="assets/js/searchbox.js"></script>
-    <script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <!-- ajax-helper -->
-    <link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
-    <script src="plugins/ajax/ajax_helper.js"></script>
-    <script src="plugins/handlebars/handlebars-v4.7.6.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
     <!-- 유효성검사 -->
-    <script src="plugins/validate/jquery.validate.min.js"></script>
-    <script src="plugins/validate/additional-methods.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
 
-    <script id="board_tmpl" type/x-handlebars-template">
+    <script id="board_tmpl" type="x-handlebars-template">
         {{#boardlist}}
         <tr>
         <td><input type="checkbox" class="board board-group-item"/></td>
         <td class="text-center board-group-item">{{number}}</td>
+        <td class="text-center board-group-item">{{type}}</td>
         <td class="text-center board-group-item"><a href="{{url}}">{{title}}</a></td>
         <td class="text-center board-group-item">{{writer}}</td>
         <td class="text-center board-group-item">{{date}}</td>
-        <td class="text-center board-group-item">{{hit}}</td>
+        <td class="text-center board-group-item">{{status}}</td>
         </tr>
         {{/boardlist}}
     </script>
-        <script id="board_tmpl2" type/x-handlebars-template">
+        <script id="board_tmpl2" type="x-handlebars-template">
             {{#boardlist}}
             <tr>
             <td><input type="checkbox" class="board "/></td>
             <td class="text-center ">{{number}}</td>
+            <td class="text-center ">{{type}}</td>
             <td class="text-center "><a href="{{url}}">{{title}}</a></td>
             <td class="text-center ">{{writer}}</td>
             <td class="text-center ">{{date}}</td>
-            <td class="text-center ">{{hit}}</td>
+            <td class="text-center ">{{status}}</td>
             </tr>
             {{/boardlist}}
         </script>
     <script type="text/javascript">
         $(function () {
-            $(".board_left").load("board_adm_left.html");
-
-
-
-            // 추가기능------------------------------------------------------------
-         //필터 
-
 
         // 로그아웃
         $("#log-out").click(function(e){
                 var result = confirm("로그아웃 하시겠습니까?");
 
                 if(result ==true) {
-                    location.replace('login_adm.html'); 
+                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
                 }else{
 
                 }
             });
+      
+      $("#delete").click(function () {
+        swal({ 
+          title: '확인',
+          text: "정말 삭제 하시겠습니까?" ,
+          type:'warning', //종류
+          confirmButtonText:'네', //확인버튼 표시문구
+          showCancelButton:true, //취소버튼 표시여부
+          cancelButtonText:'아니오', //취소버튼 표시문구 
+        });
+        // .then(function(result){
+        //   if(result.value) {   //확인버튼이 눌러진 경우 
+        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
+        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+        //     swal('취소', '취소하였습니다.', 'error');
+        //   }
+        // });
+      });
 
     //   전체선택
       $("#all-check").change(function(){
           $(".board").prop('checked',$(this).prop('checked'));
       });
 
-// --------------------------------------------추가기능-------------------------------------
+           // --------------------------------------------추가기능-------------------------------------
 
     //   드롭다운의 변경이벤트
-        $("#align-number").change(function(){
+    $("#align-number").change(function(){
             $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
             var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
             if (!choice) {//선택값이 없다면 처리 중단 
@@ -247,7 +182,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 
             //ajax요청
             else if (choice==2) {
-            $.get('plugins/ajax/board_list.json', function(req){
+            $.get('${pageContext.request.contextPath}/assets/plugins/ajax/question_adm.json', function(req){
                 var template= Handlebars.compile($("#board_tmpl").html());
                 var html = template(req);
                 $("#result").append(html);
@@ -287,7 +222,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
             });
 
             // --------게시글 불러오기-----
-            $.get("plugins/ajax/board_list.json", function (req) {
+            $.get("${pageContext.request.contextPath}/assets/plugins/ajax/question_adm.json", function (req) {
                 // 미리 준비한 HTML틀을 읽어온다.
                 var template = Handlebars.compile($("#board_tmpl2").html());
                 // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
@@ -295,6 +230,7 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 // #dept_list_body 읽어온 내용을 추가한다.
                 $("#board_body").html(html);
             });
+
 
     });
 
