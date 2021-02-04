@@ -3,14 +3,16 @@
 <!doctype html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/inc/head.jsp"%>
+<%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
 <title>관리자 홈 - 사이다마켓</title>
-<link rel="stylesheet" type="text/css" href="assets/css/admin/home_adm.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/admin/header&footer_adm.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/home_adm.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 </head>
 
 <body>
-	
+	<!-- 헤더 영역 -->
+	<%@ include file="/WEB-INF/views/inc/header_adm.jsp"%>
 
 	<div class="body_height">
 		<div class="container">
@@ -18,16 +20,16 @@
 			<h5 id="today"></h5>
 			<h6 id="today-time"></h6>
 			<ul class="home_ul text-center">
-				<li class="home_li"><a href="order_adm.html">
+				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/order_adm.cider">
 						<span>123,456건</span>
 					</a> <span>총 거래건수(일주일 기준)</span></li>
-				<li class="home_li"><a href="order_adm.html">
+				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/order_adm.cider">
 						<span>9,999,999원</span>
 					</a> <span>총 거래액(일주일 기준)</span></li>
-				<li class="home_li"><a href="product_adm.html">
+				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/product_adm.cider">
 						<span>123,456개</span>
 					</a> <span>상품등록수</span></li>
-				<li class="home_li"><a href="member_adm.html">
+				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/member_adm.cider">
 						<span>23,456명</span>
 					</a> <span>전체 회원수</span></li>
 			</ul>
@@ -38,24 +40,18 @@
 		</div>
 	</div>
 
+	<!-- 푸터 영역 -->
+	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
-
-	<!--/row-->
-	<hr>
-	
-
-	<!--/.container-->
 	<!-- Javascript -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/asidebar.jquery.js"></script>
-	<script src="assets/js/searchbox.js"></script>
-	<script src="plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- ajax-helper -->
-	<link rel="stylesheet" href="plugins/ajax/ajax_helper.css" />
-	<script src="plugins/ajax/ajax_helper.js"></script>
-	<script src="plugins/validate/jquery.validate.min.js"></script>
-	<script src="plugins/validate/additional-methods.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -63,7 +59,7 @@
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script type="text/javascript">
         $(function () {
-            $(".board_left").load("board_adm_left.html");
+            $(".board_left").load("board_adm_left.cider");
 
 
 
@@ -76,7 +72,7 @@
                 var result = confirm("로그아웃 하시겠습니까?");
 
                 if(result ==true) {
-                    location.replace('login_adm.html'); 
+                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
                 }else{
 
                 }

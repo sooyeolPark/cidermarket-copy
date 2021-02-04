@@ -4,11 +4,11 @@
 	<div class="container">
 		<div class="logo ">
 
-			<a class="logo_img_a" href="item_index.html">
-				<img src="img/logo.png" />
+			<a class="logo_img_a" href="${pageContext.request.contextPath}/admin/home_adm.cider">
+				<img src="${pageContext.request.contextPath}/assets/img/logo.png" />
 			</a>
 			<button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
-			<a class="nav_top_a btn-primary" href="index.html">
+			<a class="nav_top_a btn-primary" href="${pageContext.request.contextPath}">
 				User_Page <span class="logo_right glyphicon glyphicon-user"></span>
 			</a>
 
@@ -21,26 +21,26 @@
 				<ul id="nav_bar_menu" class="nav navbar-nav">
 
 					<li class="nav_menu"><a href="home_adm.html">Home</a></li>
-					<li class="nav_menu"><a class="nav_menu_a" href="order_adm.html">주문관리</a></li>
-					<li class="nav_menu"><a class="nav_menu_a" href="board_adm.html">게시판관리</a>
+					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/order_adm.cider">주문관리</a></li>
+					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/board_adm.cider">게시판관리</a>
 						<ul class="sub-menu">
-							<li><a href="board_adm.html">공지사항</a></li>
-							<li><a href="event_adm.html">이벤트게시판</a></li>
-							<li><a href="question_adm.html">일반문의</a></li>
-							<li><a href="faq_adm.html">자주묻는질문</a></li>
-							<li><a href="policy_adm.html">운영정책</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/board_adm.cider">공지사항</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/event_adm.cider">이벤트게시판</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/question_adm.cider">일반문의</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/faq_adm.cider">자주묻는질문</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/policy_adm.cider">운영정책</a></li>
 						</ul></li>
-					<li class="nav_menu"><a class="nav_menu_a" href="member_adm.html">회원관리</a>
+					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/member_adm.cider">회원관리</a>
 						<ul class="sub-menu">
-							<li><a href="member_adm.html">회원정보조회</a></li>
-							<li><a href="outmember_adm.html">탈퇴회원관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/member_adm.cider">회원정보조회</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/outmember_adm.cider">탈퇴회원관리</a></li>
 						</ul></li>
-					<li class="nav_menu"><a class="nav_menu_a" href="product_adm.html">상품관리</a>
+					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/product_adm.cider">상품관리</a>
 						<ul class="sub-menu">
-							<li><a href="product_adm.html">상품목록</a></li>
-							<li><a href="category_adm.html">상품분류</a></li>
-							<li><a href="display_adm.html">상품진열</a></li>
-							<li><a href="singo_adm.html">신고상품</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/product_adm.cider">상품목록</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/category_adm.cider">상품분류</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/display_adm.cider">상품진열</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/singo_adm.cider">신고상품</a></li>
 						</ul></li>
 				</ul>
 			</div>
