@@ -8,9 +8,7 @@
 
 <form class="form-horizontal" id="inquiry-form" enctype=“multipart/form-data” role="form">
   <fieldset>
-    <legend class="sr-only">
-      문의하기
-    </legend>
+    <legend class="sr-only">문의하기</legend>
     <div class="form-group">
       <label for="user_name" class="col-sm-2 control-label">이름 <span class="star">*</span></label>
       <div class="col-sm-10">
@@ -120,19 +118,8 @@
     "image/x-icon"
   ];
 
-
   function validFileType(file) {
     return fileTypes.includes(file.type);
-  }
-
-  function returnFileSize(number) {
-    if(number < 1024) {
-      return number + 'bytes';
-    } else if(number >= 1024 && number < 1048576) {
-      return (number/1024).toFixed(1) + 'KB';
-    } else if(number >= 1048576) {
-      return (number/1048576).toFixed(1) + 'MB';
-    }
   }
 
   function updateImageDisplay() {
@@ -158,15 +145,11 @@
         const para = document.createElement('p');
         const i = document.createElement('i');
         if(validFileType(file)) {
-          let fileName = file.name;
-          fileName = fileName.substr(0, 10) + '...';
-          para.textContent = `파일명: ${fileName}\n 파일크기: ${returnFileSize(file.size)}`;
           const image = document.createElement('img');
           image.src = URL.createObjectURL(file);
 
           listItem.appendChild(i);
           listItem.appendChild(image);
-          listItem.appendChild(para);
         } else {
           para.textContent = `File name ${file.name}: 허용된 파일타입이 아닙니다. 다시 선택하세요.`;
           listItem.appendChild(para);

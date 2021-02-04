@@ -59,7 +59,7 @@
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/inquiry_cider.cider'">목록</button>
+                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/inquiry_list.cider'">목록</button>
                     </div>
                 </div>
                 

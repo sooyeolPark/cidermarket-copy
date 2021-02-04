@@ -58,6 +58,29 @@
         
         <!-- 푸터 영역 -->
 		<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
+		
+		<!-- 직거래시 구매자 선택 모달창 -->
+        <a data-toggle="modal" href="#myModal" class="myModal"></a>
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">구매자를 선택해 주세요.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <select name="buy_user" id="buy_user" class="form-control">
+                            <option value="">귀염티거</option>
+                            <option value="">역삼동그놈</option>
+                            <option value="">보리멸치</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- template -->
 		<script id="ing_item_tmpl" type="text/x-handlebars-template">
@@ -67,12 +90,12 @@
                     <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
                     <div class="caption">
                         <span class="label {{hidden1}}">{{label1}}</span>
-                        <span class="label label2">{{label2}}</span>
                         <h4><a href="${pageContext.request.contextPath}/user/{{href}}">{{title}}</a></h4>
                         <h4><b>{{price}}</b></h4>
                         <div class="resultBtn">
                             <button type="button" class="ing btn btn-warning recordReturn {{hidden1}}" data-return="{{hidden1}}">반품승인</button>
-                            <button type="button" class="ing btn btn-primary recordConfirm {{hidden2}}">거래확정</button>
+                            <button type="button" class="ing btn btn-primary recordConfirm" data-decide="{{decide}}">거래확정</button>
+                            <button type="button" class="ing btn btn-danger recordReturn {{hidden1}}" data-return="{{hidden1}}">거래취소</button>
                         </div>
                     </div>
                 </div>
@@ -86,14 +109,13 @@
                 <div class="sorting itemList">
                     <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
                     <div class="caption">
-                        <span class="label">{{label1}}</span>
-                        <span class="label label2">{{label2}}</span>
+                        <span class="label">{{label}}</span>
                         <h4><a href="${pageContext.request.contextPath}/user/{{href}}">{{title}}</a></h4>
                         <h4><b>{{price}}</b></h4>
                         <div class="resultBtn">
                             <button type="button" class="ing btn btn-warning {{hidden1}}" disabled>정산완료</button>
-                            <button onclick="location.href='${pageContext.request.contextPath}/user/review_write.cider'" type="button" class="ing btn btn-primary {{hidden2}}">후기 남기기</button>
-                            <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/review_view.cider'" class="ing btn btn-danger {{hidden3}}">후기 작성완료</button>
+                            <button onclick="location.href='review_write.html'" type="button" class="ing btn btn-primary {{hidden2}}">후기 남기기</button>
+                            <button type="button" onclick="location.href='review_view.html'" class="ing btn btn-danger {{hidden3}}">후기 작성완료</button>
                         </div>
                     </div>
                 </div>
@@ -168,11 +190,6 @@
                     }
                 });
             });
-            // 직거래일 경우 결제완료 뱃지 삭제
-            $(window).load(function(){
-                $('.label:empty').remove();     
-            });
-            
 
             /** 거래확정 모달 */
             $(document).on("click", ".recordConfirm", function(e) {
@@ -189,16 +206,15 @@
                     cancelButtonText: '아니오',       // 취소버튼 표시 문구
                 }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
                     if (result.value) {           // 확인 버튼이 눌러진 경우
-                        swal('확정', '성공적으로 확정되었습니다.', 'success');
-                        console.log(ts.prev().data('return'));
                         if (ts.prev().data('return') != 'hidden') {
                             if (!dis) {
                                 swal('잠깐', '반품요청이 있습니다. 반품 승인/거절 여부 먼저 결정해 주세요.', 'error');
                             } else {
                                 ts.parents('.item-list').remove();
+                                swal('확정', '성공적으로 확정되었습니다.', 'success');
                             }
-                        } else {
-                            ts.parents('.item-list').remove();
+                        } else if (ts.data('decide') == 'contact') {
+                            $('.myModal').trigger('click');
                         }
                     } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
                         swal('취소', '확정이 취소되었습니다.', 'error');

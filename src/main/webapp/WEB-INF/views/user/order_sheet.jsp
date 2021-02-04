@@ -205,13 +205,21 @@
                 e.preventDefault();             // 페이지 이동 방지
                 $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
                 $("#pay_refund_policy").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+
             });
             /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
             $("#background").click(function () {
                 $(this).fadeOut(300);       // 배경 레이어의 숨김
                 $("#front").fadeOut(200);
                 $(".over_layer").fadeOut(200);
+                
+                
+                
+                
+                
+                
             });
+            
             $("#allow").click(function (e) {
                 e.preventDefault();
                 window.open("${pageContext.request.contextPath}/user/order_ok.cider", "_self");

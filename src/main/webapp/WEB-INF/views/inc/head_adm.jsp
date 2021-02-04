@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/assets/ico/apple-touch-icon-144-precomposed.png" />
 <!-- bootstrap -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/header&footer_adm.css" />
 <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 <!-- 반응형 웹을 지원하지 않을 경우 -->
 <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/non-responsive.css" /> -->

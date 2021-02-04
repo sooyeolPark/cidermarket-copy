@@ -43,10 +43,10 @@
 
                     <!-- 목록 -->
                     <div class="list-group inquiry-list">
-                      <a href="inquiry_view.html" class="list-group-item"><span class="badge inquiryNum">4</span> 상품 판매 일시 중지 부탁합니다.</a>
-                      <a href="inquiry_view.html" class="list-group-item"><span class="badge inquiryNum">3</span> 마일리지는 없나요?</a>
-                      <a href="inquiry_view.html" class="list-group-item"><span class="badge inquiryNum">2</span> 누가 들고 튀었어요!!!</a>
-                      <a href="inquiry_view.html" class="list-group-item"><span class="badge inquiryNum">1</span> 안전거래는 어떻게 하면 되나요?</a>
+                      <a href="${pageContext.request.contextPath}/user/inquiry_view.cider" class="list-group-item"><span class="badge inquiryNum">4</span> 상품 판매 일시 중지 부탁합니다.</a>
+                      <a href="${pageContext.request.contextPath}/user/inquiry_view.cider" class="list-group-item"><span class="badge inquiryNum">3</span> 마일리지는 없나요?</a>
+                      <a href="${pageContext.request.contextPath}/user/inquiry_view.cider" class="list-group-item"><span class="badge inquiryNum">2</span> 누가 들고 튀었어요!!!</a>
+                      <a href="${pageContext.request.contextPath}/user/inquiry_view.cider" class="list-group-item"><span class="badge inquiryNum">1</span> 안전거래는 어떻게 하면 되나요?</a>
                     </div>
 
                 </div>

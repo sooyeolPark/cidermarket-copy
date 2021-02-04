@@ -59,7 +59,7 @@
 
 					<!-- 탭 - 일반문의 -->
 					<div id="tab-page-inquiry" class="hide">
-						<%--@ include file="/WEB-INF/views/user/inquiry.jsp"--%>
+						<%@ include file="/WEB-INF/views/user/inquiry.jsp"%>
 					</div>
 				</div>
 			</div>

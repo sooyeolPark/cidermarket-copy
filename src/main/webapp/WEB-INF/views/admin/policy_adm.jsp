@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">g
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,
-maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>관리자페이지</title>
-    <!-- 모바일 웹 페이지 설정 -->
-    <link rel="shortcut icon" href="assets/ico/favicon.png" />
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-144-precomposed.png" />
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
-    <!-- 나눔고딕 웹 폰트 적용 -->
-    <link rel="stylesheet" type="text/css" href="assets/css/policy_adm.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/header&footer_adm.css" />
+	<%@ include file="/WEB-INF/views/inc/head_adm.jsp"%>
+    <title>운영정책 - 사이다마켓</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/policy_adm.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
     <!-- IE8 이하 버전 지원 -->
@@ -30,69 +25,13 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
-<header>
-    <div class="container">
-        <div class="logo ">
-    
-            <a class="logo_img_a" href="#"><img src="img/logo.png" /></a>
-            <button id="log-out"class="btn btn-default log_out" type="submit">로그아웃</button>
-            <a class="nav_top_a btn-primary" href="index.html">User_Page  <span class="logo_right glyphicon glyphicon-user"></span></a>
-    
-        </div>
-        </div>
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-
-            <div class="collapse navbar-collapse">
-                <ul id="nav_bar_menu" class="nav navbar-nav">
-
-                    <li class="nav_menu">
-                        <a href="home_adm.html">Home</a>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="order_adm.html">주문관리</a>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="board_adm.html">게시판관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="board_adm.html">공지사항</a></li>
-                            <li><a href="event_adm.html">이벤트게시판</a></li>
-                            <li><a href="question_adm.html">일반문의</a></li>
-                            <li><a href="faq_adm.html">자주묻는질문</a></li>
-                            <li><a href="policy_adm.html">운영정책</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="member_adm.html">회원관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="member_adm.html">회원정보조회</a></li>
-                            <li><a href="outmember_adm.html">탈퇴회원관리</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav_menu">
-                        <a class="nav_menu_a" href="product_adm.html">상품관리</a>
-                        <ul class="sub-menu">
-                            <li><a href="product_adm.html">상품목록</a></li>
-                            <li><a href="category_adm.html">상품분류</a></li>
-                            <li><a href="display_adm.html">상품진열</a></li>
-                            <li><a href="singo_adm.html">신고상품</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.nav-collapse -->
-        </div><!-- /.container -->
-    </div><!-- /.navbar -->
-</header>
-
-    <div class="container">
+    <!-- 헤더 영역 -->
+	<%@ include file="/WEB-INF/views/inc/header_adm.jsp"%>
+	
+	<div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <nav class="list-group board_left">
-                    <!-- 목록의 아이템 -->
- 
-                </nav>
-
-
+                <%@ include file="/WEB-INF/views/admin/board_adm_left.jsp"%>
             </div>
             <div class="col-lg-10">
                 <div class="rule_content">
@@ -171,52 +110,42 @@ maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
                 </div>
                 <form class="form-inline">
                     <div class="regi_cancel">
-                        <a class="btn btn-primary" href="notice_write_adm.html" role="button">수정</a>
+                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/notice_write_adm.cider" role="button">수정</a>
                         <a class="btn btn-warning" href="#" role="button">삭제</a>
+                    </div>
                   </form>
  
             </div>
             </div>
         </div>
-    </div>
     <!--/row-->
     <hr>
-    <footer class="footer">
+	<!-- 푸터 영역 -->
+	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
-        <!-- <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-left"></span> 이전
-                  </a>
-                  <a href="#" class="btn btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-triangle-right"></span> 다음
-                  </a> -->
-
-        <address>
-            <strong>&copy; (주)사이다마켓.All right reserved</strong><br>
-        </address>
-    </footer>
 
     <!--/.container-->
     <!-- Javascript -->
 
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $(".board_left").load("board_adm_left.html");
 
-        });
+        
         //로그아웃
         $("#log-out").click(function(e){
                 var result = confirm("로그아웃 하시겠습니까?");
 
                 if(result ==true) {
-                    location.replace('login_adm.html'); 
+                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
                 }else{
 
                 }
             });
+        });
     </script>
 
 </body>
 
-</html>
+</html>    
