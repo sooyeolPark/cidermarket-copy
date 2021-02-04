@@ -1,0 +1,106 @@
+@charset "utf-8";
+input[type="checkbox"] {
+  zoom: 1;
+}
+th {
+  font-size: 1.1em;
+}
+#search_btn {
+  width: 80%;
+}
+
+/* --------테이블------------ */
+
+th {
+  background-color: #f0f0f0;
+  border-bottom: none;
+}
+
+td {
+  width: 20%;
+  display: block;
+  float: left;
+}
+thead {
+  width: 100%;
+}
+
+.table thead > th:nth-child(1) {
+  width: 20%;
+  text-align: cetner;
+}
+
+.table td:hover {
+  background-color: #aeaeae;
+}
+
+#no_vertical {
+  vertical-align: middle !important;
+}
+/* ---------------------------------------- */
+.list-group {
+  margin-top: 0px;
+}
+.list-group > p {
+  font-size: 1.2em;
+  font-weight: 900;
+  text-align: center;
+}
+.list-group-item {
+  padding: 0;
+  text-align: center;
+}
+.list-group-item > p {
+  margin: 0;
+  padding: 10px;
+}
+.btn-warning {
+  background-color: orangered;
+}
+
+.regi_cancel {
+  display: inline-block;
+  margin-bottom: -12px;
+  margin-left: 290px;
+}
+.regi_cancel > button {
+  float: right;
+  margin: 2px;
+}
+
+.form-inline {
+  display: inline-block;
+}
+#revise {
+  width: 70%;
+  float: none;
+  display: inline;
+}
+#image0 {
+  margin-right: 10px;
+}
+
+.image_plus {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-image: url("../../img/camera.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-indent: -999999px;
+}
+
+input[type="file"] {
+  display: inline-block;
+}
+
+#inputbox {
+  width: 50%;
+  margin: 0;
+  display: inline-block !important;
+}
+
+.swal2-file {
+  display: none !important;
+}

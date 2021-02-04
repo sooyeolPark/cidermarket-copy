@@ -1,0 +1,64 @@
+{
+  "noticeList": [
+      {
+	    "href": "notice_view.cider",
+	    "imgUrl": "img/banner_02.jpg",
+	    "title": "사이다마켓의 공지사항을 안내해 드립니다.",
+	    "date": "2020-12-18"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/banner_01.jpg",
+        "title": "사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!",
+        "date": "2021-01-01"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/banner_03.jpg",
+        "title": "2021 새해 복 많이 받으세요!",
+        "date": "2021-01-01"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_11.jpg",
+        "title": "거래가 끝나면 후기를 쓰자! 평판시스템 업그레이드",
+        "date": "2021-01-15"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_12.jpg",
+        "title": "사이다마켓 전문판매자 서비스 오픈",
+        "date": "2021-01-24"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_13.jpg",
+        "title": "사이다마켓에서 안전거래 이렇게 하세요!",
+        "date": "2021-01-28"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_14.jpg",
+        "title": "사이다마켓 전용 상품 오픈",
+        "date": "2021-01-30"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_15.jpg",
+        "title": "GS편의점택배 배송비 매일매일 할인",
+        "date": "2021-02-02"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_19.jpg",
+        "title": "카드 포인트 모아서 할인받자!",
+        "date": "2021-02-05"
+      },
+      {
+        "href": "notice_view.cider",
+        "imgUrl": "img/item_20.jpg",
+        "title": "계정정책 및 로그인 방식 변경",
+        "date": "2021-02-11"
+      }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+    "item": [
+        {
+            "href": "item_index.cider",
+            "imgurl": "img/item_01.jpg",
+            "title": "에어팟맥스 먼저 잡아가는 사람이 임자",
+            "price": "719,000"
+        },
+        {
+            "href": "item_index.cider",
+            "imgurl": "img/item_02.jpg",
+            "title": "에어팟맥스 싸게 넘겨요",
+            "price": "329,000"
+        },
+        {
+            "href": "item_index.cider",
+            "imgurl": "img/item_03.jpg",
+            "title": "애플워치 사가실 분~~",
+            "price": "490,000"
+        },
+        {
+            "href": "item_index.cider",
+            "imgurl": "img/item_04.jpg",
+            "title": "아이폰12 512 블루 미개봉",
+            "price": "1,800,000"
+        }
+    ]
+}

@@ -1,0 +1,181 @@
+@charset "utf-8";
+body {
+  padding-top: 66px;
+  padding-bottom: 20px;
+}
+.navbar {
+  font-size: 1.3em;
+  border-bottom: 2px solid #f0f0f0;
+  background-color: #fff;
+  transition: 0.2s;
+}
+.navbar > .container:first-child {
+  height: 66px;
+}
+.nav_up {
+  top: -66px;
+  transition: 0.2s;
+}
+.glyphicon {
+  color: #3a3a3a;
+}
+.ico-wrap {
+  width: 100%;
+  position: relative;
+}
+#btnAlarm,
+#btnNav,
+#btnSearch {
+  position: absolute;
+  top: -27px;
+}
+#logo {
+  position: relative;
+  top: 10px;
+  width: 30%;
+  margin: auto;
+}
+#logo > a > img {
+  max-width: 100px;
+}
+#btnAlarm {
+  width: 1em;
+  height: 1.3em;
+  right: 70px;
+  top: -29px;
+}
+.newAlarm {
+  position: absolute;
+  top: 6px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
+  background-color: #ff8e18;
+}
+#btnSearch {
+  right: 15px;
+}
+#searchBox {
+  display: none;
+  position: relative;
+  margin-bottom: 5px;
+}
+#searchBox .form-control {
+  border-radius: 0;
+  height: 50px;
+  background-color: #fafafa;
+}
+.btnSearch-s {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: none;
+}
+.btnSearch-s i {
+  color: #018e40;
+}
+.interest,
+.latest {
+  margin: 10px 0;
+  min-height: 326px;
+  border-left: 1px solid #eee;
+}
+.latest {
+  border-right: 1px solid #eee;
+}
+.interest ul,
+.latest ul {
+  padding: 10px 0 0;
+  font-size: 16px;
+}
+#searchBox div ul li {
+  list-style: none;
+  line-height: 1.8em;
+}
+.interest li span:first-child {
+  color: #ff8e18;
+  font-size: 12px;
+  display: inline-block;
+  width: 14px;
+}
+#searchBox #searchClose {
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  background-color: #eee;
+  margin-top: 0;
+  cursor: pointer;
+}
+
+/* button rounded */
+.btn-primary,
+.btn-warning,
+.btn-info,
+.btn-danger {
+  border-radius: 200px;
+}
+.btn-primary:focus,
+.btn-warning:focus,
+.btn-info:focus,
+.btn-danger:focus {
+  outline: none;
+}
+a,
+a:focus {
+  color: #3a3a3a;
+  text-decoration: none;
+}
+.sb_address {
+  font-size: 0.8em;
+  color: #999;
+  padding-top: 40px;
+  text-align: center;
+}
+.sb_address img {
+  width: 70px;
+  margin-bottom: 10px;
+}
+h2,
+h3 {
+  font-weight: bold;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+.pagination {
+  width: 100%;
+}
+.pagination ul li {
+  display: inline-block;
+}
+.pagination ul li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 26px;
+  margin: 5px;
+  border-radius: 100px;
+}
+.pagination ul li a {
+  display: block;
+}
+.pagination .active {
+  display: inline-block;
+  border-radius: 100px;
+  border: 1px solid #ccc;
+  color: #31a05f;
+  font-weight: bold;
+}
+.pagination .active a {
+  color: #31a05f;
+}
+.pagination .arr a {
+  background-color: #31a05f;
+  color: #fff;
+  border-radius: 100px;
+  height: 30px;
+}

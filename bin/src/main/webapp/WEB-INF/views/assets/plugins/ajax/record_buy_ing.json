@@ -1,0 +1,24 @@
+{
+  "ing_item": [
+    {
+      "href": "item_index.cider",
+      "imgurl": "img/item_13.jpg",
+      "label1": "",
+      "label2": "직거래",
+      "title": "구찌 클러치 로고 프린트 스몰 레드",
+      "price": "861,000원",
+      "hidden1": "hidden",
+      "hidden2": ""
+    },
+    {
+      "href": "item_index.cider",
+      "imgurl": "img/item_14.jpg",
+      "label1": "결제완료",
+      "label2": "택배거래",
+      "title": "루이비통 토트백 온더고 MM 모노그램 앙프렝뜨 블랙",
+      "price": "5,334,000원",
+      "hidden1": "",
+      "hidden2": ""
+    }
+  ]
+}

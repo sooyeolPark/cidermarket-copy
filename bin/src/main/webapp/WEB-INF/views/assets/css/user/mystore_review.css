@@ -1,0 +1,59 @@
+#myreview_subject {
+  text-align: center;
+}
+
+#myreview_subject > h1 {
+  font-weight: bold;
+}
+
+#myreview_subject img {
+  height: 13px;
+}
+
+#myreview_subject span {
+  font-size: 0.4em;
+  margin-left: 1em;
+  background-color: #ccc;
+}
+.review2u {
+  padding: 15px 0;
+}
+ul.review_list {
+  padding: 15px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+ul.review_list > li {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+ul.review_list > li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.review_user_name > small {
+  color: #f2c489;
+  margin-left: 1em;
+}
+.how_trade {
+  background-color: #ccc;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 0.2em 1em;
+  border-radius: 3px;
+}
+.review_img img {
+  width: 20%;
+  max-height: 6em;
+  border-radius: 5px;
+  margin: 0.2em;
+}
+.review_item_subject {
+  color: #31a05f;
+}
+.review_user_rpl > p {
+  margin: 0;
+}

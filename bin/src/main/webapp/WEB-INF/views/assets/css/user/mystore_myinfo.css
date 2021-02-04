@@ -1,0 +1,230 @@
+#mygrade .media {
+  padding: 20px 0;
+}
+
+#mygrade .media-body {
+  padding-left: 1em;
+}
+#mygrade .media-body > div {
+  margin: 5px 0;
+}
+#mygrade .media img {
+  padding: 0;
+}
+#mygrade .media-body > a {
+  display: inline-block;
+  background-color: #ffad59;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4em 1.5em;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/** 화면 전체를 덮는 배경 레이어의 위치, 크기, 투명도 지정 > 기본적으로 표시되지 않도록 설정 */
+.gray_layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.6;
+  display: none;
+  z-index: 9999999;
+}
+
+/** 이미지가 표현될 레이어를 화면 중앙에 배치 > 기본적으로 표시되지 않도록 설정 */
+.over_layer {
+  /* 요소의 좌측상단 꼭지점이 화면 중앙에 위치하게 된다. */
+  width: 75%;
+  height: 50%;
+  position: fixed;
+  top: 25%;
+  left: 12%;
+  /* 요소의 크기/2 만큼 왼쪽,상단 방향으로 이동시켜 가운데 배치한다 */
+  display: none;
+  z-index: 9999999;
+  background-color: #fff;
+  overflow: scroll;
+}
+.over_layer {
+  padding: 2em;
+}
+.over_layer > ul {
+  padding: 0;
+}
+
+.over_layer li {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2em;
+}
+.grade_color {
+  font-weight: bold;
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+.over_layer li:last-child {
+  border-bottom: 0;
+}
+.over_layer img.media-object {
+  padding: 0;
+}
+.over_layer .media-body {
+  padding-left: 1em;
+}
+
+/* 버튼만들기 */
+.my_ctg li {
+  display: inline-block;
+  text-align: center;
+  width: 21%;
+  height: 40px;
+  margin: 0 0.2em;
+  font-weight: bold;
+}
+.my_ctg li > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding-top: 9px;
+  text-decoration: none;
+  border: 1px solid #ff8e18;
+  border-radius: 3em;
+}
+/* 
+#btn-radius 
+  border-radius: 15px; */
+/* width: 60px; */
+
+.media > span {
+  width: 110px;
+  margin: 1em auto;
+  text-align: center;
+  display: block;
+  margin-bottom: 1em;
+}
+
+.media-object {
+  margin: 0 auto;
+}
+
+.col-sm-2 {
+  margin-bottom: 4px;
+}
+.col-xs-9 {
+}
+
+.col-sm-2 > span {
+  font-size: 1em;
+  font-weight: 700;
+}
+.write-rule {
+  font-size: 0.8em;
+  color: #aeaeae;
+}
+
+.intro {
+  min-height: 100px;
+}
+.block {
+  display: block;
+}
+.bottom {
+  vertical-align: bottom;
+}
+.hide-id {
+  display: none;
+}
+
+#show1,
+#show2,
+#show3,
+#show4,
+#show5,
+#show6,
+#show7,
+#show8,
+#show9,
+#show10 {
+  margin-top: 2px;
+}
+
+margin-bt {
+  margin-bottom: 2px;
+}
+.margin-top {
+  margin-top: 10px;
+}
+
+.email {
+  margin-right: 100px;
+}
+
+.out-btn {
+  margin-left: 15px;
+}
+
+.last-div {
+  margin-bottom: 30px;
+}
+#address {
+  width: 70%;
+}
+#store-id {
+  width: 34%;
+  display: inline;
+}
+
+/* 이미지 업로드 */
+.media > span {
+  position: relative;
+}
+
+.item-img {
+  padding: 0.3em;
+  position: relative;
+}
+
+.item-img:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.image_plus {
+  position: absolute;
+  width: 33px;
+  height: 33px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-image: url("../../img/camera3.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-indent: -999999px;
+  z-index: 1000;
+  top: 75%;
+  left: 66%;
+}
+
+#first_img {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  z-index: 3;
+  padding: 0 0.7em;
+  border-radius: 1em;
+  margin: 0.4em;
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.remove_img {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  font-weight: bold;
+  right: 10%;
+  top: 3%;
+}

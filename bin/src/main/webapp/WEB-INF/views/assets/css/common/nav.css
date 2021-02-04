@@ -1,0 +1,142 @@
+@charset "utf-8";
+.aside {
+  min-width: 85%;
+  width: 15%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  width: 0px;
+  min-width: 0px;
+  overflow-x: hidden;
+  transition: 0.2s width ease, 0.2s min-width ease;
+}
+.aside .aside-header {
+  padding: 1em;
+  padding-left: 0.5em;
+  font-size: 1.2em;
+}
+.aside .aside-header img {
+  width: 60px;
+}
+.aside .aside-header .close {
+  float: right;
+  cursor: pointer;
+}
+.aside-header > div {
+  display: inline-block;
+  margin-left: 5px;
+}
+#username {
+  color: #31a05f;
+}
+.aside.in {
+  width: 15%;
+  min-width: 85%;
+  border-top-right-radius: 30px;
+}
+.aside-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+  transition: 0.2s opacity ease;
+  opacity: 0;
+  display: none;
+}
+.aside-backdrop.in {
+  display: block;
+  opacity: 0.5;
+}
+
+.btnn-logout > .btn-primary,
+.btnn-logout > .btn-info,
+.btnn-logout > .btn-danger,
+.btnn-logout > .btn-warning,
+.btnn-login > .btn-primary,
+.btnn-login > .btn-info,
+.btnn-login > .btn-danger,
+.btnn-login > .btn-warning {
+  margin-left: 8px;
+  width: 27%;
+  height: 40px;
+  font-weight: bold;
+  line-height: 24px;
+}
+.logout {
+  margin-top: 15px;
+}
+.view-block {
+  display: block;
+}
+.view-none {
+  display: none;
+}
+
+.gory_title,
+.nav_bar {
+  margin-top: 20px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-indent: 1.5em;
+  letter-spacing: 5px;
+}
+.nav_bar {
+  margin-top: 0;
+  margin-bottom: 2px;
+}
+.btnn-logout .btn-danger {
+  margin-top: 15px;
+}
+.category ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.category li:first-child {
+  margin-top: 20px;
+}
+.category li:last-child,
+.category li:nth-last-child(2) {
+  margin-bottom: 20px;
+}
+
+.category li {
+  display: inline-block;
+  width: 46%;
+  height: 50px;
+  margin-left: 10px;
+}
+.category li > a > span > img {
+  width: 26px;
+  height: 26px;
+  position: relative;
+  margin-right: 10px;
+}
+
+.category li > a {
+  display: block;
+  width: 100%;
+}
+
+.nav_bar > a {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.btnn-temp .btn-danger {
+  margin: 8px 0 0 8px;
+  width: 27%;
+  height: 40px;
+  line-height: 24px;
+}

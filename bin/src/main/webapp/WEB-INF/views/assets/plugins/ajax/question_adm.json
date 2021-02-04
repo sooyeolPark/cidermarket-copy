@@ -1,0 +1,94 @@
+{
+  "boardlist": [
+      {
+        "number":"1",
+        "type": "개인정보&회원계정",
+        "url":"question_reply_adm.cider",
+        "title": "계정이 중지되었는데 확인좀여",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변대기"
+      },
+      {
+        "number":"2",
+        "type": "제안하기",
+        "url":"question_reply_adm.cider",
+        "title": "판매기능좀 고쳐주실수 있나요?",
+        "writer": "asdf123",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"3",
+        "type": "광고센터",
+        "url":"question_reply_adm.cider",
+        "title": "광고문의 드립니다.",
+        "writer": "zxcvjk1",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"4",
+        "type": "오류",
+        "url":"question_reply_adm.cider",
+        "title": "결제오류났는데 확인좀여",
+        "writer": "qqwer1",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"5",
+        "type": "제안하기",
+        "url":"question_reply_adm.cider",
+        "title": "택배비 낮출수 있나요",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"6",
+        "type": "개인정보&회원계정",
+        "url":"question_reply_adm.cider",
+        "title": "핸드폰 번호 변경이 안되요 ",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"7",
+        "type": "기타",
+        "url":"question_reply_adm.cider",
+        "title": "판매할 물건은 어떻게 올리나요?",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변완료"
+      },
+      {
+        "number":"8",
+        "type": "개인정보&회원계정",
+        "url":"question_reply_adm.cider",
+        "title": "판매금지 상품이 있나요?",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변대기"
+      },
+      {
+        "number":"9",
+        "type": "개인정보&회원계정",
+        "url":"question_reply_adm.cider",
+        "title": "홈 화면에 보이는 상품은 어떻게 올리나요",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변대기"
+      },
+      {
+        "number":"10",
+        "type": "일반문의",
+        "url":"question_reply_adm.cider",
+        "title": "어떻게 하면 더 잘 팔릴 수 있나요?",
+        "writer": "hoony",
+        "date":"2020.12.21",
+        "status": "답변대기"
+      }
+  ]
+}

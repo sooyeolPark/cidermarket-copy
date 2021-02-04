@@ -1,0 +1,129 @@
+#mystore > ul {
+  border: 0;
+  width: 100%;
+}
+#mystore > ul > li {
+  margin-bottom: 0;
+  width: 33.333333333%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0;
+}
+#mystore > ul a {
+  border: 0;
+  border-bottom: 3px solid #f0f0f0;
+  border-radius: 0;
+  padding: 10px 0;
+  margin: 0;
+}
+#mystore > ul .active a {
+  border: 0;
+  color: #31a05f;
+  border-bottom: 3px solid #31a05f;
+}
+#si_top {
+  margin: 15px 5px 0;
+}
+#si_total {
+  padding-top: 10px;
+}
+#si_ctg {
+  width: 30%;
+}
+.itemList {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+.itemList img {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+}
+.itemList .caption {
+  display: inline-block;
+  width: 65%;
+  padding-left: 4%;
+}
+
+#searchbox1 {
+  width: 75%;
+}
+#sbox_addon {
+  border: 1px solid #ccc;
+  border-right: 0;
+  background-color: #fff;
+}
+#sbox_input {
+  border-left: 0;
+  height: 35px;
+}
+#sortList,
+#sortThumb {
+  height: 35px;
+}
+.item-row {
+  margin: 15px 5px 0;
+}
+
+.item-row .btn-group .glyphicon {
+  color: #555;
+}
+#item-select {
+  display: inline-block;
+  width: 120px;
+}
+
+.item-list {
+  margin-top: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.item-list > a {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+.thumbnail {
+  border: 0;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.thumbnail .caption {
+  padding: 0;
+  height: 80px;
+}
+.thumbnail .caption h5 {
+  font-size: 16px;
+  line-height: 20px;
+}
+.thumbnail .caption h4 {
+  font-weight: bold;
+  letter-spacing: -0.8px;
+}
+.thumbnail img {
+  border: 1px solid #eee;
+}
+.item-list a:hover img {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  transition: ease 0.3s;
+}
+
+#myreview_subject {
+  text-align: center;
+}
+
+#myreview_subject > h1 {
+  font-weight: bold;
+}
+
+#myreview_subject img {
+  height: 13px;
+}
+
+#myreview_subject span {
+  font-size: 0.4em;
+  margin-left: 1em;
+  background-color: #ccc;
+}
