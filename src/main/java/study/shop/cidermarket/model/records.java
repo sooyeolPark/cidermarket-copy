@@ -3,7 +3,7 @@ package study.shop.cidermarket.model;
 import lombok.Data;
 
 @Data
-public class record_01 {
+public class records {
 	private int recono;
 	private int prodno;
 	private int buyer;
