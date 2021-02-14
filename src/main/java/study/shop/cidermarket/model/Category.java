@@ -3,8 +3,7 @@ package study.shop.cidermarket.model;
 import lombok.Data;
 
 @Data
-public class membprod {
-	private int membno;
-	private int prodno;
-
+public class Category {
+	private int cateno;
+	private String name;
 }

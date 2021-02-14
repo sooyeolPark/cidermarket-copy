@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html>
 <head>
@@ -22,96 +25,48 @@
             </div>
             
             <div class="col-lg-10">
-            
-                <!-- <div class="title-menu clearfix">
-                    <h4>공지사항</h4>
-                    <select class="form-control clearfix" id="align-number">
-                        <option value>10개씩보기</option>
-                        <option value="lowprice">20개씩보기</option>
-                    </select>
-                    <select class="form-control clearfix" id="align-menu">
-                        <option value>작성일순</option>
-                        <option value="lowprice">조회수순</option>
-                    </select>
-                </div> -->
 
-
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" id="addForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice.cider">
                     <fieldset>
-
-                        
                         <!-- 입력양식 -->
                         <div class="form-group">
-                            <label for="subject" class="col-md-2 control-label">게시판</label>
+                            <label for="subject" class="col-md-2 control-label">게시판유형</label>
                             <div class="col-md-2">
                                 <select class="form-control clearfix">
-                                    <option value>공지사항</option>
-                                    <option value="lowprice">이벤트게시판</option>
-                                    <option value="lowprice">일반문의</option>
-                                    <option value="lowprice">자주묻는질문</option>
-                                    <option value="lowprice">운영정책</option>
+                                    <option value="N">공지사항</option>
+                                    <option value="Q">일반문의</option>
+                                    <option value="E">이벤트</option>
                                 </select>
                             </div>
                         </div>
+                        <!-- 입력양식 -->
                         <div class="form-group">
-                            <label for="subject" class="col-md-2 control-label">글 제목</label>
+                            <label for="title" class="col-md-2 control-label">글 제목</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="subject" placeholder="제목을 입력하세요.">
+                                <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요.">
                             </div>
                         </div>
-                        <!--// 입력양식 -->
-                        
-                        <!-- 입력양식 -->
-                        <div class="form-group">
-                            <label for="writer" class="col-md-2 control-label">작성자 이름</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="writer" placeholder="이름을 입력하세요.">
-                            </div>
-                        </div>
-                        <!--// 입력양식 -->
-                        
-                        <!-- 입력양식 -->
                         <div class="form-group">
                             <label for="content" class="col-md-2 control-label">내용</label>
                             <div class="col-md-10">
-                                <textarea id="content" class="form-control" rows="15" placeholder="내용을 입력하세요."></textarea>
+                                <textarea id="content" name="content" class="form-control ckeditor"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="content" class="col-md-2 control-label">파일첨부</label>
+                            <label for="file" class="col-md-2 control-label">파일첨부</label>
                             <div class="col-md-2">
-                                <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg">
+                                <input type="file" id="file" name="file" accept="image/png, image/jpeg">
                             </div>
                         </div>
-                        <form class="form-inline">
-                            <div class="regi_cancel">
-	                            <button id="regi" type="button" class="btn btn-primary">등록</button>
-	                            <button id="cancel" type="button" class="btn btn-default">취소</button>
-                            </div>
-                         </form>
-                        <!--// 입력양식 -->
-                        
-                        <!-- 입력양식 -->
-
+                        <hr />
+                        <div class="regi_cancel">
+	                        <button id="regi" type="submit" class="btn btn-primary">등록</button>
+	                        <button id="cancel" type="reset" class="btn btn-default">취소</button>
+                        </div>
                         <!--// 입력양식 -->
                     </fieldset>
                 </form>
-                <!-- <div class="input-group">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span
-                                class="glyphicon glyphicon-search"></span></button>
-                    </div>
-                    <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
-                </div>
-                <ul class="pagination">
-                    <li class="disabled"><a href="#">&laquo;</a></li>
-                    <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul> -->
+
             </div>
         </div>
     </div>
@@ -122,10 +77,14 @@
     <!-- Javascript -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- jQeury Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
+    <!-- CKEditor CDN -->
+    <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script type="text/javascript">
         $(function () {
             //로그아웃
@@ -137,26 +96,7 @@
                 }
             });
 
-              // 글쓰기 등록 후 이동 
-		      $("#regi").click(function(e){
-                e.preventDefault();
-                swal({ 
-                title: '등록',
-                text: "글을 등록 하시겠습니까?" ,
-                type:'warning', //종류
-                confirmButtonText:'네', //확인버튼 표시문구
-                showCancelButton:true, //취소버튼 표시여부
-                cancelButtonText:'아니오', //취소버튼 표시문구 
-                }).then(function(result){
-                    if(result.value) {
-                        window.open("${pageContext.request.contextPath}/admin/board_adm.cider", "_self");
-                    } else {
-                     swal("취소하였습니다.")
-                    }
-                 });
-             });
-
-             $("#cancel").click(function(e){
+            $("#cancel").click(function(e){
                 e.preventDefault();
                 swal({ 
                 title: '취소',
@@ -167,13 +107,28 @@
                 cancelButtonText:'아니오', //취소버튼 표시문구 
                 }).then(function(result){
                     if(result.value) {
-                        window.open("${pageContext.request.contextPath}/admin/board_adm.cider", "_self");
+                        window.open("${pageContext.request.contextPath}/admin/notice/list.cider", "_self");
                     } else {
                      swal("취소하였습니다.")
                     }
                  });
              });
-    });
+            
+        	// #addForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+    		$("#addForm").ajaxForm({
+    			// 전송 메서드 지정
+    			method: "POST",
+    			// 서버에서 200 응답을 전달한 경우 실행됨
+    			success: function(json) {
+    				console.log(json);
+    				
+    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+    				if (json.rt == "OK") {
+    					window.location = "${pageContext.request.contextPath}/admin/notice/view.cider?bbsno=" + json.item.bbsno;
+    				}
+    			}
+    		});
+    	});
     </script>
 </body>
 </html>

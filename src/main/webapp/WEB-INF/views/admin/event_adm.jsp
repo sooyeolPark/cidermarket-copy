@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <%@ include file="/WEB-INF/views/admin/board_adm_left.jsp"%>
+                <%@ include file="/WEB-INF/views/inc/board_adm_left.jsp"%>
             </div>
             <div class="col-lg-10">
             

@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+input[type="checkbox"] {
+  zoom: 1;
+}
+th {
+  font-size: 1.1em;
+}
+#keyword {
+  width: 80%;
+}
+
+.table > thead > tr > th:nth-child(1) {
+  width: 2%;
+  text-align: left;
+}
+
+.table > thead > tr > th:nth-child(2) {
+  width: 5%;
+}
+
+.table > thead > tr > th:nth-child(3) {
+  width: 25%;
+}
+.table > thead > tr > th:nth-child(4) {
+  width: 10%;
+}
+.table > thead > tr > th:nth-child(5) {
+  width: 10%;
+}
+.table > thead > tr > th:nth-child(6) {
+  width: 10%;
+}
+.table > tbody > tr > td:nth-child(3) {
+  width: 40%;
+  text-align: left;
+}
+
+.table > tbody + tbody {
+  border-top: none;
+}
+
+.list-group {
+  margin-top: 0px;
+}
+.list-group > p {
+  font-size: 1.2em;
+  font-weight: 900;
+  text-align: center;
+}
+.list-group-item {
+  padding: 0;
+  text-align: center;
+}
+.list-group-item > p {
+  margin: 0;
+  padding: 10px;
+}
+
+/* ---------------로고수정------ */
+.btn-primary,
+.btn-warning {
+  margin-left: 5px;
+}
+
+

@@ -59,12 +59,12 @@
     <div class="btnn-logout view-block">
       <a href="${pageContext.request.contextPath}/user/login.cider" class="btn btn-primary">로그인</a>
       <a href="${pageContext.request.contextPath}/user/join.cider" class="btn btn-info">회원가입</a>
-			<div class="btnn-temp">
-				<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
-				<a href="#" class="btn btn-danger templogin">임시로그인</a>
-			</div>
+		<div class="btnn-temp">
+			<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
+			<a href="#" class="btn btn-danger templogin">임시로그인</a>
 		</div>
-    </div>
+	</div>
+  </div>
     <div class="btnn-login view-none">
       <a href="${pageContext.request.contextPath}/user/msgbox.cider" class="btn btn-info">쪽지함</a>
       <a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info"
@@ -198,17 +198,17 @@
       </ul>
     </div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/notice_list.cider">공지사항</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/help.cider?selected=faq">헬프센터</a></div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/protection.cider">개인정보처리방침</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/notice/list.cider">공지사항</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/help.cider?selected=faq">헬프센터</a></div>
+    <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/protection.cider">개인정보처리방침</a></div>
     <div class="btnn-login view-none">
       <a href="#" class="btn btn-danger logout">로그아웃</a>
     </div>
     <address class="sb_address">
       &copy;(주)사이다마켓. ALL RIGHTS RESERVED.
     </address>
-  </div>
 </div>
+
 <div class="aside-backdrop"></div>
 
 <!-- template -->

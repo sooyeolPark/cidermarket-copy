@@ -23,6 +23,16 @@ $(function() {
 			// 200, 0 -> 내용의 형식 에러(JSON,XML)
 			console.log(">> 에러!!!! >> " + error.status);
 			
+			// 서버에서 반환하는 json 데이터가 존재한다면?
+            if (error.responseJSON) {
+                // 서버에서 반환하는 json 데이터에 rt라는 key가 있다면?
+            	if (error.responseJSON.rt) {
+                    // 해당 내용을 메시지로 표시하고 처리 중단.
+            		alert(error.responseJSON.rt);
+            		return;
+            	}
+            }
+			
 			var error_msg = "[" + error.status + "]" + error.statusText;
 			
 			var code = parseInt(error.status / 100);
@@ -43,3 +53,32 @@ $(function() {
 		}
 	});
 });
+
+// jQuery Ajax가 restful을 처리할 수 있도록 기능 확장.
+// 출처: https://stackoverflow.com/
+jQuery.each([ "put", "delete" ], function(i, method) {
+    jQuery[method] = function(url, data, callback, type) {
+        if (jQuery.isFunction(data)) {
+            type = type || callback;
+            callback = data;
+            data = undefined;
+        }
+
+        return jQuery.ajax({
+            url : url,
+            type : method,
+            dataType : type,
+            data : data,
+            success : callback
+        });
+    };
+});
+
+// HTML 특수문자를 원래의 구문으로 되돌리는 함수.
+function htmlspecialchar_decode(content) {
+    // 임의의 HTML 태그를 생성하여 내용을 출력시킨다.
+    // --> append 등의 출력 처리를 하지 않았으므로 화면에 표시되지는 않는
+    var div = $("<div>").html(content);
+    // 브라우저에 표시될 내용을 리턴한다.
+    return div.text();
+}

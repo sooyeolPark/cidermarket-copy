@@ -4,9 +4,7 @@
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
-	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<!-- Helper 구동에 필요한 환결설정 값 -->
 	<util:properties id="config">
 		<!-- 기본 인코딩 타입 -->
@@ -20,7 +18,7 @@
 		<!-- 데이터베이스 포트번호 -->
 		<prop key="dbPort">3306</prop>
 		<!-- 데이터베이스 이름 -->
-		<prop key="dbName">myschool</prop>
+		<prop key="dbName">cidermarket</prop>
 		<!-- 데이터베이스 문자셋 -->
 		<prop key="dbCharset">utf8</prop>
 		<!-- 데이터베이스 계정명 -->

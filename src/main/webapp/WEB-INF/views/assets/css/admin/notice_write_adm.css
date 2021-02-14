@@ -52,3 +52,6 @@
 .form-control {
 	width: 100%;
 }
+.form-control:nth-child(1) {
+	margin: 0;
+}

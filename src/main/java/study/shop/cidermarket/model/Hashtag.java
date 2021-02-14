@@ -3,7 +3,7 @@ package study.shop.cidermarket.model;
 import lombok.Data;
 
 @Data
-public class hashtag {
+public class Hashtag {
 	private int prodno;
 	private String tagname;
 }

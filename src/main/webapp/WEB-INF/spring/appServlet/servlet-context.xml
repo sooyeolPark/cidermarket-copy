@@ -26,6 +26,9 @@
 	<!-- 컨트롤러나 서비스의 구현체가 포함되어 있는 패키지들 나열 -->
 	<context:component-scan base-package="study.shop.cidermarket.controllers" />
 	
+	<!-- 서비스 구현체가 배치될 패키지 정의하기 -->
+	<context:component-scan base-package="study.shop.cidermarket.service.impl" />
+	
 	<!-- 인터셉터 등록 -->
 	<interceptors>
 		<interceptor>

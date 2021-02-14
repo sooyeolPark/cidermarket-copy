@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Bbs" id="bbsMap">
+		<result property="bbsno" column="bbsno" />
+		<result property="type" column="type" />
+		<result property="name" column="name" />
+		<result property="tel" column="tel" />
+		<result property="email" column="email" />
+		<result property="category" column="category" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="hits" column="hits" />
+		<result property="regdate" column="regdate" />
+		<result property="editdate" column="editdate" />
+		<result property="reply" column="reply" />
+	</resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.shop.cidermarket.model.Bbs"
+		resultMap="bbsMap">
+		SELECT bbsno, type, name, tel, email, category, title, content, hits,
+			DATE_FORMAT(regdate, '%Y-%m-%d %I:%M:%S') AS regdate,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply
+		FROM bbs
+		WHERE bbsno=#{bbsno}
+	</select>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Bbs"
+		resultMap="bbsMap">
+		SELECT bbsno, type, name, tel, email, category, title, content, hits,
+			DATE_FORMAT(regdate, '%Y-%m-%d %I:%M:%S') AS regdate,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply
+		FROM bbs
+		
+		<where>
+			<if test="title != null and title != ''">
+				title LIKE concat('%', #{title}, '%')
+			</if>
+		</where>
+		
+		ORDER BY bbsno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>	
+	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountAll"
+		parameterType="study.shop.cidermarket.model.Bbs"
+		resultType="int">
+		SELECT COUNT(*) FROM bbs
+		
+		<where>
+			<if test="title != null and title != ''">
+				title LIKE concat('%', #{title}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Bbs"
+		useGeneratedKeys="true" keyProperty="bbsno">
+		INSERT INTO bbs (
+			bbsno, type, name, tel, email, category, title, 
+			content, hits, regdate, editdate, reply
+		) VALUES (
+			#{bbsno}, #{type}, #{name}, #{tel}, #{email}, 
+			#{category}, #{title}, #{content}, #{hits}, #{regdate},
+			#{editdate}, #{reply}
+		)
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Bbs">
+		DELETE FROM bbs WHERE bbsno=#{bbsno}
+	</delete>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.shop.cidermarket.model.Bbs">
+		UPDATE bbs SET
+			bbsno=#{bbsno}, type=#{type}, name=#{name}, tel=#{tel}, email=#{email}, 
+			category=#{category}, title=#{title}, content=#{content}, hits=#{hits}, regdate=#{regdate},
+			editdate=#{editdate}, reply=#{reply}
+		WHERE bbsno=#{bbsno}
+	</update>
+
+</mapper>
