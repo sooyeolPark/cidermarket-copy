@@ -57,8 +57,8 @@
   </div>
   <div class="aside-contents">
     <div class="btnn-logout view-block">
-      <a href="${pageContext.request.contextPath}/user/login.cider" class="btn btn-primary">로그인</a>
-      <a href="${pageContext.request.contextPath}/user/join.cider" class="btn btn-info">회원가입</a>
+      <a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
+      <a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
 		<div class="btnn-temp">
 			<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
 			<a href="#" class="btn btn-danger templogin">임시로그인</a>

@@ -19,7 +19,7 @@ public class MemberController {
 	@Autowired SqlSession sqlSession;
     
     /** 로그인 페이지 */
-    @RequestMapping(value="/user/login.cider", method=RequestMethod.GET)
+    @RequestMapping(value="/member/login.cider", method=RequestMethod.GET)
     public String login() {
         return "user/login";
     }
@@ -36,9 +36,4 @@ public class MemberController {
         return "user/find_pw";
     }
     
-    /** 회원가입 페이지 */
-    @RequestMapping(value="/user/join.cider", method=RequestMethod.GET)
-    public String join() {
-        return "user/join";
-    }
 }

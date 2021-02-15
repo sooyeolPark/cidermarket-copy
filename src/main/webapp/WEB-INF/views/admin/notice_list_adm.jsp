@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,6 +53,8 @@
                         </tr>
                     </thead>
                     <tbody id="board_body">
+	                    <c:set target="${pageData}" property="listCount" value="20" />
+	                    <p>${pageData.listCount}</p> 
                          <tbody id="result">
                          	<!-- Ajax로 로드한 결과가 표시될 곳 -->
 			                <c:choose>
@@ -170,7 +175,7 @@
         {{#boardlist}}
         <tr>
         <td><input type="checkbox" class="board board-group-item"/></td>
-        <td class="text-center board-group-item">{{bbsno}}</td>
+        <td class="text-center board-group-item">{{@key+1}}</td>
         <td class="text-center board-group-item"><a href="{{url}}">{{title}}</a></td>
         <td class="text-center board-group-item">관리자</td>
         <td class="text-center board-group-item">{{regdate}}</td>
@@ -216,7 +221,7 @@
         $("#align-number").change(function(){
         	let nowPage = 1;	// 현재 페이지의 기본값
         	
-            $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
+            //$("#result").empty(); //결과가 표시될 #result에 내용 지우기 
             var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
             if (!choice) {//선택값이 없다면 처리 중단 
                 return false; 
@@ -225,16 +230,16 @@
   	        else if (choice==2) {
   	       		// 다음 페이지를 요청하기 위해 페이지 변수 1 증가
   	        	nowPage++;
-            $.get('${pageContext.request.contextPath}/admin/notice/list.cider', {
+            $.get('${pageContext.request.contextPath}/admin/notice.cider', {
             	"page": nowPage
-            }, function(req){
+            }, function(json){
                 var template= Handlebars.compile($("#board_tmpl").html());
-                var html = template(req);
+                var html = template(json);
                 $("#result").append(html);
             });
             } else if (choice==1) {
                  $(".board-group-item").detach();
-            } // class가 "hello"인 요소를 모두 삭제한다.
+            }
 
         });
 

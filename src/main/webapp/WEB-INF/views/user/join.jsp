@@ -20,25 +20,25 @@
 		<div class="container">
 			<h3 class="text-center">회원가입</h3>
 			<!-- login form -->
-			<form role="form" id="join-form">
+			<form role="form" id="addForm" action="${pageContext.request.contextPath}/member.cider">
 				<fieldset>
 					<legend class="sr-only">회원가입</legend>
 
 					<div class="form-group clearfix">
-						<label for="user_id" class="col-sm-2">아이디(이메일) <span
-							class="star">*</span></label>
+						<label for="email" class="col-sm-2">
+							아이디(이메일)<span class="star">*</span>
+						</label>
 						<div class="col-sm-10">
-							<input type="email" id="user_id" name="user_id"
-								class="form-control" placeholder="이메일을 입력하세요." />
+							<input type="email" id="email" name="email"	class="form-control" placeholder="이메일을 입력하세요." />
 							<p id="idc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
-						<label for="user_pw" class="col-sm-2">비밀번호 <span
+						<label for="password" class="col-sm-2">비밀번호 <span
 							class="star">*</span></label>
 						<div class="password_icon col-sm-10">
-							<input type="password" id="user_pw" name="user_pw"
+							<input type="password" id="password" name="password"
 								class="form-control" placeholder="비밀번호를 입력하세요." /> <i
 								class="eyeicon glyphicon glyphicon-eye-close"></i> <span
 								class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span>
@@ -70,13 +70,13 @@
 					</div>
 
 					<div class="join_info">
-						<p>가입시 <a href="${pageContext.request.contextPath}/user/terms.cider">이용약관</a> 및 
-						<a href="${pageContext.request.contextPath}/user/protection.cider">개인정보 취급방침</a>, 
-						<a href="${pageContext.request.contextPath}/user/location.cider">위치정보제공</a>에 동의합니다.</p>
+						<p>가입시 <a href="${pageContext.request.contextPath}/help/terms.cider">이용약관</a> 및 
+						<a href="${pageContext.request.contextPath}/help/protection.cider">개인정보 취급방침</a>, 
+						<a href="${pageContext.request.contextPath}/help/location.cider">위치정보제공</a>에 동의합니다.</p>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 					<div class="join_info text-center">
-						<a href="${pageContext.request.contextPath}/user/login.cider">로그인</a>
+						<a href="${pageContext.request.contextPath}/member/login.cider">로그인</a>
 					</div>
 				</fieldset>
 			</form>
@@ -115,6 +115,10 @@
 	<script	src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script	src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
+	<!-- jQeury Ajax Form plugin CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- ajax-helper -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script type="text/javascript">
           $(function() {
 
@@ -133,7 +137,7 @@
             var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
             var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
-            $('#user_id').keyup(function(){
+            $('#email').keyup(function(){
               var msg = '', val = this.value;
               if(!check_email.test(val)){
                 msg = '이메일 형식으로 입력하세요.'
@@ -143,7 +147,7 @@
               };
             });
 
-            $('#user_pw').keyup(function(){
+            $('#password').keyup(function(){
               var msg = '', val = this.value;
               msg = GetAjaxPW(val);
               if( val.length > 7 && val.length < 21 ){
@@ -161,26 +165,40 @@
               return false;
             };
 
-            $("#join-form").submit(function(e) {
+            $("#addForm").submit(function(e) {
               e.preventDefault();
               /** 이름 검사 */
-              if (!regex.value('#user_id', '아이디(이메일)을 입력하세요.')) { return false; }
-              if (!regex.email('#user_id', '이메일 주소가 잘못되었습니다.')) { return false; }
+              if (!regex.value('#email', '아이디(이메일)을 입력하세요.')) { return false; }
+              if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
 
               /** 비밀번호 검사 */
-              if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) { return false; }
-              if (!regex.eng_num_spc('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
-              if (!regex.min_length('#user_pw', 8, '비밀번호는 최소 5자 이상 입력 가능합니다.')) { return false; }
-              if (!regex.max_length('#user_pw', 20, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
-              if (!regex.compare_to('#user_pw', '#user_pw_re', '비밀번호 확인이 잘못되었습니다.')) { return false; }
+              if (!regex.value('#password', '비밀번호를 입력하세요.')) { return false; }
+              if (!regex.eng_num_spc('#password', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
+              if (!regex.min_length('#password', 8, '비밀번호는 최소 8자 이상 입력 가능합니다.')) { return false; }
+              if (!regex.max_length('#password', 20, '비밀번호는 최대 15자 까지만 입력 가능합니다.')) { return false; }
+              if (!regex.compare_to('#password', '#user_pw_re', '비밀번호 확인이 잘못되었습니다.')) { return false; }
               
               /** 연락처 검사 */
               if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
               if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
               
-              // 처리 완료
-              alert("입력형식 검사 완료!!!");
+              this.submit();
             });
+            
+         	// #addForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+    		$("#addForm").ajaxForm({
+    			// 전송 메서드 지정
+    			method: "POST",
+    			// 서버에서 200 응답을 전달한 경우 실행됨
+    			success: function(json) {
+    				console.log(json);
+    				
+    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+    				if (json.rt == "OK") {
+    					window.location = "${pageContext.request.contextPath}/member.cider?membno=" + json.item.membno;
+    				}
+    			}
+    		});
           });
         </script>
 </body>

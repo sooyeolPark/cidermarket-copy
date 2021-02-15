@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Member" id="memberMap">
+		<result property="membno" column="membno" />
+		<result property="nickname" column="nickname" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+		<result property="tel" column="tel" />
+		<result property="joindate" column="joindate" />
+		<result property="editdate" column="editdate" />
+		<result property="sms" column="sms" />
+		<result property="shopaddress" column="shopaddress" />
+		<result property="intro" column="intro" />
+		<result property="outmember" column="outmember" />
+		<result property="rate" column="rate" />
+	</resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, password, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			sms, shopaddress, intro, outmember, rate
+		FROM member
+		WHERE membno=#{membno}
+	</select>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, password, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			sms, shopaddress, intro, outmember, rate
+		FROM member
+		
+		<where>
+			<if test="email != null and email != ''">
+				email LIKE concat('%', #{email}, '%')
+			</if>
+		</where>
+		
+		ORDER BY membno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>	
+	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountAll"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM member
+		
+		<where>
+			<if test="email != null and email != ''">
+				email LIKE concat('%', #{email}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		useGeneratedKeys="true" keyProperty="membno">
+		INSERT INTO member (
+			nickname, email, password, tel,
+			joindate, editdate, sms, shopaddress, intro, 
+			outmember, rate
+		) VALUES (
+			(select concat('cider', max(membno)+1) from member m), 
+			#{email}, #{password}, #{tel}, 
+			now(), now(), 4, 
+			(select concat('c', max(membno)+1) from member m), null,
+			'n', null
+		)
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Member">
+		DELETE FROM member WHERE membno=#{membno}
+	</delete>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			nickname=#{nickname}, email=#{email}, password=#{password}, 
+			tel=#{tel}, editdate=now(), sms=#{sms}, shopaddress=#{shopaddress}, 
+			intro=#{intro}
+		WHERE membno=#{membno}
+	</update>
+	
+</mapper>
