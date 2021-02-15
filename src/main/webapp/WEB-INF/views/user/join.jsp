@@ -166,7 +166,7 @@
             };
 
             $("#addForm").submit(function(e) {
-              e.preventDefault();
+           	  e.preventDefault();
               /** 이름 검사 */
               if (!regex.value('#email', '아이디(이메일)을 입력하세요.')) { return false; }
               if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
@@ -182,23 +182,26 @@
               if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
               if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
               
-              this.submit();
+              /** Ajax 호출 */
+              const form = $(this);
+              const url = form.attr('action');
+              
+              $.ajax({
+                  type: "POST",
+                  url: url,
+                  data: form.serialize(),
+                  success: function(json) {
+	    				console.log(json);
+	    				
+	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	    				if (json.rt == "OK") {
+	    					window.location = "${pageContext.request.contextPath}/member/login.cider";
+	    				}
+	    			}
+                });
             });
+            			
             
-         	// #addForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
-    		$("#addForm").ajaxForm({
-    			// 전송 메서드 지정
-    			method: "POST",
-    			// 서버에서 200 응답을 전달한 경우 실행됨
-    			success: function(json) {
-    				console.log(json);
-    				
-    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
-    				if (json.rt == "OK") {
-    					window.location = "${pageContext.request.contextPath}/member.cider?membno=" + json.item.membno;
-    				}
-    			}
-    		});
           });
         </script>
 </body>

@@ -75,7 +75,7 @@ public class MemberRestController {
    }
    
    /** 내상점 내정보설정 페이지 */
-   @RequestMapping(value="/member.cider/{bbsno}", method=RequestMethod.GET)
+   @RequestMapping(value="/member.cider/{membno}", method=RequestMethod.GET)
    public Map<String, Object> get_item(@PathVariable("membno") int membno) {
       /** 1) 데이터 조회하기 */
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기

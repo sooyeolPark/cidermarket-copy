@@ -16,6 +16,7 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.service.BbsService;
+import study.shop.cidermarket.service.impl.BbsNoticeServiceImpl;
 
 @Controller
 public class NoticeAjaxContorller {
@@ -29,7 +30,7 @@ public class NoticeAjaxContorller {
    /** Service 패턴 구현체 주입 */
    @Autowired
    @Qualifier("bbsNoticeService")
-   BbsService bbsNoticeService2;
+   BbsService bbsNoticeService;
    
    /** 목록 페이지 */
    @RequestMapping(value="/notice/list.cider", method=RequestMethod.GET)
@@ -41,7 +42,7 @@ public class NoticeAjaxContorller {
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수
-      int listCount = 10;      // 한 페이지당 표시할 목록 수
+      int listCount = 10;	   // 한 페이지당 표시할 목록 수
       int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
       
       /** 2) 데이터 조회하기 */
@@ -54,7 +55,7 @@ public class NoticeAjaxContorller {
       
       try {
          // 전체 게시글 수 조회
-         totalCount = bbsNoticeService2.getBbsCount(input);
+         totalCount = bbsNoticeService.getBbsCount(input);
          // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
          pageData = new PageData(nowPage, totalCount, listCount, pageCount);
          
@@ -63,7 +64,7 @@ public class NoticeAjaxContorller {
          Bbs.setListCount(pageData.getListCount());
 
          // 데이터 조회하기
-         output = bbsNoticeService2.getBbsList(input);
+         output = bbsNoticeService.getBbsList(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
@@ -95,7 +96,7 @@ public class NoticeAjaxContorller {
       Bbs output = null;
       try {
          // 데이터 조회
-         output = bbsNoticeService2.getBbsItem(input);
+         output = bbsNoticeService.getBbsItem(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
@@ -112,11 +113,12 @@ public class NoticeAjaxContorller {
          // 검색어
          @RequestParam(value="keyword", required=false) String keyword,
          // 페이지 구현에서 사용할 현재 페이지 번호
-         @RequestParam(value="page", defaultValue="1") int nowPage) {
+         @RequestParam(value="page", defaultValue="1") int nowPage,
+         // 한페이지당 표시할 목록 수
+         @RequestParam(value="listCount", defaultValue="10") int listCount) {
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수
-      int listCount = 10;      // 한 페이지당 표시할 목록 수
       int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
       
       /** 2) 데이터 조회하기 */
@@ -129,7 +131,7 @@ public class NoticeAjaxContorller {
       
       try {
          // 전체 게시글 수 조회
-         totalCount = bbsNoticeService2.getBbsCount(input);
+         totalCount = bbsNoticeService.getBbsCount(input);
          // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
          pageData = new PageData(nowPage, totalCount, listCount, pageCount);
          
@@ -138,7 +140,7 @@ public class NoticeAjaxContorller {
          Bbs.setListCount(pageData.getListCount());
 
          // 데이터 조회하기
-         output = bbsNoticeService2.getBbsList(input);
+         output = bbsNoticeService.getBbsList(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
@@ -170,7 +172,7 @@ public class NoticeAjaxContorller {
       Bbs output = null;
       try {
          // 데이터 조회
-         output = bbsNoticeService2.getBbsItem(input);
+         output = bbsNoticeService.getBbsItem(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
@@ -206,7 +208,7 @@ public class NoticeAjaxContorller {
         
         try {
            // 데이터 조회
-           output = bbsNoticeService2.getBbsItem(input);
+           output = bbsNoticeService.getBbsItem(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }

@@ -17,6 +17,7 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.service.BbsService;
+import study.shop.cidermarket.service.impl.BbsNoticeServiceImpl;
 
 @RestController
 public class NoticeRestController {
@@ -33,7 +34,7 @@ public class NoticeRestController {
    BbsService bbsNoticeService;
    
    /** 목록 페이지 */
-   @RequestMapping(value="/help/notice.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/notice", method=RequestMethod.GET)
    public Map<String, Object> get_list(
          // 검색어
          @RequestParam(value="keyword", required=false) String keyword,
@@ -78,7 +79,7 @@ public class NoticeRestController {
    }
    
    /** 상세 페이지 */
-   @RequestMapping(value="/help/notice.cider/{bbsno}", method=RequestMethod.GET)
+   @RequestMapping(value="/notice/{bbsno}", method=RequestMethod.GET)
    public Map<String, Object> get_item(@PathVariable("bbsno") int bbsno) {
       /** 1) 데이터 조회하기 */
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
@@ -102,15 +103,16 @@ public class NoticeRestController {
    
    
    /** 관리자 공지사항 목록 페이지 */
-   @RequestMapping(value="/admin/notice.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/admin/notice", method=RequestMethod.GET)
    public Map<String, Object> get_list_adm(
          // 검색어
          @RequestParam(value="keyword", required=false) String keyword,
-         @RequestParam(value="page", defaultValue="1") int nowPage) {
+         @RequestParam(value="page", defaultValue="1") int nowPage,
+         // 한페이지당 표시할 목록 수
+         @RequestParam(value="listCount", defaultValue="10") int listCount) {
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수
-      int listCount = 10;      // 한 페이지당 표시할 목록 수
       int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
       
       /** 2) 데이터 조회하기 */
@@ -147,7 +149,7 @@ public class NoticeRestController {
    }
    
    /** 관리자 공지사항 상세 페이지 */
-   @RequestMapping(value="/admin/notice.cider/{bbsno}", method=RequestMethod.GET)
+   @RequestMapping(value="/admin/notice/{bbsno}", method=RequestMethod.GET)
    public Map<String, Object> get_item_adm(@PathVariable("bbsno") int bbsno) {
       /** 1) 데이터 조회하기 */
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
@@ -170,7 +172,7 @@ public class NoticeRestController {
    }
    
    /** 작성 폼에 대한 action 페이지 */
-   @RequestMapping(value="/admin/notice.cider", method=RequestMethod.POST)
+   @RequestMapping(value="/admin/notice", method=RequestMethod.POST)
    public Map<String, Object> post(
          @RequestParam(value="title", defaultValue="") String title,
          @RequestParam(value="content", defaultValue="") String content) {
@@ -206,7 +208,7 @@ public class NoticeRestController {
    }
    
    /** 수정 폼에 대한 action 페이지 */
-   @RequestMapping(value="/admin/notice.cider", method=RequestMethod.PUT)
+   @RequestMapping(value="/admin/notice", method=RequestMethod.PUT)
    public Map<String, Object> PUT(
          @RequestParam(value="bbsno", defaultValue="0") int bbsno,
          @RequestParam(value="title", defaultValue="") String title,
@@ -245,7 +247,7 @@ public class NoticeRestController {
    }
    
    /** 삭제 처리 */
-    @RequestMapping(value = "/admin/notice.cider", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/admin/notice", method = RequestMethod.DELETE)
     public Map<String, Object> delete(
             @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
         
