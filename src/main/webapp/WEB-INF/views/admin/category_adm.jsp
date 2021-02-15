@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -61,34 +65,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="cate_tr" class="clearfix" >
-                            <td class="text-center cate_td"><input type="checkbox">핸드메이드</td>
-                            <td class="text-center cate_td"><input type="checkbox">휴대폰/태블릿</td>
-                            <td class="text-center cate_td"><input type="checkbox">가구</td>
-                            <td class="text-center cate_td"><input type="checkbox">문구</td>
-                            <td class="text-center cate_td"><input type="checkbox">자동차용품</td>
-                            <td class="text-center cate_td"><input type="checkbox">유아용/완구</td>
-                            <td class="text-center cate_td"><input type="checkbox">컴퓨터/주변기기</td>
-                            <td class="text-center cate_td"><input type="checkbox">생활</td>
-                            <td class="text-center cate_td"><input type="checkbox">스타굿즈</td>
-                            <td class="text-center cate_td"><input type="checkbox">반려동물용품</td>
-                            <td class="text-center cate_td"><input type="checkbox">뷰티</td>
-                            <td class="text-center cate_td"><input type="checkbox">카메라</td>
-                            <td class="text-center cate_td"><input type="checkbox">여성의류</td>
-                            <td class="text-center cate_td"><input type="checkbox">디지털/가전</td>
-                            <td class="text-center cate_td"><input type="checkbox">피규어/키덜트</td>
-                            <td class="text-center cate_td"><input type="checkbox">스포츠/레저</td>
-                            <td class="text-center cate_td"><input type="checkbox">남성의류</td>
-                            <td class="text-center cate_td"><input type="checkbox">티켓</td>
-                            <td class="text-center cate_td"><input type="checkbox">예술/미술</td>
-                            <td class="text-center cate_td"><input type="checkbox">게임</td>
-                            <td class="text-center cate_td"><input type="checkbox">신발/가방/잡화</td>
-                            <td class="text-center cate_td"><input type="checkbox">음향기기/악기</td>
-                            <td class="text-center cate_td"><input type="checkbox">도서</td>
-                            <td class="text-center cate_td"><input type="checkbox">기타</td>
-                            
-                        </tr>    
-
+     
+						
+					
+				
+                        	<tr id="cate_tr" class="clearfix" >
+                        <c:forEach var="item" items="${output}" varStatus="status">	
+                            <td class="text-center cate_td"><input type="checkbox">${item.name}</td>
+                     
+						</c:forEach>	
+						    </tr>   
 
                     </tbody>
                 </table>
