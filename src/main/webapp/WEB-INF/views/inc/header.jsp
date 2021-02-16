@@ -66,7 +66,7 @@
 	</div>
   </div>
     <div class="btnn-login view-none">
-      <a href="${pageContext.request.contextPath}/user/msgbox.cider" class="btn btn-info">쪽지함</a>
+      <a href="${pageContext.request.contextPath}/msgbox/receiver.cider" class="btn btn-info">쪽지함</a>
       <a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info"
         >거래내역</a
       >

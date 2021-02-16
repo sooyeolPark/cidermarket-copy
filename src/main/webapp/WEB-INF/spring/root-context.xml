@@ -46,6 +46,11 @@
 	<bean id="bbsNoticeService" class="study.shop.cidermarket.service.impl.BbsNoticeServiceImpl" />
 	<bean id="bbsInquiryService" class="study.shop.cidermarket.service.impl.BbsInquiryServiceImpl" />
 
+	<bean id="ReceiverMsgboxService" class="study.shop.cidermarket.service.impl.ReceiverMsgboxServiceImpl" />
+	<bean id="SenderMsgboxService" class="study.shop.cidermarket.service.impl.SenderMsgboxServiceImpl" />
+	<bean id="RStoreMsgboxService" class="study.shop.cidermarket.service.impl.RStoreMsgboxServiceImpl" />
+	<bean id="SStoreMsgboxService" class="study.shop.cidermarket.service.impl.SStoreMsgboxServiceImpl" />
+	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
