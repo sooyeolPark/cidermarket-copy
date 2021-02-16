@@ -12,6 +12,10 @@
 	<util:properties id="config">
 		<!-- 기본 인코딩 타입 -->
 		<prop key="encType">UTF-8</prop>
+		<!-- 업로드 디렉토리 (server.xml의 docBase 값과 일치해야 함) -->
+		<prop key="uploadDir">d:/workspace/cidermarket/src/main/webapp/WEB-INF/views/assets/img</prop>
+		<!-- 업로드 디렉토리에 대한 WebPath (server.xml의 path 값과 일치해야 함) -->
+		<prop key="uploadPath">/img</prop>
 	</util:properties>
 	
 	<!-- DB연동에 필요한 환결설정 값 -->
@@ -35,6 +39,8 @@
 	<!-- WebHelper 주입 설정 -->
 	<bean id="webHelper" class="study.shop.cidermarket.helper.WebHelper">
 		<property name="encType" value="#{config['encType']}" />
+		<property name="uploadDir" value="#{config['uploadDir']}" />
+		<property name="uploadPath" value="#{config['uploadPath']}" />
 	</bean>
 	
 	<!-- RegexHelper 주입 설정 -->
@@ -45,6 +51,8 @@
 	
 	<bean id="bbsNoticeService" class="study.shop.cidermarket.service.impl.BbsNoticeServiceImpl" />
 	<bean id="bbsInquiryService" class="study.shop.cidermarket.service.impl.BbsInquiryServiceImpl" />
+	
+	<bean id="filesBbsService" class="study.shop.cidermarket.service.impl.FilesBbsServiceImpl" />
 
 	<bean id="ReceiverMsgboxService" class="study.shop.cidermarket.service.impl.ReceiverMsgboxServiceImpl" />
 	<bean id="SenderMsgboxService" class="study.shop.cidermarket.service.impl.SenderMsgboxServiceImpl" />
@@ -72,6 +80,16 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <!-- 생성자를 통해 SQLSessionFactory 객체 주입 -->
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </bean>	
+    </bean>
+    
+    <!-- upload를 위한 Multipart 지원 라이브러리 주입 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<!-- 업로드 최대 용량 (-1로 지정할 경우 제한없음) -->
+    	<property name="maxUploadSize" value="-1" />
+    	<!-- 업로드를 처리할 인코딩 방식 -->
+    	<property name="defaultEncoding" value="#{config['encType']}" />
+    	<!-- 업로드에서 사용할 최대 메모리 크기 (0으로 지정할 경우 제한없음) -->
+    	<property name="maxInMemorySize" value="0" />
+    </bean>
 
 </beans>

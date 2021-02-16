@@ -31,7 +31,7 @@
                             <span class="boardDate boardDate-view">${output.regdate}</span>
                         </div>
                         <div class="panel-body">
-                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/${output.path}" alt="${output.title}"></div>
+                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.title}"></div>
                             <p>${output.content}</p>
                         </div>
                     </div>

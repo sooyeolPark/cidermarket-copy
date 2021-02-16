@@ -88,7 +88,7 @@
 								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/${item.path}">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4>${item.price}원</h4>
@@ -117,7 +117,7 @@
 		<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
              <a href="${pageContext.request.contextPath}/product/item_index.cider?prodno={{prodno}}">
              	<div class="sorting thumbnail">
-                	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{path}}">
+                	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}">
                     <div class="caption">
                        	<h5>{{subject}}</h5>
                         <h4>{{price}}원</h4>

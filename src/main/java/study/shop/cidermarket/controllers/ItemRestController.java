@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,16 +20,17 @@ import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
 @RestController
-public class HomeRestController {
+public class ItemRestController {
 	/** Helper 주입 */
 	@Autowired WebHelper webHelper;
 	@Autowired RegexHelper regexHelper;
 	
 	/** Service 패턴 구현체 주입 */
 	@Autowired ProductService productService;
+
 	
 	/** 메인 페이지 */
-	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	@RequestMapping(value = "/Item_list", method = RequestMethod.GET)
 	public Map<String, Object> get_list(
 			// 검색어
 			@RequestParam(value="keyword", required=false) String keyword,
@@ -73,11 +74,33 @@ public class HomeRestController {
 		return webHelper.getJsonData(data);
 	}
 	
+
+	   // 상세 페이지 (proncon/how 필터용)
+	   @RequestMapping(value="/Item_list/{prodcon}", method=RequestMethod.GET)
+	   public Map<String, Object> get_item(
+			   @PathVariable("prodcon") String prodcon,
+			   @PathVariable("how") String how
+			   ) {
+	      /** 1) 데이터 조회하기 */
+	      // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	      Product input = new Product();
+	      input.setProdcon(prodcon);
+	      input.setHow(how);
+	      
+	      // 조회 결과를 저장할 객체 선언
+	      Product output = null;
+	      try {
+	         // 데이터 조회
+	         output = productService.getProductItem(input);
+	      } catch (Exception e) {
+	         return webHelper.getJsonError(e.getLocalizedMessage());
+	      }
+	      
+	      /** 2) JSON 출력하기 */
+	      Map<String, Object> data = new HashMap<String, Object>();
+	      data.put("item", output);
+	      return webHelper.getJsonData(data);
+	   }
 	
 	
-    /** 알람 페이지 */
-    @RequestMapping(value="/user/alarm.cider", method=RequestMethod.GET)
-    public String alarm() {
-        return "user/alarm";
-    }
 }

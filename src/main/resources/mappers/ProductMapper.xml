@@ -17,7 +17,7 @@
 		<result property="seller" column="seller" />
 		<result property="hits" column="hits" />
 		<result property="editdate" column="editdate" />
-		<result property="path" column="path" />
+		<result property="filepath" column="filepath" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -28,7 +28,7 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT path FROM files WHERE refid=prodno) AS path
+			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
 		FROM product
 		WHERE prodno=#{prodno}
 	</select>
@@ -41,7 +41,7 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT path FROM files WHERE refid=prodno) AS path
+			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
 		FROM product
 		
 		<where>
@@ -79,8 +79,8 @@
 			prodcon, how, tradecon, seller, hits, editdate
 		) VALUES (
 			#{prodno}, #{cateno}, #{subject}, #{price}, #{fee}, 
-			#{detail}, #{regdate}, #{prodcon}, #{how}, #{tradecon},
-			#{seller}, #{hits}, #{editdate}
+			#{detail}, now(), #{prodcon}, #{how}, #{tradecon},
+			#{seller}, 0, now()
 		)
 	</insert>
 	
@@ -96,7 +96,7 @@
 		UPDATE student SET
 			cateno=#{cateno}, subject=#{subject}, price=#{price}, fee=#{fee}, 
 			detail=#{detail}, regdate=#{regdate}, prodcon=#{prodcon}, how=#{how}, tradecon=#{tradecon},
-			seller=#{seller}, hits=#{hits}, editdate=#{editdate}
+			seller=#{seller}, hits=#{hits}, editdate=now()
 		WHERE prodno=#{prodno}
 	</update>
 

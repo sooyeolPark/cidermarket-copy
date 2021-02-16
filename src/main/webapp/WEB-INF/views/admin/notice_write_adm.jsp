@@ -26,7 +26,7 @@
             
             <div class="col-lg-10">
 
-                <form class="form-horizontal" id="addForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice.cider">
+                <form class="form-horizontal" id="addForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice">
                     <fieldset>
                         <!-- 입력양식 -->
                         <div class="form-group">
@@ -53,9 +53,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="file" class="col-md-2 control-label">파일첨부</label>
+                            <label for="photo" class="col-md-2 control-label">사진선택</label>
                             <div class="col-md-2">
-                                <input type="file" id="file" name="file" accept="image/png, image/jpeg">
+                                <input type="file" id="photo" name="photo" accept="image/png, image/jpeg, image/gif" />
                             </div>
                         </div>
                         <hr />
@@ -116,6 +116,13 @@
             
         	// #addForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
     		$("#addForm").ajaxForm({
+    			beforeSerialize:function($Form, options){
+    		        /* Before serialize */
+    		        for ( instance in CKEDITOR.instances ) {
+    		            CKEDITOR.instances[instance].updateElement();
+    		        }
+    		        return true; 
+    		    },
     			// 전송 메서드 지정
     			method: "POST",
     			// 서버에서 200 응답을 전달한 경우 실행됨

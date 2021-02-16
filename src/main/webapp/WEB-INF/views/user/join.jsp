@@ -192,7 +192,7 @@
                   data: form.serialize(),
                   success: function(json) {
 	    				console.log(json);
-	    				
+	    				alert("가입을 환영합니다. 로그인 후 이용해주세요.");
 	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
 	    				if (json.rt == "OK") {
 	    					window.location = "${pageContext.request.contextPath}/member/login.cider";

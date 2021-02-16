@@ -20,7 +20,7 @@ public class Bbs {
 	private int membno;  // 작성자 고유번호(멤버테이블 참조)
 	
 	// 2) JOIN절에 따른 추가 컬럼
-	private String path;  // 이미지 파일 첨부용
+	private String filepath;  // 이미지 파일 첨부용
 	
 	// 3) 페이지 구현을 위한 static 변수
 	/** 페이지 구현이 필요한 경우 아래 속성들을 추가한다. (static) */

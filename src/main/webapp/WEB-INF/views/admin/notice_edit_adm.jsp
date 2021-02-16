@@ -26,7 +26,7 @@
             
             <div class="col-lg-10">
 
-                <form class="form-horizontal" id="editForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice.cider">
+                <form class="form-horizontal" id="editForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice">
       	        	<% /* action 페이지에서 사용할 WHERE 조건값을 hidden 필드로 숨겨서 전송한다. */ %>
 	   				<input type="hidden" name="bbsno" value="${output.bbsno}" />
                     <fieldset>
@@ -57,7 +57,8 @@
                         <div class="form-group">
                             <label for="file" class="col-md-2 control-label">파일첨부</label>
                             <div class="col-md-2">
-                                <input type="file" id="file" name="file" accept="image/png, image/jpeg">
+      	 	                    ${output.filepath}
+                                <!-- <input type="file" id="file" name="file" accept="image/png, image/jpeg, image/gif"> -->
                             </div>
                         </div>
                         <hr />
@@ -133,7 +134,6 @@
     				console.log(json);
     				
     				var contents = CKEDITOR.instances.content.getData();
-    				alert(contents);
     				
     				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
     				if (json.rt == "OK") {

@@ -18,7 +18,7 @@ th {
 
 td {
   width: 20%;
-  display: block;
+  display:block;
   float: left;
 }
 thead {
@@ -33,6 +33,7 @@ thead {
 .table td:hover {
   background-color: #aeaeae;
 }
+
 
 #no_vertical {
   vertical-align: middle !important;
@@ -71,11 +72,7 @@ thead {
 .form-inline {
   display: inline-block;
 }
-#revise {
-  width: 70%;
-  float: none;
-  display: inline;
-}
+
 #image0 {
   margin-right: 10px;
 }

@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.service.FilesService;
-import study.shop.cidermarket.model.Files;
+import study.shop.cidermarket.model.Category;
+import study.shop.cidermarket.service.CategoryService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
 // -> import org.springframework.stereotype.Service;
 @Slf4j
 @Service
-public class FilesServiceImpl implements FilesService {
+public class CategoryServiceImpl implements CategoryService {
 	
 	/** MyBatis */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ public class FilesServiceImpl implements FilesService {
 	@Autowired SqlSession sqlSession;
 
 	@Override
-	public Files getFilesItem(Files input) throws Exception {
-		Files result = null;
+	public Category getCategoryItem(Category input) throws Exception {
+		Category result = null;
 		try {
-			result = sqlSession.selectOne("FilesMapper.selectItem", input);
+			result = sqlSession.selectOne("CategoryMapper.selectItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -40,10 +40,10 @@ public class FilesServiceImpl implements FilesService {
 	}
 
 	@Override
-	public List<Files> getFilesList(Files input) throws Exception {
-		List<Files> result = null;
+	public List<Category> getCategoryList(Category input) throws Exception {
+		List<Category> result = null;
 		try {
-			result = sqlSession.selectList("FilesMapper.selectList", input);
+			result = sqlSession.selectList("CategoryMapper.selectList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -58,10 +58,10 @@ public class FilesServiceImpl implements FilesService {
 	}
 
 	@Override
-	public int getFilesCount(Files input) throws Exception {
+	public int getCategoryCount(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.selectOne("FilesMapper.selectCountAll", input);
+			result = sqlSession.selectOne("CategoryMapper.selectCountAll", input);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -70,10 +70,10 @@ public class FilesServiceImpl implements FilesService {
 	}
 
 	@Override
-	public int addFiles(Files input) throws Exception {
+	public int addCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.insert("FilesMapper.insertItem", input);
+			result = sqlSession.insert("CategoryMapper.insertItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -88,10 +88,10 @@ public class FilesServiceImpl implements FilesService {
 	}
 
 	@Override
-	public int editFiles(Files input) throws Exception {
+	public int editCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.update("FilesMapper.updateItem", input);
+			result = sqlSession.update("CategoryMapper.updateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -106,10 +106,10 @@ public class FilesServiceImpl implements FilesService {
 	}
 
 	@Override
-	public int deleteFiles(Files input) throws Exception {
+	public int deleteCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.delete("FilesMapper.deleteItem", input);
+			result = sqlSession.delete("CategoryMapper.deleteItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -122,4 +122,5 @@ public class FilesServiceImpl implements FilesService {
 		}
 		return result;
 	}
+
 }
