@@ -18,7 +18,8 @@
   font-size: 1.1em;
   white-space: normal;
 }
-.content_body p {
-  padding: 30px 0;
+.first_img img {
+  margin-bottom: 30px;
+  width: 100%;
 }
 /* ----------------------------------------- */

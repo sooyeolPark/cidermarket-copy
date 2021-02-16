@@ -6,7 +6,11 @@
 	<resultMap type="study.shop.cidermarket.model.Files" id="filesMap">
 		<result property="fileno" column="fileno" />
 		<result property="fname" column="fname" />
-		<result property="path" column="path" />
+		<result property="oriname" column="oriname" />
+		<result property="filepath" column="filepath" />
+		<result property="thumbnailPath" column="thumbnailPath" />
+		<result property="fileUrl" column="fileUrl" />
+		<result property="thumbnailUrl" column="thumbnailUrl" />
 		<result property="type" column="type" />
 		<result property="size" column="size" />
 		<result property="regdate" column="regdate" />
@@ -19,7 +23,7 @@
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Files"
 		resultMap="filesMap">
-		SELECT fileno, fname, path, type, size,
+		SELECT fileno, fname, filepath, thumbnailPath, type, size,
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			reftable, refid
@@ -27,11 +31,22 @@
 		WHERE fileno=#{fileno}
 	</select>
 	
+	<!-- BBS 단일행 조회를 위한 기능 정의 -->
+	<select id="selectBbsItem"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT fileno, fname, filepath, fileUrl, thumbnailPath, type, size, 
+		DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate, 
+		concat(reftable, '-', refid)
+		FROM files
+		WHERE reftable='bbs' AND refid=#{refid}
+	</select>
+	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Files"
 		resultMap="filesMap">
-		SELECT fileno, fname, path, type, size,
+		SELECT fileno, fname, filepath, thumbnailPath, type, size,
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			reftable, refid
@@ -54,7 +69,7 @@
 	<select id="selectProductImageList"
 		parameterType="study.shop.cidermarket.model.Files"
 		resultMap="filesMap">
-		SELECT path, reftable, refid
+		SELECT filepath, reftable, refid
 		FROM files
 		
 		<where>
@@ -83,10 +98,12 @@
 		parameterType="study.shop.cidermarket.model.Files"
 		useGeneratedKeys="true" keyProperty="fileno">
 		INSERT INTO files (
-			fileno, fname, path, type, size, regdate, editdate, reftable, refid
+			fname, filepath, thumbnailPath, fileUrl, 
+			thumbnailUrl, type, size, regdate, editdate, reftable, refid
 		) VALUES (
-			#{fileno}, #{fname}, #{path}, #{type}, #{size}, 
-			#{regdate}, #{editdate}, #{reftable}, #{refid}
+			#{fname}, #{filepath}, #{thumbnailPath}, 
+			#{fileUrl}, #{thumbnailUrl}, #{type}, #{size}, 
+			now(), now(), #{reftable}, #{refid}
 		)
 	</insert>
 	
@@ -100,8 +117,9 @@
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Files">
 		UPDATE files SET
-			fname=#{fname}, path=#{path}, type=#{type}, size=#{size}, 
-			regdate=#{regdate}, editdate=#{editdate}, reftable=#{reftable}, refid=#{refid}
+			fname=#{fname}, filepath=#{filepath}, thumbnailPath=#{thumbnailPath}, 
+			thumbnailUrl=#{thumbnailUrl}, fileUrl=#{fileUrl}, type=#{type}, size=#{size}, 
+			editdate=now(), reftable=#{reftable}, refid=#{refid}
 		WHERE fileno=#{fileno}
 	</update>
 

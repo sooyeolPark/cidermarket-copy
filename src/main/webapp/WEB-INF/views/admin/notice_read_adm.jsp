@@ -34,11 +34,11 @@
                     <div class="content_body">
                     	<c:choose>
                     		<%-- 조회결과가 없는 경우 --%>
-							<c:when test="${output.path == null || fn:length(output.path) == 0}">
+							<c:when test="${output.filepath == null || fn:length(output.filepath) == 0}">
 								<div class="text-center alert alert-info" role="alert">등록된 이미지가 없습니다.</div>
 							</c:when>	
 							<c:otherwise>
-		                    	<div class="text-center"><img src="${pageContext.request.contextPath}/assets/${output.path}" alt="${output.title}" /></div>
+		                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.title}" /></div>
 							</c:otherwise>
                     	</c:choose>
                     	${output.content}
@@ -95,8 +95,8 @@
 	                return false;
 	            }
 	            // delete 메서드로 Ajax 요청 --> <form> 전송이 아니므로 직접 구현한다.
-	            $.delete("${pageContext.request.contextPath}/admin/notice.cider", {
-	                "bbsno": bbsno
+	            $.delete("${pageContext.request.contextPath}/admin/notice", {
+	                "bbsno": bbsno, "count": 1
 	            }, function(json) {
 	                if (json.rt == "OK") {
 	                    alert("삭제되었습니다.");

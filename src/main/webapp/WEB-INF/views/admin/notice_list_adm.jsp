@@ -72,14 +72,16 @@
                               <c:url var="viewUrl" value="/admin/notice/view.cider">
                                  <c:param name="bbsno" value="${item.bbsno}" />                     
                               </c:url>
+                              <%-- 글 번호 --%>
+                              <c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" />
                               
                                 <tr>
-                                    <td><input type="checkbox" class="board "/></td>
-                                    <td class="text-center ">${item.bbsno}</td>
-                                    <td class="text-center "><a href="${viewUrl}">${title}</a></td>
-                                    <td class="text-center ">관리자</td>
-                                    <td class="text-center ">${item.regdate}</td>
-                                    <td class="text-center ">${item.hits}</td>
+                                    <td><input type="checkbox" class="board" name="chkRow" value="${item.bbsno}" /></td>
+                                    <td class="text-center">${num}</td>
+                                    <td class="text-center"><a href="${viewUrl}">${title}</a></td>
+                                    <td class="text-center">관리자</td>
+                                    <td class="text-center">${item.regdate}</td>
+                                    <td class="text-center">${item.hits}</td>
                                  </tr>
                            </c:forEach>
                         </c:otherwise>
@@ -201,11 +203,13 @@
             var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
             location.href='${pageContext.request.contextPath}/admin/notice/list.cider?page=${pageData.nowPage}&keyword=${keyword}&listCount='+choice;
         });
+      
+      	
 
 
         // 버튼삭제이벤트
         $("#delete").click(function(e){
-           e.preventDefault();
+           e.preventDefault();           
            swal({ 
            title: '확인',
            text: "정말 삭제 하시겠습니까?" ,
@@ -216,17 +220,34 @@
            }).then(function(result){
                if(result.value) {
                   if($("input").is(":checked") == true) { //체크된 요소가 있으면               
-                      var i = $("input:checked").parents("tr");
-                      i.remove();
+                	  let count = $("input[name='chkRow']:checked").length;   // 갯수만큼 삭제 실행
+                	  let arr = new Array();	// 체크박스를 담을 배열 객체 생성
+                	  $("input:checked").each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+                          arr.push($(this).val());
+                      });
+                	  
+                	  $.ajaxSettings.traditional = true;  // Ajax로 배열을 넘겨줄 때 필요한 설정                                        	  
+                      $.ajax({
+	          				type : 'DELETE',
+	          				url : '${pageContext.request.contextPath}/admin/notice',
+	          				data : {"bbsno" : arr, "count" : count},
+	          				success: function(json) {
+	    	      	              if (json.rt == "OK") {
+	    	      	                  alert("삭제되었습니다.");
+	    	      	                  // 삭제 완료 후 목록 페이지로 이동
+	    	      	                  window.location = "${pageContext.request.contextPath}/admin/notice/list.cider";
+	    	      	              }
+	          				}
+          				});
+              	  	}
+	                  
                   } else {
-                     swal("삭제할 항목을 선택해주세요!")
+                      swal("삭제할 항목을 선택해주세요!")
                  }
-               }
+               });
             });
+        
         });
-
-
-    });
 
     </script>
 

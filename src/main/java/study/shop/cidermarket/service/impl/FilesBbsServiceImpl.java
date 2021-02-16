@@ -14,7 +14,7 @@ import study.shop.cidermarket.model.Files;
 // -> import org.springframework.stereotype.Service;
 @Slf4j
 @Service
-public class FilesServiceImpl implements FilesService {
+public class FilesBbsServiceImpl implements FilesService {
 	
 	/** MyBatis */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class FilesServiceImpl implements FilesService {
 	public Files getFilesItem(Files input) throws Exception {
 		Files result = null;
 		try {
-			result = sqlSession.selectOne("FilesMapper.selectItem", input);
+			result = sqlSession.selectOne("FilesMapper.selectBbsItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}

@@ -16,7 +16,6 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.service.BbsService;
-import study.shop.cidermarket.service.impl.BbsNoticeServiceImpl;
 
 @Controller
 public class NoticeAjaxContorller {
