@@ -12,19 +12,10 @@
 <title>관리자 카테고리 - 사이다마켓</title>
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/category_adm.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
-    <!-- 반응형 웹을 지원하지 않을 경우 -->
-    <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
-    <!-- IE8 이하 버전 지원 -->
-    <!--[if lt IE 9]>
-<script type="text/javascript" src="assets/js/html5shiv.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<![endif]-->
-    <!-- IE10 반응형 웹 버그 보완 -->
-    <!--[if gt IE 9]>
-<link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-<script type="text/javascript" src="assets/js/ie10.js"></script>
-<![endif]-->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+    
+
 </head>
 
 <body>
@@ -69,28 +60,36 @@
 						
 					
 				
-                        	<tr id="cate_tr" class="clearfix" >
+                     <tr id="cate_tr" class="clearfix" >
                         <c:forEach var="item" items="${output}" varStatus="status">	
-                            <td class="text-center cate_td"><input type="checkbox">${item.name}</td>
-                     
+                            <td class="text-center cate_td"><input id="del" type="checkbox" value="${item.cateno}">${item.name}</td>
 						</c:forEach>	
-						    </tr>   
+					</tr>   
 
                     </tbody>
                 </table>
                 
                     <div id="inputbox" >
                         <input type="file" id="image0" class="image_plus " accept="image/*"/>
-                        <input type="text" class="form-control" id="revise">
+                        
+                        
+                        <form id="addForm" action ="${pageContext.request.contextPath}/Category">
+	                        <input type="text" name="name" class="form-control" id="">
+	                        <button id="save"type="submit" class="btn btn-primary">추가</button>
+                        </form>
+                        
+                         <form id="editForm" action ="${pageContext.request.contextPath}/Category">
+	                        <input type="text" name="name" class="form-control" id="revise" value="">
+	                        <button id="save"type="submit" class="btn btn-primary">수정</button>
+                        </form>
                     </div>
                 
                     <div class="regi_cancel">
-                        <button id="delete1"type="button" class="btn btn-danger">삭제</button>
-                        <button id="revise1"type="button" class="btn btn-warning">수정</button>
-                        <button id="add1"type="button" class="btn btn-primary">추가</button>
-
+                        <button id="delete1"type="submit" class="btn btn-danger">삭제</button>
+                        <button id="revise1"type="submit" class="btn btn-warning">수정</button>
+                        <button id="add1"type="submit" class="btn btn-primary">추가</button>
                     </div>
-        </div>
+        	</div>
     </div>
     </div>
 
@@ -100,26 +99,17 @@
     <!--/.container-->
     <!-- Javascript -->
 
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-    <!-- ajax-helper -->
-    <link rel="stylesheet" href="vplugins/ajax/ajax_helper.css" />
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script id="category_tmpl" type/x-handlebars-template">
-    
-
-
-    </script>
     <script type="text/javascript">
         $(function () {
-            // 등록 이미지 등록 미리보기
-            function readInputFile(input) {
+ 	// 등록 이미지 등록 미리보기
+/*            function readInputFile(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
@@ -142,11 +132,11 @@
                 }else{
 
                 }
-            });
+            });   */
 
     //   추가,수정,삭제 ajax 기능 넣기 핸들바 아마
     //추가
-    $("#add1").click(function(){
+/*     $("#add1").click(function(){
             var td_new = $('<td>');
             td_new.addClass("text-center cate_td");
             //input은 input에 있는 텍스트 내용 
@@ -158,10 +148,37 @@
             
             // cate table row 마지막에 td_new를 추가한다. 
             $("#cate_tr").append(td_new);
+            
+            $.ajax({
+            	url: '/Category' //서버에 전달할 파일명 
+            	dataType:'text',
+            	type:'post',
+            	data: {
+            		'input'
+            	}
+            });
+            
+        });  */
+    
+	    //addForm에 대한 submit 이벤트를 가로채서 Ajax 요청을 전송ㅎㄴ다. 
+        $("#addForm").ajaxForm({
+            // 전송 메서드 지정
+            method: "POST",
+            // 서버에서 200 응답을 전달한 경우 실행됨
+            success: function(json) {
+                console.log(json);
+      
+                
+                // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                if (json.rt == "OK") {
+                    window.location = "${pageContext.request.contextPath}/admin/category_adm.cider";
+                }
+            }
         });
+	    
 
-        //클릭시 포커스 
-        $(".cate_td").click(function(e){
+      //클릭시 포커스 
+/*         $(".cate_td").click(function(e){
             $("#revise").focus();
         });
 
@@ -170,16 +187,16 @@
             // var idx = $(this).index();
             // var td = '"td"+idx';
             var cate = $(this).html();
-            var cate2=cate.substring(23);
+  			var cate2=cate.substring(23);
          
             
         $("#revise").val(cate2);
-        });
+        });  */
 
         
   
         
-        // 버튼삭제이벤트
+ /*        // 버튼삭제이벤트
         $("#delete1").click(function(e){
                 e.preventDefault();
                 swal({ 
@@ -228,7 +245,56 @@
 
                 });
                 
-             });
+             }); */
+             
+             $("#delete1").click(function(e) {
+            	 e.preventDefault(); //링크 클릭에 대한 페이지 이동 방지 
+            	 
+            	 if($("input").is(":checked") == true){ //체크된 요소가 있으면               
+                  var cateno = $("input:checked").val();
+                 
+            	 }
+
+            	 if (!confirm("정말" + cateno+"번 항목을 삭제하겠습니가?")) {
+            		 return false; 
+            	 }
+            	 
+            	 //delete 메서드로 Ajax 요청 <form> 전송이 아니므로 직접 구현한다. 
+            	 $.delete("${pageContext.request.contextPath}/Category", {
+            		 "cateno" : cateno
+            	 }, function(json) {
+            		 if(json.rt == "OK") {
+            			 alert("삭제되었습니다.");
+            			 //삭제 완료 후 목록 페이지로 이동 
+            			 window.location="${pageContext.request.contextPath}/admin/category_adm.cider";
+            		 }
+            	 });
+             }); 
+             
+             
+             //수정양식 
+             // check box 선택 -> cateno 추출 -> input 박스 이름 작성 -> submit 버튼 
+ 				
+      
+                 
+       
+
+                 $("#editForm").ajaxForm({
+                     // 전송 메서드 지정
+                     method: "PUT",
+                     // 서버에서 200 응답을 전달한 경우 실행됨
+                     success: function(json) {
+                         console.log(json);
+     
+                         
+                         // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                         if (json.rt == "OK") {
+                             window.location = "${pageContext.request.contextPath}/admin/category_adm.cider";
+                         }
+                     }
+                 });   
+          
+  
 
 
 

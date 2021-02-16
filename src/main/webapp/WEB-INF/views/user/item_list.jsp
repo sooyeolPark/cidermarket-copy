@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!doctype html>
 <html lang="ko">
 
@@ -84,9 +88,9 @@
             <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
                 <a href="${pageContext.request.contextPath}/user/{{href}}">
                     <div class="sorting thumbnail">
-                        <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
+                        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{path}}">
                         <div class="caption">
-                            <h5>{{title}}</h5>
+                            <h5>{{subject}}</h5>
                             <h4>{{price}}원</h4>
                         </div>
                     </div>
@@ -139,16 +143,16 @@
                 });
 
                 /* 상품리스트형 */
-                $(".btn-list").click(function() {
+/*                 $(".btn-list").click(function() {
                     $(".btn-list").not(this).removeClass('active');
                     $(this).toggleClass('active');
                     get_sort();
                 });
-                
+                 */
                 /* 상품 더보기 */
-				$("#more").click(function(e) {
+/* 				$("#more").click(function(e) {
                     get_list();
-                });
+                }); */
             });
 
 		</script>

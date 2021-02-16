@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category getCategoryItem(Category input) throws Exception {
 		Category result = null;
 		try {
-			result = sqlSession.selectOne("CategoryInquiryMapper.selectItem", input);
+			result = sqlSession.selectOne("CategoryMapper.selectItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> getCategoryList(Category input) throws Exception {
 		List<Category> result = null;
 		try {
-			result = sqlSession.selectList("CategoryInquiryMapper.selectList", input);
+			result = sqlSession.selectList("CategoryMapper.selectList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public int getCategoryCount(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.selectOne("CategoryInquiryMapper.selectCountAll", input);
+			result = sqlSession.selectOne("CategoryMapper.selectCountAll", input);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public int addCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.insert("CategoryInquiryMapper.insertItem", input);
+			result = sqlSession.insert("CategoryMapper.insertItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -91,7 +91,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public int editCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.update("CategoryInquiryMapper.updateItem", input);
+			result = sqlSession.update("CategoryMapper.updateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -109,7 +109,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public int deleteCategory(Category input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.delete("CategoryInquiryMapper.deleteItem", input);
+			result = sqlSession.delete("CategoryMapper.deleteItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

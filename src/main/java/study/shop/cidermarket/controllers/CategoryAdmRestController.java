@@ -32,7 +32,9 @@ public class CategoryAdmRestController {
 
 	/** 목록 페이지 */
 	@RequestMapping(value = "/Category", method = RequestMethod.GET)
-	public Map<String, Object> get_list(@RequestParam(value = "membno", defaultValue = "0") int cateno) {
+	public Map<String, Object> get_list(
+			@RequestParam(value = "cateno", defaultValue = "0") int cateno,
+			@RequestParam(value = "keyword", required = false) String keyword) {
 
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
@@ -62,6 +64,7 @@ public class CategoryAdmRestController {
 		/** 3) JSON 출력하기 */
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("item", output);
+		data.put("keyword", keyword);
 //      data.put("meta", pageData);
 
 		return webHelper.getJsonData(data);
@@ -87,8 +90,8 @@ public class CategoryAdmRestController {
 
 	/** 작성 폼에 대한 action 페이지 */
 	@RequestMapping(value = "/Category", method = RequestMethod.POST)
-	public Map<String, Object> post(@RequestParam(value = "cateno", defaultValue = "0") int cateno,
-			@RequestParam(value = "name", defaultValue = "") String name) {
+	public Map<String, Object> post
+			(@RequestParam(value = "name", defaultValue = "") String name) {
 
 		/** 1) 사용자가 입력한 파라미터 유효성 검사 */
 		// 일반 문자열 입력 컬럼 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈 문자열로 처리된다.
@@ -101,6 +104,7 @@ public class CategoryAdmRestController {
 		Category input = new Category();
 		input.setName(name);
 
+		//input에 이름이 담겨있는 상황 
 		// 저장된 결과를 조회하기 위한 객체
 		Category output = null;
 
@@ -122,12 +126,13 @@ public class CategoryAdmRestController {
 
 	/** 수정 폼에 대한 action 페이지 */
 	@RequestMapping(value = "/Category", method = RequestMethod.PUT)
-	public Map<String, Object> PUT(@RequestParam(value = "cateno", defaultValue = "0") int cateno,
+	public Map<String, Object> PUT(
+			@RequestParam(value = "cateno", defaultValue = "0") int cateno,
 			@RequestParam(value = "name", defaultValue = "") String name) {
 
 		/** 1) 사용자가 입력한 파라미터 유효성 검사 */
 		if (cateno == 0) {
-			return webHelper.getJsonWarning("글번호가 없습니다.");
+			return webHelper.getJsonWarning("카테고리번호가 없습니다.");
 		}
 		// 일반 문자열 입력 컬럼 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈 문자열로 처리된다.
 		if (!regexHelper.isValue(name)) {

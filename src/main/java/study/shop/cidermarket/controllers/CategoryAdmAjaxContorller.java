@@ -31,27 +31,24 @@ public class CategoryAdmAjaxContorller {
    
    /** 목록 페이지 */
    @RequestMapping(value="/admin/category_adm.cider", method=RequestMethod.GET)
-   public ModelAndView list(Model model,
+   public ModelAndView list(Model model) {
          // 검색어
-         @RequestParam(value="keyword", required=false) String keyword){
 
       /** 2) 데이터 조회하기 */
       // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-      Category input = new Category();
-      input.setName(keyword);
+
       
       List<Category> output = null;
       
       try {
    
          // 데이터 조회하기
-         output = categoryService.getCategoryList(input);
+         output = categoryService.getCategoryList(null);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
       /** 3) View 처리 */
-      model.addAttribute("keyword", keyword);
       model.addAttribute("output", output);
       
       return new ModelAndView("admin/category_adm");
