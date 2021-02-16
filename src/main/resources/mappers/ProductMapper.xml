@@ -28,7 +28,7 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE refid=prodno) AS filepath
+			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
 		FROM product
 		WHERE prodno=#{prodno}
 	</select>
@@ -41,7 +41,7 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE refid=prodno) AS filepath
+			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
 		FROM product
 		
 		<where>

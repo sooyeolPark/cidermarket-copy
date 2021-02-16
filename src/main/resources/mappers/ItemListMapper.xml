@@ -17,7 +17,7 @@
 		<result property="seller" column="seller" />
 		<result property="hits" column="hits" />
 		<result property="editdate" column="editdate" />
-		<result property="path" column="path" />
+		<result property="filepath" column="filepath" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -25,7 +25,7 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="ItemListMap">
 		SELECT 
-			(SELECT path FROM files WHERE refid=prodno) AS path,
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
 			subject, price
 		FROM product
 		WHERE prodcon=#{prodcon} and how={how}
@@ -36,7 +36,7 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="ItemListMap">
 		SELECT 
-			(SELECT path FROM files WHERE refid=prodno) AS path,
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
 			subject, price
 		FROM product
 		
@@ -49,7 +49,7 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="ItemListMap">
 		SELECT 
-			(SELECT path FROM files WHERE refid=prodno) AS path,
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
 			subject, price
 		FROM product
 		
@@ -64,7 +64,7 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="ItemListMap">
 		SELECT 
-			(SELECT path FROM files WHERE refid=prodno) AS path,
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
 			subject, price
 		FROM product
 		
@@ -79,7 +79,7 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="ItemListMap">
 		SELECT 
-			(SELECT path FROM files WHERE refid=prodno) AS path,
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
 			subject, price
 		FROM product
 		
