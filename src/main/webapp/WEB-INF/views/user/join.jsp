@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <!doctype html>
 <html lang="ko">
@@ -25,54 +24,50 @@
 					<legend class="sr-only">회원가입</legend>
 
 					<div class="form-group clearfix">
-						<label for="email" class="col-sm-2">
-							아이디(이메일)<span class="star">*</span>
+						<label for="email" class="col-sm-2"> 아이디(이메일)<span class="star">*</span>
 						</label>
 						<div class="col-sm-10">
-							<input type="email" id="email" name="email"	class="form-control" placeholder="이메일을 입력하세요." />
+							<input type="email" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요." />
 							<p id="idc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
-						<label for="password" class="col-sm-2">비밀번호 <span
-							class="star">*</span></label>
+						<label for="password" class="col-sm-2">비밀번호 <span class="star">*</span></label>
 						<div class="password_icon col-sm-10">
-							<input type="password" id="password" name="password"
-								class="form-control" placeholder="비밀번호를 입력하세요." /> <i
-								class="eyeicon glyphicon glyphicon-eye-close"></i> <span
-								class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span>
-							<span class="in-spc">✔ 특수문자포함</span>
+							<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요." />
+							<i class="eyeicon glyphicon glyphicon-eye-close"></i> <span class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span> <span class="in-spc">✔ 특수문자포함</span>
 							<p id="pwc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
-						<label for='user_pw_re' class="col-sm-2">비밀번호 확인 <span
-							class="star">*</span></label>
+						<label for='user_pw_re' class="col-sm-2">비밀번호 확인 <span class="star">*</span></label>
 						<div class="password_icon col-sm-10">
-							<input type="password" id="user_pw_re" name="user_pw_re"
-								class="form-control" placeholder="비밀번호를 입력하세요." /> <i
-								class="eyeicon glyphicon glyphicon-eye-close"></i>
+							<input type="password" id="user_pw_re" name="user_pw_re" class="form-control" placeholder="비밀번호를 입력하세요." />
+							<i class="eyeicon glyphicon glyphicon-eye-close"></i>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
 						<label for="tel" class="col-sm-2">휴대폰번호 <span class="star">*</span></label>
 						<div class="input-group col-sm-10">
-							<input type="tel" id="tel" name="tel" class="form-control"
-								placeholder="연락처를 입력하세요" /> <span class="input-group-btn"><button
-									type="button" class="btn btn-default" data-toggle="modal"
-									data-target="#myModal">인증요청</button></span>
+							<input type="tel" id="tel" name="tel" class="form-control" placeholder="연락처를 입력하세요" />
+							<span class="input-group-btn"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">인증요청</button></span>
 						</div>
-						<span class="help-block col-sm-offset-2 phone-help-block">숫자만
-							입력하세요.</span>
+						<span class="help-block col-sm-offset-2 phone-help-block">숫자만 입력하세요.</span>
 					</div>
 
 					<div class="join_info">
-						<p>가입시 <a href="${pageContext.request.contextPath}/help/terms.cider">이용약관</a> 및 
-						<a href="${pageContext.request.contextPath}/help/protection.cider">개인정보 취급방침</a>, 
-						<a href="${pageContext.request.contextPath}/help/location.cider">위치정보제공</a>에 동의합니다.</p>
+						<p>
+							가입시
+							<a href="${pageContext.request.contextPath}/help/terms.cider">이용약관</a>
+							및
+							<a href="${pageContext.request.contextPath}/help/protection.cider">개인정보 취급방침</a>
+							,
+							<a href="${pageContext.request.contextPath}/help/location.cider">위치정보제공</a>
+							에 동의합니다.
+						</p>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block btn-lg">회원가입</button>
 					<div class="join_info text-center">
@@ -87,8 +82,7 @@
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							<h4 class="modal-title">휴대폰 인증</h4>
@@ -97,8 +91,7 @@
 							<p>인증이 완료되었습니다.</p>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-success"
-								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
@@ -112,13 +105,13 @@
 	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
 
 	<!-- Javascript -->
-	<script	src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<script	src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<!-- jQeury Ajax Form plugin CDN -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <!-- ajax-helper -->
-    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+	<!-- ajax-helper -->
+	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script type="text/javascript">
           $(function() {
 

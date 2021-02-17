@@ -22,5 +22,5 @@
 	}
 	
 	// 페이지 강제 이동
-	response.sendRedirect("index");
+	response.sendRedirect("");
 %>

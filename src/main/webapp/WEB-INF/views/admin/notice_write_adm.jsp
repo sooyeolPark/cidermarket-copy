@@ -55,7 +55,7 @@
                         <div class="form-group">
                             <label for="photo" class="col-md-2 control-label">사진선택</label>
                             <div class="col-md-2">
-                                <input type="file" id="photo" name="photo" accept="image/png, image/jpeg, image/gif" />
+                                <input type="file" id="photo" name="photo" accept="image/*" />
                             </div>
                         </div>
                         <hr />

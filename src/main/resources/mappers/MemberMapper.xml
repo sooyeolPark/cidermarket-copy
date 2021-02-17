@@ -26,7 +26,7 @@
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			sms, shopaddress, intro, outmember, rate
 		FROM member
-		WHERE membno=#{membno}
+		WHERE email=#{email} AND password=#{password}
 	</select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->

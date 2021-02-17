@@ -12,9 +12,15 @@ public class Msgbox {
 	private String save;
 	private int prodno;
 	private String regdate;
+	private String sendersave;
+	private String receiversave;
+	private String senderdelete;
+	private String receiverdelete;
 
 	// 2) JOIN절에 따른 추가 컬럼
-	 
+	private String subject;
+	private String senderNickname;
+	private String receiverNickname;
 	
 	// 3) 페이지 구현을 위한 static 변수
     /** LIMIT 절에서 사용할 조회 시작 위치 */

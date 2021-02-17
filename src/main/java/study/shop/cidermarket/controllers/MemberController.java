@@ -18,11 +18,6 @@ public class MemberController {
 	@Autowired RegexHelper regexHelper;
 	@Autowired SqlSession sqlSession;
     
-    /** 로그인 페이지 */
-    @RequestMapping(value="/member/login.cider", method=RequestMethod.GET)
-    public String login() {
-        return "user/login";
-    }
     
     /** 아이디찾기 페이지 */
     @RequestMapping(value="/user/find_id.cider", method=RequestMethod.GET)

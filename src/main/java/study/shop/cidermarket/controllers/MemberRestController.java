@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
@@ -28,6 +32,47 @@ public class MemberRestController {
    
    /** Service 패턴 구현체 주입 */
    @Autowired MemberService memberService;
+   
+   /** 로그인 페이지 */
+   @RequestMapping(value="/login.cider", method=RequestMethod.POST)
+   public Map<String, Object> login(HttpServletRequest request,
+		   @RequestParam(value="email", defaultValue="") String email,
+		   @RequestParam(value="password", defaultValue="") String password) {
+	   
+	   
+	   	/** 1) request 객체를 사용해서 세션 객체 만들기 */
+	   	HttpSession session = request.getSession();
+   	
+	   /** 멤버 데이터 조회하기 */
+	   Member input = new Member();
+	   input.setEmail(email);
+	   input.setPassword(password);
+	   // 조회할 객체 선언
+	   Member output = null;
+	   
+	   try {
+		   output = memberService.getMemberItem(input);	
+		   /** 2) 세션 저장, 삭제 */
+		   	if (!email.equals("")) {
+		   		// 입력 내용이 있다면 세션 저장 처리
+		   		session.setAttribute("myId", email);
+		   		session.setAttribute("myNum", output.getMembno());
+		   	} else {
+		   		// 입력 내용이 없다면 세션 삭제
+		   		session.removeAttribute("myId");
+		   		session.removeAttribute("myNum");
+		   	}
+	   } catch (Exception e) {
+		   return webHelper.getJsonError(e.getLocalizedMessage());
+	   }
+	   
+	   /** 3) View 처리 */
+       Map<String, Object> data = new HashMap<String, Object>();
+       data.put("item", output);
+      
+       return webHelper.getJsonData(data);
+   }
+   
    
    /** 관리자 멤버 목록 페이지 */
    @RequestMapping(value="/member.cider", method=RequestMethod.GET)
