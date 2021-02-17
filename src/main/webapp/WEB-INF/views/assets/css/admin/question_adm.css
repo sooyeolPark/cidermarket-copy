@@ -153,11 +153,6 @@ address {
   background-color: #f0f0f0;
 }
 
-.pagination {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
 
 input[type="checkbox"] {
   zoom: 1;
@@ -216,10 +211,10 @@ th {
 }
 
 .table > thead > tr > th:nth-child(3) {
-  width: 10%;
+  width: 25%;
 }
 .table > thead > tr > th:nth-child(4) {
-  width: 25%;
+  width: 7%;
 }
 
 .table > tbody > tr > td:nth-child(4) {
