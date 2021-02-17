@@ -73,4 +73,15 @@ public class HomeAjaxController {
 	}
 	
 	
+	/** 검색 페이지 */
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search(Model model,
+			// 검색어
+			@RequestParam(value="keyword", required=false) String keyword,
+			// 페이지 구현에서 사용할 현재 페이지 번호
+			@RequestParam(value="page", defaultValue="1") int nowPage) {
+		
+		
+		return new ModelAndView("inc/search_ok");
+	}
 }

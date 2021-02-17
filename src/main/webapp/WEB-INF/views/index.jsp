@@ -40,19 +40,19 @@
 				<div class="carousel-inner">
 					<!-- 항목 (1) -->
 					<div class="item active">
-						<a href="${pageContext.request.contextPath}/user/event_view.cider">
+						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=76">
 							<img src="${pageContext.request.contextPath}/assets/img/banner_01.jpg" alt="그랜드오픈 기념이벤트 에어팟맥스 100분 추첨 증정" width="100%">
 						</a>
 					</div>
 					<!-- 항목 (2) -->
 					<div class="item">
-						<a href="${pageContext.request.contextPath}/user/notice_view.cider">
+						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=73">
 							<img src="${pageContext.request.contextPath}/assets/img/banner_02.jpg" alt="쿨하게 거래하자! 사이다마켓!" width="100%">
 						</a>
 					</div>
 					<!-- 항목 (3) -->
 					<div class="item">
-						<a href="${pageContext.request.contextPath}/user/notice_view.cider">
+						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=75">
 							<img src="${pageContext.request.contextPath}/assets/img/banner_03.jpg" alt="쉽고 간편하게 사고 팔고 관리해요" width="100%">
 						</a>
 					</div>
