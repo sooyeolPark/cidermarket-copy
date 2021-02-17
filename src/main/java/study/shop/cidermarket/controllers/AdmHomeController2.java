@@ -34,12 +34,7 @@ public class AdmHomeController2 {
 	public String questionReplyAdm(Locale locale, Model model) {
 		return "admin/question_reply_adm";
 	}
-	
-	/** 일반문의 */
-	@RequestMapping(value = "/admin/question_adm.cider", method = RequestMethod.GET)
-	public String questionAdm(Locale locale, Model model) {
-		return "admin/question_adm";
-	}
+
 	
 	/** 상품관리 - 상품목록 */
 	@RequestMapping(value = "/admin/product_adm.cider", method = RequestMethod.GET)

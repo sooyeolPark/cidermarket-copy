@@ -29,7 +29,7 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
 		FROM product
 		WHERE prodno=#{prodno}
 	</select>
@@ -43,7 +43,7 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE refid=prodno AND reftable='product') AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
 		FROM product
 		
 		<where>
@@ -83,7 +83,7 @@
 			prodcon, how, tradecon, seller, hits, editdate
 		) VALUES (
 			#{prodno}, #{cateno}, #{subject}, #{price}, #{fee}, 
-			#{detail}, now(), #{prodcon}, #{how}, #{tradecon},
+			#{detail}, now(), #{prodcon}, #{how}, "J",
 			#{seller}, 0, now()
 		)
 	</insert>

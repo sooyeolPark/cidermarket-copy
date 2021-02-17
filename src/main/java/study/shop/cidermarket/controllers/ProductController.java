@@ -19,11 +19,7 @@ public class ProductController {
 	@Autowired RegexHelper regexHelper;
 	@Autowired SqlSession sqlSession;
 	
-	/** 상품목록 페이지 */
-	@RequestMapping(value = "/user/item_list.cider", method = RequestMethod.GET)
-	public String itemList(Model model) {
-		return "user/item_list";
-	}
+
 	
 	/** 상품상세 페이지 */
 	@RequestMapping(value = "/user/item_index.cider", method = RequestMethod.GET)

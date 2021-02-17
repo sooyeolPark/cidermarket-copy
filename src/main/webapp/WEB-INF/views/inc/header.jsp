@@ -66,7 +66,7 @@
 	      			로그인 후 판매 가능합니다.
 	      		</c:when>
 	      		<c:otherwise>
-					<span id="username">${myId}</span>님 쿨거래 하세요~!$			
+					<span id="username">${myId}</span>님 쿨거래 하세요~!		
 				</c:otherwise>
       		</c:choose>
 			</h5>
@@ -80,7 +80,6 @@
 				<div class="btnn-logout view-block">
 					<a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
 					<a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
-					<a href="${pageContext.request.contextPath}/user/item_reg.cider" class="btn btn-warning">상품등록</a>
 					<div class="btnn-temp">
 						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
 					</div>
@@ -93,6 +92,7 @@
       			<a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info">거래내역</a>
       			<a href="${pageContext.request.contextPath}/user/mystore.cider" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
+	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
 					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
 				</div>
     		</div>			
@@ -232,7 +232,7 @@
     <c:choose>
    		<c:when test="${myId != null}">
 		    <div class="btnn-login">
-		      <a href="${pageContext.request.contextPath}/member/logout.cider" class="btn btn-danger logout">로그아웃</a>
+		      <a href="${pageContext.request.contextPath}/logout.cider" class="btn btn-danger logout">로그아웃</a>
 		    </div>
    		</c:when>
   	</c:choose>
@@ -308,6 +308,22 @@ function getCookie(Name) {
 
   $(function () {
     get_key_list();
-
+	
+    /** Ajax 호출 */
+    
+    $(".logout").click(function(){
+	    $.ajax({
+	        type: "GET",
+	        url: "${pageContext.request.contextPath}/logout.cider",
+	        success: function(json) {
+					console.log(json);
+					alert("로그아웃 되셨습니다.");
+					if (json.rt == "OK") {
+						window.location = "${pageContext.request.contextPath}";
+					}
+				}
+	      });    	
+    });
+    
   });
 </script>

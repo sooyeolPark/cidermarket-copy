@@ -42,6 +42,17 @@
 		WHERE reftable='bbs' AND refid=#{refid}
 	</select>
 	
+	<!-- Product 단일행 조회를 위한 기능 정의 -->
+	<select id="selectProductItem"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT fileno, fname, filepath, fileUrl, thumbnailPath, type, size, 
+		DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate, 
+		concat(reftable, '-', refid)
+		FROM files
+		WHERE reftable='product' AND refid=#{refid}
+	</select>
+	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Files"

@@ -41,12 +41,7 @@ public class MemberAjaxContorller {
 		return new ModelAndView("user/login");
     }
     
-    /** 로그아웃 페이지 */
-    @RequestMapping(value="/member/logout.cider", method=RequestMethod.GET)
-    public ModelAndView logout(HttpSession session) {
- 	   session.invalidate();
- 	  return new ModelAndView("index");
-    }
+    
     
     /** 관리자 멤버 목록 페이지 */
     @RequestMapping(value="/admin/member/list.cider", method=RequestMethod.GET)

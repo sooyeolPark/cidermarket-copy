@@ -20,7 +20,14 @@
 
 
 	<div class="itemReg">
-		<button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/item_reg.cider'">내 물건 판매하기</button>
+		<c:choose>
+			<c:when test="${myId == null}">
+				<button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login.cider';alert('로그인 페이지로 이동합니다.')">내 물건 판매하기</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/itemreg.cider'">내 물건 판매하기</button>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<section>

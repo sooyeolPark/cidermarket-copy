@@ -134,7 +134,8 @@
   height: auto;
 }
 
-.btnn-temp .btn-danger {
+.btnn-temp .btn-danger,
+.btnn-temp .btn-primary {
   margin: 8px 0 0 8px;
   width: 27%;
   height: 40px;
