@@ -59,6 +59,7 @@
 	<bean id="SenderMsgboxService" class="study.shop.cidermarket.service.impl.SenderMsgboxServiceImpl" />
 	<bean id="RStoreMsgboxService" class="study.shop.cidermarket.service.impl.RStoreMsgboxServiceImpl" />
 	<bean id="SStoreMsgboxService" class="study.shop.cidermarket.service.impl.SStoreMsgboxServiceImpl" />
+	<bean id="QuestionService" class="study.shop.cidermarket.service.impl.QuestionServiceImpl" />
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

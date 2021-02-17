@@ -26,9 +26,14 @@
 		resultMap="ItemListMap">
 		SELECT 
 			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
-			subject, price
+			subject, price,prodno
 		FROM product
 		WHERE prodcon=#{prodcon} and how={how}
+		
+		order by regdate Desc
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
 	</select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
@@ -37,12 +42,15 @@
 		resultMap="ItemListMap">
 		SELECT 
 			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
-			subject, price
+			subject, price,prodno
 		FROM product
+		
+		order by regdate Desc
 		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>
+		
 	</select>	
 	
 	<select id="selectListByPriceAsc"
@@ -50,10 +58,10 @@
 		resultMap="ItemListMap">
 		SELECT 
 			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
-			subject, price
+			subject, price,prodno
 		FROM product
 		
-		ORDER BY price DESC
+		ORDER BY price Asc
 		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
@@ -65,7 +73,7 @@
 		resultMap="ItemListMap">
 		SELECT 
 			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
-			subject, price
+			subject, price,prodno
 		FROM product
 		
 		ORDER BY price DESC
@@ -80,7 +88,7 @@
 		resultMap="ItemListMap">
 		SELECT 
 			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
-			subject, price
+			subject, price,prodno
 		FROM product
 		
 		ORDER BY regdate DESC
@@ -90,6 +98,21 @@
 		</if>
 	</select>
 	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountAll"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultType="int">
+		SELECT COUNT(*) FROM Product
+		
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%')
+			</if>
+		</where>
+	</select>
+	
+	
+		<!-- 필터 다중행 조회를 위한 기능 정의 -->
 	
 
 </mapper>
