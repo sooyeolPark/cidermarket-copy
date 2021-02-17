@@ -20,7 +20,7 @@
 
 
 	<div class="itemReg">
-		<button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/user/item_reg.cider'">내 물건 판매하기</button>
+		<button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/itemreg.cider'">내 물건 판매하기</button>
 	</div>
 
 	<section>

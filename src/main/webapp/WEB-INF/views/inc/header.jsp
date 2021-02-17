@@ -59,7 +59,7 @@
     <div class="btnn-logout view-block">
       <a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
       <a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
-      <a href="${pageContext.request.contextPath}/user/item_reg.cider" class="btn btn-warning">상품등록</a>
+      <a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-warning">상품등록</a>
 		<div class="btnn-temp">
 			<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
 			<a href="#" class="btn btn-danger templogin">임시로그인</a>

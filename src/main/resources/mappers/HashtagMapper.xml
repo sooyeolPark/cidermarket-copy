@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HashtagMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Hashtag" id="hashtagMap">
+		<result property="prodno" column="prodno" />
+		<result property="tagname" column="tagname" />
+	</resultMap>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Hashtag"
+		resultMap="hashtagMap">
+		SELECT tagname
+		FROM hashtag
+		WHERE prodno=#{prodno}
+	</select>	
+	
+	<!-- 카테고리 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Hashtag">
+		INSERT INTO hashtag (
+		prodno, tagname
+		) VALUES (
+		#{prodno}, #{tagname}
+		)
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Hashtag">
+		DELETE FROM hashtag WHERE prodno=#{prodno}
+	</delete>
+</mapper>
