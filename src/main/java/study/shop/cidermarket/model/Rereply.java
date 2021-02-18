@@ -10,4 +10,8 @@ public class Rereply {
 	private String content;
 	private String regdate;
 	private String editdate;
+	private int prodno;
+	
+	// 2) JOIN절에 따른 추가 컬럼
+	private String nickname;
 }

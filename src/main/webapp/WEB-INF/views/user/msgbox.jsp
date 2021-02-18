@@ -147,6 +147,8 @@
   <!-- Javascript -->
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+  <!-- jQeury Ajax Form plugin CDN -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
   <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
@@ -191,10 +193,12 @@
                   data: form.serialize(),
                   success: function(json) {
                    console.log(json);
-                   alert("쪽지를 보냈습니다.");
                    // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
                    if (json.rt == "OK") {
-                      window.location = "${pageContext.request.contextPath}/msgbox/receiver.cider";
+                	   alert("쪽지를 보냈습니다.");
+                       $("#send_input").val('');
+                       $("#background").fadeOut(300);
+                       $("#front").fadeOut(200);  
                    }
                 }
                 });

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MembprodMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Membprod" id="membprodMap">
+		<result property="membno" column="membno" />
+		<result property="prodno" column="prodno" />
+	</resultMap>	
+	<!-- 총 거래수 수 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Membprod"
+		resultMap="membprodMap">
+		SELECT membno 
+		FROM membprod
+		WHERE prodno=#{prodno}
+	</select>
+</mapper>
