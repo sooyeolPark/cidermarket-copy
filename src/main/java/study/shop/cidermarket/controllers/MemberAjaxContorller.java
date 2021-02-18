@@ -1,6 +1,8 @@
 package study.shop.cidermarket.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,7 +43,17 @@ public class MemberAjaxContorller {
 		return new ModelAndView("user/login");
     }
     
+    /** ID 찾기 페이지 */
+    @RequestMapping(value="/member/find_id.cider", method=RequestMethod.GET)
+    public ModelAndView findid(Model model) {
+		return new ModelAndView("user/find_id");
+    }
     
+    /** PW 찾기 페이지 */
+    @RequestMapping(value="/member/find_pw.cider", method=RequestMethod.GET)
+    public ModelAndView findpw(Model model) {
+		return new ModelAndView("user/find_pw");
+    }
     
     /** 관리자 멤버 목록 페이지 */
     @RequestMapping(value="/admin/member/list.cider", method=RequestMethod.GET)

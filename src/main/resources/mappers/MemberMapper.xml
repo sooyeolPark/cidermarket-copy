@@ -98,4 +98,32 @@
 		WHERE membno=#{membno}
 	</update>
 	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectTelItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate
+		FROM member
+		WHERE tel=#{tel}
+	</select>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectEmailItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, email, tel, password,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate
+		FROM member
+		WHERE tel=#{tel} AND email=#{email}
+	</select>
+	
+	<!-- 비번 갱신을 위한 기능 정의 -->
+	<update id="updatePassItem"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			password=#{password}
+		WHERE membno=#{membno}
+	</update>
+	
 </mapper>
