@@ -57,3 +57,7 @@ ul.review_list > li:last-child {
 .review_user_rpl > p {
   margin: 0;
 }
+
+#reviewpic {
+	width:50px;
+}
