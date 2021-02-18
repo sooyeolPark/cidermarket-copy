@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Review" id="ReviewMap">
+		<result property="revino" column="revino" />
+		<result property="prodno" column="prodno" />
+		<result property="regdate" column="regdate" />
+		<result property="rate" column="rate" />
+		<result property="content" column="content" />
+		<result property="recono" column="recono" />
+		<result property="sender" column="sender" />
+		<result property="receiver" column="receiver" />
+		<result property="name" column="name" />
+		<result property="how" column="how" />
+		<result property="subject" column="subject" />
+		<result property="buyer" column="buyer" />
+		<result property="filepath" column="filepath" />
+		<result property="reviewpic" column="reviewpic" />
+	</resultMap>
+	
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultMap="ReviewMap">
+		SELECT 
+		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate,rate,content,rv.recono, sender, receiver, rc.name, rc.how, p.subject  		
+		,rc.buyer,(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=rc.buyer AND reftable='member')) AS filepath,(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
+		FROM review rv
+		inner join Record rc On rv.recono = rc.recono
+		inner join product p On rv.prodno =p.prodno 
+		order by rv.regdate desc
+
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>	
+	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountAll"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultType="int">
+		SELECT COUNT(*) FROM Review
+		
+		<where>
+
+		</where>
+	</select>
+	
+
+	
+	
+
+</mapper>

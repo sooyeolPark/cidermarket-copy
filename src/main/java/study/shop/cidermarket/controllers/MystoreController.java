@@ -30,11 +30,7 @@ public class MystoreController {
         return "user/mystore_who";
     }
     
-    /** 내상점-거래후기 페이지 */
-    @RequestMapping(value="/user/mystore_review.cider", method=RequestMethod.GET)
-    public String mystoreReview() {
-        return "user/mystore_review";
-    }
+
     
     /** 내상점-내정보설정 페이지 */
     @RequestMapping(value="/user/mystore_myinfo.cider", method=RequestMethod.GET)
