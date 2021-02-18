@@ -30,6 +30,7 @@ public class ItemAjaxContorller {
    
    /** Service 패턴 구현체 주입 */
    @Autowired
+   @Qualifier("itemlistService")
    ItemListService itemListService;   
    
    

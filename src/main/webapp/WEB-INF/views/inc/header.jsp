@@ -149,8 +149,8 @@
 <script id="category_tmpl" type="text/x-handlebars-template">
   {{#each item}}
     <li>
-    	<a href="${pageContext.request.contextPath}/user/item_list.cider">
-			<span><img src="${pageContext.request.contextPath}/assets/img/cate_hzz0000.png" />기타</span>
+    	<a href="${pageContext.request.contextPath}/item_list.cider/{{cateno}}">
+			<span><img src="${pageContext.request.contextPath}/assets/img{{filepath}}" />{{name}}</span>
 		</a>
     </li>
   {{/each}}

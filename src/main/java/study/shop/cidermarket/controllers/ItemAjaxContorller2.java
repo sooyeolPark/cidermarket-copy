@@ -29,8 +29,6 @@ public class ItemAjaxContorller2 {
    @Autowired RegexHelper regexHelper;
    
    /** Service 패턴 구현체 주입 */
-   @Autowired
-   ItemListService itemListService;   
    
    //
    /** 목록 페이지 */

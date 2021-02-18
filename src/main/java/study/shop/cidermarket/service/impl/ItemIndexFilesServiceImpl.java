@@ -12,7 +12,7 @@ import study.shop.cidermarket.service.FilesService;
 
 @Slf4j
 @Service
-public class FilesItemIndexServiceImpl implements FilesService{
+public class ItemIndexFilesServiceImpl implements FilesService{
 
 	/** MyBatis */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
