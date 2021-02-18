@@ -123,4 +123,58 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public Member getMemberTelItem(Member input) throws Exception {
+		Member result = null;
+		try {
+			result = sqlSession.selectOne("MemberMapper.selectTelItem", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 정보가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	@Override
+	public Member getMemberEmailItem(Member input) throws Exception {
+		Member result = null;
+		try {
+			result = sqlSession.selectOne("MemberMapper.selectEmailItem", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 정보가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int editPassMember(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.update("MemberMapper.updatePassItem", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("비밀번호 수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("비밀번호 수정에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

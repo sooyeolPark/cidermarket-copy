@@ -14,6 +14,22 @@ public interface MemberService {
 	public Member getMemberItem(Member input) throws Exception;
 	
 	/**
+	 * ID 찾기 조회
+	 * @param Member 조회할 데이터의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public Member getMemberTelItem(Member input) throws Exception;
+	
+	/**
+	 * Password 찾기 조회
+	 * @param Member 조회할 데이터의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	public Member getMemberEmailItem(Member input) throws Exception;
+	
+	/**
 	 * 데이터 목록 조회
 	 * @param Member 검색결과 페이지 구현 정보를 담고 있는 Beans
 	 * @return 조회 결과에 대한 컬렉션
@@ -44,6 +60,14 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public int editMember(Member input) throws Exception;
+	
+	/**
+	 * 신규 비밀번호로 수정하기
+	 * @param Member 수정할 정보를 담고 있는 Beans 
+	 * @return int
+	 * @throws Exception
+	 */
+	public int editPassMember(Member input) throws Exception;
 	
 	/**
 	 * 데이터 삭제하기

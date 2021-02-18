@@ -4,11 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-// 세션 유효시간 설정 (분단위, 기본값 5분) -> 모든 페이지마다 개별 설정함.
-//session.setMaxInactiveInterval(60);
-
-// Session 객체 추출 --> Object 타입으로 형변환 되어 저장되므로, 추출시에는 원래의 형태로 명시적 변환이 필요하다.
-//String myId = (String) session.getAttribute("myId");
+	// 로그인 되어 있으면 메인페이지로 강제 이동
+	if (session.getAttribute("myNum") != null && session.getAttribute("myNum") != "") {
+		response.sendRedirect("/cidermarket");
+	}
 %>
 <!doctype html>
 <html lang="ko">
@@ -36,7 +35,7 @@
 					<div class="form-group clearfix">
 						<label for="email" class="col-sm-2">아이디</label>
 						<div class="col-sm-10">
-							<input type="email" id="email" name="email" class="form-control" placeholder="아이디를 입력하세요." />
+							<input type="email" id="email" name="email" class="form-control" placeholder="아이디를 입력하세요." value="${cookie.id.value}" />
 							<p id="idc" class="pop"></p>
 						</div>
 					</div>
@@ -51,7 +50,7 @@
 					</div>
 
 					<div class="checkbox col-sm-offset-2">
-						<label><input type="checkbox" id="idSave">아이디 저장</label> 
+						<label><input type="checkbox" id="idSave" <c:if test="${cookie.id.value != null && cookie.id.value != ''}">checked</c:if>>아이디 저장</label> 
 						<label><input type="checkbox" id="idStateful">로그인 상태유지</label>
 					</div>
 
@@ -85,13 +84,29 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 	<script type="text/javascript">
 	
+	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+	function setCookie(name, value, expiredays) {
+	    var todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays);
+	    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	
+	// 쿠키 불러오는 함수
+	function getCookie(Name) { 
+	    var search = Name + "=";
+	    if (document.cookie.length > 0) { // if there are any cookies
+	        offset = document.cookie.indexOf(search);
+	        if (offset != -1) { // if cookie exists
+	            offset += search.length; // set index of beginning of value
+	            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	            if (end == -1)
+	                end = document.cookie.length;
+	            return unescape(document.cookie.substring(offset, end));
+	        }
+	    }
+	}
+	
           $(function() {
-        	  if ($("#idSave").is(":checked") == true) { // 아이디 저장을 체크 하였을때
-	  	          setCookie("id", $("#email").val(), 1); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
-	  	      } else { // 아이디 저장을 체크 하지 않았을때
-	  	          setCookie("id", $("#email").val(), 0); //날짜를 0으로 저장하여 쿠키삭제
-	  	      }
-        	  
 			  // 비밀번호 '*' 해제하기
               $(".eyeicon").click(function() {
                 if ($(this).hasClass("glyphicon-eye-close")) {
@@ -150,6 +165,20 @@
                 if (!regex.eng_num_spc('#password', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
                 if (!regex.min_length('#password', 8, '비밀번호는 최소 8자 이상 입력 가능합니다.')) { return false; }
                 if (!regex.max_length('#password', 20, '비밀번호는 최대 20자 까지만 입력 가능합니다.')) { return false; }
+                
+                // 아이디 저장 체크시 쿠키에 값 저장
+                if ($("#idSave").is(":checked") == true) { // 아이디 저장을 체크 하였을때
+  	  	          setCookie("id", $("#email").val(), 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+  	  	        } else { // 아이디 저장을 체크 하지 않았을때
+  	  	          setCookie("id", $("#email").val(), 0); //날짜를 0으로 저장하여 쿠키삭제
+  	  	        }
+                
+                // 로그인 상태유지
+                if ($("#idStateful").is(":checked") == true) { // 아이디 저장을 체크 하였을때
+					setCookie("idStateful", "true", 1);
+                } else {
+                	setCookie("idStateful", "true", 0);
+                }
                 
                 /** Ajax 호출 */
                 const form = $(this);
