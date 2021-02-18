@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class CategoryAdmRestController {
 
 	/** Service 패턴 구현체 주입 */
 	@Autowired
+	@Qualifier("categoryService")
 	CategoryService categoryService;
 
 	/** 목록 페이지 */
