@@ -15,6 +15,7 @@
 		<result property="intro" column="intro" />
 		<result property="outmember" column="outmember" />
 		<result property="rate" column="rate" />
+		<result property="filepath" column="filepath" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -98,4 +99,44 @@
 		WHERE membno=#{membno}
 	</update>
 	
+	<!-- 상품 상세에 쓸 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItemIndex"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, password, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			sms, shopaddress, intro, outmember, rate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
+		FROM member
+		WHERE membno=#{membno}
+	</select>
+
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectTelItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate
+		FROM member
+		WHERE tel=#{tel}
+	</select>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectEmailItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, email, tel, password,
+			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate
+		FROM member
+		WHERE tel=#{tel} AND email=#{email}
+	</select>
+	
+	<!-- 비번 갱신을 위한 기능 정의 -->
+	<update id="updatePassItem"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			password=#{password}
+		WHERE membno=#{membno}
+	</update>
 </mapper>

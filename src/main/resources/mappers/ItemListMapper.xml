@@ -114,5 +114,36 @@
 	
 		<!-- 필터 다중행 조회를 위한 기능 정의 -->
 	
+	<!-- 카테고리별로 불러오기 -->
+	<select id="selectListByCategory"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="ItemListMap">
+		SELECT 
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
+			subject, price,prodno
+		FROM product
+		WHERE cateno=#{cateno}
+		ORDER BY regdate DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 판매자별로 불러오기 -->
+	<select id="selectListBySeller"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="ItemListMap">
+		SELECT 
+			(SELECT filepath FROM files WHERE refid=prodno) AS filepath,
+			subject, price,prodno
+		FROM product
+		WHERE seller=#{seller}
+		ORDER BY regdate DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
 
 </mapper>
