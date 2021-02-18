@@ -101,7 +101,7 @@
     
     <div class="gory_title">CATEGORY</div>
     <div class="category">
-      <ul>
+      <ul id="category">
         <li>
           <a href="${pageContext.request.contextPath}/user/item_list.cider"
             ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hba0000.png" />핸드메이드</span></a
@@ -260,6 +260,17 @@
   {{/each}}
 </script>
 
+<!-- template -->
+<script id="category_tmpl" type="text/x-handlebars-template">
+  {{#each item}}
+    <li>
+    	<a href="${pageContext.request.contextPath}/user/item_list.cider">
+			<span><img src="${pageContext.request.contextPath}/assets/img/cate_hzz0000.png" />기타</span>
+		</a>
+    </li>
+  {{/each}}
+</script>
+
 <!-- // 사이드바 시작 -->
 <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
@@ -305,6 +316,24 @@ function getCookie(Name) {
       $("#i-key").append(html);
     });
   }
+  
+  function categoryList() {
+	  $.ajax({
+        type: "GET",
+        url: "${pageContext.request.contextPath}/header",
+        success: function(json) {
+				console.log(json);
+				alert("카테고리 로드 완료");
+				if (json.rt == "OK") {
+					var template = Handlebars.compile($("#category_tmpl").html());
+				    var html = template(json);
+				    $("#category").append(html);
+				}
+			}
+      }); 
+  }
+  
+  
 
   $(function () {
     get_key_list();

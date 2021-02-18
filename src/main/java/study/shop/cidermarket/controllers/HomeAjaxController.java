@@ -14,7 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
@@ -26,6 +28,7 @@ public class HomeAjaxController {
 	
 	/** Service 패턴 구현체 주입 */
 	@Autowired ProductService productService;
+	@Autowired CategoryService categoryService;
 	
 	/** 메인 페이지 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -71,5 +74,7 @@ public class HomeAjaxController {
 		
 		return new ModelAndView("index");
 	}
+	
+	
 	
 }
