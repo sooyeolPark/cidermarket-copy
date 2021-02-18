@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -33,7 +34,9 @@ public class SearchAjaxController {
 	@Autowired RegexHelper regexHelper;
 	
 	/** Service 패턴 구현체 주입 */
-	@Autowired ProductService productService;
+	@Autowired
+	@Qualifier("productService")
+	ProductService productService;
 	
 	/** 검색 페이지 */
 	@RequestMapping(value = "/search.cider", method = RequestMethod.GET)

@@ -130,16 +130,7 @@ public class ItemRestController2 {
 			      }
 				
 				}
-	      //데이터 입력 for문이 완료되면 데이터를 조회할 객체를 만들어 놓는다.
-			List<Hashtag> output1 = null;
-			Hashtag input1 = new Hashtag();
-			input1.setProdno(output.getProdno());
-			try {
-				output1 = hashtagService.getHashtagList(input1);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 	      /** 파일 Path 입력 */
 			//파일이 있으면 ArrayList에 담는다.
 			List<MultipartFile> files= new ArrayList<MultipartFile>();
@@ -193,7 +184,6 @@ public class ItemRestController2 {
 	      /** 2) JSON 출력하기 */
 	      Map<String, Object> data = new HashMap<String, Object>();
 	      data.put("item", output);
-	      data.put("hash", output1);
 	      return webHelper.getJsonData(data);
 	   }
 	

@@ -3,7 +3,7 @@ package study.shop.cidermarket.model;
 import lombok.Data;
 
 @Data
-public class Records {
+public class Record {
 	// 1) 기본 컬럼
 	private int recono;
 	private int prodno;
@@ -30,12 +30,12 @@ public class Records {
 		return offset;
 	}
 	public static void setOffset(int offset) {
-		Records.offset = offset;
+		Record.offset = offset;
 	}
 	public static int getListCount() {
 		return listCount;
 	}
 	public static void setListCount(int listCount) {
-		Records.listCount = listCount;
+		Record.listCount = listCount;
 	}
 }

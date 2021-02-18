@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	// 로그인 되어 있으면 메인페이지로 강제 이동
+	if (session.getAttribute("myNum") != null && session.getAttribute("myNum") != "") {
+		response.sendRedirect("/cidermarket");
+	}
+%>
 <!doctype html>
 <html lang="ko">
 

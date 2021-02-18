@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +34,7 @@ public class MemberRestController {
    @Autowired RegexHelper regexHelper;
    
    /** Service 패턴 구현체 주입 */
+   @Qualifier("memberService")
    @Autowired MemberService memberService;
    
    /** 로그인 페이지 */
@@ -79,6 +82,68 @@ public class MemberRestController {
    public Map<String, Object> logout(HttpSession session) {
 	   session.invalidate();
 	   return webHelper.getJsonData();
+   }
+   
+   /** ID 찾기 페이지 */
+   @RequestMapping(value="/member/find_id", method=RequestMethod.GET)
+   public Map<String, Object> findid(Model model,
+   		@RequestParam(value="tel", defaultValue="") String tel) {
+   	
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setTel(tel);
+   	
+   	Member output = null;
+   	
+   	try {
+			output = memberService.getMemberTelItem(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
+   
+   /** Password 찾기 페이지 */
+   @RequestMapping(value="/member/find_pw", method=RequestMethod.POST)
+   public Map<String, Object> findpw(Model model,
+   		@RequestParam(value="tel", defaultValue="") String tel,
+   		@RequestParam(value="email", defaultValue="") String email) {
+   	
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setTel(tel);
+   	input.setEmail(email);
+   	
+   	Member output = null;
+   	String newPass = null;  // 웹 서버에 저장될 파일이름
+   	
+   	try {
+   			// 일치하는 데이터 조회
+			output = memberService.getMemberEmailItem(input);
+			int temp = output.getMembno();
+			// 랜덤비밀번호 값 생성 후 데이터 업데이트
+			newPass = String.format("%d%d%s", temp, System.currentTimeMillis(), "c#");
+			output.setPassword(newPass);
+			int result = memberService.editPassMember(output);
+			if (result != 1) {
+				return webHelper.getJsonError("비밀번호 신규발행에 실패했습니다. 관리자에게 문의해 주세요.");
+			} else {
+				output = memberService.getMemberEmailItem(input);
+			}
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
    }
    
    

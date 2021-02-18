@@ -134,4 +134,12 @@
 		WHERE fileno=#{fileno}
 	</update>
 
+	<!-- 파일 상세에서 쓸 파일경로 다 불러오기 -->
+	<select id="selectItemIndexList"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT filepath
+		FROM files
+		WHERE reftable='product' AND refid=#{refid}
+	</select>
 </mapper>

@@ -52,14 +52,27 @@
 	<bean id="bbsNoticeService" class="study.shop.cidermarket.service.impl.BbsNoticeServiceImpl" />
 	<bean id="bbsInquiryService" class="study.shop.cidermarket.service.impl.BbsInquiryServiceImpl" />
 	
+	<bean id="productService" class="study.shop.cidermarket.service.impl.ProductServiceImpl" />
+	
+	<bean id="itemlistService" class="study.shop.cidermarket.service.impl.ItemListServiceImpl" />
+	
+	<bean id="itemregService" class="study.shop.cidermarket.service.impl.ItemregServiceImpl" />
+	
+	<bean id="categoryService" class="study.shop.cidermarket.service.impl.CategoryServiceImpl" />
+	
+	<bean id="memberService" class="study.shop.cidermarket.service.impl.MemberServiceImpl" />
+	<bean id="itemindexmemberService" class="study.shop.cidermarket.service.impl.ItemIndexMemberServiceImpl" />
+	
 	<bean id="filesBbsService" class="study.shop.cidermarket.service.impl.FilesBbsServiceImpl" />
 	<bean id="filesProductService" class="study.shop.cidermarket.service.impl.FilesProductServiceImpl" />
+	<bean id="filesItemIndexService" class="study.shop.cidermarket.service.impl.ItemIndexFilesServiceImpl" />
 
 	<bean id="ReceiverMsgboxService" class="study.shop.cidermarket.service.impl.ReceiverMsgboxServiceImpl" />
 	<bean id="SenderMsgboxService" class="study.shop.cidermarket.service.impl.SenderMsgboxServiceImpl" />
 	<bean id="RStoreMsgboxService" class="study.shop.cidermarket.service.impl.RStoreMsgboxServiceImpl" />
 	<bean id="SStoreMsgboxService" class="study.shop.cidermarket.service.impl.SStoreMsgboxServiceImpl" />
 	<bean id="QuestionService" class="study.shop.cidermarket.service.impl.QuestionServiceImpl" />
+	<bean id="reviewService" class="study.shop.cidermarket.service.impl.ReviewServiceImpl" />
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

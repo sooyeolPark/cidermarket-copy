@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RecordMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Record" id="recordMap">
+		<result property="recono" column="recono" />
+		<result property="prodno" column="prodno" />
+		<result property="buyer" column="buyer" />
+		<result property="tradecon" column="tradecon" />
+		<result property="refund" column="refund" />
+		<result property="how" column="how" />
+		<result property="confirmdate" column="confirmdate" />
+		<result property="name" column="name" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="pay" column="pay" />
+		<result property="path" column="path" />
+	</resultMap>	
+	<!-- 특정회원의 거래 완료 수를 위한 기능 정의 -->
+	<select id="selectCount"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultMap="recordMap">
+		SELECT (SELECT COUNT(*) FROM record WHERE tradecon = 'W' AND buyer=#{buyer})
+		+(SELECT COUNT(*) FROM product WHERE tradecon='W' AND seller=#{buyer})
+	</select>
+</mapper>

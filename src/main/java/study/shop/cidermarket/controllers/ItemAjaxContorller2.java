@@ -8,15 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Category;
-import study.shop.cidermarket.service.ItemregService;
+import study.shop.cidermarket.model.Bbs;
+import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.service.ItemListService;
+import study.shop.cidermarket.service.ProductService;
 
 @Controller
-public class ItemregAjaxContorller {
+public class ItemAjaxContorller2 {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;
@@ -25,27 +29,13 @@ public class ItemregAjaxContorller {
    @Autowired RegexHelper regexHelper;
    
    /** Service 패턴 구현체 주입 */
-   @Autowired
-   @Qualifier("itemregService")
-   ItemregService itemregService;
    
+   //
    /** 목록 페이지 */
-   @RequestMapping(value="/itemreg.cider", method=RequestMethod.GET)
-   public ModelAndView list(Model model) {
-      /** 2) 데이터 조회하기 */
-      // 카테고리 데이터 부터 불러오기
-      
-      List<Category> output = null;
-      
-      try {
-    	  output = itemregService.getCategoryList();
-      } catch (Exception e) {
-         return webHelper.redirect(null, e.getLocalizedMessage());
-      }
-      
-      /** 3) View 처리 */
-      model.addAttribute("output", output);
-      
-      return new ModelAndView("user/item_reg");
+   @RequestMapping(value="/item_index.cider", method=RequestMethod.GET)
+   public ModelAndView list() {
+	
+      return new ModelAndView("user/item_index");
    }
+ 
 }

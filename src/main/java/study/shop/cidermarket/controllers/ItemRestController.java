@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,7 @@ public class ItemRestController {
 
 	/** Service 패턴 구현체 주입 */
 	@Autowired
+	@Qualifier("itemlistService")
 	ItemListService itemListService;
 
 	/** 목록 페이지 */

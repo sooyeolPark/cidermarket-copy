@@ -19,18 +19,20 @@
 		<result property="editdate" column="editdate" />
 		<result property="filepath" column="filepath" />
 		<result property="sellerNick" column="sellerNick" />
+		<result property="catename" column="catename" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
-		SELECT prodno, cateno, subject, price, fee, detail,
+		SELECT prodno, p.cateno, name as catename , subject, price, fee, detail,
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
-		FROM product
+		FROM product p
+		INNER JOIN category c ON c.cateno=p.cateno
 		WHERE prodno=#{prodno}
 	</select>
 	
@@ -104,4 +106,10 @@
 		WHERE prodno=#{prodno}
 	</update>
 
+	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountMemberItems"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultType="int">
+		SELECT COUNT(*) FROM product WHERE seller = #{seller} AND tradecon= "J"
+	</select>
 </mapper>

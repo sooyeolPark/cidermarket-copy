@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +26,9 @@ public class HomeRestController {
 	@Autowired RegexHelper regexHelper;
 	
 	/** Service 패턴 구현체 주입 */
-	@Autowired ProductService productService;
+	@Autowired
+	@Qualifier("productService")
+	ProductService productService;
 	
 	/** 메인 페이지 */
 	@RequestMapping(value = "/product", method = RequestMethod.GET)

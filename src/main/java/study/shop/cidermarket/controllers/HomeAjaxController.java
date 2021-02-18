@@ -3,6 +3,7 @@ package study.shop.cidermarket.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,9 @@ public class HomeAjaxController {
 	@Autowired RegexHelper regexHelper;
 	
 	/** Service 패턴 구현체 주입 */
-	@Autowired ProductService productService;
+	@Autowired
+	@Qualifier("productService")
+	ProductService productService;
 	
 	/** 메인 페이지 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
