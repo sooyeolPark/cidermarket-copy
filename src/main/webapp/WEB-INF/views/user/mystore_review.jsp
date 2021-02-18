@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 
@@ -38,44 +41,138 @@
       <!-- 탭 메뉴 시작 -->
       <ul class="my_ctg">
         <li><a href="${pageContext.request.contextPath}/user/mystore.cider">내상점</a></li>
-        <li class="active"><a href="${pageContext.request.contextPath}/user/mystore_review.cider">거래후기</a></li>
+        <li class="active"><a href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
         <li><a href="${pageContext.request.contextPath}/user/mystore_mygrade.cider">나의 등급</a></li>
         <li><a href="${pageContext.request.contextPath}/user/mystore_myinfo.cider">내정보 설정</a></li>
       </ul>
     </div>
     <div class="div_blank"></div>
     <!--// 탭 메뉴 끝 -->
+    
+    
+    
     <!-- 탭 화면 시작 -->
       <div id="myreview">
         <div id="myreview_subject">
-          <h1>5.0</h1>
+          <h1>5</h1>
           <div id="user_star">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
             <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-            <span class="badge">3</span>
+            <span class="badge">${pageData.totalCount}</span>
           </div>
         </div>
         <div class="container">
           <div class="review2u">
             <ul class="review_list">
-              <!-- 리뷰 리스트 로드 -->
+             <c:choose>
+            	<%-- 조회결과가 없는 경우 --%>
+           		<c:when test="${output == null || fn:length(output) == 0}">
+                	<p class="alert alert-success" role="alert">조회결과가 없습니다.</p>
+                </c:when>
+                <%-- 조회결과가 있는 경우 --%>
+                <c:otherwise>
+                	<%-- 조회 결과에 따른 반복 처리 --%>
+                    <c:forEach var="item" items="${output}" varStatus="status">
+				<li class="media">
+				  <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/${item.filepath}" width="50"
+				      height="50"> </a>
+				  <div class="media-body">
+				    <div class="clearfix">
+				      <div class="pull-right">
+				      
+				      <c:choose>
+				      	<c:when test="${item.how == 'T'}">
+				        <div class="how_trade">택배</div>
+				        </c:when>
+				      	<c:when test="${item.how == 'J'}">
+				        <div class="how_trade">직거래</div>
+				        </c:when>				        	        
+				        </c:choose>
+				      </div>
+				      <h4 class="media-heading review_user_name">${item.name} <small>${item.regdate}</small></h4>
+				      <p class="review_item_subject">${item.subject}</p>
+				    </div>
+				    <div class="clearfix review_user_rpl">
+				      <p>${item.content}
+				      </p>
+				
+				    </div>
+				    <div class="review_img">
+			     			  <c:choose>
+			            	<%-- 조회결과가 없는 경우 --%>
+			           		<c:when test="${item.reviewpic == null || fn:length(item.reviewpic) == 0}">
+			                	<h1></h1>
+			                </c:when>
+			                <%-- 조회결과가 있는 경우 --%>
+			                <c:otherwise>				    
+								      <a href="#">
+								      <img id="reviewpic"src="${pageContext.request.contextPath}/assets/img/${item.reviewpic}">
+								    </a>
+						    </c:otherwise>
+						    </c:choose>
+				    </div>
+					
+				  </div>
+				</li>
+				</c:forEach>
+				</c:otherwise>
+				</c:choose>
             </ul>
           </div>
         </div>
-        <div class="clearfix text-center pagination">
-          <ul>
-            <li class="arr disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li class="arr"><a href="#">&raquo;</a></li>
-          </ul>
-        </div>
+<div class="clearfix text-center pagination">
+        <ul>
+        	<%-- 이전 그룹에 대한 링크 --%>
+        	<c:choose>
+            	<%-- 이전 그룹으로 이동 가능하다면? --%>
+                <c:when test="${pageData.prevPage > 0}">
+                	<%-- 이동할 URL 생성 --%>
+                    <c:url value="/user/mystore_review.cider" var="prevPageUrl">
+                    	<c:param name="page" value="${pageData.prevPage}" />          
+                    </c:url>
+                    <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
+                </c:when>
+                <c:otherwise>
+                	<li class="disabled"><a href="#">&laquo;</a></li>
+                </c:otherwise>
+            </c:choose>
+            
+            <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+               <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+                  <%-- 이동할 URL 생성 --%>
+                  <c:url value="/user/mystore_review.cider" var="pageUrl">
+                     <c:param name="page" value="${i}" />
+                  </c:url>
+                  <%-- 페이지 번호 출력 --%>
+                  <c:choose>
+                     <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+                     <c:when test="${pageData.nowPage == i}">
+                              <li class="active"><span>${i} <span class="sr-only">(current)</span></span></li>
+                     </c:when>
+                     <c:otherwise>
+                              <li><a href="${pageUrl}">${i}</a></li>                     
+                     </c:otherwise>
+                  </c:choose>
+               </c:forEach>
+          
+          	<%-- 이전 그룹에 대한 링크 --%>
+        	<c:choose>
+            	<%-- 다음 그룹으로 이동 가능하다면? --%>
+                <c:when test="${pageData.nextPage > 0}">
+                	<%-- 이동할 URL 생성 --%>
+                    <c:url value="/user/mystore_review.cider" var="nextPageUrl">
+                    	<c:param name="page" value="${pageData.nextPage}" />          
+                    </c:url>
+                    <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
+                </c:when>
+                <c:otherwise>
+                	<li class="disabled"><a href="#">&raquo;</a></li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
       </div>
     
   </section>
@@ -83,47 +180,7 @@
  	 <!-- 푸터 영역 -->
 	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
   
-<!-- tmeplate2 -->
-<script id="review_tmpl" type="text/x-handlebars-template">
-  {{#each review}}
-  <li class="media">
-  <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/{{thumb}}" width="50"
-      height="50"> </a>
-  <div class="media-body">
-    <div class="clearfix">
-      <div class="pull-right">
-        <div class="how_trade">{{how}}</div>
-      </div>
-      <h4 class="media-heading review_user_name">{{id}} <small>{{date}}</small></h4>
-      <p class="review_item_subject">{{subject}}</p>
-    </div>
-    <div class="clearfix review_user_rpl">
-      <a href="#">
-      <p>{{content}}
-      </p>
-    </a>
-    </div>
-    <div class="review_img">
-      <a href="#">
-      {{#if img1}}
-      <img src="${pageContext.request.contextPath}/assets/{{img1}}">
-      {{/if}}
-	  {{#if img2}}
-      <img src="${pageContext.request.contextPath}/assets/{{img2}}">
-      {{/if}}
-      {{#if img3}}
-      <img src="${pageContext.request.contextPath}/assets/{{img3}}">
-      {{/if}}
-      {{#if img4}}
-      <img src="${pageContext.request.contextPath}/assets/{{img4}}">
-      {{/if}}
-    </a>
-    </div>
-	
-  </div>
-</li>
-{{/each}}
-</script>
+
   <!-- Javascript -->
   <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
@@ -132,27 +189,8 @@
   <!-- handlebar plugin -->
   <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
   <script type="text/javascript">
-    /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
-      function get_review_list() {
-  $.get("${pageContext.request.contextPath}/assets/plugins/ajax/review.json", function (req) {
-          // 미리 준비한 HTML틀을 읽어온다.
-          var template = Handlebars.compile($("#review_tmpl").html());
-          // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-          var html = template(req);
-          // #dept_list_body 읽어온 내용을 추가한다.
-          $(".review_list").html(html);
-        });
-      }
-    $(function () {
-      get_review_list();
-     
-      $("#myreview .pagination li").click(function (e) {
-        e.preventDefault();
-        $("#myreview .pagination li").not(this).removeClass("active");
-        $(this).addClass("active");
-        get_review_list();
-      });
-    });
+    
+
   </script>
 </body>
 
