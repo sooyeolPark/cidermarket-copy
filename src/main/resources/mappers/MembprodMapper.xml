@@ -15,4 +15,20 @@
 		FROM membprod
 		WHERE prodno=#{prodno}
 	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Membprod">
+		INSERT INTO membprod (
+		prodno, membno
+		) VALUES (
+		#{prodno}, #{membno}
+		)
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Membprod">
+		DELETE FROM membprod WHERE prodno=#{prodno} AND membno=#{membno}
+	</delete>
 </mapper>

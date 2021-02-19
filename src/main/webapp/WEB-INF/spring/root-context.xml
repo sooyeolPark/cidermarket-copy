@@ -61,11 +61,11 @@
 	<bean id="categoryService" class="study.shop.cidermarket.service.impl.CategoryServiceImpl" />
 	
 	<bean id="memberService" class="study.shop.cidermarket.service.impl.MemberServiceImpl" />
-	<bean id="itemindexmemberService" class="study.shop.cidermarket.service.impl.ItemIndexMemberServiceImpl" />
+	
+	<bean id="itemindexService" class="study.shop.cidermarket.service.impl.ItemIndexServiceImpl" />
 	
 	<bean id="filesBbsService" class="study.shop.cidermarket.service.impl.FilesBbsServiceImpl" />
 	<bean id="filesProductService" class="study.shop.cidermarket.service.impl.FilesProductServiceImpl" />
-	<bean id="filesItemIndexService" class="study.shop.cidermarket.service.impl.ItemIndexFilesServiceImpl" />
 
 	<bean id="ReceiverMsgboxService" class="study.shop.cidermarket.service.impl.ReceiverMsgboxServiceImpl" />
 	<bean id="SenderMsgboxService" class="study.shop.cidermarket.service.impl.SenderMsgboxServiceImpl" />

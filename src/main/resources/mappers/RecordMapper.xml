@@ -20,7 +20,7 @@
 	<!-- 특정회원의 거래 완료 수를 위한 기능 정의 -->
 	<select id="selectCount"
 		parameterType="study.shop.cidermarket.model.Record"
-		resultMap="recordMap">
+		resultType="int">
 		SELECT (SELECT COUNT(*) FROM record WHERE tradecon = 'W' AND buyer=#{buyer})
 		+(SELECT COUNT(*) FROM product WHERE tradecon='W' AND seller=#{buyer})
 	</select>
