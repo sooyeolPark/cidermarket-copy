@@ -11,14 +11,38 @@
 		<result property="regdate" column="regdate" />
 		<result property="editdate" column="editdate" />
 		<result property="nickname" column="nickname" />
+		<result property="filepath" column="filepath" />
+		<result property="redelete" column="redelete" />
 	</resultMap>	
-	<!-- 총 거래수 수 조회를 위한 기능 정의 -->
+	<!-- 댓글 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Reply"
 		resultMap="replyMap">
-		SELECT r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, nickname
+		SELECT r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, r.redelete, nickname,
+		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
 		FROM reply r
 		INNER JOIN member m ON r.writer=m.membno
 		WHERE r.prodno=#{prodno}
+		
+		ORDER BY r.regdate ASC
 	</select>
+
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Reply"
+		useGeneratedKeys="true" keyProperty="replyno">
+		INSERT INTO reply (
+		prodno, writer, content, regdate, editdate
+		) VALUES (
+		#{prodno}, #{writer}, #{content}, now(), now()
+		)
+	</insert>
+	
+	<!-- 보관함에서 삭제를 위한 기능 정의 (실제로 삭제하지 않고 데이터 값을 바꾼다). -->	
+	<update id="updateItem"
+		parameterType="study.shop.cidermarket.model.Reply">
+		UPDATE reply SET
+			redelete= 'Y'
+		WHERE replyno=#{replyno}
+	</update>	
 </mapper>

@@ -85,7 +85,7 @@
 					<a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
 					<a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
 					<div class="btnn-temp">
-						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
+						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" target="_blank" class="btn btn-danger templogin">임시관리자</a>
 					</div>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
    		<c:otherwise>
 			<div class="btnn-login">
       			<a href="${pageContext.request.contextPath}/msgbox/receiver.cider" class="btn btn-info">쪽지함</a>
-      			<a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info">거래내역</a>
+      			<a href="${pageContext.request.contextPath}/member/record/selling.cider" class="btn btn-info">거래내역</a>
       			<a href="${pageContext.request.contextPath}/user/mystore.cider" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
 	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
@@ -105,127 +105,8 @@
     
     <div class="gory_title">CATEGORY</div>
     <div class="category">
-      <ul>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hba0000.png" />핸드메이드</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hak0000.png" />휴대폰/태블릿</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haf0000.png" />가 구</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haw0000.png" />문 구</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_har0000.png" />자동차용품</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hae0000.png" />유아용/완구</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hai0000.png" />컴퓨터/주변기기</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hag0000.png" />생활</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hax0000.png" />스타굿즈</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_pet_goods.png" />반려동물용품</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_had0000.png" />뷰티</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haj0000.png" />카메라</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haa0000.png" />여성의류</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hah0000.png" />디지털/가전</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hav0000.png" />피규어/키덜트</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hao0000.png" />스포츠/레저</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hab0000.png" />남성의류</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_haq0000.png" />티켓</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_has0000.png" />예술/미술</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_han0000.png" />게임</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hac0000.png" />신발/가방/잡화</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_ham0000.png" />음향기기/악기</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hap0000.png" />도서</span></a
-          >
-        </li>
-        <li>
-          <a href="${pageContext.request.contextPath}/user/item_list.cider"
-            ><span><img src="${pageContext.request.contextPath}/assets/img/cate_hzz0000.png" />기타</span></a
-          >
-        </li>
+      <ul id="category">
+      	
       </ul>
     </div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>
@@ -264,6 +145,17 @@
   {{/each}}
 </script>
 
+<!-- template -->
+<script id="category_tmpl" type="text/x-handlebars-template">
+  {{#each item}}
+    <li>
+    	<a href="${pageContext.request.contextPath}/item_list.cider/{{cateno}}">
+			<span><img src="${pageContext.request.contextPath}/assets/img{{filepath}}" />{{name}}</span>
+		</a>
+    </li>
+  {{/each}}
+</script>
+
 <!-- // 사이드바 시작 -->
 <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
@@ -274,27 +166,27 @@
 <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
 <!-- 사용자 정의 스크립트 -->
 <script type="text/javascript">
-//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
-function setCookie(name, value, expiredays) {
-    var todayDate = new Date();
-    todayDate.setDate(todayDate.getDate() + expiredays);
-    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
-}
-
-// 쿠키 불러오는 함수
-function getCookie(Name) { 
-    var search = Name + "=";
-    if (document.cookie.length > 0) { // if there are any cookies
-        offset = document.cookie.indexOf(search);
-        if (offset != -1) { // if cookie exists
-            offset += search.length; // set index of beginning of value
-            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
-            if (end == -1)
-                end = document.cookie.length;
-            return unescape(document.cookie.substring(offset, end));
-        }
-    }
-}
+	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+	function setCookie(name, value, expiredays) {
+	    var todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays);
+	    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	
+	// 쿠키 불러오는 함수
+	function getCookie(Name) { 
+	    var search = Name + "=";
+	    if (document.cookie.length > 0) { // if there are any cookies
+	        offset = document.cookie.indexOf(search);
+	        if (offset != -1) { // if cookie exists
+	            offset += search.length; // set index of beginning of value
+	            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	            if (end == -1)
+	                end = document.cookie.length;
+	            return unescape(document.cookie.substring(offset, end));
+	        }
+	    }
+	}
 
 
 
@@ -309,12 +201,29 @@ function getCookie(Name) {
       $("#i-key").append(html);
     });
   }
+  
+  function categoryList() {
+	  $.ajax({
+        type: "GET",
+        url: "${pageContext.request.contextPath}/header",
+        success: function(json) {
+				console.log(json);
+				if (json.rt == "OK") {
+					var template = Handlebars.compile($("#category_tmpl").html());
+				    var html = template(json);
+				    $("#category").append(html);
+				}
+			}
+      }); 
+  }
+  // 카테고리 호출
+  window.onload = categoryList;
+  
 
   $(function () {
     get_key_list();
-	
-    /** Ajax 호출 */
     
+    /** Ajax 호출 */
     $(".logout").click(function(){
 	    $.ajax({
 	        type: "GET",

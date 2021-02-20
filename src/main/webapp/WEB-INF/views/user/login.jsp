@@ -8,6 +8,9 @@
 	if (session.getAttribute("myNum") != null && session.getAttribute("myNum") != "") {
 		response.sendRedirect("/cidermarket");
 	}
+	// 이전 페이지 기록
+    String referer = request.getHeader("referer");
+    if(referer==null)referer = "/";
 %>
 <!doctype html>
 <html lang="ko">
@@ -51,7 +54,7 @@
 
 					<div class="checkbox col-sm-offset-2">
 						<label><input type="checkbox" id="idSave" <c:if test="${cookie.id.value != null && cookie.id.value != ''}">checked</c:if>>아이디 저장</label> 
-						<label><input type="checkbox" id="idStateful">로그인 상태유지</label>
+						<label><input type="checkbox" id="idStateful" <c:if test="${cookie.idStateful.value != null && cookie.idStateful.value != ''}">checked</c:if>>로그인 상태유지</label>
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
@@ -175,9 +178,9 @@
                 
                 // 로그인 상태유지
                 if ($("#idStateful").is(":checked") == true) { // 아이디 저장을 체크 하였을때
-					setCookie("idStateful", "true", 1);
+					setCookie("idStateful", "true", 60*60*24);
                 } else {
-                	setCookie("idStateful", "true", 0);
+                	setCookie("idStateful", "true", -1);
                 }
                 
                 /** Ajax 호출 */
@@ -195,8 +198,7 @@
   	    				alert("반갑습니다 "+ name + "님! 쿨거래 하세요^^");
   	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
   	    				if (json.rt == "OK") {
-  	    					
-  	    					window.location = "${pageContext.request.contextPath}";
+  	    					location.href="<%=referer%>";
   	    				}
   	    			}
                  });

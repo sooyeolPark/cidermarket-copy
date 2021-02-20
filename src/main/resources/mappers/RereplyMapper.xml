@@ -12,14 +12,37 @@
 		<result property="regdate" column="regdate" />
 		<result property="editdate" column="editdate" />
 		<result property="nickname" column="nickname" />
+		<result property="filepath" column="filepath" />
 	</resultMap>	
 	<!-- 대댓글 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Rereply"
 		resultMap="rereplyMap">
-		SELECT r.rereplyno, r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, nickname
+		SELECT r.rereplyno, r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, nickname,
+		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
 		FROM rereply r
 		INNER JOIN member m ON r.writer=m.membno
 		WHERE r.prodno=#{prodno}
+		
+		ORDER BY r.regdate ASC
 	</select>
+	
+		<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Rereply"
+		useGeneratedKeys="true" keyProperty="rereplyno">
+		INSERT INTO rereply (
+		replyno, prodno, writer, content, regdate, editdate
+		) VALUES (
+		#{replyno}, #{prodno}, #{writer}, #{content}, now(), now()
+		)
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Rereply">
+		DELETE FROM rereply WHERE rereplyno=#{rereplyno}
+	</delete>
+	
+	
 </mapper>

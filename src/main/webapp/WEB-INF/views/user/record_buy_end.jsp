@@ -27,10 +27,10 @@
                     <!-- 탭 버튼 영역 -->
                     <ul class="row tab-button clearfix">
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="tab-button-item-link pull-left">판매</a>
+                            <a href="${pageContext.request.contextPath}/member/record/selling.cider?selected=selling" class="tab-button-item-link pull-left">판매</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="${pageContext.request.contextPath}/user/record_buy.cider?selected=selling" class="tab-button-item-link pull-left selected">구매</a>
+                            <a href="${pageContext.request.contextPath}/member/record/buying.cider?selected=selling" class="tab-button-item-link pull-left selected">구매</a>
                         </li>
                     </ul>
                     

@@ -89,7 +89,7 @@
 						<c:forEach var="item" items="${output}" varStatus="status">
 							<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
 								<%-- 상세페이지로 이동하기 위한 URL --%>
-								<c:url var="viewUrl" value="/product/item_index.cider">
+								<c:url var="viewUrl" value="/item_index.cider">
 									<c:param name="prodno" value="${item.prodno}" />
 								</c:url>
 								
@@ -122,7 +122,7 @@
 	<script id="prod-item-tmpl" type="text/x-handlebars-template">
 		{{#each item}}
 		<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-             <a href="${pageContext.request.contextPath}/product/item_index.cider?prodno={{prodno}}">
+             <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
              	<div class="sorting thumbnail">
                 	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}">
                     <div class="caption">

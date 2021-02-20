@@ -15,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
@@ -29,6 +31,10 @@ public class HomeRestController {
 	@Autowired
 	@Qualifier("productService")
 	ProductService productService;
+	@Autowired
+	@Qualifier("categoryService")
+	CategoryService categoryService;
+
 	
 	/** 메인 페이지 */
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
@@ -75,7 +81,23 @@ public class HomeRestController {
 		return webHelper.getJsonData(data);
 	}
 	
-	
+	/** 네비게이션 슬라이더 카테고리 리스트 */
+	@RequestMapping(value = "/header", method = RequestMethod.GET)
+	public Map<String, Object> category() {
+		List<Category> output = null;
+	      
+        try {
+           // 데이터 조회하기
+           output = categoryService.getCategoryList(null);
+        } catch (Exception e) {
+           return webHelper.getJsonError(e.getLocalizedMessage());
+        }
+      
+        /** 3) View 처리 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+		return webHelper.getJsonData(data);
+	}
 	
     /** 알람 페이지 */
     @RequestMapping(value="/user/alarm.cider", method=RequestMethod.GET)

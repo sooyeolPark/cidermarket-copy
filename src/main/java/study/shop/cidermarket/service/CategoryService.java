@@ -3,6 +3,7 @@ package study.shop.cidermarket.service;
 import java.util.List;
 
 import study.shop.cidermarket.model.Category;
+import study.shop.cidermarket.model.Files;
 
 public interface CategoryService {
 	/**
@@ -52,5 +53,13 @@ public interface CategoryService {
 	 * @throws Exception
 	 */
 	public int deleteCategory(Category input) throws Exception;
+	
+	/**
+	 * 데이터 삭제하기
+	 * @param Category 삭제할 데이터의 일련번호를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteCategoryImage(Files input) throws Exception;
 	
 }

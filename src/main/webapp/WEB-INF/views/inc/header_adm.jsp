@@ -8,7 +8,7 @@
 				<img src="${pageContext.request.contextPath}/assets/img/logo.png" />
 			</a>
 			<button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
-			<a class="nav_top_a btn btn-danger" href="${pageContext.request.contextPath}">
+			<a class="nav_top_a btn btn-danger" href="${pageContext.request.contextPath}" target="_blank">
 				User_Page <span class="logo_right glyphicon glyphicon-user"></span>
 			</a>
 

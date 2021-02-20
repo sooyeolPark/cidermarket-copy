@@ -142,32 +142,32 @@ h4 {
   font-weight: 900;
 }
 
-.div_body > ul {
+.home_ul {
   width: 100%;
+  padding: 0;
+  display: flex;
+  justify-items: center;
 }
 .home_ul > li {
-  display: inline-block;
-  width: 24%;
-  height: 300px;
-  border: 1px solid #aeaeae;
+  flex-basis: 23%;
+  margin: 1%;
+  padding: 50px 0;
+  line-height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
-.home_ul > li > a {
-  display: block;
-  width: 100%;
+.home_ul > li:hover {
+	background-color: #1dd1a1;
+	transform: scale(1.02);
 }
-
-.home_ul > li > a > span {
-  display: block;
-  font-size: 1.5em;
-  font-weight: 900;
-  text-align: center;
-  line-height: 300px;
+.home_ul > li:hover a strong {
+	color: #fff;	
 }
-.home_ul > li > span {
-  display: block;
-  text-align: center;
+.home_ul > li strong {
+	font-size: 18px;
+	color: #31a05f;
 }
-
 
 
 address {

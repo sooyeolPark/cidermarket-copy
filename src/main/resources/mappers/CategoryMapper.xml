@@ -6,13 +6,15 @@
 	<resultMap type="study.shop.cidermarket.model.Category" id="categoryMap">
 		<result property="cateno" column="cateno" />
 		<result property="name" column="name" />
+		<result property="filepath" column="filepath" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Category"
 		resultMap="categoryMap">
-		SELECT cateno, name
+		SELECT cateno, name,
+		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=cateno AND reftable='category')) AS filepath
 		FROM Category
 		WHERE cateno=#{cateno}
 	</select>
@@ -21,7 +23,8 @@
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Category"
 		resultMap="categoryMap">
-		SELECT cateno, name
+		SELECT cateno, name,
+		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=cateno AND reftable='category')) AS filepath
 		FROM Category
 <!-- 		
 		<where>

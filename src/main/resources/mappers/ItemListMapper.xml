@@ -123,6 +123,9 @@
          subject, price,prodno
       FROM product
       WHERE cateno=#{cateno}
+      <if test="prodno != null and prodno != ''">
+      AND prodno!=#{prodno}
+      </if>
       ORDER BY regdate DESC
       
       <if test="listCount > 0">
@@ -139,6 +142,9 @@
          subject, price,prodno
       FROM product
       WHERE seller=#{seller}
+      <if test="prodno != null and prodno != ''">
+      AND prodno!=#{prodno}
+      </if>
       ORDER BY regdate DESC
       
       <if test="listCount > 0">

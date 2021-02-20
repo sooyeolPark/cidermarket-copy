@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.model.Category;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.service.CategoryService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
@@ -110,6 +111,23 @@ public class CategoryServiceImpl implements CategoryService {
 		int result = 0;
 		try {
 			result = sqlSession.delete("CategoryMapper.deleteItem", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("삭제된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	public int deleteCategoryImage(Files input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.delete("CategoryMapper.deleteCateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

@@ -5,20 +5,25 @@ import lombok.Data;
 @Data
 public class Record {
 	// 1) 기본 컬럼
-	private int recono;
-	private int prodno;
-	private int buyer;
-	private String tradecon;
-	private String refund;
-	private String how;
-	private String confirmdate;
-	private String name;
-	private String tel;
-	private String address;
-	private String pay;
+	private int recono;  // 거래번호(PK)
+	private int prodno;  // 상품번호(FK-product)
+	private int buyer;  // 구매자(회원번호)(FK-member)
+	private String tradecon;  // 거래상태 (J=거래중 / W=거래완료 / S=거래정지)
+	private String refund;  // 반품 (Null / J = 반품중 / W = 반품완료)
+	private String how;  // 거래방법 (T = 택배거래 / J = 직거래)
+	private String confirmdate;  // 거래완료일자
+	private String name;  // 받는 사람 이름
+	private String tel;  // 받는 사람 연락처
+	private String address;  // 받는 사람 주소
+	private String pay;  // 결제수단(M=무통장입금/ C=카드결제)
 	
 	// 2) JOIN절에 따른 추가 컬럼
-	private String path; 
+	private String filepath;  // 상품이미지
+	private String subject;  // 상품명
+	private int price;  // 가격 
+	private int seller;  // 판매자
+	private String nickname;  // 구매자 닉네임
+	private int revino;  // 후기번호
 	
 	// 3) 페이지 구현을 위한 static 변수
     /** LIMIT 절에서 사용할 조회 시작 위치 */

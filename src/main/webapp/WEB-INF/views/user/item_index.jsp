@@ -34,13 +34,16 @@
   <div class='over_layer' id='front'>
     <div class="modal_name">쪽지보내기</div>
     <div class="modal_content">
-      <form role="form">
+      <form id="sendmsg" action="${pageContext.request.contextPath}/msgbox/receiver" role="form">
         <div class="form-group">
-          <span id="to_user"></span>
+          <span id="to_user">${seller.nickname}</span>
           <span class="help-block">님에게 쪽지보내기</span>
-          <textarea rows="5" id="send_input" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+          <textarea rows="5" id="send_input" name="content" class="form-control" placeholder="내용을 입력해주세요."></textarea>
+          <input type="hidden" id="send_sender" name="sender" value="${myNum}" />
+          <input type="hidden" id="send_receiver" name="receiver" value="${seller.membno}" />
+          <input type="hidden" id="send_prodno" name="prodno" value="${product.prodno}" />
           <div class="modal_btn">
-            <button id="send_ok" type="button" class="btn btn-primary">보내기</button>
+            <button id="send_ok" type="submit" class="btn btn-primary">보내기</button>
             <button id="send_cancle" type="button" class="btn btn-info">취소</button>
           </div>
         </div>
@@ -50,20 +53,22 @@
   <div class='over_layer' id="singo">
     <div class="modal_name">신고하기</div>
     <div class="modal_content">
-      <form role="form">
+      <form id="sendsingo" action="${pageContext.request.contextPath}/admin/singo" role="form">
         <div class="form-group">
-          <span id="singo_name"></span>
+          <span id="singo_name">${product.subject}</span>
           <span class="help-block">게시글을 신고하는 이유를 선택해주세요.</span>
-          <select class="form-control" id="singo_category">
-            <option selected>신고 이유를 선택해주세요</option>
-            <option>판매금지 품목이에요</option>
-            <option>거래 게시글이 아니에요</option>
-            <option>사기글 같아요</option>
-            <option>기타 사유</option>
+          <select class="form-control" id="singo_type" name="singo_type">
+            <option value="" selected>신고 이유를 선택해주세요</option>
+            <option value ="P" >판매금지 품목이에요</option>
+            <option value ="G" >거래 게시글이 아니에요</option>
+            <option value ="S" >사기글 같아요</option>
+            <option value ="E" >기타 사유</option>
           </select>
-          <textarea rows="2" id="singo_input" class="form-control" placeholder="신고사유를 입력해주세요."></textarea>
+          <textarea rows="2" id="singo_content" class="form-control" name="singo_content" placeholder="신고사유를 입력해주세요."></textarea>
+          <input type="hidden" id="send_sender" name="singo_sender" value="${myNum}" />
+          <input type="hidden" id="send_prodno" name="singo_prodno" value="${product.prodno}" />
           <div class="modal_btn">
-            <button id="singo_ok" type="button" class="btn btn-primary">신고하기</button>
+            <button id="singo_ok" type="submit" class="btn btn-primary">신고하기</button>
             <button id="singo_cancle" type="button" class="btn btn-info">취소</button>
           </div>
         </div>
@@ -81,24 +86,35 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide"><a href="${pageContext.request.contextPath}/assets/img/item.png" data-lightbox="my-gallery">
-              <img src="${pageContext.request.contextPath}/assets/img/item.png" width="100%" /></a></div>
-          <div class="swiper-slide"><a href="${pageContext.request.contextPath}/assets/img/item.png" data-lightbox="my-gallery">
-              <img src="${pageContext.request.contextPath}/assets/img/item.png" width="100%" /></a></div>
-          <div class="swiper-slide"><a href="${pageContext.request.contextPath}/assets/img/item.png" data-lightbox="my-gallery">
-              <img src="${pageContext.request.contextPath}/assets/img/item.png" width="100%" /></a></div>
-
+          <c:forEach var="item" items="${fileimages}" varStatus="status">
+          	<div class="swiper-slide"><a href="${pageContext.request.contextPath}/assets/img${item.filepath}" data-lightbox="my-gallery">
+              <img src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="100%" /></a></div>
+          </c:forEach>
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
       </div>
       <div class="item_title clearfix">
-        <span class="label">거의새것</span>
-        <span class="label">배송비 미포함</span>
-        <a href="#" id="like_this" class="pull-right"><i class="glyphicon glyphicon-heart"></i>32</a>
+        <span class="label">
+        <c:choose>
+        	<c:when test="${product.prodcon == 'N'}">
+        	새것
+        	</c:when>
+        	<c:when test="${product.prodcon == 'A'}">
+        	거의새것
+        	</c:when>
+        	<c:when test="${product.prodcon == 'U'}">
+        	중고
+        	</c:when>
+        </c:choose>	
+        </span>
+        <c:if test="${product.fee==0}">
+        <span class="label">배송비무료</span>
+        </c:if>
+        <div id="like_this" class="pull-right"><i class="glyphicon glyphicon-heart"></i><span id="countzzim">${fn:length(membprod)}</span></div>
         <a href="#" id="flag_this" class="pull-right"><i class="glyphicon glyphicon-flag"></i></a>
-        <h3>디올 조던 새상품 270 팔아요요리요이료요요요요요오롤로로요로로리이히</h3>
-        <h1><b>1,000,000원</b></h1>
+        <h3>${product.subject}</h3>
+        <h1><b><fmt:formatNumber value="${product.price}" pattern="#,###" />원</b></h1>
       </div>
       <div class="div_blank1"></div>
       <div class="item_info">
@@ -118,182 +134,341 @@
             <div id="tab-page-1">
               <div class="row how_trade">
                 <div class="col-xs-3"><b>거래방법</b></div>
-                <div class="col-xs-9"><b>택배거래</b></div>
+                <div class="col-xs-9"><b>
+					<c:choose>
+        				<c:when test="${product.how == 'J'}">
+      				  	직거래
+        				</c:when>
+        				<c:when test="${product.how == 'T'}">
+        				택배거래
+        				</c:when>
+        				<c:when test="${product.how == 'X'}">
+        				상관없음
+        				</c:when>
+        			</c:choose>
+				</b></div>
               </div>
               <div class="row how_trade">
                 <div class="col-xs-3"><b>배송비</b></div>
-                <div class="col-xs-9"><b>3,000원</b></div>
+                <div class="col-xs-9"><b>
+                <c:choose>
+        			<c:when test="${product.fee == 0}">
+      			  	무료
+        			</c:when>
+        			<c:otherwise>
+        			${product.fee}원
+        			</c:otherwise>
+        		</c:choose>
+                </b></div>
               </div>
               <div class="info_desc">
-                <p>
-                  디올 조던 운동화<br />
-                  사이즈 270
-                  <br />
-                  <br />
-                  다들 아시는 유명한 디올X조던 콜라보 신발입니다.<br />
-                  사이즈는 정사이즈 이고 볼이 좁은편이에요.<br />
-                  바닥도 깨끗하고 몇번 신지도 않아서 깔창도 깨끗 무결점 하자 없음<br />
-                  <br />
-                  ★ 선입금 우선판매하고 예민한 분은 사절<br />
-                  ★ 서로 시간낭비없이 살분만 쪽지주세요<br />
-                  ★ 거래중 잠수, 무리한네고, 비매너 차단<br />
-                  ★ 중고제품이라 작은 오염은 있을 수 있으니 참고하세요. (교환X, 환불X)
-                </p>
+                ${product.detail}
               </div>
               <div class="info_etc">
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-time"></i></div>
-                  <div class="col-xs-11"><span id="reg_time">38분 전</span></div>
+                  <div class="col-xs-11"><span id="reg_time">${product.regdate}</span></div>
                 </div>
+                <c:if test="${fn:length(hashtag) != 0}">
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-link"></i></div>
-                  <div class="col-xs-11"><a href="#"><span>#디올조던</span></a><a href="#"><span>#270</span></a><a
-                      href="#"><span>#나이키신발</span></a></div>
+                  <div class="col-xs-11">
+                  	<c:forEach var="item" items="${hashtag}" varStatus="status">
+          				<span>#${item.tagname}</span>
+          			</c:forEach>
+				  </div>
                 </div>
+                </c:if>
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-tag"></i></div>
-                  <div class="col-xs-11"><a href="#"><span>신발/가방/잡화</span></a>
+                  <div class="col-xs-11">
+                  <span>${product.catename}</span>
                   </div>
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_thumb1.jpg" width="50"
+                <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50"
                     height="50" alt="Generic placeholder image"> </a>
                 <div class="user_info_detail clearfix">
 
-                  <div id="user_id"><a href="#">귀염티거</a></div>
-                  <div id="user_info_item" class="pull-right">상품 <span>258</span></div>
-                  <div id="user_lv">Lv 2 블루</div>
-                  <div id="user_star">
-                    <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                    <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                    <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                    <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                    <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+                  <div id="user_id">${seller.nickname}</div>
+                  <div id="user_info_item" class="pull-right">상품 <span>${productcount}</span></div>
+                  <div id="user_lv">
+                  <c:choose>
+        				<c:when test="${sellercount < 1}">
+      				  	Lv 1 화이트
+        				</c:when>
+        				<c:when test="${sellercount > 0 && sellercount < 3}">
+        				Lv 2 블루
+        				</c:when>
+        				<c:when test="${sellercount > 2 && sellercount < 7}">
+        				Lv 3 브론즈
+        				</c:when>
+        				<c:when test="${sellercount > 6 && sellercount < 15}">
+        				Lv 4 실버
+        				</c:when>
+        				<c:when test="${sellercount > 14}">
+        				Lv 5 골드
+        				</c:when>
+        			</c:choose>
                   </div>
-                  <div id="user_string">6</div>
-
-                </div>
-
+                  <fmt:parseNumber var="rate" type="number" value="${seller.rate}" />
+                  <c:choose>                  	
+        				<c:when test="${rate < 1}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        				<c:when test="${rate >= 1 && rate < 2}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        				<c:when test="${rate >= 2 && rate < 3}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        				<c:when test="${rate >= 3 && rate < 4}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        				<c:when test="${rate >= 4 && rate < 5}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        				<c:when test="${rate == 5}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	</div>
+                  		<div id="user_string">${seller.rate}</div>
+        				</c:when>
+        			</c:choose>
+        		</div>
               </div>
-
               <div class="item-repl">
-                <form role="form">
+                <form id="send_reply" action="${pageContext.request.contextPath}/reply" role="form">
                   <fieldset>
                     <!-- 입력양식 -->
                     <div class="form-group">
                       <label for="content" class="control-label">댓글 <span>(<span
                             id="reply_count">2</span>)</span></label>
-                      <textarea id="content" class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                      <textarea id="content" name=reply_content class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                      <input type="hidden" id="reply_prodno" name="reply_prodno" value="${product.prodno}" >
+                      <input type="hidden" id="reply_writer" name="reply_writer" value="${myNum}" >
                     </div>
-                    <!--// 입력양식 -->
-
-                    <!-- 입력양식 -->
                     <div class="form-group clearfix">
                       <button type="submit" id="reply_submit" class="btn btn-primary pull-right">등록</button>
                     </div>
                     <!--// 입력양식 -->
                   </fieldset>
                 </form>
+                
                 <ul class="media-list" id="reply_box">
+                
                   <!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-                  <li class="media">
-                    <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_jordan.jpg"
-                        width="60" height="60" alt="Generic placeholder image"> </a>
-                    <div class="media-body">
-                      <!-- 제목영역의 float 처리를 위한 마감제 박스 -->
-                      <div class="clearfix">
-                        <!-- 제목에 float: left 적용 - pull-left -->
-                        <h4 class="media-heading pull-left re_user_name">마이클조던 <small>5분전</small></h4>
-                        <!-- 제목에 float: right 적용 - pull-right -->
-                        <div class="pull-right">
-                          <a class="re_remove" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
-                        </div>
-                      </div>
-                      <div class="clearfix re_user_rpl">
-                        <p>팔렸나요?</p>
-                        <button type="submit" class="btn btn-danger pull-right reply">답글</button>
-                        <div class=" repl_form">
-                          <form role="form repl_form">
-                            <fieldset>
-                              <!-- 입력양식 -->
-                              <div class="form-group">
-                                <textarea class="form-control re_reply" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-                              </div>
-                              <div class="form-group clearfix">
-                                <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
-                              </div>
-                              <!--// 입력양식 -->
-                            </fieldset>
-                          </form>
-                        </div>
-                      </div>
-                      <div id="reply_div">
-                        <div class="media">
-                          <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_thumb1.jpg"
-                              width="60" height="60" alt="Generic placeholder image"> </a>
-                          <div class="media-body">
-                            <div class="clearfix">
-                              <h4 class="media-heading pull-left re_user_name">귀염티커 <small>1분전</small></h4>
-                              <div class="pull-right">
-                                <a class="re_remove" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
-                              </div>
-                            </div>
-                            <div class="clearfix re_user_rpl">
-                              <p>아직이용~</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-                  <li class="media">
-                    <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_adidas.jpg"
-                        width="60" height="60" alt="Generic placeholder image"> </a>
-                    <div class="media-body">
-                      <div class="clearfix">
-                        <h4 class="media-heading pull-left re_user_name">아디다스 <small>방금 전</small></h4>
-                        <div class="pull-right">
-                          <a class="re_remove" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
-                        </div>
-                      </div>
-                      <div class="clearfix re_user_rpl">
-                        <p>디자인이 좀 아쉽네요...</p>
-                        <button type="submit" class="btn btn-danger pull-right reply">답글</button>
-                        <div class=" repl_form">
-                          <form role="form">
-                            <fieldset>
-                              <!-- 입력양식 -->
-                              <div class="form-group">
-                                <textarea class="form-control re_reply" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-                              </div>
-                              <div class="form-group clearfix">
-                                <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
-                              </div>
-                              <!--// 입력양식 -->
-                            </fieldset>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="reply_div">
-                      </div>
-                    </div>
-                  </li>
+                	<c:forEach var="item" items="${reply}" varStatus="status">
+                		<li class="media">
+                		<c:choose>
+						<c:when test="${item.redelete=='Y'}">
+						<div class="pull-left" style="width:70px; height:70px;" ></div>
+      					<div class="media-body">
+        					<div class="clearfix">
+          					<h4 class="media-heading pull-left re_user_name" style="color:#ccc;">삭제된 댓글입니다<small></small></h4>
+          					<div class="pull-right">
+          					</div>
+        					</div>
+        					<div class="clearfix re_user_rpl">
+        					<p>  </p>
+        					</div>
+        					<div class="reply_div">
+        					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
+        					<c:if test="${item.replyno==rere.replyno}">
+        						<div class="media">
+        							
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}"
+          								width="60" height="60" alt="Generic placeholder image"> </div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+        								<div class="clearfix re_user_rpl">
+          									<p>${rere.content}</p>
+        								</div>
+      								</div>
+    							</div>
+    						</c:if>
+        					</c:forEach>
+        					</div>
+      					</div>
+						
+						</c:when>
+						<c:otherwise>
+          				<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}"
+          						width="60" height="60" alt="Generic placeholder image"> </div>
+      					<div class="media-body">
+        					<div class="clearfix">
+          					<h4 class="media-heading pull-left re_user_name">${item.nickname} <small>${item.regdate}</small></h4>
+          					<c:if test="${myNum==item.writer}">
+          					<div class="pull-right">
+            					<a class="re_remove" href="#" title="삭제" data-replyno ="${item.replyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          					</div>
+          					</c:if>
+        					</div>
+        					<div class="clearfix re_user_rpl">
+          					<p>${item.content}</p>
+          					<button type="submit" class="btn btn-danger pull-right reply">답글</button>
+          					<div class="repl_form">
+            					<form role="form" class="send_rereply" action="${pageContext.request.contextPath}/rereply" >
+              					<fieldset>
+                					<div class="form-group">
+                  					<textarea class="form-control re_reply rereply_content" name="rereply_content" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                  					<input type="hidden" class="rereply_prodno" name="rereply_prodno" value="${product.prodno}" >
+                      				<input type="hidden" class="rereply_writer" name="rereply_writer" value="${myNum}" >
+                      				<input type="hidden" class="rereply_replyno" name="rereply_replyno" value="${item.replyno}" >
+                					</div>
+                					<div class="form-group clearfix">
+                  					<button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
+                					</div>
+              					</fieldset>
+            					</form>
+          					</div>
+        					</div>
+        					<div class="reply_div">
+        					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
+        					<c:if test="${item.replyno==rere.replyno}">
+        						<div class="media">
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}"
+          								width="60" height="60" alt="Generic placeholder image"> </div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+        								<div class="clearfix re_user_rpl">
+          									<p>${rere.content}</p>
+        								</div>
+      								</div>
+    							</div>
+    						</c:if>
+        					</c:forEach>
+        					</div>
+      					</div>
+      					</c:otherwise>
+      					</c:choose>
+      					</li>
+          			</c:forEach>
                 </ul>
-              </div>
+              </div>			
+        					
               <div class="div_blank"></div>
               <div class="item_more ">
                 <h3>이런 상품은 어때요?</h3>
                 <div class="box clearfix" id="center">
-                  <!--handlebars 2 -->
+                  <c:choose>
+					<%-- 조회결과가 없는 경우 --%>
+					<c:when test="${itemlistcategory == null || fn:length(itemlistcategory) == 0}">
+						<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+							<p>같은 카테고리로 등록된 상품이 없습니다.</p>
+						</div>
+					</c:when>
+					<%-- 조회결과가 있는 경우 --%>
+					<c:otherwise>
+						<%-- 조회 결과에 따른 반복 처리 --%>
+						<c:forEach var="item" items="${itemlistcategory}" varStatus="status">
+							<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+								<%-- 상세페이지로 이동하기 위한 URL --%>
+								<c:url var="viewUrl" value="/item_index.cider">
+									<c:param name="prodno" value="${item.prodno}" />
+								</c:url>								
+				                <a href="${viewUrl}">
+				                    <div class="sorting thumbnail">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+				                        <div class="caption">
+				                            <h5>${item.subject}</h5>
+				                            <h4>${item.price}원</h4>
+				                        </div>
+				                    </div>
+				                </a>
+				            </div>
+			            </c:forEach>
+		            </c:otherwise>
+	            </c:choose>
                 </div>
               </div>
             </div>
             <div id="tab-page-2" class="hide">
-              <h3>귀염티거 님의 다른 상품</h3>
+              <h3>${seller.nickname} 님의 다른 상품</h3>
               <div class="box clearfix" id="others">
-                <!--handlebars 2 -->
+                <c:choose>
+					<%-- 조회결과가 없는 경우 --%>
+					<c:when test="${itemlistseller == null || fn:length(itemlistseller) == 0}">
+						<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+							<p>등록된 상품이 없습니다.</p>
+						</div>
+					</c:when>
+					<%-- 조회결과가 있는 경우 --%>
+					<c:otherwise>
+						<%-- 조회 결과에 따른 반복 처리 --%>
+						<c:forEach var="item" items="${itemlistseller}" varStatus="status">
+							<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+								<%-- 상세페이지로 이동하기 위한 URL --%>
+								<c:url var="viewUrl" value="/item_index.cider">
+									<c:param name="prodno" value="${item.prodno}" />
+								</c:url>								
+				                <a href="${viewUrl}">
+				                    <div class="sorting thumbnail">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+				                        <div class="caption">
+				                            <h5>${item.subject}</h5>
+				                            <h4>${item.price}원</h4>
+				                        </div>
+				                    </div>
+				                </a>
+				            </div>
+			            </c:forEach>
+		            </c:otherwise>
+	            </c:choose>
               </div>
             </div>
           </div>
@@ -301,85 +476,42 @@
       </div>
       <div id="anou">
         <p>(주)사이다마켓은 통신판매중개자로서 거래당사자가 아니며,
-          <br /> 판매자가 등록한 상품정보 및 거래에 대해 (주)사이다마켓은 일체 책임을 지지 않습니다
+          <br /> 판매자가 등록한 상품정보 및 거래에 대해 (주)사이다마켓은 일체 책임을 지지 않습니다.
         </p>
       </div>
   </section>
   <div class="fixed-btn">
-    <div class="col-xs-2 zzim"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i></a></div>
+  <c:set var="is" value="NO" />
+  <c:forEach var="item" items="${membprod}" varStatus="status">
+  	<c:if test="${myNum==item.membno}">
+  		<div class="col-xs-2 zzim"><a href="#" id="like" data-membno="${myNum}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-heart"></i></a></div>
+  		<c:set var="is" value="OK" />
+  	</c:if>
+  </c:forEach>
+  <c:if test="${is=='NO'}">
+  	<div class="col-xs-2 zzim"><a href="#" id="like" data-membno="${myNum}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-heart-empty"></i></a></div>
+  </c:if>
+    
+          
+    
+    <c:choose>
+  	<c:when test="${myNum==product.seller}">
+    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span
+          class="cool">쿨하게</span><span class="trade">수정하기</span></button></div>
+    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="dir_pay"><span class="cool">쿨하게</span><span
+          class="trade">삭제하기</span></button></div>  	
+  	</c:when>
+  	<c:otherwise>
     <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span
           class="cool">쿨하게</span><span class="trade">직거래</span></button></div>
     <div class="col-xs-5"><button type="submit" class="btn btn-primary" id="dir_pay"><span class="cool">쿨하게</span><span
           class="trade">바로결제</span></button></div>
+    </c:otherwise>      
+    </c:choose>
   </div>
 
-  <!-- 댓글 템플릿 -->
-  <script id="reply_tmpl" type="text/x-handlebars-template">
-    <li class="media">
-      <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/{{imgurl}}"
-          width="60" height="60" alt="Generic placeholder image"> </a>
-      <div class="media-body">
-        <div class="clearfix">
-          <h4 class="media-heading pull-left re_user_name">{{id}} <small>{{time}}</small></h4>
-          <div class="pull-right">
-            <a class="re_remove" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
-          </div>
-        </div>
-        <div class="clearfix re_user_rpl">
-          <p>{{content}}</p>
-          <button type="submit" class="btn btn-danger pull-right reply">답글</button>
-          <div class=" repl_form">
-            <form role="form repl_form">
-              <fieldset>
-                <div class="form-group">
-                  <textarea class="form-control re_reply" rows="3" placeholder="댓글을 입력해주세요."></textarea>
-                </div>
-                <div class="form-group clearfix">
-                  <button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <div class="reply_div">
-        </div>
-      </div>
-    </li>
-  </script>
-  <!-- 대댓글 템플릿 -->
-  <script id="rereply_tmpl" type="text/x-handlebars-template">
-    <div class="media">
-      <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/{{imgurl}}"
-          width="60" height="60" alt="Generic placeholder image"> </a>
-      <div class="media-body">
-        <div class="clearfix">
-          <h4 class="media-heading pull-left re_user_name">{{id}} <small>{{time}}</small></h4>
-          <div class="pull-right">
-            <a class="re_remove" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
-          </div>
-        </div>
-        <div class="clearfix re_user_rpl">
-          <p>{{content}}</p>
-        </div>
-      </div>
-    </div>
-  </script>
-  <!-- 상품 리스트 템플릿 -->
-  <script id="item_tmpl" type="text/x-handlebars-template">
-      {{#each item}}
-      <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-                <a href="{{href}}">
-                    <div class="sorting thumbnail">
-                        <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
-                        <div class="caption">
-                            <h5>{{title}}</h5>
-                            <h4>{{price}}원</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-      {{/each}}
-    </script>
+  	<!-- jQeury Ajax Form plugin CDN -->
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>	
   <script type="text/javascript">
     //캐러셀 플러그인
     var mySwiper = new Swiper('.swiper-container', {
@@ -397,59 +529,14 @@
     lightbox.option({
       albumLabel: ""
     });
-    //상품 리스트를 불러오는 함수
-    function get_list() {
-      $.get("${pageContext.request.contextPath}/assets/plugins/ajax/item_01.json", function (req) {
-        // 미리 준비한 HTML틀을 읽어온다.
-        var template = Handlebars.compile($("#item_tmpl").html());
-        // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-        var html = template(req);
-        // #dept_list_body 읽어온 내용을 추가한다.
-        $("#center").html(html);
-      });
-    }
-    //현재 시간을 담는 함수
-    function get_time() {
-      var today = new Date();
-
-      var yy = String(today.getFullYear());
-      var mm = String(today.getMonth() + 1);
-      var dd = String(today.getDate());
-      var hh = String(today.getHours());
-      var mi = String(today.getMinutes());
-      var ss = String(today.getSeconds());
-      if (mm.length == 1) {
-        mm = "0" + mm;
-      }
-      if (dd.length == 1) {
-        dd = "0" + dd;
-      }
-      if (hh.length == 1) {
-        hh = "0" + hh;
-      }
-      if (mi.length == 1) {
-        mi = "0" + mi;
-      }
-      if (ss.length == 1) {
-        ss = "0" + ss;
-      }
-      var now = yy + "." + mm + "." + dd + " " + hh + ":" + mi + ":" + ss;
-      return now;
-    }
-
-
-    //현재 접속한 사람의 정보가 담긴 데이터
-    var re_content = {
-      imgurl: "img/user_jordan.jpg",
-      id: "마이클조단",
-      time: "",
-      content: ""
-    };
-
     $(function () {
-      get_list();
       /** 신고하기 링크를 클릭한 경우 */
       $("#flag_this").click(function (e) {
+    	  var myNum = '<%=session.getAttribute("myNum")%>';
+    	  if(myNum=="null"){
+    		  alert("신고하기는 로그인 후 가능합니다.")
+    		  return false;
+    	  }
         e.preventDefault();
         var user = $(".item_title>h3").html();
         $("#singo_name").html(user);
@@ -459,53 +546,80 @@
       $("#singo_cancle").click(function (e) {
         $("#background").fadeOut(300);
         $("#singo").fadeOut(200);
-        $("#singo_input").val('');
-        $("#singo_category> option:eq(0)").prop('selected', true);
+        $("#singo_content").val('');
+        $("#singo_type > option:eq(0)").prop('selected', true);
       });
-      $("#singo_ok").click(function (e) {
-        swal("신고가 접수되었습니다.");
-        $("#background").fadeOut(300);
-        $("#singo").fadeOut(200);
-        $("#singo_category> option:eq(0)").prop('selected', true);
-        $("#singo_input").val('');
-      });
+      
+      /**신고하기 구현 */
+      $("#sendsingo").ajaxForm({
+                // 전송 메서드 지정
+                method: "POST",
+                // 서버에서 200 응답을 전달한 경우 실행됨
+                success: function(json) {
+                    console.log(json);
+                    if (json.rt == "OK") {
+                 	   alert("신고가 접수되었습니다.");
+                        $("#background").fadeOut(300);
+                        $("#singo").fadeOut(200);
+                        $("#singo_type > option:eq(0)").prop('selected', true);
+                        $("#singo_content").val(''); 
+                    }
+                }
+            });
+
 
       /** 탭 버튼의 클릭 처리 */
       $(".tab-button-item-link").click(function (e) {
-        e.preventDefault();
-
         $(".tab-button-item-link").not(this).removeClass("selected");
-
         $(this).addClass("selected");
-
         var target = $(this).attr('href');
         $(target).removeClass('hide');
         $(".tab-panel > div").not($(target)).addClass('hide');
 
-        $.get("${pageContext.request.contextPath}/assets/plugins/ajax/item_01.json", function (req) {
-          var template = Handlebars.compile($("#item_tmpl").html());
-          var html = template(req);
-          $("#others").html(html);
-        });
-
       });
 
       //찜하기 버튼 누를 시 하트버튼 토글
-      $(".zzim>a").click(function (e) {
+      $("#like").click(function (e) {
         e.preventDefault();
+        var myNum = '<%=session.getAttribute("myNum")%>';
+  	  if(myNum=="null"){
+  		  alert("찜하기는 로그인 후 가능합니다.")
+  		  return false;
+  	  }
         var heart = $(this).find("i").hasClass("glyphicon-heart");
+        var prodno = $(this).data("prodno");
+        var membno = $(this).data("membno");
+        
         if (heart) {
-          $(this).find("i").removeClass("glyphicon-heart").addClass("glyphicon-heart-empty");
+        	//삭제
+        	$.delete("${pageContext.request.contextPath}/membprod_delete",{
+          	 "prodno": prodno,
+          	 "membno": membno
+            }, function(json){
+          	  if(json.rt=="OK"){
+          		var count = json.item.length;
+          		$("#countzzim").html(count);
+          	  }
+        });
+        	$(this).find("i").removeClass("glyphicon-heart").addClass("glyphicon-heart-empty");
         } else {
-          $(this).find("i").removeClass("glyphicon-heart-empty").addClass("glyphicon-heart");
+        	//등록
+        	$.post("${pageContext.request.contextPath}/membprod_add",{
+        		"prodno": prodno,
+             	"membno": membno
+            }, function(json){
+          	  if(json.rt=="OK"){
+          		var count = json.item.length;
+          		$("#countzzim").html(count);
+          	  }
+        });
+        	$(this).find("i").removeClass("glyphicon-heart-empty").addClass("glyphicon-heart");
         }
       });
 
       /** 직거래 버튼 클릭한 경우  쪽지를 보내는 모달창이 열린다.*/
       $("#dir_trade").click(function (e) {
         e.preventDefault();
-        var user = $("#user_id>a").html();
-        $("#to_user").html(user);
         $("#background").fadeIn(300);
         $("#front").fadeIn(200);
 
@@ -515,111 +629,165 @@
         $("#background").fadeOut(300);
         $("#front").fadeOut(200);
       });
-      $("#send_ok").click(function (e) {
-        var input = $("#send_input").val();
-      if (!input || input.trim() == "") {
-        alert("쪽지 내용을 작성해 주세요.");
-        $("#send_input").val('');
-        $("#send_input").focus();
-        return false;
-      }
-        $("#send_input").val('');
-        $("#background").fadeOut(300);
-        $("#front").fadeOut(200);
-        swal({
-          title: '쪽지를 보냈습니다.',
-          text: "쪽지함으로 이동하시겠습니까?",
-          confirmButtonText: '쪽지함으로 이동',
-          showCancelButton: true,
-          cancelButtonText: '이 페이지 계속 보기',
-        }).then(function (result) {
-          if (result.value) {
-            window.open("${pageContext.request.contextPath}/user/msgbox.cider", "_self");
-          } else if (result.dismiss === 'cancel') {
-          }
-        });
+      
+      /**쪽지 보내기 구현 */
+      $("#sendmsg").submit(function(e) {
+                e.preventDefault();
+              const form = $(this);
+              const url = form.attr('action');
+              
+              $.ajax({
+                  type: "POST",
+                  url: url,
+                  data: form.serialize(),
+                  success: function(json) {
+                   console.log(json);
+                   // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                   if (json.rt == "OK") {
+                	   if(confirm("쪽지를 보냈습니다. 쪽지함으로 이동하시겠습니까?")){
+                		   window.location="${pageContext.request.contextPath}/msgbox/sender.cider";
+                	   }
+                	   
+                       $("#send_input").val('');
+                       $("#background").fadeOut(300);
+                       $("#front").fadeOut(200);  
+                   }
+                }
+                });
       });
+        
       // 바로 결제 누를때 주문서 화면으로 이동
       $("#dir_pay").click(function (e) {
         e.preventDefault();
         window.open("${pageContext.request.contextPath}/user/order_sheet.cider", "_self");
       });
 
-      // 답글 달기
-      $("#reply_submit").click(function (e) {
-        e.preventDefault();
-        var input = $("#content").val();
-        if (!input || input.trim() == "") {
-          swal("댓글 내용을 작성해 주세요.");
-          $("#content").val("");
-          $("#content").focus();
-          return false;
-        }
-        re_content.content = input;
-        swal({
-          title: '댓글을 등록하시겠습니까?',
-          text: re_content.content,
-          confirmButtonText: '등록',
-          showCancelButton: true,
-          cancelButtonText: '취소',
-        }).then(function (result) {
-          if (result.value) {
-            re_content.time = get_time();
-
-            var template = Handlebars.compile($("#reply_tmpl").html());
-            var html = template(re_content);
-            $("#reply_box").append(html);
-            $("#content").val('');
-            //댓글 개수를 다시 세어 표시
-            var re_count = $("#reply_box>li").length;
-            $("#reply_count").html(re_count);
-          } else if (result.dismiss === 'cancel') {
-          }
+      // 댓글달기 구현
+      $("#send_reply").submit(function(e) {
+       	  e.preventDefault();
+          var myNum = '<%=session.getAttribute("myNum")%>';
+      	  if(myNum=="null"){
+      		  alert("댓글 작성은 로그인 후 가능합니다.")
+      		  return false;
+      	  }
+       	 var input = $("#content").val();
+         if (!input || input.trim() == "") {
+           alert("댓글 내용을 작성해 주세요.");
+           $("#content").val("");
+           $("#content").focus();
+           return false;
+         }
+         
+         if(confirm("댓글을 등록하시겠습니까?")){
+        	 /** Ajax 호출 */
+             const form = $(this);
+             const url = form.attr('action');
+             
+             $.ajax({
+                 type: "POST",
+                 url: url,
+                 data: form.serialize(),
+                 success: function(json) {
+       				console.log(json);
+       				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+       				if (json.rt == "OK") {
+       					location.reload();
+       				}
+       			}
+               });
+         }
+          
+          
         });
-
+      
+   // 댓글달기 구현
+      $(".send_rereply").submit(function(e) {
+       	  e.preventDefault();
+          var myNum = '<%=session.getAttribute("myNum")%>';
+      	  if(myNum=="null"){
+      		  alert("댓글 작성은 로그인 후 가능합니다.")
+      		  return false;
+      	  }
+       	 var input = $(this).find(".rereply_content").val();
+         if (!input || input.trim() == "") {
+           alert("댓글 내용을 작성해 주세요.");
+           $(this).find(".rereply_content").val("");
+           $(this).find(".rereply_content").focus();
+           return false;
+         }
+         
+         if(confirm("댓글을 등록하시겠습니까?")){
+        	 /** Ajax 호출 */
+             const form = $(this);
+             const url = form.attr('action');
+             
+             $.ajax({
+                 type: "POST",
+                 url: url,
+                 data: form.serialize(),
+                 success: function(json) {
+       				console.log(json);
+       				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+       				if (json.rt == "OK") {
+       					location.reload();
+       				}
+       			}
+               });
+         }
+          
+          
+        });
+      
+      /** 댓글삭제 구현 */
+      $(".re_remove").click(function (e) { 		//삭제 버튼을 눌렀을때
+        e.preventDefault();
+        let target = $(this);					//이벤트가 발생한 객체 자신
+        let replyno = target.data("replyno");		//data-msgno값을 가져옴
+        
+        //삭제 확인
+        if(!confirm("댓글를 삭제하시겠습니까?")){
+      	  return false;
+        }
+        
+        $.put("${pageContext.request.contextPath}/reply_delete",{
+          	 "replyno": replyno
+            }, function(json){
+          	  if(json.rt=="OK"){
+          		alert("삭제가 완료되었습니다.");
+          		//삭제 완료 후 목록 페이지로 이동
+          		location.reload();
+          	  }
+        });
       });
+      
+      /** 대댓글삭제 구현 */
+      $(".rere_remove").click(function (e) { 		//삭제 버튼을 눌렀을때
+        e.preventDefault();
+        let target = $(this);					//이벤트가 발생한 객체 자신
+        let rereplyno = target.data("rereplyno");		//data-msgno값을 가져옴
+        
+        //삭제 확인
+        if(!confirm("댓글를 삭제하시겠습니까?")){
+      	  return false;
+        }
+        
+        $.delete("${pageContext.request.contextPath}/rereply_delete",{
+          	 "rereplyno": rereplyno
+            }, function(json){
+          	  if(json.rt=="OK"){
+          		alert("삭제가 완료되었습니다.");
+          		//삭제 완료 후 목록 페이지로 이동
+          		location.reload();
+          	  }
+        });
+      });
+   
     }); //온로드 제이쿼리 끝
+    
     //답글 버튼 클릭시 입력창 토글
     $(document).on('click', '.reply', function (e) {
       e.preventDefault();
       $(this).next().slideToggle(300);
-    });
-    //대댓글 달기
-    $(document).on('click', '.reply_submit1', function (e) {
-      e.preventDefault();
-      var input = $(this).parent().prev().find(".re_reply").val();
-      if (!input || input.trim() == "") {
-        swal("댓글 내용을 작성해 주세요.");
-        $(this).parent().prev().find(".re_reply").val("");
-        $(this).parent().prev().find(".re_reply").focus();
-        return false;
-      }
-      re_content.content = input;
-      var is_ok = confirm("댓글을 등록하시겠습니까?");
-      if (is_ok) {
-        re_content.time = get_time();
-        var template = Handlebars.compile($("#rereply_tmpl").html());
-        var html = template(re_content);
-        $(this).parents(".re_user_rpl").next().append(html);
-        $(this).parent().prev().find(".re_reply").val('');
-      } else {
-        $(this).parent().prev().find(".re_reply").val('');
-      }
-
-
-    });
-    // 댓글 삭제
-    $(document).on('click', '.re_remove', function (e) {
-      e.preventDefault();
-      var is_ok = confirm("댓글을 삭제하시겠습니까?");
-      if (is_ok) {
-        $(this).parent().parent().parent().parent().remove();
-        //댓글 개수를 다시 세어 표시
-        var re_count = $("#reply_box>li").length;
-        $("#reply_count").html(re_count);
-      } else {
-
-      }
     });
   </script>
 </body>

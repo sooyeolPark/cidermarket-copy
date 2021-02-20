@@ -14,15 +14,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Hashtag;
+import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.model.Membprod;
+import study.shop.cidermarket.model.Msgbox;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.model.Record;
+import study.shop.cidermarket.model.Reply;
+import study.shop.cidermarket.model.Rereply;
+import study.shop.cidermarket.model.Singo;
 import study.shop.cidermarket.service.FilesService;
 import study.shop.cidermarket.service.HashtagService;
+import study.shop.cidermarket.service.ItemIndexService;
 import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
@@ -187,5 +195,430 @@ public class ItemRestController2 {
 	      return webHelper.getJsonData(data);
 	   }
 	
-	
+	   /** ============================================================================================= */
+	   
+	   /** Service 패턴 구현체 주입 */
+	   @Autowired
+	   @Qualifier("itemindexService")
+	   ItemIndexService itemindexService;
+	   //
+	   /** 목록 페이지 */
+	   @RequestMapping(value="/item_index/{prodno}", method=RequestMethod.GET)
+	   public Map<String, Object> get_index(@PathVariable("prodno") int prodno) {
+	      
+		   /** 1) 유효성 검사 */
+	       // 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+	       if (prodno == 0) {
+	    	   return webHelper.getJsonWarning("상품번호가 없습니다.");
+	       }
+	       
+	       /** 2) 데이터 조회하기 */
+	       
+	       //이미지 파일 경로 불러오기
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Files input_01 = new Files();
+	       input_01.setRefid(prodno);
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Files> output_01 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_01 = itemindexService.getFilesListItem(input_01);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 상품정보 불러오기
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Product input_02 = new Product();
+	       input_02.setProdno(prodno);
+
+	       // 조회결과를 저장할 객체 선언
+	       Product output_02 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_02 = itemindexService.getProductItem(input_02);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 상품 개수
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Product input_03 = new Product();
+	       input_03.setSeller(output_02.getSeller());
+
+	       // 조회결과를 저장할 객체 선언
+	       int output_03 = 0;
+
+	       try {
+	           // 데이터 조회
+	           output_03 = itemindexService.getProductCount(input_03);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 판매자 정보 획득
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Member input_04 = new Member();
+	       input_04.setMembno(output_02.getSeller());
+
+	       // 조회결과를 저장할 객체 선언
+	       Member output_04 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_04 = itemindexService.getSellerItem(input_04);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 판매자의 거래 성공 수 
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Record input_05 = new Record();
+	       input_05.setBuyer(output_02.getSeller());
+
+	       // 조회결과를 저장할 객체 선언
+	       int output_05 = 0;
+
+	       try {
+	           // 데이터 조회
+	           output_05 = itemindexService.getTradeCount(input_05);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 댓글 리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Reply input_06 = new Reply();
+	       input_06.setProdno(prodno);
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Reply> output_06 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_06 = itemindexService.getReplyList(input_06);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 댓글 리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Rereply input_07 = new Rereply();
+	       input_07.setProdno(prodno);
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Rereply> output_07 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_07 = itemindexService.getRereplyList(input_07);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 찜리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Membprod input_08 = new Membprod();
+	       input_08.setProdno(prodno);
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Membprod> output_08 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_08 = itemindexService.getMembprodList(input_08);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 카테고리별 아이템 리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Product input_09 = new Product();
+	       input_09.setCateno(output_02.getCateno());
+	       input_09.setProdno(output_02.getProdno());
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Product> output_09 = null;
+	       
+	       // 4개 뽑아오게 변수 설정
+	       Product.setOffset(0);
+	       Product.setListCount(4);
+	       try {
+	           // 데이터 조회
+	           output_09 = itemindexService.getProductListByCategory(input_09);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 판매자의 아이템 리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Product input_10 = new Product();
+	       input_10.setSeller(output_02.getSeller());
+	       input_10.setProdno(output_02.getProdno());
+	       
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Product> output_10 = null;
+	       
+	       // 4개 뽑아오게 변수 설정
+	       Product.setOffset(0);
+	       Product.setListCount(4);
+	       try {
+	           // 데이터 조회
+	           output_10 = itemindexService.getProductListByMember(input_10);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	       // 해쉬태그 리스트
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Hashtag input_11 = new Hashtag();
+	       input_11.setProdno(output_02.getProdno());
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Hashtag> output_11 = null;
+	       try {
+	           // 데이터 조회
+	           output_11 = itemindexService.getHashtagList(input_11);
+	       } catch (Exception e) {
+	    	   return webHelper.getJsonError(e.getLocalizedMessage());
+	       }
+	       
+	        /** 2) JSON 출력하기 */
+	        Map<String, Object> data = new HashMap<String, Object>();
+	       
+	       data.put("fileimages", output_01);
+	       data.put("product", output_02);
+	       data.put("productcount", output_03);
+	       data.put("seller", output_04);
+	       data.put("sellercount", output_05);
+	       data.put("reply", output_06);
+	       data.put("rereply", output_07);
+	       data.put("membprod", output_08);
+	       data.put("itemlistcategory", output_09);
+	       data.put("itemlistseller", output_10);
+	       data.put("hashtag", output_11);
+	       
+	       return webHelper.getJsonData(data);
+		
+	   }
+	   
+	// 신고 작성 폼에 대한 action page
+	   @RequestMapping(value="/admin/singo", method=RequestMethod.POST)
+	   public Map<String, Object> singo(
+			   	@RequestParam(value="singo_type", defaultValue="") String type,
+		        @RequestParam(value="singo_content", defaultValue="0") String content,
+		        @RequestParam(value="singo_sender", defaultValue="0") int writer,
+		        @RequestParam(value="singo_prodno", defaultValue="") int prodno) {
+		      
+		      /** 1) 사용자가 입력한 파라미터 유효성 검사 */
+		      if (!regexHelper.isValue(content))   { return webHelper.getJsonWarning("내용을 입력하세요."); }
+		      
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Singo input = new Singo();
+		        input.setType(type);
+		        input.setContent(content);
+		        input.setMembno(writer);
+		        input.setProdno(prodno);
+		       
+		        try {
+		         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+		           itemindexService.addSingo(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+		      return webHelper.getJsonData();
+		   }
+	   
+		// 댓글 작성 폼에 대한 action page
+	   @RequestMapping(value="/reply", method=RequestMethod.POST)
+	   public Map<String, Object> add_reply(
+		        @RequestParam(value="reply_content", defaultValue="") String content,
+		        @RequestParam(value="reply_writer", defaultValue="0") int writer,
+		        @RequestParam(value="reply_prodno", defaultValue="0") int prodno) {
+		      
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Reply input = new Reply();
+		        input.setContent(content);
+		        input.setWriter(writer);
+		        input.setProdno(prodno);
+		       
+		        try {
+		         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+		           itemindexService.addReply(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+		      return webHelper.getJsonData();
+		   }
+	   
+		// 대댓글 작성 폼에 대한 action page
+	   @RequestMapping(value="/rereply", method=RequestMethod.POST)
+	   public Map<String, Object> add_rereply(
+		        @RequestParam(value="rereply_content", defaultValue="") String content,
+		        @RequestParam(value="rereply_replyno", defaultValue="0") int replyno,
+		        @RequestParam(value="rereply_writer", defaultValue="0") int writer,
+		        @RequestParam(value="rereply_prodno", defaultValue="0") int prodno) {
+		    
+		      
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Rereply input = new Rereply();
+		        input.setContent(content);
+		        input.setReplyno(replyno);
+		        input.setWriter(writer);
+		        input.setProdno(prodno);
+		       
+		        try {
+		         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+		           itemindexService.addRereply(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+		      return webHelper.getJsonData();
+		   }
+	   
+	// 댓글 삭제 (사실은 수정) 폼에 대한 action page
+	   @RequestMapping(value="/reply_delete", method=RequestMethod.PUT)
+	   public Map<String, Object> edit_reply(
+		        @RequestParam(value="replyno", defaultValue="0") int replyno) {
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Reply input = new Reply();
+		        input.setReplyno(replyno);
+		        
+		       
+		        try {
+		         // 데이터 수정.
+		           itemindexService.editReply(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+		      return webHelper.getJsonData();
+		   }
+	   
+		// 대댓글 삭제 폼에 대한 action page
+	   @RequestMapping(value="/rereply_delete", method=RequestMethod.DELETE)
+	   public Map<String, Object> delete_rereply(
+		        @RequestParam(value="rereplyno", defaultValue="0") int rereplyno) {
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Rereply input = new Rereply();
+		        input.setRereplyno(rereplyno);
+		        
+		       
+		        try {
+		         // 데이터 수정.
+		           itemindexService.deleteRereply(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+		      return webHelper.getJsonData();
+		   }
+
+		// 찜하기 등록 폼에 대한 action page
+	   @RequestMapping(value="/membprod_add", method=RequestMethod.POST)
+	   public Map<String, Object> add_membprod(
+		        @RequestParam(value="prodno", defaultValue="0") int prodno,
+		        @RequestParam(value="membno", defaultValue="0") int membno) {
+		      
+		      /** 1) 사용자가 입력한 파라미터 유효성 검사 */
+		      if (prodno==0)   { return webHelper.getJsonWarning("상품 번호 없음"); }
+		      if (membno==0)   { return webHelper.getJsonWarning("멤버 번호 없음"); }
+		      
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Membprod input = new Membprod();
+		        input.setProdno(prodno);
+		        input.setMembno(membno);
+		       
+		        try {
+		         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+		           itemindexService.addMembprod(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		       
+		        Membprod input_01 = new Membprod();
+		        input_01.setProdno(prodno);
+
+			    // 조회결과를 저장할 객체 선언
+			    List<Membprod> output = null;
+			    try {
+			  	   // 데이터 조회
+			        output = itemindexService.getMembprodList(input_01);
+			    } catch (Exception e) {
+			    	return webHelper.getJsonError(e.getLocalizedMessage());
+			    }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+			    Map<String, Object> data = new HashMap<String, Object>();
+			       
+			       data.put("item", output);
+			       return webHelper.getJsonData(data);
+		   }
+	   
+		// 찜하기 삭제 폼에 대한 action page
+	   @RequestMapping(value="/membprod_delete", method=RequestMethod.DELETE)
+	   public Map<String, Object> delete_rereply(
+			   	@RequestParam(value="prodno", defaultValue="0") int prodno,
+		        @RequestParam(value="membno", defaultValue="0") int membno) {
+		   
+		   /** 1) 사용자가 입력한 파라미터 유효성 검사 */
+		      if (prodno==0)   { return webHelper.getJsonWarning("상품 번호 없음"); }
+		      if (membno==0)   { return webHelper.getJsonWarning("멤버 번호 없음"); }
+		      
+		      /** 2) 데이터 저장하기 */
+		        // 저장할 값들을 Beans에 담는다.
+		        Membprod input = new Membprod();
+		        input.setProdno(prodno);
+		        input.setMembno(membno);
+		       
+		        try {
+		         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+		           itemindexService.deleteMembprod(input);
+
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		        
+		        Membprod input_01 = new Membprod();
+		        input_01.setProdno(prodno);
+
+			    // 조회결과를 저장할 객체 선언
+			    List<Membprod> output = null;
+			    try {
+			  	   // 데이터 조회
+			        output = itemindexService.getMembprodList(input_01);
+			    } catch (Exception e) {
+			    	return webHelper.getJsonError(e.getLocalizedMessage());
+			    }
+		        
+		      /** 3) 결과를 확인하기 위한 JSON 출력 */
+			    Map<String, Object> data = new HashMap<String, Object>();
+			       
+			       data.put("item", output);
+			       return webHelper.getJsonData(data);
+		   }
 }

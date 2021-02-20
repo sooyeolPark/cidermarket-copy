@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
@@ -22,6 +23,7 @@ import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.service.BbsService;
 import study.shop.cidermarket.service.FilesService;
 
+@Slf4j
 @RestController
 public class NoticeRestController {
    /** WebHelper 주입 */
@@ -256,7 +258,8 @@ public class NoticeRestController {
    public Map<String, Object> PUT(
          @RequestParam(value="bbsno", defaultValue="0") int bbsno,
          @RequestParam(value="title", defaultValue="") String title,
-         @RequestParam(value="content", defaultValue="") String content) {
+         @RequestParam(value="content", defaultValue="") String content,
+         @RequestParam(required=false) MultipartFile photo) {
       
       /** 1) 사용자가 입력한 파라미터 유효성 검사 */
       if (bbsno == 0)                  { return webHelper.getJsonWarning("글번호가 없습니다."); }
@@ -270,18 +273,48 @@ public class NoticeRestController {
         input.setBbsno(bbsno);
         input.setTitle(title);
         input.setContent(content);
-        
+        log.debug("----" +bbsno+"   " + title);
         
         // 저장된 결과를 조회하기 위한 객체
         Bbs output = null;
-        
+        Files f = new Files();
+		f.setRefid(bbsno);
+		f.setReftable("bbs");
         
         try {
-         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
-           bbsNoticeService.editBbs(input);
-           
-           // 데이터 조회
-           output = bbsNoticeService.getBbsItem(input);
+        	filesBbsService.deleteFiles(f); // 데이터 삭제
+            // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+            bbsNoticeService.editBbs(input);
+            
+            output = bbsNoticeService.getBbsItem(input);
+            
+            // 파일 업로드
+            f = webHelper.saveMultipartFile(photo);
+            f.setFname("bbs"+output.getBbsno());
+            f.setReftable("bbs");
+            f.setRefid(output.getBbsno());
+            
+            /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
+            if (f != null && f.getType().indexOf("image") > -1) {
+                // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
+                String thumbnailPath = null;
+
+                try {
+                    thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 100, 100, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
+                }
+
+                // 썸네일 경로를 URL로 변환
+                String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
+                // 리턴할 객체에 썸네일 정보 추가
+                f.setThumbnailPath(thumbnailPath);
+                f.setThumbnailUrl(thumbnailUrl);
+            }
+
+            filesBbsService.addFiles(f);
+            f = filesBbsService.getFilesItem(f);
       } catch (Exception e) {
          return webHelper.getJsonError(e.getLocalizedMessage());
       }
@@ -289,6 +322,7 @@ public class NoticeRestController {
       /** 3) 결과를 확인하기 위한 JSON 출력 */
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("item", output);
+      map.put("file", f);
       return webHelper.getJsonData(map);
    }
    
@@ -319,9 +353,14 @@ public class NoticeRestController {
 	        // 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 	        Bbs input = new Bbs();
 	        input.setBbsno(arr[i]);
+	        
+	        Files f = new Files();
+			f.setRefid(arr[i]);
+			f.setReftable("bbs");
 	
 	        try {
 	           bbsNoticeService.deleteBbs(input); // 데이터 삭제
+	           filesBbsService.deleteFiles(f); // 데이터 삭제
 	        } catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }
