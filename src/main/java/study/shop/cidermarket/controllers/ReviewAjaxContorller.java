@@ -1,11 +1,9 @@
 package study.shop.cidermarket.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.model.Review;
-import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
 
 @Controller
@@ -32,21 +28,18 @@ public class ReviewAjaxContorller {
    
    /** Service 패턴 구현체 주입 */
    @Autowired
-   @Qualifier("reviewService")
    ReviewService reviewService;   
    
-   @Autowired
-   @Qualifier("recordService")
-   RecordService recordService;
+   
    
    
    /** 목록 페이지 */
    @RequestMapping(value="/user/mystore_review.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
-		 // 검색어
-         @RequestParam(value="keyword", required=false) String keyword,
-         // 페이지 구현에서 사용할 현재 페이지 번호
-         @RequestParam(value="page", defaultValue="1") int nowPage) {
+		   // 검색어
+	         @RequestParam(value="keyword", required=false) String keyword,
+	         // 페이지 구현에서 사용할 현재 페이지 번호
+	         @RequestParam(value="page", defaultValue="1") int nowPage) {
 	      
 	   
 		/*
@@ -98,34 +91,6 @@ public class ReviewAjaxContorller {
       return new ModelAndView("user/mystore_review");
    }
  
-   
-   	/** 후기남기기 쓰기 페이지 */
-	//---------------------------------------------------------------------------------------------	
-	@RequestMapping(value = "/review_write.cider", method = RequestMethod.GET)
-	public ModelAndView get_item(Model model,
-			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="receiver", defaultValue="0") int receiver,
-			@RequestParam(value="prodno", defaultValue="0") int prodno) {
-		
-		/** 2) 데이터 조회하기 */
-		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-		Record input = new Record();
-	    input.setRecono(recono);
-	      
-		Record output = null;
-		
-		try {
-			// 데이터 조회하기
-			output = recordService.getRecordItem(input);
-		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-		
-		/** 3) JSON 출력하기 */
-		model.addAttribute("output", output);
-
-		return new ModelAndView("user/review_write");
-	}
   
   
    

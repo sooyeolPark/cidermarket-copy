@@ -38,11 +38,7 @@ public class MystoreController {
         return "user/mystore_myinfo";
     }
     
-    /** 내상점-나의등급 페이지 */
-    @RequestMapping(value="/user/mystore_mygrade.cider", method=RequestMethod.GET)
-    public String mystoreMygrade() {
-        return "user/mystore_mygrade";
-    }
+
     
     
 }

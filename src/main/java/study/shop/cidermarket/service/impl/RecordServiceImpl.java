@@ -119,6 +119,20 @@ public class RecordServiceImpl implements RecordService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int getRecordSellEndCountByMonth(Record input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("RecordMapper.selectSellEndCountByMonth", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	
 
 	@Override
 	public int addRecord(Record input) throws Exception {
@@ -246,5 +260,7 @@ public class RecordServiceImpl implements RecordService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
