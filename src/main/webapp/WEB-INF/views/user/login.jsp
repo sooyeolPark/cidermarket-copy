@@ -178,7 +178,7 @@
                 
                 // 로그인 상태유지
                 if ($("#idStateful").is(":checked") == true) { // 아이디 저장을 체크 하였을때
-					setCookie("idStateful", "true", 60*60*24);
+					setCookie("idStateful", "true", 2);
                 } else {
                 	setCookie("idStateful", "true", -1);
                 }

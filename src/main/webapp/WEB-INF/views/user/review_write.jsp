@@ -28,10 +28,10 @@
                     <div class="panel panel-default user-write">
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
-                          <a href="${pageContext.request.contextPath}/user/item_index.cider" class="clearfix">
-                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/${output.filepath}" alt=""></span>
-                            <span class="boardTitle">${output.subject }</span>
-                            <span class="boardDate">${output.price}원</span>
+                          <a href="${pageContext.request.contextPath}/item_index.cider?prodno=${output.prodno}" class="clearfix">
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/${output.filepath}" alt="${output.subject}"></span>
+                            <span class="boardTitle">${output.subject}</span>
+                            <span class="boardDate"><fmt:formatNumber value="${output.price}" pattern="#,###" />원</span>
                           </a>                            
                         </div>
                         <div class="panel-body">
@@ -47,7 +47,7 @@
                               <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점" data-star="4">
                               <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점" data-star="5">
                               <input type="hidden" id="rate" name="rate" value=""/>
-                              <input type="hidden" id="regdate" name="regdate" value="${output.regdate}"/>
+                              <input type="hidden" id="regdate" name="regdate" value="${output.confirmdate}"/>
                               <input type="hidden" id="prodno" name="prodno" value="${output.prodno }"/>
                               <input type="hidden" id="recono" name="recono" value="${output.recono }"/>
                               <input type="hidden" id="receiver" name="receiver" <c:if test="${myNum == output.seller}">value="${output.buyer}"</c:if><c:if test="${myNum == output.buyer}">value="${output.seller}"</c:if>/>

@@ -189,10 +189,11 @@
 	         	// Ajax 호출
                 $.ajax({
                     type: "GET",
-                    url: "${pageContext.request.contextPath}/review_write.cider",
+                    url: "${pageContext.request.contextPath}/record/sell/end/review",
                     data: {"receiver":receiver, "prodno":prodno, "recono":recono},
                     success: function(json) {
   	    				console.log(">>>>>>>>>>>>>>>>>>>>>>"+json);
+  	    				window.location = "${pageContext.request.contextPath}/review_write.cider?recono=" + json.item.recono;
   	    			}
                 });
                 

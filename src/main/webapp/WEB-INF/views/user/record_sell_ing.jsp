@@ -83,7 +83,7 @@
 							                            		</c:choose>
 															</c:when>
 															<c:otherwise>
-							                            		<button type="button" class="ing btn btn-primary recordJConfirm" data-prodno="${item.prodno}" data-seller="${item.seller}">구매자확정</button>
+							                            		<button type="button" data-toggle="modal" data-target="#myModal" class="ing btn btn-primary recordJConfirm" data-prodno="${item.prodno}" data-seller="${item.seller}">구매자확정</button>
 															</c:otherwise>
 														</c:choose>
 							                        </div>

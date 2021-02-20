@@ -98,35 +98,6 @@ public class ReviewRestController {
 	
 
 	
-	/** 후기남기기 쓰기 페이지 */
-	//---------------------------------------------------------------------------------------------	
-	@RequestMapping(value = "/review_write.cider", method = RequestMethod.POST)
-	public Map<String, Object> get_item(
-			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="receiver", defaultValue="0") int receiver,
-			@RequestParam(value="prodno", defaultValue="0") int prodno) {
-		
-		/** 2) 데이터 조회하기 */
-		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-		Record input = new Record();
-	    input.setRecono(recono);
-	      
-		Record output = null;
-	    
-		try {
-			// 데이터 조회하기
-			output = recordService.getRecordItem(input);
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-		
-		/** 3) JSON 출력하기 */
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("item", output);
-
-		return webHelper.getJsonData(data);
-	}
-
 
 		
 

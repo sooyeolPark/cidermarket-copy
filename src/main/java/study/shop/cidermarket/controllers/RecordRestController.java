@@ -182,8 +182,32 @@ public class RecordRestController {
         return webHelper.getJsonData();
 	}
 	
-	
-
+	/** 거래내역 판매 - 거래완료 - 후기남기기 버튼 클릭시 */
+	@RequestMapping(value="/record/sell/end/review", method=RequestMethod.GET)
+	public Map<String, Object> recordSellendReview(
+			@RequestParam(value="recono", defaultValue="0") int recono,
+			@RequestParam(value="buyer", defaultValue="0") int buyer,
+			@RequestParam(value="prodno", defaultValue="0") int prodno) {
+                
+        /** 가져온 값을 이용하여 거래내역 조회 */
+        Record input = new Record();
+        input.setRecono(recono);
+        input.setBuyer(buyer);
+        input.setProdno(prodno);
+        
+        Record output = null;
+        
+        try {
+        	output = recordService.getRecordItem(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+        
+        /** View 처리 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+        return webHelper.getJsonData(data);
+	}
     
     
 }
