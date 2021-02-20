@@ -76,17 +76,17 @@
 								                            </c:if>
 								                            <c:choose>
 									                            <c:when test="${item.revino == 0}">
-									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-receiver="${item.buyer}">후기 남기기</button>
+									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-prodno="${item.prodno}">후기 남기기</button>
 									                            </c:when>
 									                            <c:otherwise>
-										                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-receiver="${item.buyer}">후기 작성완료</button>
+										                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
 									                            </c:otherwise>
 								                            </c:choose>
 							                            </c:when>
 							                            <c:otherwise>
 							                            	<c:choose>
 																<c:when test="${item.revino == 0}">
-									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}">후기 남기기</button>
+									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-prodno="${item.prodno}">후기 남기기</button>
 									                            </c:when>
 									                            <c:otherwise>
 										                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
@@ -184,12 +184,13 @@
              	// data를 통해 거래 정보 가져오기
 	            let receiver = ts.data("receiver");
 	            let prodno = ts.data("prodno");
+	            let recono = ts.data("recono");
 	            
 	         	// Ajax 호출
                 $.ajax({
                     type: "GET",
                     url: "${pageContext.request.contextPath}/review_write.cider",
-                    data: {"receiver":receiver, "prodno":prodno},
+                    data: {"receiver":receiver, "prodno":prodno, "recono":recono},
                     success: function(json) {
   	    				console.log(">>>>>>>>>>>>>>>>>>>>>>"+json);
   	    			}
@@ -204,14 +205,14 @@
                 
              	// data를 통해 거래 정보 가져오기
 	            let receiver = ts.data("receiver");
-	            let prodno = ts.data("prodno");
+                let recono = ts.data("recono");
 	            let revino = ts.data("revino");
 	            
 	         	// Ajax 호출
                 $.ajax({
                     type: "GET",
                     url: "${pageContext.request.contextPath}/review_view.cider?revino="+revino,
-                    data: {"receiver":receiver, "prodno":prodno, "revino":revino},
+                    data: {"receiver":receiver, "recono":recono, "revino":revino},
                     success: function(json) {
   	    				console.log(">>>>>>>>>>"+json);
   	    			}

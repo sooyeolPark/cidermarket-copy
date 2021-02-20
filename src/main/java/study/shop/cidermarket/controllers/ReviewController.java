@@ -23,12 +23,6 @@ public class ReviewController {
     public String reviewView() {
         return "user/review_view";
     }
-   
-    /** 거래후기 쓰기 페이지 */
-    @RequestMapping(value="/review_write.cider", method=RequestMethod.GET)
-    public String reviewWrite() {
-        return "user/review_write";
-    }
-    
+       
     
 }
