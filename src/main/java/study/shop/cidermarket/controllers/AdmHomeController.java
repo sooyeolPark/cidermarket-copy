@@ -47,17 +47,9 @@ public class AdmHomeController {
         return "admin/member_adm";
     }
     
-    /** 관리자 공지사항 읽기 페이지 */
-    @RequestMapping(value="/admin/notice_read_adm.cider", method=RequestMethod.GET)
-    public String noticeReadAdm() {
-        return "admin/notice_read_adm";
-    }
+
     
-    /** 관리자 공지사항 쓰기 페이지 */
-    @RequestMapping(value="/admin/notice_write_adm.cider", method=RequestMethod.GET)
-    public String noticeWriteAdm() {
-        return "admin/notice_write_adm";
-    }
+
     
     /** 관리자 주문관리 페이지 */
     @RequestMapping(value="/admin/order_adm.cider", method=RequestMethod.GET)

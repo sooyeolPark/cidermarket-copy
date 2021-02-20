@@ -73,6 +73,7 @@
 	<bean id="SStoreMsgboxService" class="study.shop.cidermarket.service.impl.SStoreMsgboxServiceImpl" />
 	<bean id="QuestionService" class="study.shop.cidermarket.service.impl.QuestionServiceImpl" />
 	<bean id="reviewService" class="study.shop.cidermarket.service.impl.ReviewServiceImpl" />
+	<bean id="reviewWriteService" class="study.shop.cidermarket.service.impl.ReviewWriteImpl" />
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

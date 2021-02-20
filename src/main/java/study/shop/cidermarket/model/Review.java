@@ -20,8 +20,11 @@ public class Review {
 	private String name;
 	private String how;
 	private String subject;
-	private String buyer;
+	private int buyer;
 	private String reviewpic;
+	private int price;
+	private int seller;
+	private String nickname;
 	
 	
 
