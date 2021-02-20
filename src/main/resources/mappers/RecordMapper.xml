@@ -50,6 +50,19 @@
 		WHERE r.tradecon = 'W' AND p.seller=#{seller}
 	</select>
 	
+	<!-- 필요한부분                             -->
+	<select id="selectSellEndCountByMonth"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultType="int">
+		select month(confirmdate) as Month, count(recono)
+		from record r
+		inner join product p on r.prodno=p.prodno
+		 WHERE r.tradecon = 'W' AND p.seller=#{seller}
+		group by Month;
+		order by month desc;
+	</select>
+	
+	
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Record"

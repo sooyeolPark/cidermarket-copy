@@ -74,6 +74,7 @@
 	<bean id="SStoreMsgboxService" class="study.shop.cidermarket.service.impl.SStoreMsgboxServiceImpl" />
 	<bean id="QuestionService" class="study.shop.cidermarket.service.impl.QuestionServiceImpl" />
 	<bean id="reviewService" class="study.shop.cidermarket.service.impl.ReviewServiceImpl" />
+	<bean id="reviewWriteService" class="study.shop.cidermarket.service.impl.ReviewWriteImpl" />
 	
 	<bean id="recordService" class="study.shop.cidermarket.service.impl.RecordServiceImpl" />
 	<bean id="RecordMsgboxService" class="study.shop.cidermarket.service.impl.RecordMsgboxServiceImpl" />

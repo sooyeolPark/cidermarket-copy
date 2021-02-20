@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewWriteMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Review" id="ResultMap">
+		<result property="revino" column="revino" />
+		<result property="prodno" column="prodno" />
+		<result property="regdate" column="regdate" />
+		<result property="rate" column="rate" />
+		<result property="content" column="content" />
+		<result property="recono" column="recono" />
+		<result property="sender" column="sender" />
+		<result property="receiver" column="receiver" />
+		
+		
+		<result property="price" column="price" />
+		<result property="nickname" column="nickname" />
+		<result property="subject" column="subject" />
+		<result property="buyer" column="buyer" />
+		<result property="filepath" column="filepath" />
+		<result property="reviewpic" column="reviewpic" />
+		<result property="seller" column="seller" />
+
+
+	</resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultMap="ResultMap">
+SELECT 
+      p.prodno,p.subject,p.price, m.nickname, sender, receiver, DATE_FORMAT(now(), '%Y-%m-%d') AS regdate, r.recono, p.seller,rc.buyer,
+      (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=p.prodno AND reftable='product')) AS filepath
+      FROM review r
+      inner join member m On r.sender = m.membno
+      inner join record rc On r.recono = rc.recono
+      inner join product p On r.prodno = p.prodno
+
+      WHERE r.prodno=#{prodno} 
+	</select>
+
+
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Review"
+		useGeneratedKeys="true" keyProperty="revino">
+		INSERT INTO review (
+		prodno, regdate, rate, content,recono,sender,receiver
+		) VALUES (
+		#{prodno},#{regdate},#{rate},#{content},#{recono},#{sender},#{receiver}
+		)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Review">
+		DELETE FROM product WHERE prodno=#{prodno}
+	</delete>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="updateItem"
+		parameterType="study.shop.cidermarket.model.Review">
+		UPDATE student SET
+			cateno=#{cateno}, subject=#{subject}, price=#{price}, fee=#{fee}, 
+			detail=#{detail}, regdate=#{regdate}, prodcon=#{prodcon}, how=#{how}, tradecon=#{tradecon},
+			seller=#{seller}, hits=#{hits}, editdate=now()
+		WHERE prodno=#{prodno}
+	</update>
+
+	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectCountMemberItems"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultType="int">
+		SELECT COUNT(*) FROM product WHERE seller = #{seller} AND tradecon= "J"
+	</select>
+</mapper>

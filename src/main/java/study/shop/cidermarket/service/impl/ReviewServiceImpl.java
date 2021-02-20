@@ -73,7 +73,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public int addReview(Review input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.insert("ReviewMapper.insertItem", input);
+			result = sqlSession.insert("ReviewMapper.insertItemReview", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

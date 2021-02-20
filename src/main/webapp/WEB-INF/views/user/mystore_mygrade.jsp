@@ -113,13 +113,13 @@
               <td>판매</td>
               <td>0</td>
               <td>0</td>
-              <td>0</td>
+              <td>${output_sell}</td>
             </tr>
             <tr>
               <td>구매</td>
               <td>0</td>
               <td>0</td>
-              <td>0</td>
+              <td>${output_buy}</td>
             </tr>
           </table>
         </div>

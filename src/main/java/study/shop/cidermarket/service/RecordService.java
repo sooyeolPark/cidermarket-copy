@@ -76,6 +76,15 @@ public interface RecordService {
 	 * @return int
 	 * @throws Exception
 	 */
+	
+	public int getRecordSellEndCountByMonth(Record input) throws Exception;
+	
+	/**
+	 * 데이터 등록하기
+	 * @param Record 저장할 정보를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
 	public int addRecord(Record input) throws Exception;
 	
 	/**
