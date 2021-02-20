@@ -60,7 +60,7 @@
 	</div>
 </div>
 <!-- 사이드바 시작 -->
-<div class="aside" onload="categoryList()">
+<div class="aside">
 	<div class="aside-header">
 		<img src="${pageContext.request.contextPath}/assets/img/logo2.png" alt="로고" width="100%" />
 		<div>
@@ -85,7 +85,7 @@
 					<a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
 					<a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
 					<div class="btnn-temp">
-						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
+						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" target="_blank" class="btn btn-danger templogin">임시관리자</a>
 					</div>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
    		<c:otherwise>
 			<div class="btnn-login">
       			<a href="${pageContext.request.contextPath}/msgbox/receiver.cider" class="btn btn-info">쪽지함</a>
-      			<a href="${pageContext.request.contextPath}/user/record_sell.cider?selected=selling" class="btn btn-info">거래내역</a>
+      			<a href="${pageContext.request.contextPath}/member/record/selling.cider" class="btn btn-info">거래내역</a>
       			<a href="${pageContext.request.contextPath}/user/mystore.cider" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
 	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
@@ -166,27 +166,27 @@
 <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
 <!-- 사용자 정의 스크립트 -->
 <script type="text/javascript">
-//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
-function setCookie(name, value, expiredays) {
-    var todayDate = new Date();
-    todayDate.setDate(todayDate.getDate() + expiredays);
-    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
-}
-
-// 쿠키 불러오는 함수
-function getCookie(Name) { 
-    var search = Name + "=";
-    if (document.cookie.length > 0) { // if there are any cookies
-        offset = document.cookie.indexOf(search);
-        if (offset != -1) { // if cookie exists
-            offset += search.length; // set index of beginning of value
-            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
-            if (end == -1)
-                end = document.cookie.length;
-            return unescape(document.cookie.substring(offset, end));
-        }
-    }
-}
+	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+	function setCookie(name, value, expiredays) {
+	    var todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays);
+	    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	
+	// 쿠키 불러오는 함수
+	function getCookie(Name) { 
+	    var search = Name + "=";
+	    if (document.cookie.length > 0) { // if there are any cookies
+	        offset = document.cookie.indexOf(search);
+	        if (offset != -1) { // if cookie exists
+	            offset += search.length; // set index of beginning of value
+	            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+	            if (end == -1)
+	                end = document.cookie.length;
+	            return unescape(document.cookie.substring(offset, end));
+	        }
+	    }
+	}
 
 
 
@@ -208,7 +208,6 @@ function getCookie(Name) {
         url: "${pageContext.request.contextPath}/header",
         success: function(json) {
 				console.log(json);
-				alert("카테고리 로드 완료");
 				if (json.rt == "OK") {
 					var template = Handlebars.compile($("#category_tmpl").html());
 				    var html = template(json);
@@ -217,14 +216,14 @@ function getCookie(Name) {
 			}
       }); 
   }
-  
+  // 카테고리 호출
+  window.onload = categoryList;
   
 
   $(function () {
     get_key_list();
-	
-    /** Ajax 호출 */
     
+    /** Ajax 호출 */
     $(".logout").click(function(){
 	    $.ajax({
 	        type: "GET",

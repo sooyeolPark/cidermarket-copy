@@ -27,8 +27,6 @@
             <div class="col-lg-10">
 
                 <form class="form-horizontal" id="editForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice">
-      	        	<% /* action 페이지에서 사용할 WHERE 조건값을 hidden 필드로 숨겨서 전송한다. */ %>
-	   				<input type="hidden" name="bbsno" value="${output.bbsno}" />
                     <fieldset>
                         <!-- 입력양식 -->
                         <div class="form-group">
@@ -43,6 +41,8 @@
                         </div>
                         <!-- 입력양식 -->
                         <div class="form-group">
+                        	<% /* action 페이지에서 사용할 WHERE 조건값을 hidden 필드로 숨겨서 전송한다. */ %>
+	   						<input type="hidden" name="bbsno" value="${output.bbsno}" />
                             <label for="title" class="col-md-2 control-label">글 제목</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="title" id="title" value="${output.title}" />
@@ -55,10 +55,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="file" class="col-md-2 control-label">파일첨부</label>
+                            <label for="photo" class="col-md-2 control-label">이미지선택</label>
                             <div class="col-md-2">
       	 	                    ${output.filepath}
-                                <!-- <input type="file" id="file" name="file" accept="image/png, image/jpeg, image/gif"> -->
+                                <input type="file" id="photo" name="photo" accept="image/*">
                             </div>
                         </div>
                         <hr />
@@ -133,7 +133,7 @@
     			success: function(json) {
     				console.log(json);
     				
-    				var contents = CKEDITOR.instances.content.getData();
+    				//var contents = CKEDITOR.instances.content.getData();
     				
     				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
     				if (json.rt == "OK") {

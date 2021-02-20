@@ -15,22 +15,33 @@
 
 	<div class="body_height">
 		<div class="container">
-			<h4>마켓현황</h4>
-			<h5 id="today"></h5>
-			<h6 id="today-time"></h6>
+			<h4 class="market_title">마켓현황 <span id="today"></span> <span id="today-time"></span></h4>
+			
 			<ul class="home_ul text-center">
-				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/order_adm.cider">
-						<span>123,456건</span>
-					</a> <span>총 거래건수(일주일 기준)</span></li>
-				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/order_adm.cider">
-						<span>9,999,999원</span>
-					</a> <span>총 거래액(일주일 기준)</span></li>
-				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/product_adm.cider">
-						<span>123,456개</span>
-					</a> <span>상품등록수</span></li>
-				<li class="home_li"><a href="${pageContext.request.contextPath}/admin/member_adm.cider">
-						<span>23,456명</span>
-					</a> <span>전체 회원수</span></li>
+				<li class="home_li">
+					<h5>총 거래건수(일주일 기준)</h5>
+					<a href="${pageContext.request.contextPath}/admin/order_adm.cider">
+						<strong>123,456건</strong>
+					</a>
+				</li>
+				<li class="home_li">
+					<h5>총 거래액(일주일 기준)</h5>
+					<a href="${pageContext.request.contextPath}/admin/order_adm.cider">
+						<strong>9,999,999원</strong>
+					</a> 
+				</li>
+				<li class="home_li">
+					<h5>상품등록수</h5>
+					<a href="${pageContext.request.contextPath}/admin/product_adm.cider">
+						<strong>123,456개</strong>
+					</a> 
+				</li>
+				<li class="home_li">
+					<h5>전체 회원수</h5>
+					<a href="${pageContext.request.contextPath}/admin/member_adm.cider">
+						<strong>23,456명</strong>
+					</a> 
+				</li>
 			</ul>
 			<div id="chart">
 				<div id="transaction_qty" style="width: 500px; height: 400px;"></div>
@@ -121,7 +132,7 @@ function todayTime() {
     }
 
     today = yyyy + '-' + mm + '-' + dd;
-    todayTime = "("+hh+"시"+mi+"분"+"기준"+")" ;
+    todayTime = "("+hh+"시 "+mi+"분 "+"기준"+")" ;
     //alert(today);
     document.getElementById("today").innerHTML = today;
     document.getElementById("today-time").innerHTML = todayTime;

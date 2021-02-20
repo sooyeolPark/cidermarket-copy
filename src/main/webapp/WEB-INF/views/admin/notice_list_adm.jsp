@@ -75,7 +75,7 @@
                               <%-- 글 번호 --%>
                               <c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" />
                               
-                                <tr>
+                                <tr id="trRow">
                                     <td><input type="checkbox" class="board" name="chkRow" value="${item.bbsno}" /></td>
                                     <td class="text-center">${num}</td>
                                     <td class="text-center"><a href="${viewUrl}">${title}</a></td>
@@ -191,11 +191,11 @@
                 }
             });
 
-       // 전체선택
+       // 글 목록 체크박스 전체선택
         $("#all-check").change(function(){
             $(".board").prop('checked',$(this).prop('checked'));
         });
-
+       
       // --------------------------------------------추가기능-------------------------------------
 
        // 드롭다운의 변경이벤트
