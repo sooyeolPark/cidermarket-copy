@@ -44,7 +44,7 @@
          (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
          subject, price,prodno
       FROM product
-      
+
       order by regdate Desc
       
       <if test="listCount > 0">
@@ -122,7 +122,7 @@
          (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
          subject, price,prodno
       FROM product
-      WHERE cateno=#{cateno}
+      WHERE cateno=#{cateno} AND tradecon='J'
       <if test="prodno != null and prodno != ''">
       AND prodno!=#{prodno}
       </if>
@@ -141,7 +141,7 @@
          (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
          subject, price,prodno
       FROM product
-      WHERE seller=#{seller}
+      WHERE seller=#{seller} AND tradecon='J'
       <if test="prodno != null and prodno != ''">
       AND prodno!=#{prodno}
       </if>

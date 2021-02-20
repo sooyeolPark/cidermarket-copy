@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko">
 
@@ -21,17 +24,17 @@
             <div id="order_cont">
                 <div class="order_name">주문내용</div>
                 <div class="media clearfix">
-                    <a class="pull-left" href="#"> <img class="media-object" src="${pageContext.request.contextPath}/assets/img/item.png" width="80" height="80"
-                            alt="Generic placeholder image"> </a>
+                    <div class="pull-left"> <img class="media-object" src="${pageContext.request.contextPath}/assets/img${product.filepath}" width="80" height="80"
+                            alt="Generic placeholder image"> </div>
                     <div class="media-body">
                         <div class="clearfix">
-                            <h4 class="media-heading pull-left" id="item_name">디올 조던 265 거의 새상품 판매 합니다아아아아아아아아아이이이이아이이
+                            <h4 class="media-heading pull-left" id="item_name">${product.subject}
                             </h4>
                             <div class="pull-right">
                             </div>
                         </div>
                         <div class="clearfix" id="item_price">
-                            <p>1,000,000원</p>
+                            <p><fmt:formatNumber value="${product.price}" pattern="#,###" />원</p>
                         </div>
                     </div>
                 </div>
@@ -40,15 +43,15 @@
                 <div class="order_name">배송지</div>
                 <div class="row">
                     <div class="col-sm-2 ok_subject">이름</div>
-                    <div class="col-sm-10 ok_content">최대일</div>
+                    <div class="col-sm-10 ok_content">${record.name}</div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 ok_subject">연락처</div>
-                    <div class="col-sm-10 ok_content">01012345678</div>
+                    <div class="col-sm-10 ok_content">${record.tel}</div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 ok_subject">주소</div>
-                    <div class="col-sm-10 ok_content">서울특별시 서초구 서초대로 123 이젠학원</div>
+                    <div class="col-sm-10 ok_content">${record.address}</div>
                 </div>
             </div>
 
@@ -56,7 +59,16 @@
                 <div class="order_name">최종결제금액</div>
                 <div class="row">
                     <div class="col-sm-2 ok_subject">결제수단</div>
-                    <div class="col-sm-10 ok_content">무통장입금</div>
+                    <div class="col-sm-10 ok_content">
+                    <c:choose>
+                    	<c:when test="${record.pay=='C'}">
+                    		카드결제
+                    	</c:when>
+                    	<c:when test="${record.pay=='M'}">
+                    		무통장입금
+                    	</c:when>
+                    </c:choose>
+					</div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 ok_subject">입금정보</div>
@@ -66,7 +78,8 @@
                     <table>
                         <tr id="original-price">
                             <td class="price_cont">최종결제금액</td>
-                            <td class="price_won">1,003,000원</td>
+                            <c:set var="total" value="${product.price+product.fee}" />
+                            <td class="price_won"><fmt:formatNumber value="${total}" pattern="#,###" />원</td>
                         </tr>
                     </table>
                 </div>
@@ -97,7 +110,7 @@
         $(function () {
             $("#allow").click(function (e) {
                 e.preventDefault();
-                window.open("${pageContext.request.contextPath}", "_self");
+                window.location="${pageContext.request.contextPath}";
             });
         });
     </script>

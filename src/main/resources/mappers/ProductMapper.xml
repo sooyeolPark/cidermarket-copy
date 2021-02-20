@@ -99,7 +99,7 @@
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Product">
-		UPDATE student SET
+		UPDATE product SET
 			cateno=#{cateno}, subject=#{subject}, price=#{price}, fee=#{fee}, 
 			detail=#{detail}, regdate=#{regdate}, prodcon=#{prodcon}, how=#{how}, tradecon=#{tradecon},
 			seller=#{seller}, hits=#{hits}, editdate=now()
@@ -112,4 +112,12 @@
 		resultType="int">
 		SELECT COUNT(*) FROM product WHERE seller = #{seller} AND tradecon= "J"
 	</select>
+	
+	<!-- 주문 완료했을때 판매 완료로 바꿔주는 기능 위한 기능 정의 -->
+	<update id="orderOkItem"
+		parameterType="study.shop.cidermarket.model.Product">
+		UPDATE product SET
+			 tradecon= 'W'
+		WHERE prodno=#{prodno}
+	</update>
 </mapper>

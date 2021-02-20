@@ -69,13 +69,15 @@ public class ItemRestController2 {
 			   @RequestParam(value="item_prodcon", defaultValue="") String item_prodcon,
 			   @RequestParam(value="item_price", defaultValue="0") int item_price,
 			   @RequestParam(value="optionsRadios", defaultValue="") String item_how,
+			   @RequestParam(value="seller", defaultValue="0") int seller,
 			   @RequestParam(value="item_delfee", defaultValue="0") int item_delfee) {
 		
 		   /** 1) 유효성 검사 */
 			// 일반 문자열 입력 칼럽 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈문자열로 처리된다.
 			if(!regexHelper.isValue(item_subject))	{return webHelper.getJsonWarning("상품 제목을 입력하세요.");}
 			if(!regexHelper.isValue(item_content))	{return webHelper.getJsonWarning("상품 상세설명을 입력하세요.");}
-			if(item_category==0)	{return webHelper.getJsonWarning("카테고리 분류를 선택해주세요");}
+			if(item_category==0)	{return webHelper.getJsonWarning("카테고리 분류를 선택해주세요.");}
+			if(seller==0)	{return webHelper.getJsonWarning("로그인을 해주세요.");}
 			if(image0==null && image1==null && image2==null && image3==null && image4==null && 
 					image5==null && image6==null && image7==null) {
 				return webHelper.getJsonWarning("사진은 최소 1장 이상 등록해주세요.");
@@ -93,7 +95,7 @@ public class ItemRestController2 {
 	      input.setDetail(item_content);
 	      input.setProdcon(item_prodcon);
 	      input.setHow(item_how);
-	      input.setSeller(3);		//세션 구현한 뒤 추가
+	      input.setSeller(seller);
 	  	      
 	      // 조회 결과를 저장할 객체 선언
 	      Product output = null;

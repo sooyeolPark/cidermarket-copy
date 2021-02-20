@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko">
 
@@ -13,7 +16,7 @@
 	<!-- 화면에 표시될 원본 보기 영역 - 기본적으로 숨겨진 상태이다. -->
 	<div class='gray_layer' id='background'></div>
 	<div class='over_layer' id='pay_warning'><%@ include file="/WEB-INF/views/user/pay_warning.jsp"%></div>
-	<div class='over_layer' id='pay_refund_policy'><%@ include file="/WEB-INF/views/user/refund_policy.jsp"%></div>
+	<div class='over_layer' id='refund_policy'><%@ include file="/WEB-INF/views/user/refund_policy.jsp"%></div>
 	<!-- 헤더 영역 -->
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 
@@ -23,29 +26,29 @@
 			<div id="order_cont">
 				<div class="order_name">주문내용</div>
 				<div class="media clearfix">
-					<a class="pull-left" href="#">
-						<img class="media-object" src="${pageContext.request.contextPath}/assets/img/item.png" width="80" height="80" alt="Generic placeholder image">
-					</a>
+					<div class="pull-left">
+						<img class="media-object" src="${pageContext.request.contextPath}/assets/img${product.filepath}" width="80" height="80" alt="Generic placeholder image">
+					</div>
 					<div class="media-body">
 						<div class="clearfix">
-							<h4 class="media-heading pull-left" id="item_name">디올 조던 265 거의 새상품 판매 합니다아아아아아아아아아이이이이아이이</h4>
+							<h4 class="media-heading pull-left" id="item_name">${product.subject}</h4>
 							<div class="pull-right"></div>
 						</div>
 						<div class="clearfix" id="item_price">
-							<p>1,000,000원</p>
+							<p><fmt:formatNumber value="${product.price}" pattern="#,###" />원</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="order_adr">
 				<div class="order_name">배송지</div>
-				<form class="form-horizontal" role="form">
+				<form id="buy" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/order_ok">
 					<fieldset>
 						<!-- 입력양식 -->
 						<div class="form-group">
 							<label for="user_name" class="col-sm-2 control-label">이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="user_name" placeholder="이름 입력">
+								<input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름 입력">
 							</div>
 						</div>
 						<!--// 입력양식 -->
@@ -54,7 +57,7 @@
 						<div class="form-group">
 							<label for="user_tel" class="col-sm-2 control-label">연락처</label>
 							<div class="col-sm-10">
-								<input type="tel" class="form-control" id="user_tel" placeholder="숫자만 입력">
+								<input type="tel" class="form-control" id="user_tel" name="user_tel" placeholder="숫자만 입력">
 							</div>
 						</div>
 						<!--// 입력양식 -->
@@ -63,13 +66,16 @@
 						<div class="form-group">
 							<label for="user_adr1" class="col-sm-2 control-label">주소</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="ipostcode" disabled placeholder="우편번호">
+								<input type="text" class="form-control" id="ipostcode" name="ipostcode" readonly placeholder="우편번호">
 								<button type="button" class="btn btn-info" id="find_pc" onclick="iexecDaumPostcode()">우편번호 찾기</button>
 								<br>
-								<input type="text" class="form-control" id="iroadAddress" disabled placeholder="도로명주소">
-								<input type="text" class="form-control" id="ijibunAddress" disabled placeholder="지번주소">
-								<input type="text" class="form-control" id="iextraAddress" disabled placeholder="참고항목">
-								<input type="text" class="form-control" id="idetailAddress" placeholder="상세주소">
+								<input type="text" class="form-control" id="iroadAddress" name="iroadAddress" readonly placeholder="도로명주소">
+								<input type="text" class="form-control" id="ijibunAddress" name="ijibunAddress" readonly placeholder="지번주소">
+								<input type="text" class="form-control" id="iextraAddress" name="iextraAddress" readonly placeholder="참고항목">
+								<input type="text" class="form-control" id="idetailAddress" name="idetailAddress" placeholder="상세주소">
+								<input type="hidden" id="buy_how" name="buy_how" value="M" />
+								<input type="hidden" id="buyer" name="buyer" value="${myNum}" />
+								<input type="hidden" id="prodno" name="prodno" value="${product.prodno}" />
 							</div>
 						</div>
 						<!--// 입력양식 -->
@@ -82,10 +88,10 @@
 					<fieldset>
 						<div class="form-group">
 							<label class="radio-inline"> 
-								<input type="radio" name="how_pay" id="mtj" value="M" checked> 무통장입금
+								<input type="radio" name="how_pay" class="corm" id="mtj" value="M" checked> 무통장입금
 							</label> 
 							<label class="radio-inline"> 
-								<input type="radio" name="how_pay" id="card" value="C"> 카드결제
+								<input type="radio" name="how_pay" class="corm" id="card" value="C"> 카드결제
 							</label>
 						</div>
 					</fieldset>
@@ -103,18 +109,19 @@
 				<table>
 					<tr id="original-price">
 						<td class="price_cont">상품가격</td>
-						<td class="price_won">1,000,000원</td>
+						<td class="price_won"><fmt:formatNumber value="${product.price}" pattern="#,###" /></td>
 					</tr>
 					<tr id="del_fee">
 						<td class="price_cont">배송비</td>
-						<td class="price_won">3,000원</td>
+						<td class="price_won"><fmt:formatNumber value="${product.fee}" pattern="#,###" /></td>
 					</tr>
 				</table>
 				<div id="final_price">
 					<table>
 						<tr id="original-price">
 							<td class="price_cont">최종결제금액</td>
-							<td class="price_won">1,003,000원</td>
+							<c:set var="total" value="${product.price+product.fee}" />
+							<td class="price_won"><fmt:formatNumber value="${total}" pattern="#,###" />원</td>
 						</tr>
 					</table>
 				</div>
@@ -204,7 +211,7 @@
             $("#clk_refund_policy").click(function (e) {
                 e.preventDefault();             // 페이지 이동 방지
                 $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
-                $("#pay_refund_policy").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
+                $("#refund_policy").fadeIn(200);        // 이미지 레이어를 화면에 표시한다.
 
             });
             /** (화면에 표시된) 배경 레이어를 클릭한 경우 */
@@ -212,17 +219,32 @@
                 $(this).fadeOut(300);       // 배경 레이어의 숨김
                 $("#front").fadeOut(200);
                 $(".over_layer").fadeOut(200);
-                
-                
-                
-                
-                
-                
+            });
+            
+            /** 라디오 버튼 누를시 hidden input 에 value값 적용 */
+            $(".corm").click(function(){
+            	var target = $(this).val();
+            	$("#buy_how").val(target);
             });
             
             $("#allow").click(function (e) {
                 e.preventDefault();
-                window.open("${pageContext.request.contextPath}/user/order_ok.cider", "_self");
+                const form = $("#buy");
+                const url = form.attr('action');
+                
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(json) {
+                     console.log(json);
+                     // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+                     if (json.rt == "OK") {
+                    	 window.location="${pageContext.request.contextPath}/user/order_ok.cider?recono="+(json.item.recono);
+                     }
+                  }
+                  });
+                
             });
         });
     </script>

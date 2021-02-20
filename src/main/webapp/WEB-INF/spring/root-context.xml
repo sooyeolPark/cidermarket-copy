@@ -78,6 +78,8 @@
 	<bean id="recordService" class="study.shop.cidermarket.service.impl.RecordServiceImpl" />
 	<bean id="RecordMsgboxService" class="study.shop.cidermarket.service.impl.RecordMsgboxServiceImpl" />
 	
+	<bean id="orderService" class="study.shop.cidermarket.service.impl.OrderServiceImpl" />
+	
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

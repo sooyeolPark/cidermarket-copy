@@ -502,10 +502,22 @@
           class="trade">삭제하기</span></button></div>  	
   	</c:when>
   	<c:otherwise>
+  		<c:choose>
+  			<c:when test="${product.how=='X' }">
     <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span
           class="cool">쿨하게</span><span class="trade">직거래</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-primary" id="dir_pay"><span class="cool">쿨하게</span><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-primary" id="dir_pay" data-prodno="${product.prodno}"><span class="cool">쿨하게</span><span
           class="trade">바로결제</span></button></div>
+          	</c:when>
+          	<c:when test="${product.how=='J' }">
+    <div class="col-xs-10"><button type="submit" class="btn btn-warning" id="dir_trade"><span
+          class="cool">쿨하게</span><span class="trade">직거래</span></button></div>
+          	</c:when>
+          	<c:when test="${product.how=='T' }">
+    <div class="col-xs-10"><button type="submit" class="btn btn-primary" id="dir_pay" data-prodno="${product.prodno}"><span class="cool">쿨하게</span><span
+          class="trade">바로결제</span></button></div>
+          	</c:when>
+        </c:choose>  
     </c:otherwise>      
     </c:choose>
   </div>
@@ -532,17 +544,21 @@
     $(function () {
       /** 신고하기 링크를 클릭한 경우 */
       $("#flag_this").click(function (e) {
+    	  e.preventDefault();
     	  var myNum = '<%=session.getAttribute("myNum")%>';
     	  if(myNum=="null"){
-    		  alert("신고하기는 로그인 후 가능합니다.")
+    		  if(confirm("신고하기는 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+    			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+    		  } else{
     		  return false;
+    		  }
     	  }
-        e.preventDefault();
         var user = $(".item_title>h3").html();
         $("#singo_name").html(user);
         $("#background").fadeIn(300);   // 배경 레이어를 화면에 표시한다.
         $("#singo").fadeIn(200);
       });
+      
       $("#singo_cancle").click(function (e) {
         $("#background").fadeOut(300);
         $("#singo").fadeOut(200);
@@ -581,11 +597,14 @@
       //찜하기 버튼 누를 시 하트버튼 토글
       $("#like").click(function (e) {
         e.preventDefault();
-        var myNum = '<%=session.getAttribute("myNum")%>';
-  	  if(myNum=="null"){
-  		  alert("찜하기는 로그인 후 가능합니다.")
-  		  return false;
-  	  }
+  	  var myNum = '<%=session.getAttribute("myNum")%>';
+	  if(myNum=="null"){
+		  if(confirm("찜하기는 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+		  } else{
+		  return false;
+		  }
+	  }
         var heart = $(this).find("i").hasClass("glyphicon-heart");
         var prodno = $(this).data("prodno");
         var membno = $(this).data("membno");
@@ -620,10 +639,19 @@
       /** 직거래 버튼 클릭한 경우  쪽지를 보내는 모달창이 열린다.*/
       $("#dir_trade").click(function (e) {
         e.preventDefault();
+  		  var myNum = '<%=session.getAttribute("myNum")%>';
+		  if(myNum=="null"){
+		  if(confirm("로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+		  } else{
+		  return false;
+		  }
+		  }
         $("#background").fadeIn(300);
         $("#front").fadeIn(200);
 
       });
+      
       $("#send_cancle").click(function (e) {
         $("#send_input").val('');
         $("#background").fadeOut(300);
@@ -659,17 +687,30 @@
       // 바로 결제 누를때 주문서 화면으로 이동
       $("#dir_pay").click(function (e) {
         e.preventDefault();
-        window.open("${pageContext.request.contextPath}/user/order_sheet.cider", "_self");
+  	  	var myNum = '<%=session.getAttribute("myNum")%>';
+	  	if(myNum=="null"){
+		if(confirm("로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+		  } else{
+		  return false;
+		  }
+	  	} else{
+		var prodno = $(this).data("prodno");
+        window.location="${pageContext.request.contextPath}/user/order_sheet.cider?prodno="+prodno;
+	  	}
       });
 
       // 댓글달기 구현
       $("#send_reply").submit(function(e) {
        	  e.preventDefault();
-          var myNum = '<%=session.getAttribute("myNum")%>';
-      	  if(myNum=="null"){
-      		  alert("댓글 작성은 로그인 후 가능합니다.")
-      		  return false;
-      	  }
+    	  var myNum = '<%=session.getAttribute("myNum")%>';
+    	  if(myNum=="null"){
+    		  if(confirm("댓글작성은 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+    			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+    		  } else{
+    		  return false;
+    		  }
+    	  }
        	 var input = $("#content").val();
          if (!input || input.trim() == "") {
            alert("댓글 내용을 작성해 주세요.");
@@ -703,11 +744,14 @@
    // 댓글달기 구현
       $(".send_rereply").submit(function(e) {
        	  e.preventDefault();
-          var myNum = '<%=session.getAttribute("myNum")%>';
-      	  if(myNum=="null"){
-      		  alert("댓글 작성은 로그인 후 가능합니다.")
-      		  return false;
-      	  }
+    	  var myNum = '<%=session.getAttribute("myNum")%>';
+    	  if(myNum=="null"){
+    		  if(confirm("댓글작성은 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+    			window.location = "${pageContext.request.contextPath}/member/login.cider";  
+    		  } else{
+    		  return false;
+    		  }
+    	  }
        	 var input = $(this).find(".rereply_content").val();
          if (!input || input.trim() == "") {
            alert("댓글 내용을 작성해 주세요.");
