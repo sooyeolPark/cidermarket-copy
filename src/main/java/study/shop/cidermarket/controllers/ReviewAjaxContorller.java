@@ -37,6 +37,7 @@ public class ReviewAjaxContorller {
    RecordService recordService;
    
    
+   
    /** 목록 페이지 */
    @RequestMapping(value="/user/mystore_review.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
@@ -94,8 +95,45 @@ public class ReviewAjaxContorller {
       
       return new ModelAndView("user/mystore_review");
    }
+   
+   
  
-  
+   // --------------------------------------------------------------------------Review_View 페이지 
+   @RequestMapping(value="/review_view.cider", method=RequestMethod.GET)
+   public ModelAndView list(Model model,
+		   @RequestParam(value="revino", defaultValue="0") int revino) {
+	      
+	   
+		/*
+		 * HttpSession session = webHelper.getRequest().getSession(); int myNum =
+		 * (int)session.getAttribute("myNum");
+		 */
+
+
+      
+      /** 2) 데이터 조회하기 */
+      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
+	      Review input = new Review();
+	      input.setRevino(revino);
+			/* input.setReceiver(myNum); */
+	      
+	      Review output = null;
+
+      try {
+
+         // 데이터 조회하기
+         output = reviewService.getReviewItem(input);
+      } catch (Exception e) {
+         return webHelper.redirect(null, e.getLocalizedMessage());
+      }
+      
+
+      /** 3) View 처리 */
+      model.addAttribute("output", output);
+      
+      return new ModelAndView("user/review_view");
+   }
+ 
    /** 후기남기기 쓰기 페이지 */
 	//---------------------------------------------------------------------------------------------	
 	@RequestMapping(value = "/review_write.cider", method = RequestMethod.GET)

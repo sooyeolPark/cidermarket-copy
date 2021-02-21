@@ -50,7 +50,7 @@
                               <input type="hidden" id="regdate" name="regdate" value="${output.confirmdate}"/>
                               <input type="hidden" id="prodno" name="prodno" value="${output.prodno }"/>
                               <input type="hidden" id="recono" name="recono" value="${output.recono }"/>
-                              <input type="hidden" id="receiver" name="receiver" <c:if test="${myNum == output.seller}">value="${output.buyer}"</c:if><c:if test="${myNum == output.buyer}">value="${output.seller}"</c:if>/>
+                              <input type="hidden" id="receiver" name="receiver" <c:if test="${output.buyer == myNum}">value="${output.seller}"</c:if><c:if test="${buyer !=myNum}">value="${output.buyer}"</c:if>/>
                               <input type="hidden" id="sender" name="sender" value="${myNum}"/>
                             </div>
                             <div class="form-group">
@@ -150,15 +150,12 @@
                   url: url,
                   data: form.serialize(),
                   success: function(json) {
-	    				console.log(json);
-	    				alert("리뷰작성해 주셔서 감사합니다.");
-	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
-	    				if (json.rt == "OK") {
-	    					window.location = "${pageContext.request.contextPath}/review_write.cider";
-	    				}
-	    			}
+        				console.log(">>>>>>>>>>>>>>>>>>>>>>"+json);
+        				window.location= "${pageContext.request.contextPath}/review_view.cider?revino=" + json.item.revino;
+        			}
+                 	 
                 });
-            });
+        });
       
 
                 // 등록 이미지 등록 미리보기

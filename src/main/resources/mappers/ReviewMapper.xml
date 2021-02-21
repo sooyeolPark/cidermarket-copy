@@ -18,7 +18,10 @@
 		<result property="buyer" column="buyer" />
 		<result property="filepath" column="filepath" />
 		<result property="reviewpic" column="reviewpic" />
+		<result property="price" column="price" />
 	</resultMap>
+	
+	
 	
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
@@ -50,8 +53,31 @@
 		</where>
 	</select>
 	
-
 	
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Review"
+		useGeneratedKeys="true" keyProperty="revino">
+		INSERT INTO review (
+		prodno, regdate, rate, content,recono,sender,receiver
+		) VALUES (
+		#{prodno},#{regdate},#{rate},#{content},#{recono},#{sender},#{receiver}
+		)
+	</insert>
+
+	<!-- 단일행 조회를 위한 기능 정의 -->	
+	<select id="selectItem"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultMap="ReviewMap">
+		
+		SELECT 
+		r.revino,r.receiver, p.subject, p.price,r.content, m.nickname
+		from review r 
+		inner join product p On r.prodno=p.prodno
+		inner join member m On r.receiver = m.membno
+		where revino=#{revino}
+		
+	</select>
+
 
 	
 	
