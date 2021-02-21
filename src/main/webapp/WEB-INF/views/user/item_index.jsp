@@ -282,8 +282,15 @@
                   <fieldset>
                     <!-- 입력양식 -->
                     <div class="form-group">
-                      <label for="content" class="control-label">댓글 <span>(<span
-                            id="reply_count">2</span>)</span></label>
+                      <label for="content" class="control-label">댓글 <span>(<span id="reply_count">
+                      <c:set var="total" value="0" />
+                      <c:forEach var="item" items="${reply}" varStatus="status">
+                      	<c:if test="${item.redelete=='Y'}">
+                      	<c:set var="total" value="${total+1}" />
+                      	</c:if>
+                      </c:forEach>
+                      ${fn:length(reply)+fn:length(rereply)-total}
+                      </span> )</span></label>
                       <textarea id="content" name=reply_content class="form-control" rows="3" placeholder="댓글을 입력해주세요."></textarea>
                       <input type="hidden" id="reply_prodno" name="reply_prodno" value="${product.prodno}" >
                       <input type="hidden" id="reply_writer" name="reply_writer" value="${myNum}" >
@@ -402,7 +409,7 @@
               </div>			
         					
               <div class="div_blank"></div>
-              <div class="item_more ">
+              <div class="container">
                 <h3>이런 상품은 어때요?</h3>
                 <div class="box clearfix" id="center">
                   <c:choose>
@@ -438,6 +445,7 @@
               </div>
             </div>
             <div id="tab-page-2" class="hide">
+            <div class="container">
               <h3>${seller.nickname} 님의 다른 상품</h3>
               <div class="box clearfix" id="others">
                 <c:choose>
@@ -469,6 +477,7 @@
 			            </c:forEach>
 		            </c:otherwise>
 	            </c:choose>
+              </div>
               </div>
             </div>
           </div>
