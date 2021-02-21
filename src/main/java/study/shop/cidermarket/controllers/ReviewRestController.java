@@ -18,7 +18,6 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Review;
-import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
 
@@ -61,8 +60,8 @@ public class ReviewRestController {
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Review input = new Review();
-	      input.setContent(keyword);
-	      input.setReceiver(myNum);
+	    //input.setContent(keyword);
+	    //input.setReceiver(myNum);
 	      
 	      
 	      

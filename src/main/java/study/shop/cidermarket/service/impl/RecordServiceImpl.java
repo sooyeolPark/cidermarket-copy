@@ -120,6 +120,7 @@ public class RecordServiceImpl implements RecordService {
 		return result;
 	}
 	
+	
 	@Override
 	public int getRecordSellEndCountByMonth(Record input) throws Exception {
 		int result = 0;
@@ -151,6 +152,8 @@ public class RecordServiceImpl implements RecordService {
 		}
 		return result;
 	}
+	
+	
 	// -------------- 판매자 택배 거래확정 ------------------------------//
 	@Override
 	public int editConfirmRecord(Record input) throws Exception {
@@ -196,10 +199,10 @@ public class RecordServiceImpl implements RecordService {
 	}
 	// -------------- 판매자 반품승인 ------------------------------//
 	@Override
-	public int editRefundOkRecord(Record input) throws Exception {
+	public int editRefundRecord(Record input) throws Exception {
 		int result = 0;
 		try {
-				result = sqlSession.update("RecordMapper.updateRefundOkItem", input);				
+				result = sqlSession.update("RecordMapper.updateRefundItem", input);				
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -209,24 +212,6 @@ public class RecordServiceImpl implements RecordService {
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("반품 승인에 실패했습니다.");
-		}
-		return result;
-	}
-	// -------------- 판매자 반품거절 ------------------------------//
-	@Override
-	public int editRefundXRecord(Record input) throws Exception {
-		int result = 0;
-		try {
-				result = sqlSession.update("RecordMapper.updateRefundXItem", input);				
-			if(result == 0) {
-				throw new NullPointerException("result=0");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("반품거절할 거래가 없습니다.");
-		} catch (Exception e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("반품거절에 실패했습니다.");
 		}
 		return result;
 	}
@@ -248,19 +233,100 @@ public class RecordServiceImpl implements RecordService {
 		}
 		return result;
 	}
-
+	
+	
+	
+	
+	
+	
+	/** ----------------------------------- 구매내역 ---------------------------------- */
+	
+	// -------------- 구매자 거래중 목록 조회 --------------------------//
 	@Override
 	public List<Record> getRecordBuyIngList(Record input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Record> result = null;
+		try {
+			result = sqlSession.selectList("RecordMapper.selectBuyIngList", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
+	// -------------- 구매자 거래완료 목록 조회 --------------------------//
 	@Override
 	public List<Record> getRecordBuyEndList(Record input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Record> result = null;
+		try {
+			result = sqlSession.selectList("RecordMapper.selectBuyEndList", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
 	}
-
+	
+	// -------------- 구매자 거래중 건수 카운트 ------------------------------//
+	@Override
+	public int getRecordBuyIngCount(Record input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("RecordMapper.selectBuyIngCount", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	// -------------- 구매자 거래완료 건수 카운트 ------------------------------//
+	@Override
+	public int getRecordBuyEndCount(Record input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("RecordMapper.selectBuyEndCount", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	// -------------- 구매자 택배 거래확정 ------------------------------//
+	@Override
+	public int editBuyConfirmRecord(Record input) throws Exception {
+		int result = 0;
+		try {
+			if (input.getHow() == "J") { // 직거래 확정시
+				result = sqlSession.update("RecordMapper.updateBuyTradeconJWItem", input);				
+			} else {  // 택배거래 확정시
+				result = sqlSession.update("RecordMapper.updateBuyTradeconTWItem", input);								
+			}
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("확정할 거래가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("거래 확정에 실패했습니다.");
+		}
+		return result;
+	}
 
 
 }

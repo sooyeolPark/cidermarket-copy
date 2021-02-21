@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 
@@ -37,7 +40,7 @@
                     <!-- 거래중/거래완료 sorting -->
                     <div class="recordSort text-center">
                         <a href="${pageContext.request.contextPath}/member/record/selling.cider" class="ing btn btn-lg btn-info" id="selling">거래중</a>
-                        <a href="#tab-page-2" class="ing btn btn-lg btn-primary" id="sellend">거래완료</a>
+                        <a href="${pageContext.request.contextPath}/member/record/sellend.cider" class="ing btn btn-lg btn-primary" id="sellend">거래완료</a>
                     </div>
                     <!-- 내용영역 -->
                     <div class="tab-panel">
@@ -63,37 +66,26 @@
 							                        <h4><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></h4>
 							                        <h4><b><fmt:formatNumber value="${item.price}" pattern="#,###" />원</b></h4>
 							                        <div class="resultBtn">
-							                        <c:choose>
-							                        	<c:when test="${item.how == 'T'}">
-							                        		<c:if test="${item.tradecon == 'C'}">
-								                            	<button type="button" class="ing btn btn-warning" disabled>정산완료</button>
-								                            </c:if>
-								                            <c:if test="${item.refund == 'W'}">
-								                            	<button type="button" class="ing btn btn-warning" disabled>반품완료</button>
-								                            </c:if>
-								                            <c:if test="${item.refund == 'X'}">
-								                            	<button type="button" class="ing btn btn-warning" disabled>반품거절</button>
-								                            </c:if>
-								                            <c:choose>
-									                            <c:when test="${item.revino == 0}">
-									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-prodno="${item.prodno}">후기 남기기</button>
-									                            </c:when>
-									                            <c:otherwise>
-										                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
-									                            </c:otherwise>
-								                            </c:choose>
-							                            </c:when>
-							                            <c:otherwise>
-							                            	<c:choose>
-																<c:when test="${item.revino == 0}">
-									                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-prodno="${item.prodno}">후기 남기기</button>
-									                            </c:when>
-									                            <c:otherwise>
-										                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
-									                            </c:otherwise>
-								                            </c:choose>
-							                            </c:otherwise>
-													</c:choose>
+							                        	<c:if test="${item.tradecon == 'A'}">
+							                            	<button type="button" class="ing btn btn-warning" disabled>정산중</button>
+							                            </c:if>
+						                        		<c:if test="${item.tradecon == 'C'}">
+							                            	<button type="button" class="ing btn btn-warning" disabled>정산완료</button>
+							                            </c:if>
+					                            		<c:if test="${item.refund == 'W' && item.how == 'T'}">
+						                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품완료</button>
+					                            		</c:if>
+					                            		<c:if test="${item.refund == 'X' && item.how == 'T'}">
+						                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품거절</button>
+					                            		</c:if>
+						                            	<c:choose>
+															<c:when test="${item.revino == 0}">
+								                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-receiver="${item.buyer}" data-prodno="${item.prodno}">후기 남기기</button>
+								                            </c:when>
+								                            <c:otherwise>
+									                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
+								                            </c:otherwise>
+							                            </c:choose>
 							                        </div>
 							                    </div>
 							                </div>
@@ -192,7 +184,7 @@
                     url: "${pageContext.request.contextPath}/record/sell/end/review",
                     data: {"receiver":receiver, "prodno":prodno, "recono":recono},
                     success: function(json) {
-  	    				console.log(">>>>>>>>>>>>>>>>>>>>>>"+json);
+  	    				console.log(json);
   	    				window.location = "${pageContext.request.contextPath}/review_write.cider?recono=" + json.item.recono;
   	    			}
                 });
@@ -215,7 +207,7 @@
                     url: "${pageContext.request.contextPath}/review_view.cider?revino="+revino,
                     data: {"receiver":receiver, "recono":recono, "revino":revino},
                     success: function(json) {
-  	    				console.log(">>>>>>>>>>"+json);
+  	    				console.log(json);
   	    			}
                 });
                 

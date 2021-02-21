@@ -142,39 +142,19 @@ public class RecordRestController {
         return webHelper.getJsonData();
 	}
 	
-	/** 거래내역 판매 반품승인 정보 갱신 페이지 */
-	@RequestMapping(value="/record/sell/ing/refundok", method=RequestMethod.PUT)
-	public Map<String, Object> recordSellingRefundOk(
+	/** 거래내역 판매/구매 반품승인 정보 갱신 페이지 */
+	@RequestMapping(value="/record/ing/refund", method=RequestMethod.PUT)
+	public Map<String, Object> recordIngRefund(
 			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="prodno", defaultValue="0") int prodno) {
+			@RequestParam(value="refund", defaultValue="0") String refund) {
                 
         /** 가져온 값을 이용하여 거래내역 조회 */
         Record input = new Record();
         input.setRecono(recono);
-        input.setProdno(prodno);
+        input.setRefund(refund);
         
         try {
-        	recordService.editRefundOkRecord(input);
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-        
-        return webHelper.getJsonData();
-	}
-	
-	/** 거래내역 판매 반품거절 정보 갱신 페이지 */
-	@RequestMapping(value="/record/sell/ing/refundx", method=RequestMethod.PUT)
-	public Map<String, Object> recordSellingRefundX(
-			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="prodno", defaultValue="0") int prodno) {
-                
-        /** 가져온 값을 이용하여 거래내역 조회 */
-        Record input = new Record();
-        input.setRecono(recono);
-        input.setProdno(prodno);
-        
-        try {
-        	recordService.editRefundXRecord(input);
+        	recordService.editRefundRecord(input);
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -209,5 +189,29 @@ public class RecordRestController {
         return webHelper.getJsonData(data);
 	}
     
+	
+	/**************************** 구매자 *********************************/
+	
+	/** 거래내역 구매 - 거래확정 정보 갱신 페이지 */
+	@RequestMapping(value="/record/buy/ing/confirm", method=RequestMethod.PUT)
+	public Map<String, Object> recordBuyingConfirm(
+			@RequestParam(value="prodno", defaultValue="0") int prodno,
+			@RequestParam(value="recono", defaultValue="0") int recono,
+			@RequestParam(value="how", defaultValue="") String how) {
+                
+        /** 가져온 값을 이용하여 거래내역 조회 */
+        Record input = new Record();
+        input.setProdno(prodno);
+        input.setRecono(recono);
+        input.setHow(how);
+        
+        try {
+        	recordService.editBuyConfirmRecord(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+        
+        return webHelper.getJsonData();
+	}
     
 }

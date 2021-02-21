@@ -1,8 +1,6 @@
 package study.shop.cidermarket.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,11 +59,11 @@ public class ReviewAjaxContorller {
 		  
  
       
-      /** 2) 데이터 조회하기 */
-      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
+          /** 2) 데이터 조회하기 */
+          // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 	      Review input = new Review();
-	      input.setContent(keyword);
-			/* input.setReceiver(myNum); */
+	      //input.setContent(keyword);
+		  //input.setReceiver(myNum);
 	      
 	      List<Review> output = null;
 	      PageData pageData = null;

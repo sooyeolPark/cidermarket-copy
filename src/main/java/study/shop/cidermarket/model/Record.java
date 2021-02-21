@@ -8,9 +8,9 @@ public class Record {
 	private int recono;  // 거래번호(PK)
 	private int prodno;  // 상품번호(FK-product)
 	private int buyer;  // 구매자(회원번호)(FK-member)
-	private String tradecon;  // 거래상태 (J=거래중 / W=거래완료 / S=거래정지)
-	private String refund;  // 반품 (Null / J = 반품중 / W = 반품완료)
-	private String how;  // 거래방법 (T = 택배거래 / J = 직거래)
+	private String tradecon;  // 거래상태 (J=거래중 / W=거래완료 / S=거래정지 / A=정산중 / C=정산완료)
+	private String refund;  // 반품 (N = 초기화 / J = 반품중 / W = 반품완료 / X = 반품거절)
+	private String how;  // 거래방법 (T = 택배거래 / J = 직거래 / X = 상관없음)
 	private String confirmdate;  // 거래완료일자
 	private String name;  // 받는 사람 이름
 	private String tel;  // 받는 사람 연락처

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 
@@ -36,7 +39,7 @@
 
                     <!-- 거래중/거래완료 sorting -->
                     <div class="recordSort text-center">
-                        <a href="#tab-page-1" class="ing btn btn-lg btn-primary" id="selling">거래중</a>
+                        <a href="${pageContext.request.contextPath}/member/record/selling.cider" class="ing btn btn-lg btn-primary" id="selling">거래중</a>
                         <a href="${pageContext.request.contextPath}/member/record/sellend.cider" class="ing btn btn-lg btn-info" id="sellend">거래완료</a>
                     </div>
                     <!-- 내용영역 -->
@@ -64,26 +67,24 @@
 							                        <div class="resultBtn">
 														<c:choose>
 															<c:when test="${item.how == 'T'}">
-																<c:if test="${item.refund == 'J'}">
-								                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}">반품요청</button>
-							                            		</c:if>
 							                            		<c:choose>
-								                            		<c:when test="${item.refund == 'W'}">
-									                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품완료</button>
-									                            		<button type="button" class="ing btn btn-primary recordConfirm" data-prodno="${item.prodno}" data-buyer="${item.buyer}" data-recono="${item.recono}" data-how="${item.how}">거래확정</button>
-								                            		</c:when>
-								                            		<c:when test="${item.refund == 'X'}">
-									                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품거절</button>
-									                            		<button type="button" class="ing btn btn-primary recordConfirm" data-prodno="${item.prodno}" data-buyer="${item.buyer}" data-recono="${item.recono}" data-how="${item.how}">거래확정</button>
-								                            		</c:when>
+							                            			<c:when test="${item.refund == 'N'}">
+																		<button type="button" class="ing btn btn-danger recordCancel" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}">거래취소</button>
+																	</c:when>
 								                            		<c:otherwise>
-									                            		<button type="button" class="ing btn btn-primary recordConfirm" data-prodno="${item.prodno}" data-buyer="${item.buyer}" data-recono="${item.recono}" data-how="${item.how}">거래확정</button>
-									                            		<button type="button" class="ing btn btn-danger recordCancel" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}">거래취소</button>
+																		<c:if test="${item.refund == 'J'}">
+										                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}">반품요청</button>
+									                            		</c:if>
+									                            		<c:if test="${item.refund == 'X'}">
+										                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품거절</button>
+										                            		<button type="button" class="ing btn btn-danger recordCancel" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}">거래취소</button>
+									                            		</c:if>
 								                            		</c:otherwise>
 							                            		</c:choose>
 															</c:when>
 															<c:otherwise>
 							                            		<button type="button" data-toggle="modal" data-target="#myModal" class="ing btn btn-primary recordJConfirm" data-prodno="${item.prodno}" data-seller="${item.seller}">구매자확정</button>
+							                            		<button type="button" class="ing btn btn-danger recordCancel" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}">거래취소</button>
 															</c:otherwise>
 														</c:choose>
 							                        </div>
@@ -377,8 +378,6 @@
                 
              	// data를 통해 거래 정보 가져오기
                 let recono = ts.data("recono");
-                let refund = ts.data("refund");
-                let prodno = ts.data("prodno");
                 
                 // 확인, 취소버튼에 따른 후속 처리 구현
                 swal({
@@ -394,8 +393,8 @@
                      	// Ajax 호출
                         $.ajax({
                             type: "PUT",
-                            url: "${pageContext.request.contextPath}/record/sell/ing/refundok",
-                            data: {"recono":recono, "refund":refund, "prodno":prodno},
+                            url: "${pageContext.request.contextPath}/record/ing/refund",
+                            data: {"recono":recono, "refund":"W", "tradecon":"W"},
                             success: function(json) {
           	    				console.log(json);
           	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
@@ -411,8 +410,8 @@
                     	// Ajax 호출
                         $.ajax({
                             type: "PUT",
-                            url: "${pageContext.request.contextPath}/record/sell/ing/refundx",
-                            data: {"recono":recono, "refund":refund, "prodno":prodno},
+                            url: "${pageContext.request.contextPath}/record/ing/refund",
+                            data: {"recono":recono, "refund":"X", "prodno":prodno},
                             success: function(json) {
           	    				console.log(json);
           	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.

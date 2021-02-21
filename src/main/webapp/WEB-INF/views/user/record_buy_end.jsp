@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 
@@ -27,28 +30,66 @@
                     <!-- 탭 버튼 영역 -->
                     <ul class="row tab-button clearfix">
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="${pageContext.request.contextPath}/member/record/selling.cider?selected=selling" class="tab-button-item-link pull-left">판매</a>
+                            <a href="${pageContext.request.contextPath}/member/record/selling.cider" class="tab-button-item-link pull-left">판매</a>
                         </li>
                         <li role="presentation" class="tab-button-item text-center">
-                            <a href="${pageContext.request.contextPath}/member/record/buying.cider?selected=selling" class="tab-button-item-link pull-left selected">구매</a>
+                            <a href="${pageContext.request.contextPath}/member/record/buying.cider" class="tab-button-item-link pull-left selected">구매</a>
                         </li>
                     </ul>
                     
                     <!-- 거래중/거래완료 sorting -->
                     <div class="recordSort text-center">
-                        <a href="#tab-page-1" class="ing btn btn-lg btn-primary" id="selling">거래중</a>
-                        <a href="#tab-page-2" class="ing btn btn-lg btn-info" id="sellend">거래완료</a>
+                        <a href="${pageContext.request.contextPath}/member/record/buying.cider" class="ing btn btn-lg btn-info" id="selling">거래중</a>
+                        <a href="${pageContext.request.contextPath}/member/record/buyend.cider" class="ing btn btn-lg btn-primary" id="sellend">거래완료</a>
                     </div>
                     <!-- 내용영역 -->
                     <div class="tab-panel">
-                        <!-- 탭1 -->
-                        <div id="tab-page-1">
-                            <!-- Ajax 구현 -->
-                        </div>
                         <!-- 탭2 -->
-                        <div id="tab-page-2" class="hide">
-                            <!-- Ajax 구현 -->
-                        </div>
+                        <div id="tab-page-2">
+                       		<c:choose>
+	                        	<%-- 조회결과가 없는 경우 --%>
+		                        <c:when test="${output == null || fn:length(output) == 0}">
+		                           <p class="alert alert-success" role="alert">조회결과가 없습니다.</p>
+		                        </c:when>
+		                        <%-- 조회결과가 있는 경우 --%>
+		                        <c:otherwise>
+			                        <%-- 조회 결과에 따른 반복 처리 --%>
+		                            <c:forEach var="item" items="${output}" varStatus="status">
+			                            <div class="col-xs-12 col-sm-6 col-md-6 item-list">
+							                <div class="sorting itemList">
+							                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+							                    <div class="caption">
+							                        <span class="label"><c:if test="${item.how == 'T'}">택배거래</c:if><c:if test="${item.how == 'J'}">직거래</c:if></span>
+							                    	<span class="temp-gray"><span>${item.prodno}</span> | seller(${item.seller})</span>
+							                        <h4><a href="${pageContext.request.contextPath}/assets/img${item.filepath}">${item.subject}</a></h4>
+							                        <h4><b><fmt:formatNumber value="${item.price}" pattern="#,###" />원</b></h4>
+							                        <div class="resultBtn">
+					                            		<c:if test="${item.refund == 'J' && item.how == 'T'}">
+						                            		<button type="button" class="ing btn btn-danger recordReturnX" data-recono="${item.recono}" data-refund="${item.refund}">반품철회</button>
+					                            		</c:if>
+					                            		<c:if test="${item.refund == 'W' && item.how == 'T'}">
+						                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품완료</button>
+					                            		</c:if>
+					                            		<c:if test="${item.refund == 'X' && item.how == 'T'}">
+						                            		<button type="button" class="ing btn btn-warning recordReturn" data-prodno="${item.prodno}" data-recono="${item.recono}" data-refund="${item.refund}" disabled>반품거절</button>
+					                            		</c:if>
+					                            		<c:choose>
+															<c:when test="${item.revino == 0}">
+								                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-seller="${item.seller}" data-prodno="${item.prodno}">후기 남기기</button>
+								                            </c:when>
+								                            <c:otherwise>
+									                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
+								                            </c:otherwise>
+							                            </c:choose>
+							                        </div>
+							                    </div>
+							                </div>
+							            </div>
+						            </c:forEach>
+					            </c:otherwise>
+				            </c:choose>
+                            
+                        </div> <!-- 탭2 끝 -->
                     </div>
                 </div>
                 
@@ -59,168 +100,58 @@
         <!-- 푸터 영역 -->
 		<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
 
-        <!-- template -->
-		<script id="ing_item_tmpl" type="text/x-handlebars-template">
-			{{#each ing_item}}
-			<div class="col-xs-12 col-sm-6 col-md-6 item-list">
-                <div class="sorting itemList">
-                    <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
-                    <div class="caption">
-                        <span class="label {{hidden1}}">{{label1}}</span>
-                        <span class="label label2">{{label2}}</span>
-                        <h4><a href="${pageContext.request.contextPath}/user/{{href}}">{{title}}</a></h4>
-                        <h4><b>{{price}}</b></h4>
-                        <div class="resultBtn">
-                            <button type="button" class="ing btn btn-warning recordReturn {{hidden1}}" data-return="{{hidden1}}">반품요청</button>
-                            <button type="button" class="ing btn btn-primary recordConfirm {{hidden2}}">거래확정</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-			{{/each}}
-        </script>
-        <!-- template -->
-		<script id="end_item_tmpl" type="text/x-handlebars-template">
-			{{#each end_item}}
-			<div class="col-xs-12 col-sm-6 col-md-6 item-list">
-                <div class="sorting itemList">
-                    <img alt="{{title}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/{{imgurl}}">
-                    <div class="caption">
-                        <span class="label">{{label1}}</span>
-                        <span class="label label2">{{label2}}</span>
-                        <h4><a href="${pageContext.request.contextPath}/user/{{href}}">{{title}}</a></h4>
-                        <h4><b>{{price}}</b></h4>
-                        <div class="resultBtn">
-                            <button onclick="location.href='${pageContext.request.contextPath}/user/review_write.cider'" type="button" class="ing btn btn-primary {{hidden1}}">후기 남기기</button>
-                            <button type="button" onclick="location.href='${pageContext.request.contextPath}/user/review_write.cider'" class="ing btn btn-danger {{hidden2}}">후기 작성완료</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-			{{/each}}
-		</script>
-
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
         <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
         <!-- ajax-helper -->
         <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-        <!-- handlebar plugin -->
-        <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
         <script type="text/javascript">
-            /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
-            function get_ing_list() {
-                $.get("${pageContext.request.contextPath}/assets/plugins/ajax/record_buy_ing.json", function(req) {
-                    console.log(req);
-                    if (!req) {
-                    $("#tab-page-1").append("<p>거래중인 상품이 없습니다.</p>");
-                    } else {
-                    // 미리 준비한 HTML틀을 읽어온다.
-                    var template = Handlebars.compile($("#ing_item_tmpl").html());
-                    // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-                    var html = template(req);
-                    // #dept_list_body 읽어온 내용을 추가한다.
-                    $("#tab-page-1").append(html);
-                    }
-                });
-            }
-            function get_end_list() {
-                $.get("${pageContext.request.contextPath}/assets/plugins/ajax/record_buy_end.json", function(req) {
-                    console.log(req);
-                    if (!req) {
-                    $("#tab-page-2").append("<p>거래중인 상품이 없습니다.</p>");
-                    } else {
-                    // 미리 준비한 HTML틀을 읽어온다.
-                    var template = Handlebars.compile($("#end_item_tmpl").html());
-                    // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-                    var html = template(req);
-                    // #dept_list_body 읽어온 내용을 추가한다.
-                    $("#tab-page-2").append(html);
-                    }
-                });
-            }
 
-            $(function() {
-                get_ing_list();
-                get_end_list();
-
-                /** selected 파라미터 받아와서 1차 탭 선택함 */
-                var url = new URL(window.location.href);
-                var selector = url.searchParams.get("selected");
-                $("#"+selector).addClass("btn-primary").removeClass("btn-info");
-                $(".recordSort > .btn").not("#"+selector).removeClass("btn-primary").addClass("btn-info");
-                /** 선택된 1차 탭의 href값으로 탭 패널 열기 */
-                var target = $("#"+selector).attr('href');
-                $(target).removeClass('hide');
-                $(".tab-panel > div").not($(target)).addClass('hide');
-
-                /** 거래중/거래완료 탭 */
-                $(".recordSort > .btn").click(function(e) {
-                    e.preventDefault();
-                    if ($(this).hasClass("btn-info")) {
-                        $(this).addClass("btn-primary").removeClass("btn-info");
-                        $(".recordSort > .btn").not(this).removeClass("btn-primary").addClass("btn-info");
-
-                        var target = $(this).attr('href');
-                        $(target).removeClass('hide');
-                        $(".tab-panel > div").not($(target)).addClass('hide');
-                    }
-                });
-                // 직거래일 경우 결제완료 뱃지 삭제
-                $(window).load(function(){
-                    $('.label:empty').remove();     
-                });
-
+        /****************************** 후기 남기기 *****************************/
+        $(document).on("click", ".review-write", function(e) {
+            e.preventDefault();
+            var ts = $(this)
+            
+         	// data를 통해 거래 정보 가져오기
+            let receiver = ts.data("receiver");
+            let prodno = ts.data("prodno");
+            let recono = ts.data("recono");
+            
+         	// Ajax 호출
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/record/buy/end/review",
+                data: {"receiver":receiver, "prodno":prodno, "recono":recono},
+                success: function(json) {
+	    				console.log(json);
+	    				window.location = "${pageContext.request.contextPath}/review_write.cider?recono=" + json.item.recono;
+	    			}
             });
-            /** 거래확정 모달 */
-            $(document).on('click', '.recordConfirm', function(e) {
-                e.preventDefault();
-                var ts = $(this)
-                var dis = ts.prev('.recordReturn').prop('disabled');
-                // 확인, 취소버튼에 따른 후속 처리 구현
-                swal({
-                    title: '확정',                // 제목
-                    text: "거래를 확정 하시겠습니까?",  // 내용
-                    type: 'warning',              // 종류
-                    confirmButtonText: '예',     // 확인버튼 표시 문구
-                    showCancelButton: true,       // 취소버튼 표시 여부
-                    cancelButtonText: '아니오',       // 취소버튼 표시 문구
-                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
-                    if (result.value) {           // 확인 버튼이 눌러진 경우
-                        swal('확정', '성공적으로 확정되었습니다.', 'success');
-                        ts.parents('.item-list').remove();
-                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
-                        swal('취소', '확정이 취소되었습니다.', 'error');
-                    }
-                });
+            
+        });
+        
+        /****************************** 후기 작성완료 보러가기 *****************************/
+        $(document).on("click", ".review-view", function(e) {
+            e.preventDefault();
+            var ts = $(this)
+            
+         	// data를 통해 거래 정보 가져오기
+            let receiver = ts.data("receiver");
+            let recono = ts.data("recono");
+            let revino = ts.data("revino");
+            
+         	// Ajax 호출
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/review_view.cider?revino="+revino,
+                data: {"receiver":receiver, "recono":recono, "revino":revino},
+                success: function(json) {
+	    				console.log(json);
+	    			}
             });
-
-            /** 반품확정 */
-            $(document).on('click', '.recordReturn', function(e) {
-                e.preventDefault();
-                var ts = $(this);
-                // 확인, 취소버튼에 따른 후속 처리 구현
-                swal({
-                    title: '반품',                // 제목
-                    text: "반품을 요청 하시겠습니까?",  // 내용
-                    type: 'warning',              // 종류
-                    confirmButtonText: '요청',     // 확인버튼 표시 문구
-                    showCancelButton: true,       // 취소버튼 표시 여부
-                    cancelButtonText: '취소',       // 취소버튼 표시 문구
-                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
-                    if (result.value) {           // 확인 버튼이 눌러진 경우
-                        swal('요청', '반품 요청 하셨습니다.', 'success');
-                        if (ts.html() == '반품요청') {
-                            ts.html("반품철회").removeClass('btn-warning').addClass('btn-danger');
-                        } else {
-                            ts.html("반품요청").removeClass('btn-danger').addClass('btn-warning');
-                        }
-                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
-                        swal('취소', '반품 요청을 취소 하셨습니다.', 'error');
-                    }
-                });
-            });
+            
+        });
         </script>
 </body>
 

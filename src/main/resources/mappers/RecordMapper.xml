@@ -22,32 +22,13 @@
 		<result property="seller" column="seller" />
 		<result property="revino" column="revino" />
 	</resultMap>	
+	
 	<!-- 특정회원의 거래 완료 수를 위한 기능 정의 -->
 	<select id="selectCount"
 		parameterType="study.shop.cidermarket.model.Record"
 		resultType="int">
 		SELECT (SELECT COUNT(*) FROM record WHERE tradecon = 'W' AND buyer=#{buyer})
 		+(SELECT COUNT(*) FROM product WHERE tradecon='W' AND seller=#{buyer})
-	</select>
-	
-	<!-- 특정회원의 거래중 수를 위한 기능 정의 -->
-	<select id="selectSellIngCount"
-		parameterType="study.shop.cidermarket.model.Record"
-		resultType="int">
-		SELECT COUNT(*) 
-		FROM record r
-		INNER JOIN product p ON r.prodno=p.prodno
-		WHERE r.tradecon = 'J' AND p.seller=#{seller}
-	</select>
-	
-	<!-- 특정회원의 거래완료 수를 위한 기능 정의 -->
-	<select id="selectSellEndCount"
-		parameterType="study.shop.cidermarket.model.Record"
-		resultType="int">
-		SELECT COUNT(*) 
-		FROM record r
-		INNER JOIN product p ON r.prodno=p.prodno
-		WHERE r.tradecon = 'W' AND p.seller=#{seller}
 	</select>
 	
 	<!-- 필요한부분                             -->
@@ -63,7 +44,29 @@
 	</select>
 	
 	
-	<!-- 단일행 조회를 위한 기능 정의 -->
+	<!-- ============== 판매자 거래내역 ==============  -->
+	
+	<!-- 특정회원의 거래중 수를 위한 기능 정의 -->
+	<select id="selectSellIngCount"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		WHERE r.tradecon='J' AND p.tradecon='W' AND p.seller=#{seller}
+	</select>
+	
+	<!-- 특정회원의 거래완료 수를 위한 기능 정의 -->
+	<select id="selectSellEndCount"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND p.seller=#{seller}
+	</select>
+
+	<!-- 판매자 거래중 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Record"
 		resultMap="recordMap">
@@ -85,7 +88,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=r.prodno AND reftable='product')) AS filepath
 		FROM record r
 		INNER JOIN product p ON r.prodno=p.prodno
-		WHERE r.tradecon='J' AND p.seller=#{seller}
+		WHERE p.tradecon='W' AND r.tradecon='J' AND r.refund in('N', 'J', 'X') AND p.seller=#{seller}
 		
 		ORDER BY r.prodno DESC
 		
@@ -106,7 +109,7 @@
 		FROM record r
 		INNER JOIN product p ON r.prodno=p.prodno
 		INNER JOIN member m ON r.buyer=m.membno
-		WHERE r.tradecon in ('W', 'A') AND p.seller=#{seller}
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND p.seller=#{seller} 
 		
 		ORDER BY r.prodno DESC
 		
@@ -115,6 +118,8 @@
 		</if>
 	</select>
 	
+	
+	
 	<!-- 직거래 거래확정 갱신을 위한 기능 정의 -->
 	<update id="updateTradeconJWItem"
 		parameterType="study.shop.cidermarket.model.Record">
@@ -122,6 +127,7 @@
 			tradecon='W', confirmdate=now(), buyer=#{buyer}, name=#{nickname}
 		WHERE prodno=#{prodno} AND tradecon='J'
 	</update>
+	
 	<!-- 직거래 거래확정시 상품테이블 갱신을 위한 기능 정의 -->
 	<update id="updateProductTradeconJWItem"
 		parameterType="study.shop.cidermarket.model.Product">
@@ -136,12 +142,11 @@
 	<update id="updateTradeconTWItem"
 		parameterType="study.shop.cidermarket.model.Record">
 		UPDATE record SET
-			tradecon='A', confirmdate=now(), buyer=#{buyer}
+			tradecon='W', confirmdate=now(), buyer=#{buyer}
 		WHERE recono=#{recono} AND tradecon='J' AND not refund='J';
 	</update>
-
 	
-	<!-- 거래취소 갱신을 위한 기능 정의 -->
+	<!-- 택배거래 취소 갱신을 위한 기능 정의 -->
 	<update id="updateTradeconSItem"
 		parameterType="study.shop.cidermarket.model.Record">
 		UPDATE record SET
@@ -149,7 +154,7 @@
 		WHERE recono=#{recono} AND tradecon='J' AND not refund='J';
 	</update>
 		
-	<!-- 거래취소시 상품테이블 갱신을 위한 기능 정의 -->
+	<!-- 택배거래 취소시 상품테이블 갱신을 위한 기능 정의 -->
 	<update id="updateProductTradeconSItem"
 		parameterType="study.shop.cidermarket.model.Product">
 		UPDATE product SET
@@ -158,20 +163,96 @@
 	</update>
 	
 	<!-- 반품승인 갱신을 위한 기능 정의 -->
-	<update id="updateRefundOkItem"
+	<update id="updateRefundItem"
 		parameterType="study.shop.cidermarket.model.Record">
 		UPDATE record SET
-			refund='W'
+			refund=#{refund}, tradecon=#{tradecon}
 		WHERE recono=#{recono}
 	</update>
 	
-	<!-- 반품거절 갱신을 위한 기능 정의 -->
-	<update id="updateRefundXItem"
+	
+	
+	
+	<!-- ==============  구매자 거래내역  ==============  -->	
+	
+	<!-- 구매자 거래중 다중행 조회를 위한 기능 정의 -->
+	<select id="selectBuyIngList"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultMap="recordMap">
+		SELECT recono, r.how, p.prodno, p.subject, p.price, r.refund, r.tradecon, p.seller, r.buyer,
+			(SELECT nickname FROM member WHERE membno=buyer) AS nickname,  
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=r.prodno AND reftable='product')) AS filepath
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		WHERE r.tradecon='J' AND r.buyer=#{buyer}
+		
+		ORDER BY r.prodno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 구매자 거래완료 다중행 조회를 위한 기능 정의 -->
+	<select id="selectBuyEndList"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultMap="recordMap">
+		SELECT recono, r.how, p.prodno, p.subject, p.price, r.refund, r.tradecon, p.seller, r.buyer,
+			(SELECT nickname FROM member WHERE membno=buyer) AS nickname,  
+			r.confirmdate, r.name, r.tel, r.address, r.pay,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=r.prodno AND reftable='product')) AS filepath,
+			(SELECT revino FROM review WHERE prodno=r.prodno AND sender=#{buyer}) AS revino
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		INNER JOIN member m ON r.buyer=m.membno
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND r.buyer=#{buyer}
+		
+		ORDER BY r.prodno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 특정회원의 구매중 수를 위한 기능 정의 -->
+	<select id="selectBuyIngCount"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		WHERE r.tradecon = 'J' AND r.buyer=#{buyer}
+	</select>
+	
+	<!-- 특정회원의 구매완료 수를 위한 기능 정의 -->
+	<select id="selectBuyEndCount"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND r.buyer=#{buyer}
+	</select>
+	
+	<!-- 구매자 직거래 거래확정 갱신을 위한 기능 정의 -->
+	<update id="updateBuyTradeconJWItem"
 		parameterType="study.shop.cidermarket.model.Record">
 		UPDATE record SET
-			refund='X'
-		WHERE recono=#{recono}
+			tradecon='W', confirmdate=now(), buyer=#{buyer}, name=#{nickname}
+		WHERE recono=#{recono} AND tradecon='J'
 	</update>
+	
+	<!-- 구매자 택배거래 거래확정 갱신을 위한 기능 정의 -->
+	<update id="updateBuyTradeconTWItem"
+		parameterType="study.shop.cidermarket.model.Record">
+		UPDATE record SET
+			tradecon='A', confirmdate=now()
+		WHERE recono=#{recono} AND tradecon='J' AND not refund='J';
+	</update>
+	
+	
+	
+	<!-- ==============  주문서 ============== -->
 	
 	<!-- 주문서 페이지에서 주문 완료 버튼을 눌렀을때 데이터 기록되는 기능  -->
 	<insert id="insertOrderItem"

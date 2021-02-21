@@ -71,6 +71,22 @@ public interface RecordService {
 	public int getRecordSellEndCount(Record input) throws Exception;
 	
 	/**
+	 * 구매중 데이터가 저장되어 있는 갯수 조회
+	 * @param Record 검색조건을 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getRecordBuyIngCount(Record input) throws Exception;
+	
+	/**
+	 * 구매완료 데이터가 저장되어 있는 갯수 조회
+	 * @param Record 검색조건을 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getRecordBuyEndCount(Record input) throws Exception;
+	
+	/**
 	 * 데이터 등록하기
 	 * @param Record 저장할 정보를 담고 있는 Beans
 	 * @return int
@@ -88,12 +104,20 @@ public interface RecordService {
 	public int addRecord(Record input) throws Exception;
 	
 	/**
-	 * 거래 확정 정보 업데이트 하기 (직거래냐 택배에 따라 메서드 변경)
+	 * 판매자 거래 확정 정보 업데이트 하기 (직거래냐 택배에 따라 메서드 변경)
 	 * @param Record 수정할 정보를 담고 있는 Beans 
 	 * @return int
 	 * @throws Exception
 	 */
 	public int editConfirmRecord(Record input) throws Exception;
+	
+	/**
+	 * 구매자 거래 확정 정보 업데이트 하기 (직거래냐 택배에 따라 메서드 변경)
+	 * @param Record 수정할 정보를 담고 있는 Beans 
+	 * @return int
+	 * @throws Exception
+	 */
+	public int editBuyConfirmRecord(Record input) throws Exception;
 	
 	/**
 	 * 거래 취소 정보 업데이트 하기 (택배거래 한정)
@@ -109,15 +133,7 @@ public interface RecordService {
 	 * @return int
 	 * @throws Exception
 	 */
-	public int editRefundOkRecord(Record input) throws Exception;
-	
-	/**
-	 * 반품 거절 정보 업데이트 하기 (택배거래 한정)
-	 * @param Record 수정할 정보를 담고 있는 Beans 
-	 * @return int
-	 * @throws Exception
-	 */
-	public int editRefundXRecord(Record input) throws Exception;
+	public int editRefundRecord(Record input) throws Exception;
 	
 	/**
 	 * 데이터 삭제하기

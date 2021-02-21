@@ -47,13 +47,35 @@ public class AdmHomeController {
         return "admin/member_adm";
     }
     
-
-    
-
-    
     /** 관리자 주문관리 페이지 */
     @RequestMapping(value="/admin/order_adm.cider", method=RequestMethod.GET)
     public String orderAdm() {
         return "admin/order_adm";
     }
+    
+    /** 신고게시판 */
+	@RequestMapping(value = "/admin/singo_adm.cider", method = RequestMethod.GET)
+	public String singoAdm() {
+		return "admin/singo_adm";
+	}
+	
+	/** 일반문의 - 답변*/
+	@RequestMapping(value = "/admin/question_reply_adm.cider", method = RequestMethod.GET)
+	public String questionReplyAdm() {
+		return "admin/question_reply_adm";
+	}
+
+	
+	/** 상품관리 - 상품목록 */
+	@RequestMapping(value = "/admin/product_adm.cider", method = RequestMethod.GET)
+	public String productAdm() {
+		return "admin/product_adm";
+	}
+
+	
+	/** 탈퇴회원관리 */
+	@RequestMapping(value = "/admin/outmember_adm.cider", method = RequestMethod.GET)
+	public String outMemberAdm() {
+		return "admin/outmember_adm";
+	}
 }

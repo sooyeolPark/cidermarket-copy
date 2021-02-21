@@ -17,19 +17,7 @@ public class BoardController {
 	@Autowired WebHelper webHelper;
 	@Autowired RegexHelper regexHelper;
 	@Autowired SqlSession sqlSession;
-    
-    /** 공지사항 페이지 */
-    @RequestMapping(value="/user/notice_list.cider", method=RequestMethod.GET)
-    public String noticeList() {
-        return "user/notice_list";
-    }
-    
-    /** 공지사항 읽기 페이지 */
-    @RequestMapping(value="/user/notice_view.cider", method=RequestMethod.GET)
-    public String noticeView() {
-        return "user/notice_view";
-    }
-    
+        
     /** 이벤트 페이지 */
     @RequestMapping(value="/user/event_list.cider", method=RequestMethod.GET)
     public String eventList() {
