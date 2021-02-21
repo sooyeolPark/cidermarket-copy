@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!doctype html>
 <html lang="ko">
 
@@ -26,13 +30,13 @@
                         <div class="panel-heading boardTitle-view" id="user-write">
                           <a href="${pageContext.request.contextPath}/user/item_index.cider" class="clearfix">
                             <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/item_07.jpg" alt="에어팟프로 선물용 미개봉"></span>
-                            <span class="boardTitle">에어팟프로 선물용 미개봉</span>
-                            <span class="boardDate">390,000원</span>
+                            <span class="boardTitle">${output.subject}</span>
+                            <span class="boardDate">${output.price}원</span>
                           </a>                            
                         </div>
                         <div class="panel-body">
-                          <div class="foryou">To. <b>applemania</b>님께 따뜻한 후기를 보냈어요.</div>
-                            <p>칼답에 쿨거래 해주셔서 감사합니다.<br>잘 쓸게요~~~!</p>
+                          <div class="foryou">To. <b>${output.nickname}</b>님께 따뜻한 후기를 보냈어요.</div>
+                            <p>${output.content}<br></p>
                             <div class="review_img">
                                 <img src="${pageContext.request.contextPath}/assets/img/review_img1.jpg" alt="리뷰이미지">
                                 <img src="${pageContext.request.contextPath}/assets/img/review_img2.png" alt="리뷰이미지">
@@ -56,6 +60,8 @@
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ public class ReviewWriteImpl implements ReviewService{
 	public Review getReviewItem(Review input) throws Exception {
 		Review result = null;
 		try {
-			result = sqlSession.selectOne("ReviewWriteMapper.selectItem", input);
+			result = sqlSession.selectOne("ReviewMapper.selectItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
