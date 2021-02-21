@@ -61,7 +61,7 @@
 							                    <div class="caption">
 							                        <span class="label"><c:if test="${item.how == 'T'}">택배거래</c:if><c:if test="${item.how == 'J'}">직거래</c:if></span>
 							                    	<span class="temp-gray"><span>${item.prodno}</span> | seller(${item.seller})</span>
-							                        <h4><a href="${pageContext.request.contextPath}/assets/img${item.filepath}">${item.subject}</a></h4>
+							                        <h4><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></h4>
 							                        <h4><b><fmt:formatNumber value="${item.price}" pattern="#,###" />원</b></h4>
 							                        <div class="resultBtn">
 					                            		<c:if test="${item.refund == 'J' && item.how == 'T'}">
@@ -75,10 +75,10 @@
 					                            		</c:if>
 					                            		<c:choose>
 															<c:when test="${item.revino == 0}">
-								                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-seller="${item.seller}" data-prodno="${item.prodno}">후기 남기기</button>
+								                            	<button type="button" class="ing btn btn-primary review-write" data-recono="${item.recono}" data-prodno="${item.prodno}" data-buyer="${item.buyer}">후기 남기기</button>
 								                            </c:when>
 								                            <c:otherwise>
-									                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.buyer}">후기 작성완료</button>
+									                            <button type="button" class="ing btn btn-danger review-view" data-recono="${item.recono}" data-revino="${item.revino}" data-receiver="${item.seller}">후기 작성완료</button>
 								                            </c:otherwise>
 							                            </c:choose>
 							                        </div>
@@ -114,18 +114,17 @@
             var ts = $(this)
             
          	// data를 통해 거래 정보 가져오기
-            let receiver = ts.data("receiver");
-            let prodno = ts.data("prodno");
             let recono = ts.data("recono");
+            let buyer = ts.data("buyer");
             
          	// Ajax 호출
             $.ajax({
                 type: "GET",
-                url: "${pageContext.request.contextPath}/record/buy/end/review",
-                data: {"receiver":receiver, "prodno":prodno, "recono":recono},
+                url: "${pageContext.request.contextPath}/record/sell/end/review",
+                data: {"recono":recono, "buyer":buyer},
                 success: function(json) {
 	    				console.log(json);
-	    				window.location = "${pageContext.request.contextPath}/review_write.cider?recono=" + json.item.recono;
+	    				window.location = "${pageContext.request.contextPath}/review_write.cider?recono=" + json.item.recono + "&buyer=" + json.item.buyer;
 	    			}
             });
             
@@ -137,19 +136,9 @@
             var ts = $(this)
             
          	// data를 통해 거래 정보 가져오기
-            let receiver = ts.data("receiver");
-            let recono = ts.data("recono");
             let revino = ts.data("revino");
             
-         	// Ajax 호출
-            $.ajax({
-                type: "GET",
-                url: "${pageContext.request.contextPath}/review_view.cider?revino="+revino,
-                data: {"receiver":receiver, "recono":recono, "revino":revino},
-                success: function(json) {
-	    				console.log(json);
-	    			}
-            });
+            window.location = "${pageContext.request.contextPath}/review_view.cider?revino="+revino;
             
         });
         </script>

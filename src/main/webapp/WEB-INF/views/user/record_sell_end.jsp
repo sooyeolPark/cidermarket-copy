@@ -197,19 +197,9 @@
                 var ts = $(this)
                 
              	// data를 통해 거래 정보 가져오기
-	            let receiver = ts.data("receiver");
-                let recono = ts.data("recono");
 	            let revino = ts.data("revino");
 	            
-	         	// Ajax 호출
-                $.ajax({
-                    type: "GET",
-                    url: "${pageContext.request.contextPath}/review_view.cider?revino="+revino,
-                    data: {"receiver":receiver, "recono":recono, "revino":revino},
-                    success: function(json) {
-  	    				console.log(json);
-  	    			}
-                });
+	            window.location = "${pageContext.request.contextPath}/review_view.cider?revino="+revino;
                 
             });
 

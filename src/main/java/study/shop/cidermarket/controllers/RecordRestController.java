@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.model.Msgbox;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.service.MemberService;
@@ -162,34 +158,6 @@ public class RecordRestController {
         return webHelper.getJsonData();
 	}
 	
-	/** 거래내역 판매 - 거래완료 - 후기남기기 버튼 클릭시 */
-	@RequestMapping(value="/record/sell/end/review", method=RequestMethod.GET)
-	public Map<String, Object> recordSellendReview(
-			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="buyer", defaultValue="0") int buyer,
-			@RequestParam(value="prodno", defaultValue="0") int prodno) {
-                
-        /** 가져온 값을 이용하여 거래내역 조회 */
-        Record input = new Record();
-        input.setRecono(recono);
-        input.setBuyer(buyer);
-        input.setProdno(prodno);
-        
-        Record output = null;
-        
-        try {
-        	output = recordService.getRecordItem(input);
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-        
-        /** View 처리 */
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("item", output);
-        return webHelper.getJsonData(data);
-	}
-    
-	
 	/**************************** 구매자 *********************************/
 	
 	/** 거래내역 구매 - 거래확정 정보 갱신 페이지 */
@@ -213,5 +181,36 @@ public class RecordRestController {
         
         return webHelper.getJsonData();
 	}
+	
+	
+	/**************************** 후기남기기 버튼 클릭시 *********************************/
+	
+	/** 거래내역 판매 - 거래완료 - 후기남기기 버튼 클릭시 */
+	@RequestMapping(value="/record/sell/end/review", method=RequestMethod.GET)
+	public Map<String, Object> recordSellendReview(
+			@RequestParam(value="recono", defaultValue="0") int recono,
+			@RequestParam(value="buyer", defaultValue="0") int buyer) {
+                
+        /** 가져온 값을 이용하여 거래내역 조회 */
+        Record input = new Record();
+        input.setRecono(recono);
+        input.setBuyer(buyer);
+        
+        Record output = null;
+        
+        try {
+        	output = recordService.getRecordItem(input);
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+        
+        /** View 처리 */
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("item", output);
+        return webHelper.getJsonData(data);
+	}
+    
+	
+	
     
 }

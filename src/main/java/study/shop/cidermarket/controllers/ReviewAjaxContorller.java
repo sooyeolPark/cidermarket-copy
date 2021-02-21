@@ -138,12 +138,14 @@ public class ReviewAjaxContorller {
 	//---------------------------------------------------------------------------------------------	
 	@RequestMapping(value = "/review_write.cider", method = RequestMethod.GET)
 	public ModelAndView get_item(Model model,
-			@RequestParam(value="recono", defaultValue="0") int recono) {
+			@RequestParam(value="recono", defaultValue="0") int recono,
+			@RequestParam(value="buyer", defaultValue="0") int buyer) {
 		
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Record input = new Record();
 	    input.setRecono(recono);
+	    input.setBuyer(buyer);
 	      
 		Record output = null;
 	    

@@ -2,14 +2,17 @@ package study.shop.cidermarket.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.service.RecordService;
+import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Msgbox;
 import study.shop.cidermarket.model.Record;
+import study.shop.cidermarket.service.RecordService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
 // -> import org.springframework.stereotype.Service;
@@ -21,12 +24,25 @@ public class RecordServiceImpl implements RecordService {
 	// -> import org.springframework.beans.factory.annotation.Autowired;
 	// -> import org.apache.ibatis.session.SqlSession; 
 	@Autowired SqlSession sqlSession;
+	@Autowired WebHelper webHelper;
 
 	@Override
 	public Record getRecordItem(Record input) throws Exception {
 		Record result = null;
+		
+		HttpSession session = webHelper.getRequest().getSession(); 
+		int myNum = (int)session.getAttribute("myNum");
+		
 		try {
-			result = sqlSession.selectOne("RecordMapper.selectItem", input);
+			if (input.getBuyer() == myNum) { // 작성자가 구매자라면 판매자에게 후기남기기
+				log.debug("판매자에게 후기 남기기 내 번호는 = "+myNum + "------buyer 번호는 = " + input.getBuyer());
+				log.debug("판매자에게 후기 남기기 내 번호는 = "+myNum + "------seller 번호는 = " + input.getSeller());
+				result = sqlSession.selectOne("RecordMapper.selectBuyItem", input);								
+			} else { 						 // 작성자가 판매자라면 구매자에게 후기남기기
+				log.debug("구매자에게 후기 남기기 내 번호는 = "+myNum + "------buyer 번호는 = " + input.getBuyer());
+				log.debug("판매자에게 후기 남기기 내 번호는 = "+myNum + "------seller 번호는 = " + input.getSeller());
+				result = sqlSession.selectOne("RecordMapper.selectItem", input);				
+			}
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}

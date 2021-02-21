@@ -76,7 +76,20 @@
 		FROM record r
 		INNER JOIN product p ON r.prodno=p.prodno
 		INNER JOIN member m ON r.buyer=m.membno
-		WHERE r.tradecon in('W', 'A') AND recono=#{recono}
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND recono=#{recono}
+	</select>
+	
+	<!-- 구매자 거래중 단일행 조회를 위한 기능 정의 -->
+	<select id="selectBuyItem"
+		parameterType="study.shop.cidermarket.model.Record"
+		resultMap="recordMap">
+		SELECT recono, r.how, p.prodno, p.subject, p.price, r.refund, r.tradecon, r.confirmdate, p.seller, r.buyer, 
+			(SELECT nickname FROM member WHERE membno=seller) AS nickname,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=r.prodno AND reftable='product')) AS filepath
+		FROM record r
+		INNER JOIN product p ON r.prodno=p.prodno
+		INNER JOIN member m ON r.buyer=m.membno
+		WHERE NOT r.tradecon='J' AND NOT r.refund='J' AND recono=#{recono}
 	</select>
 	
 	<!-- 판매자 거래중 다중행 조회를 위한 기능 정의 -->
