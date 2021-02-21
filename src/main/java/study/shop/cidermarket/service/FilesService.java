@@ -14,6 +14,14 @@ public interface FilesService {
 	public Files getFilesItem(Files input) throws Exception;
 	
 	/**
+	 * 연관게시물 데이터 목록 조회
+	 * @param Files 검색결과 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public List<Files> getRefFilesList(Files input) throws Exception;
+	
+	/**
 	 * 데이터 목록 조회
 	 * @param Files 검색결과 페이지 구현 정보를 담고 있는 Beans
 	 * @return 조회 결과에 대한 컬렉션

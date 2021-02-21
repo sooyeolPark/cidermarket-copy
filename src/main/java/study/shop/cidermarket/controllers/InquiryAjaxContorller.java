@@ -2,6 +2,9 @@ package study.shop.cidermarket.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,7 +18,11 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
+import study.shop.cidermarket.model.Files;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.service.BbsService;
+import study.shop.cidermarket.service.FilesService;
+import study.shop.cidermarket.service.MemberService;
 
 @Controller
 public class InquiryAjaxContorller {
@@ -31,8 +38,17 @@ public class InquiryAjaxContorller {
    @Qualifier("bbsInquiryService")
    BbsService bbsInquiryService;
    
+   @Autowired
+   @Qualifier("memberService")
+   MemberService memberService;
+   
+   @Autowired
+   @Qualifier("filesBbsService")
+   FilesService filesBbsService;
+   
+   
    /** 목록 페이지 */
-   @RequestMapping(value="/help_ajax/inquiry_list.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/help/inquiry_list.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
          @RequestParam(value="membno", defaultValue="0") int membno,
          // 페이지 구현에서 사용할 현재 페이지 번호
@@ -75,7 +91,7 @@ public class InquiryAjaxContorller {
    }
    
    /** 상세 페이지 */
-   @RequestMapping(value="/help_ajax/inquiry_view.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/help/inquiry_view.cider", method=RequestMethod.GET)
    public ModelAndView view(Model model,
          @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
       
@@ -88,36 +104,46 @@ public class InquiryAjaxContorller {
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
       Bbs input = new Bbs();
       input.setBbsno(bbsno);
+      Files f = new Files();
+      f.setRefid(bbsno);
       
       // 조회 결과를 저장할 객체 선언
       Bbs output = null;
+      List<Files> files = null;
       try {
          // 데이터 조회
          output = bbsInquiryService.getBbsItem(input);
+         // 파일 조회
+         files = filesBbsService.getRefFilesList(f);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
       /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("files", files);
       return new ModelAndView("user/inquiry_view");
       
    }
    
    /** 작성 폼 페이지 */
-   @RequestMapping(value="/help_ajax/inquiry.cider", method=RequestMethod.GET)
-   public ModelAndView add(Model model) {
-      /** 목록 조회하기 */
-      // 조회결과를 저장할 객체 선언
-//      List<Member> membList = null;
-//      try {
-         // 데이터 조회 --> 검색조건 없이 모든 데이터 조회
-//         membList = memberService.getMemberList(null);
-//      } catch (Exception e) {
-//         return webHelper.redirect(null, e.getLocalizedMessage());
-//      }
-      // View에 추가
-//      model.addAttribute("membList", membList);
+   @RequestMapping(value="/help/inquiry_write.cider", method=RequestMethod.GET)
+   public ModelAndView add(Model model, HttpServletRequest request) {
+	   
+	  HttpSession session = request.getSession();
+	  int myNum = (int)session.getAttribute("myNum");
+	  
+	  Member input = new Member();
+	  input.setMembno(myNum);
+	  Member output = null;
+	  
+	  try {
+		output = memberService.getMemberIndexItem(input);
+	} catch (Exception e) {
+		return webHelper.redirect(null, e.getLocalizedMessage());
+	}
+	  
+	  model.addAttribute("output", output);
       return new ModelAndView("user/inquiry");
    }
 }

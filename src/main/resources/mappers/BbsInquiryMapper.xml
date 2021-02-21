@@ -22,9 +22,9 @@
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Bbs"
 		resultMap="bbsInquiryMap">
-		SELECT bbsno, type, name, tel, email, category, title, content, hits,
+		SELECT bbsno, type, name, tel, email, category, title, content,
 			DATE_FORMAT(regdate, '%Y-%m-%d %I:%M:%S') AS regdate,  
-			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply, membno
+			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply
 		FROM bbs
 		WHERE bbsno=#{bbsno}
 	</select>
@@ -35,12 +35,13 @@
 		resultMap="bbsInquiryMap">
 		SELECT bbsno, type, name, tel, email, category, title, content, hits,
 			DATE_FORMAT(regdate, '%Y-%m-%d %I:%M:%S') AS regdate,  
-			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply, membno
+			DATE_FORMAT(editdate, '%Y-%m-%d %I:%M:%S') AS editdate, reply
 		FROM bbs
 		
 		<where>
+				type='Q'
 			<if test="title != null and title != ''">
-				title LIKE concat('%', #{title}, '%')
+				AND title LIKE concat('%', #{title}, '%')
 			</if>
 			<if test="membno != null and membno != ''">
 				AND membno=#{membno}
@@ -61,8 +62,9 @@
 		SELECT COUNT(*) FROM bbs
 		
 		<where>
+				type='Q'
 			<if test="title != null and title != ''">
-				title LIKE concat('%', #{title}, '%')
+				AND title LIKE concat('%', #{title}, '%')
 			</if>
 			<if test="membno != null and membno != ''">
 				AND membno=#{membno}
@@ -76,11 +78,11 @@
 		useGeneratedKeys="true" keyProperty="bbsno">
 		INSERT INTO bbs (
 			type, name, tel, email, category, title, 
-			content, hits, regdate, editdate, reply, membno
+			content, hits, regdate, editdate, reply
 		) VALUES (
 			'Q', #{name}, #{tel}, #{email}, 
 			#{category}, #{title}, #{content}, 0, now(),
-			#{editdate}, #{reply}, #{membno}
+			now(), #{reply}
 		)
 	</insert>
 	
@@ -94,9 +96,9 @@
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Bbs">
 		UPDATE bbs SET
-			bbsno=#{bbsno}, type=#{type}, name=#{name}, tel=#{tel}, email=#{email}, 
-			category=#{category}, title=#{title}, content=#{content}, hits=#{hits}, 
-			regdate=#{regdate},	editdate=#{editdate}, reply=#{reply}, membno=#{membno}
+			type=#{type}, name=#{name}, tel=#{tel}, email=#{email}, 
+			category=#{category}, title=#{title}, content=#{content}, 
+			editdate=now(), reply=#{reply}
 		WHERE bbsno=#{bbsno}
 	</update>
 

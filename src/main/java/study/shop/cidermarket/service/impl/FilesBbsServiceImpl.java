@@ -20,12 +20,30 @@ public class FilesBbsServiceImpl implements FilesService {
 	// -> import org.springframework.beans.factory.annotation.Autowired;
 	// -> import org.apache.ibatis.session.SqlSession; 
 	@Autowired SqlSession sqlSession;
-
+	
 	@Override
 	public Files getFilesItem(Files input) throws Exception {
 		Files result = null;
 		try {
 			result = sqlSession.selectOne("FilesMapper.selectBbsItem", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	@Override
+	public List<Files> getRefFilesList(Files input) throws Exception {
+		List<Files> result = null;
+		try {
+			result = sqlSession.selectList("FilesMapper.selectRefList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}

@@ -40,8 +40,8 @@
                     <!-- 내용영역 -->
                     <!-- sorting -->
                     <div class="recordSort text-center recordSort2">
-                      <button type="button" class="ing btn btn-lg btn-info" onclick="location.href='${pageContext.request.contextPath}/help_ajax/inquiry.cider'">문의하기</button>
-                      <button type="button" class="ing btn btn-lg btn-primary">문의내역</button>
+                      <button type="button" class="ing btn btn-lg btn-info" onclick="location.href='${pageContext.request.contextPath}/help/inquiry_write.cider'">문의하기</button>
+                      <button type="button" class="ing btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/help/inquiry_list.cider'">문의내역</button>
                     </div>
 
                     <!-- view -->
@@ -49,6 +49,18 @@
                       <!-- Default panel contents -->
                       <div class="panel-heading" id="user-write">${output.title}</div>
                       <div class="panel-body">
+                      	<c:choose>
+                    		<%-- 조회결과가 없는 경우 --%>
+							<c:when test="${files == null || fn:length(files) == 0}">
+								<div class="text-center alert alert-info" role="alert">등록된 이미지가 없습니다.</div>
+							</c:when>	
+							<c:otherwise>
+								<%-- 조회 결과에 따른 반복 처리 --%>
+								<c:forEach var="item" items="${files}" varStatus="status">
+		                    		<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${output.title}" /></div>
+		                    	</c:forEach>
+							</c:otherwise>
+                    	</c:choose>
                         <p>${output.content}</p>
                       </div>
                     </div>
@@ -60,7 +72,7 @@
                       </div>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/help_ajax/inquiry_list.cider'">목록</button>
+                      <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/help/inquiry_list.cider'">목록</button>
                     </div>
                 </div>
                 
@@ -75,18 +87,6 @@
         <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                /** sorting */
-                $(".recordSort > .btn").click(function(e) {
-                    e.preventDefault();
-                    if ($(this).hasClass("btn-info")) {
-                        $(this).addClass("btn-primary").removeClass("btn-info");
-                        $(".recordSort > .btn").not(this).removeClass("btn-primary").addClass("btn-info");
-                    }
-                });
-            });
-        </script>
 </body>
 
 </html>

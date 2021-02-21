@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.service.MemberService;
 
+@Slf4j
 @RestController
 public class MemberRestController {
    /** WebHelper 주입 */
@@ -41,7 +43,8 @@ public class MemberRestController {
    @RequestMapping(value="/login.cider", method=RequestMethod.POST)
    public Map<String, Object> login(HttpServletRequest request,
 		   @RequestParam(value="email", defaultValue="") String email,
-		   @RequestParam(value="password", defaultValue="") String password) {
+		   @RequestParam(value="password", defaultValue="") String password,
+		   @RequestParam(value="idStateful", defaultValue="") String idStateful) {
 	   
 	   
 	   	/** 1) request 객체를 사용해서 세션 객체 만들기 */
@@ -54,6 +57,8 @@ public class MemberRestController {
 	   // 조회할 객체 선언
 	   Member output = null;
 	   
+	   log.debug("-------------------------로그인 상태유지 : " + idStateful + "------------------------");
+	   
 	   try {
 		   output = memberService.getMemberItem(input);	
 		   /** 2) 세션 저장, 삭제 */
@@ -61,6 +66,13 @@ public class MemberRestController {
 		   		// 입력 내용이 있다면 세션 저장 처리
 		   		session.setAttribute("myId", email);
 		   		session.setAttribute("myNum", output.getMembno());
+		   		if (idStateful.equals("true")) {
+		   			log.debug(idStateful+"---------------- 세션 유지시간 24시간 ---------------------");
+		   			session.setMaxInactiveInterval(86400); // 24시간 유지
+		   		} else {
+		   			log.debug(idStateful+"---------------- 세션 유지시간 30분 ---------------------");
+		   			session.setMaxInactiveInterval(1800); // 30분간 유지		   			
+		   		}
 		   	} else {
 		   		// 입력 내용이 없다면 세션 삭제
 		   		session.removeAttribute("myId");

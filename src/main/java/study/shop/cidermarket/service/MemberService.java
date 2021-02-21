@@ -6,12 +6,20 @@ import study.shop.cidermarket.model.Member;
 
 public interface MemberService {
 	/**
-	 * 데이터 상세 조회
+	 * 데이터 상세 조회(이메일, 패스워드로 조회)
 	 * @param Member 조회할 데이터의 일련번호를 담고 있는 Beans
 	 * @return 조회된 데이터가 저장된 Beans
 	 * @throws Exception
 	 */
 	public Member getMemberItem(Member input) throws Exception;
+	
+	/**
+	 * 데이터 상세 조회(멤버번호로만 조회)
+	 * @param Member 조회할 데이터의 일련번호를 담고 있는 Beans
+	 * @return 조회된 데이터가 저장된 Beans
+	 * @throws Exception
+	 */
+	Member getMemberIndexItem(Member input) throws Exception;
 	
 	/**
 	 * ID 찾기 조회
@@ -53,7 +61,8 @@ public interface MemberService {
 	 */
 	public int addMember(Member input) throws Exception;
 	
-	/**
+	/**@Override
+	
 	 * 데이터 수정하기
 	 * @param Member 수정할 정보를 담고 있는 Beans 
 	 * @return int
@@ -76,5 +85,6 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public int deleteMember(Member input) throws Exception;
+
 	
 }

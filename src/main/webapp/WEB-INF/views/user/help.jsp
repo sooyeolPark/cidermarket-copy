@@ -29,9 +29,9 @@
 
 				<!-- 탭 버튼 영역 -->
 				<ul class="row tab-button clearfix">
-					<li role="presentation" class="tab-button-item text-center"><a href="#tab-page-faq" class="tab-button-item-link3 pull-left selected" id="faq">자주묻는질문</a></li>
-					<li role="presentation" class="tab-button-item text-center"><a href="#tab-page-policy" class="tab-button-item-link3 pull-left" id="policy">운영정책</a></li>
-					<li role="presentation" class="tab-button-item text-center"><a href="#tab-page-inquiry" class="tab-button-item-link3 pull-left" id="inquiry">일반문의</a></li>
+					<li role="presentation" class="tab-button-item text-center"><a href="#tab-page-faq" class="tab-button-item-link3 link2 pull-left selected" id="faq">자주묻는질문</a></li>
+					<li role="presentation" class="tab-button-item text-center"><a href="#tab-page-policy" class="tab-button-item-link3 link2 pull-left" id="policy">운영정책</a></li>
+					<li role="presentation" class="tab-button-item text-center"><a href="${pageContext.request.contextPath}/help/inquiry_write.cider" class="tab-button-item-link3 pull-left" id="inquiry">일반문의</a></li>
 				</ul>
 
 				<!-- 내용영역 -->
@@ -58,11 +58,6 @@
 					<!-- 탭 - 운영정책 -->
 					<div id="tab-page-policy" class="hide">
 						<%@ include file="/WEB-INF/views/user/policy.jsp"%>
-					</div>
-
-					<!-- 탭 - 일반문의 -->
-					<div id="tab-page-inquiry" class="hide">
-						<%@ include file="/WEB-INF/views/user/inquiry.jsp"%>
 					</div>
 				</div>
 			</div>
@@ -188,7 +183,7 @@
 			/** selected 파라미터 받아와서 1차 탭 선택함 */
 			var url = new URL(window.location.href);
 			var selector = url.searchParams.get("selected");
-			$(".tab-button-item-link3").removeClass("selected");
+			$(".link2").removeClass("selected");
 			$("#" + selector).prop("selected", true).addClass("selected");
 			/** 선택된 1차 탭의 href값으로 탭 패널 열기 */
 			var target = $("#" + selector).attr('href');
@@ -196,9 +191,9 @@
 			$(".tab-panel > div").not($(target)).addClass('hide');
 
 			/** 탭 버튼의 클릭 처리 */
-			$(".tab-button-item-link3").click(function(e) {
+			$(".link2").click(function(e) {
 				e.preventDefault();
-				$(".tab-button-item-link3").not(this).removeClass("selected");
+				$(".link2").not(this).removeClass("selected");
 				$(this).addClass("selected");
 				var target = $(this).attr('href');
 				$(target).removeClass('hide');
@@ -227,6 +222,20 @@
 				$(".panel-faq h4").filter(function() {
 					$(this).toggle($(this).text().indexOf(value) > -1);
 				});
+			});
+			
+			// 일반문의 작성은 로그인 후 이용 가능
+			$("#inquiry").click(function(e){
+				e.preventDefault();
+				var myNum = '<%=session.getAttribute("myNum")%>';
+	    	    if(myNum=="null"){
+	    		    if(confirm("문의하기는 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+	    			  window.location = "${pageContext.request.contextPath}/member/login.cider";  
+	    		    } else {
+	    		  	  return false;
+	    		    }
+	    	    }
+	    	    window.location="${pageContext.request.contextPath}/help/inquiry_write.cider";
 			});
 
 		});

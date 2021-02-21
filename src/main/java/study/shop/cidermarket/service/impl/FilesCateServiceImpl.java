@@ -104,4 +104,10 @@ public class FilesCateServiceImpl implements FilesService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<Files> getRefFilesList(Files input) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

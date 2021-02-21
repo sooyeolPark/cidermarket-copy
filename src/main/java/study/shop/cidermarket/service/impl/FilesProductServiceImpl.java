@@ -122,4 +122,10 @@ public class FilesProductServiceImpl implements FilesService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<Files> getRefFilesList(Files input) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

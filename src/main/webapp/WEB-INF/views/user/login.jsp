@@ -55,6 +55,7 @@
 					<div class="checkbox col-sm-offset-2">
 						<label><input type="checkbox" id="idSave" <c:if test="${cookie.id.value != null && cookie.id.value != ''}">checked</c:if>>아이디 저장</label> 
 						<label><input type="checkbox" id="idStateful" <c:if test="${cookie.idStateful.value != null && cookie.idStateful.value != ''}">checked</c:if>>로그인 상태유지</label>
+						<input type="hidden" name="idStateful" id="ids" value="" />
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
@@ -178,9 +179,9 @@
                 
                 // 로그인 상태유지
                 if ($("#idStateful").is(":checked") == true) { // 아이디 저장을 체크 하였을때
-					setCookie("idStateful", "true", 2);
+                	$("#ids").val("true");
                 } else {
-                	setCookie("idStateful", "true", -1);
+                	$("#ids").val("");
                 }
                 
                 /** Ajax 호출 */
