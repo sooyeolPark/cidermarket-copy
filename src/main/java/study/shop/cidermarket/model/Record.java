@@ -24,7 +24,10 @@ public class Record {
 	private int seller;  // 판매자
 	private String nickname;  // 구매자 닉네임
 	private int revino;  // 후기번호
-	
+	private int count;  // 결과갯수 
+	private int month; //월
+	private int lastmonth;
+	private int lasttwomonth;
 	// 3) 페이지 구현을 위한 static 변수
     /** LIMIT 절에서 사용할 조회 시작 위치 */
     private static int offset;

@@ -50,11 +50,11 @@ public class MyGradeAjaxContorller {
        input_01.setSeller(myNum);
 
        // 조회결과를 저장할 객체 선언
-       int output_sell = 0;
+       Record output_sell = null;
 
        try {
            // 데이터 조회
-           output_sell = recordService.getRecordSellEndCount(input_01);
+           output_sell = recordService.getRecordSellEndCountByMonth(input_01);
        } catch (Exception e) {
            return webHelper.redirect(null, e.getLocalizedMessage());
        }
@@ -64,11 +64,11 @@ public class MyGradeAjaxContorller {
 	       input_02.setBuyer(myNum);
 
 	       // 조회결과를 저장할 객체 선언
-	       int output_buy = 0;
+	       Record output_buy = null;
 
 	       try {
 	           // 데이터 조회
-	           output_buy = recordService.getRecordSellEndCount(input_02);
+	           output_buy = recordService.getRecordBuyEndCountByMonth(input_02);
 	       } catch (Exception e) {
 	           return webHelper.redirect(null, e.getLocalizedMessage());
 	       }

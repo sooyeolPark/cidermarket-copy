@@ -39,7 +39,7 @@
       <ul class="my_ctg">
         <li class="active"><a href="${pageContext.request.contextPath}/user/mystore.cider">내상점</a></li>
         <li><a href="${pageContext.request.contextPath}/user/mystore_review.cider">거래후기</a></li>
-        <li><a href="${pageContext.request.contextPath}/user/mystore_mygrade.cider">나의 등급</a></li>
+        <li><a href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의 등급</a></li>
         <li><a href="${pageContext.request.contextPath}/user/mystore_myinfo.cider">내정보 설정</a></li>
       </ul>
     </div>

@@ -73,6 +73,25 @@ public interface RecordService {
 	/**
 	 * 구매중 데이터가 저장되어 있는 갯수 조회
 	 * @param Record 검색조건을 담고 있는 Beans
+<<<<<<< HEAD
+=======
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getRecordBuyIngCount(Record input) throws Exception;
+	
+	/**
+	 * 구매완료 데이터가 저장되어 있는 갯수 조회
+	 * @param Record 검색조건을 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getRecordBuyEndCount(Record input) throws Exception;
+	
+	/**
+	 * 데이터 등록하기
+	 * @param Record 저장할 정보를 담고 있는 Beans
+>>>>>>> branch 'cidermarket' of git@github.com:ITPAPER/ezen-android2020-3.git
 	 * @return int
 	 * @throws Exception
 	 */
@@ -93,13 +112,26 @@ public interface RecordService {
 	 * @throws Exception
 	 */
 	
-	public int getRecordSellEndCountByMonth(Record input) throws Exception;
+	public Record getRecordSellEndCountByMonth(Record input) throws Exception;
 	
 	/**
 	 * 데이터 등록하기
 	 * @param Record 저장할 정보를 담고 있는 Beans
 	 * @return int
 	 * @throws Exception
+	 * 
+	 * 
+	 */
+	
+	public Record getRecordBuyEndCountByMonth(Record input) throws Exception;
+	
+	/**
+	 * 데이터 등록하기
+	 * @param Record 저장할 정보를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 * 
+	 * 
 	 */
 	public int addRecord(Record input) throws Exception;
 	

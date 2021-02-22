@@ -138,8 +138,8 @@ public class RecordServiceImpl implements RecordService {
 	
 	
 	@Override
-	public int getRecordSellEndCountByMonth(Record input) throws Exception {
-		int result = 0;
+	public Record getRecordSellEndCountByMonth(Record input) throws Exception {
+		Record result = null;
 		try {
 			result = sqlSession.selectOne("RecordMapper.selectSellEndCountByMonth", input);
 		} catch (Exception e) {
