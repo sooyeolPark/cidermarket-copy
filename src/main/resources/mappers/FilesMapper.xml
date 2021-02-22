@@ -150,7 +150,7 @@
 	<select id="selectItemIndexList"
 		parameterType="study.shop.cidermarket.model.Files"
 		resultMap="filesMap">
-		SELECT filepath
+		SELECT *
 		FROM files
 		WHERE reftable='product' AND refid=#{refid}
 	</select>

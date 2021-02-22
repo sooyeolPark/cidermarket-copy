@@ -47,7 +47,7 @@ public class ItemRestController2 {
 	@Qualifier("filesProductService")
 	FilesService filesProductService;
 	
-	   // 작성 폼에 대한 action page
+	   // 상품 등록 폼에 대한 action page
 	   @RequestMapping(value="/Item_index", method=RequestMethod.POST)
 	   public Map<String, Object> get_item(
 			   @RequestParam(name="image0", required=false) MultipartFile image0,
