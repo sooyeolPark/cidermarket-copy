@@ -72,16 +72,31 @@ public class MyGradeAjaxContorller {
 	       } catch (Exception e) {
 	           return webHelper.redirect(null, e.getLocalizedMessage());
 	       }
-	       
+	     
+	   Record input_03 = new Record();
+	   input_03.setMembno(myNum);
+	   Record output = null; 
+	   
+       try {
+           // 데이터 조회
+           output= recordService.getUserInfo(input_03);
+       } catch (Exception e) {
+           return webHelper.redirect(null, e.getLocalizedMessage());
+       }
        
        
        
        // 모델 객체에 담기
        model.addAttribute("output_sell", output_sell);
        model.addAttribute("output_buy", output_buy);
+       model.addAttribute("output", output);
  
 	
       return new ModelAndView("user/mystore_mygrade");
    }
+   
+   
+   
+   
  
 }

@@ -21,6 +21,7 @@
         <result property="price" column="price" />
         <result property="seller" column="seller" />
         <result property="revino" column="revino" />
+        <result property="membno" column="membno" />
     </resultMap>
     
     <!-- 특정회원의 거래 완료 수를 위한 기능 정의 -->
@@ -303,5 +304,16 @@
         SELECT * FROM record
         WHERE recono=#{recono}
     </select>
+    
+     <select id="selectUserInfo"
+        parameterType="study.shop.cidermarket.model.Record"
+        resultMap="recordMap">
+        SELECT  distinct r.buyer, m.nickname
+        FROM record r
+        INNER JOIN member m ON r.buyer=m.membno
+        WHERE m.membno=#{membno}
+    </select>
+    
+    
 
 </mapper>
