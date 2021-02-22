@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Msgbox;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.service.RecordService;
@@ -352,6 +353,25 @@ public class RecordServiceImpl implements RecordService {
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("거래 확정에 실패했습니다.");
+		}
+		return result;
+	}
+
+
+	@Override
+	public Record getUserInfo(Record input) throws Exception {
+		Record result = null;
+		try {
+			result = sqlSession.selectOne("RecordMapper.selectUserInfo", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 정보가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 조회에 실패했습니다.");
 		}
 		return result;
 	}

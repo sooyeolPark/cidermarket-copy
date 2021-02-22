@@ -151,5 +151,6 @@ public interface RecordService {
 	 * @throws Exception
 	 */
 	public int deleteRecord(Record input) throws Exception;
+	public Record getUserInfo(Record input) throws Exception;
 	
 }
