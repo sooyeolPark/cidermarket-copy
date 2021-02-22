@@ -39,7 +39,7 @@ public class ReviewAjaxContorller {
    
    
    /** 목록 페이지 */
-   @RequestMapping(value="/user/mystore_review.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/mystore_review.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
 		   // 검색어
 	         @RequestParam(value="keyword", required=false) String keyword,

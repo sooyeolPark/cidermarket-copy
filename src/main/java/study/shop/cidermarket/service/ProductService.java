@@ -52,5 +52,21 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	public int deleteProduct(Product input) throws Exception;
+
+	/** 
+	 * 특정 회원이 올린 상품 수
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	int getMemberProductCount(Product input) throws Exception;
+
+	/**
+	 * 특정 회원이 올린 상품 리스트 조회
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	List<Product> getMemberProductList(Product input) throws Exception;
 	
 }

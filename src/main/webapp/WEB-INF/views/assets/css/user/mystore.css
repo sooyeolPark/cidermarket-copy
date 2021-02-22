@@ -10,26 +10,37 @@
   font-size: 1.2em;
   padding: 0;
 }
-#mystore > ul a {
+#mystore > ul a,
+#mystore > ul button {
   border: 0;
   border-bottom: 3px solid #f0f0f0;
   border-radius: 0;
   padding: 10px 0;
   margin: 0;
+  width: 100%;
+  background: #fff;
 }
-#mystore > ul .active a {
+#mystore > ul .active a,
+#mystore > ul .active button {
   border: 0;
   color: #31a05f;
   border-bottom: 3px solid #31a05f;
+}
+#mystore > ul .active button:active,
+#mystore > ul .active button:focus {
+	outline: none;
 }
 #si_top {
   margin: 15px 5px 0;
 }
 #si_total {
-  padding-top: 10px;
+  padding: 10px 15px 0 0;
 }
 #si_ctg {
   width: 30%;
+}
+.alert-success {
+	margin-top: 30px;
 }
 .itemList {
   margin-top: 15px;
@@ -47,8 +58,10 @@
   padding-left: 4%;
 }
 
-#searchbox1 {
-  width: 75%;
+#searchbox1,
+#searchbox2,
+#searchbox3 {
+  width: 55%;
 }
 #sbox_addon {
   border: 1px solid #ccc;
@@ -103,6 +116,7 @@
   letter-spacing: -0.8px;
 }
 .thumbnail img {
+  width: 100%;
   border: 1px solid #eee;
 }
 .item-list a:hover img {
