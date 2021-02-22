@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div id="searchBox" class="container">
-		<form method="post" action="${pageContext.request.contextPath}/search.save">
+		<form method="post" action="${pageContext.request.contextPath}/search">
 			<input type="text" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력해 주세요." />
 			<button class="btn btnSearch-s" type="submit">
 				<i class="glyphicon glyphicon-search"></i>

@@ -25,7 +25,7 @@
             	<!-- 검색박스 영역 -->
 				<form action="${pageContext.request.contextPath}/search.cider" class="search-form">
 				    <div class="input-group col-lg-6">
-				      <input type="search" name="keyword" class="form-control" value="${keyword}" >
+				      <input type="search" name="keyword" class="form-control" id="keyword" value="${keyword}" >
 				      <span class="input-group-btn">
 				        <button class="btn btn-default" type="submit">검색</button>
 				      </span>
@@ -86,9 +86,7 @@
 					<c:choose>
 						<%-- 조회결과가 없는 경우 --%>
 						<c:when test="${output == null || fn:length(output) == 0}">
-							<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-								<p>등록된 상품이 없습니다.</p>
-							</div>
+							<div class="noSearch alert alert-success">등록된 상품이 없습니다.</div>
 						</c:when>
 						<%-- 조회결과가 있는 경우 --%>
 						<c:otherwise>
@@ -116,10 +114,17 @@
 									
 					                <a href="${viewUrl}">
 					                    <div class="sorting thumbnail">
-				                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+				                        	<c:choose>
+					                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+					                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+					                        	</c:when>
+				                        		<c:otherwise>
+				                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+				                        		</c:otherwise>
+				                        	</c:choose>
 					                        <div class="caption">
 					                            <h5>${subject}</h5>
-					                            <h4>${item.price}원</h4>
+					                            <h4><fmt:formatNumber value="${item.price}" pattern="#,###" />원</h4>
 					                            <h6>${sellerNick} 님의 상품</h6>
 					                        </div>
 					                    </div>
@@ -129,7 +134,7 @@
 			            </c:otherwise>
 		            </c:choose>
 				</div>
-                <button type="button" id="more" class="btn btn-primary btn-block btn-lg">더보기</button>
+                <button type="button" id="btnMore" class="btn btn-primary btn-block btn-lg">더보기</button>
                 
             </div>
         </section>
@@ -143,7 +148,11 @@
 			<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
              	<a href="${pageContext.request.contextPath}/product/item_index.cider?prodno={{prodno}}">
              		<div class="sorting thumbnail">
-                		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}">
+                		{{#if filepath}}
+			        		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
+			        	{{else}}
+				        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+						{{/if}}
                     	<div class="caption">
                        		<h5>{{subject}}</h5>
                         	<h4>{{price}}원</h4>
@@ -180,25 +189,25 @@
             
             
             let nowPage = 1;	// 현재 페이지의 기본값
+     		
             
             $(function() {
             	/** 더보기 버튼에 대한 이벤트 정의 */
         		$("#btnMore").click(function() {
-        			
         			nowPage++;
-        			
+        			let keyword = $('#category-title').text();
         			// Restful API에 GET 방식 요청
-        			$.get("${pageContext.request.contextPath}/search.cider", {
-        				"page": nowPage    // 페이지 번호는 GET 파라미터로 전송한다.
+        			$.get("${pageContext.request.contextPath}/search", {
+        				"page": nowPage, "keyword":keyword   // 페이지 번호는 GET 파라미터로 전송한다.
         			}, function(json) {
         				var source = $("#prod-item-tmpl").html();	// 템플릿 코드 가져오기
         				var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
         				var result = template(json);	// 템플릿 컴파일 결과물에 json 전달
-        				$("#list").append(result);		// 최종 결과물을 #list 요소에 추가한다.
+        				$("#item-list").append(result);		// 최종 결과물을 #list 요소에 추가한다.
         				
         				// 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
         				if (json.pageData.totalPage <= nowPage) {
-        					$("#more").hide();
+        					$("#btnMore").hide();
         				}
         				
         			});

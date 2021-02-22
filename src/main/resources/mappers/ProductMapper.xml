@@ -71,7 +71,9 @@
 		
 		<where>
 			<if test="subject != null and subject != ''">
-				subject LIKE concat('%', #{subject}, '%')
+				subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
 			</if>
 		</where>
 	</select>
