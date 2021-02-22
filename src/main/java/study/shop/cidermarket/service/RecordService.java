@@ -86,7 +86,6 @@ public interface RecordService {
 	 * @return int
 	 * @throws Exception
 	 */
-	public int getRecordBuyEndCount(Record input) throws Exception;
 	
 	/**
 	 * 데이터 등록하기
@@ -95,7 +94,7 @@ public interface RecordService {
 	 * @return int
 	 * @throws Exception
 	 */
-	public int getRecordBuyIngCount(Record input) throws Exception;
+
 	
 	/**
 	 * 구매완료 데이터가 저장되어 있는 갯수 조회

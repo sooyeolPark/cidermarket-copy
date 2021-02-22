@@ -148,6 +148,18 @@ public class RecordServiceImpl implements RecordService {
 		}
 		return result;
 	}
+	
+	@Override
+	public Record getRecordBuyEndCountByMonth(Record input) throws Exception {
+		Record result = null;
+		try {
+			result = sqlSession.selectOne("RecordMapper.selectBuyEndCountByMonth", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 	
 
@@ -343,6 +355,9 @@ public class RecordServiceImpl implements RecordService {
 		}
 		return result;
 	}
+
+
+
 
 
 }
