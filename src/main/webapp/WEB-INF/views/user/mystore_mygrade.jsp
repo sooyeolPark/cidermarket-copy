@@ -88,14 +88,14 @@
 			<!-- 탭 메뉴 시작 -->
 			<ul class="my_ctg">
 				<li><a
-					href="${pageContext.request.contextPath}/user/mystore.cider">내상점</a></li>
+					href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/mystore_review.cider">거래후기</a></li>
+					href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
 				<li class="active"><a
-					href="${pageContext.request.contextPath}/user/mystore_mygrade.cider">나의
+					href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의
 						등급</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/mystore_myinfo.cider">내정보
+					href="${pageContext.request.contextPath}/mystore_myinfo.cider">내정보
 						설정</a></li>
 			</ul>
 		</div>
@@ -113,7 +113,7 @@
                                 width="70" height="70">
                             <div class="media-body">
                                 <div id="user_grade_now">
-                                    이번달 {output.nickname}님은 <b>화이트 등급</b>입니다.
+                                    이번달 ${output.nickname}님은 <b>화이트 등급</b>입니다.
                                 </div>
                                 <div id="user_number">
                                     <b>1</b>건 더 거래하면 다음 달에 블루 등급이 됩니다!
@@ -128,7 +128,7 @@
                                 width="70" height="70">
                             <div class="media-body">
                                 <div id="user_grade_now">
-                                    이번달 {output.nickname}님은 <b>블루 등급</b>입니다.
+                                    이번달 ${output.nickname}님은 <b>블루 등급</b>입니다.
                                 </div>
                                 <div id="user_number">
                                     <b>${3-totalCount}</b>건 더 거래하면 브론즈등급이 됩니다!
@@ -142,7 +142,7 @@
                                 width="70" height="70">
                             <div class="media-body">
                                 <div id="user_grade_now">
-                                    이번달 {output.nickname}님은 <b>브론즈 등급</b>입니다.
+                                    이번달 ${output.nickname}님은 <b>브론즈 등급</b>입니다.
                                 </div>
                                 <div id="user_number">
                                     <b>${7-totalCount}</b>건 더 거래하면 다음 달에 실버 등급이 됩니다!
@@ -156,7 +156,7 @@
                                 width="70" height="70">
                             <div class="media-body">
                                 <div id="user_grade_now">
-                                    이번달 {output.nickname}님은 <b>실버 등급</b>입니다.
+                                    이번달 ${output.nickname}님은 <b>실버 등급</b>입니다.
                                 </div>
                                 <div id="user_number">
                                     <b>${15-totalCount}</b>건 더 거래하면 다음 달에 골드 등급이 됩니다!
@@ -170,7 +170,7 @@
                                 width="70" height="70">
                             <div class="media-body">
                                 <div id="user_grade_now">
-                                    이번달 {output.nickname}님은 <b>골드 등급</b>입니다.
+                                    이번달 ${output.nickname}님은 <b>골드 등급</b>입니다.
                                 </div>
                                 <a id="modal" href="#">등급표 보기</a>
                             </div>
