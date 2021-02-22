@@ -77,8 +77,16 @@
                 	<%-- 조회 결과에 따른 반복 처리 --%>
                     <c:forEach var="item" items="${output}" varStatus="status">
 				<li class="media">
-				  <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/${item.filepath}" width="50"
-				      height="50"> </a>
+				  <a class="pull-left" href="#"> 
+				  	<c:choose>
+                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+                    		<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50">
+                    	</c:when>
+                   		<c:otherwise>
+                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="50" height="50">
+                   		</c:otherwise>
+                   	</c:choose>
+				  </a>
 				  <div class="media-body">
 				    <div class="clearfix">
 				      <div class="pull-right">
