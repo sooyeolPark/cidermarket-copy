@@ -54,18 +54,7 @@
 	<section>
 		<div class="container">
 			<!-- 유저 프로필 고정부분 -->
-			<ul class="media-list" id="user_profile">
-				<li class="media clearfix"><a class="pull-left" href="#">
-						<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_jordan.jpg" width="110" height="110" alt="Generic placeholder image" /> <img class="img-circle" src="${pageContext.request.contextPath}/assets/img/grade_3.png" width="40" height="40" id="user_grade" />
-					</a>
-					<div class="media-body">
-						<div id="user_id">마이클조던</div>
-						<div id="user_date">2020년 10월 가입</div>
-						<div id="user_intro">
-							신발 파는 신발 매니아입니다.<br /> 주로 거래하는 브랜드는 나이키입니다.
-						</div>
-					</div></li>
-			</ul>
+			<%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
 			<!-- 탭 메뉴 시작 -->
 			<ul class="my_ctg">
 				<li><a href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
@@ -231,9 +220,7 @@
 				e.preventDefault(); // 페이지 이동 방지
 				$("#background").fadeIn(300); // 배경 레이어를 화면에 표시한다.
 				$("#front").fadeIn(200); // 이미지 레이어를 화면에 표시한다.
-
 			});
-
 			/** (화면에 표시된) 배경 레이어를 클릭한 경우 */
 			$("#background").click(function() {
 				$(this).fadeOut(300); // 배경 레이어의 숨김

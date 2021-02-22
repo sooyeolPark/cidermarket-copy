@@ -37,24 +37,7 @@
   <section>
     <div class="container">
       <!-- 유저 프로필 고정부분 -->
-      <ul class="media-list" id="user_profile">
-        <li class="media clearfix">
-          <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_jordan.jpg" width="110"
-              height="110" alt="Generic placeholder image" />
-              <img class="img-circle" src="${pageContext.request.contextPath}/assets/img/grade_3.png" width="40"
-              height="40" id="user_grade" />
-          </a>
-          <div class="media-body">
-            <div id="user_id">마이클조던</div>
-            <div id="user_date">2020년 10월 가입</div>
-            <div id="user_intro">
-              신발 파는 신발 매니아입니다.<br />
-              주로 거래하는 브랜드는 나이키입니다.
-            </div>
-          </div>
-          <button type="button" class="btn btn-info" id="send_msg">쪽지 보내기</button>
-        </li>
-        </ul>
+      <%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
     </div>
     <div class="div_blank"></div>
     <!--// 탭 메뉴 끝 -->

@@ -32,13 +32,7 @@ public class MyInfoAjaxController {
     @Qualifier("MyInfoService")
     @Autowired MyInfoService myInfoService;
     
-    
-	/** 내상점  페이지 */
-    @RequestMapping(value="/mystore.cider", method=RequestMethod.GET)
-    public String loginAdm() {
-        return "user/mystore";
-    }
-        
+       
     
     /** 목록 페이지 */
     @RequestMapping(value = "mystore_myinfo.cider", method = RequestMethod.GET)

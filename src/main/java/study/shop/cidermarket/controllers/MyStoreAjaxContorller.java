@@ -40,12 +40,90 @@ public class MyStoreAjaxContorller {
    @Qualifier("productService")
    ProductService productService;
    
-   /** 목록 페이지 */
-   @RequestMapping(value="/mystore.cider", method=RequestMethod.GET)
-   public ModelAndView get_mystore(Model model,
-		// 검색어
+   /** 판매상품 목록 페이지 */
+   @RequestMapping(value="/mystore.cider/{shopaddress}", method=RequestMethod.GET)
+   public ModelAndView get_mystore(Model model,		   
+		@RequestParam(value="shopaddress", defaultValue="c3") String shopaddress,
 		@RequestParam(value="smallKeyword", required=false) String smallKeyword,
-		// 페이지 구현에서 사용할 현재 페이지 번호
+		@RequestParam(value="page", defaultValue="1") int nowPage) {
+	   
+	   /** 로그인 된 회원아이디 가져오기 */
+	   int myNum = 0;
+	   //HttpSession session = webHelper.getRequest().getSession();
+	   //myNum = (int) session.getAttribute("myNum");		
+	   /** 페이지 구현에 필요한 변수값 생성 */
+	   int totalCount = 0;		// 전체 게시글 수
+	   int listCount = 4;		// 한 페이지당 표시할 목록 수
+	   int pageCount = 5;		// 한 그룹당 표시할 페이지 번호 수
+	   
+	   Member input = new Member();
+	   Member output = null;
+	   List<Product> product = null;
+	   PageData pageData = null;
+	   Product pro = new Product();
+	   
+	   if (myNum != 0) {
+		   
+		   /** 데이터 조회 */
+		   input.setMembno(myNum);		
+		   try {
+			// 멤버 데이터 조회
+	   	 	    output = memberService.getMemberIndexItem(input);
+		   } catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+		   }
+		   pro.setSeller(myNum);
+			
+		} else {
+			
+			/** 데이터 조회 */
+		   input.setShopaddress(shopaddress);		   
+		   try {
+			// 멤버 데이터 조회
+			    output = memberService.getMemberShopItem(input);
+		   } catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+		   }		   
+		   pro.setSeller(output.getMembno());
+			
+			
+		}
+	   
+	   pro.setSubject(smallKeyword);
+	   pro.setTradecon("J");
+       
+	   
+	   try {
+		   // 전체 상품 수 조회
+		   totalCount = productService.getMemberProductCount(pro);
+		   // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
+		   pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+		   
+		   // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+		   Product.setOffset(pageData.getOffset());
+		   Product.setListCount(pageData.getListCount());
+		   // 데이터 조회
+		   product = productService.getMemberProductList(pro);
+	   } catch (Exception e) {
+		   return webHelper.redirect(null, e.getLocalizedMessage());
+	   }
+	   
+	   // 모델 객체에 담기
+	   model.addAttribute("output", output);
+	   model.addAttribute("pageData", pageData);
+	   model.addAttribute("product", product);
+	   
+	   return new ModelAndView("user/mystore");
+	   
+	   
+	   
+       
+   }
+   
+   /** 숨긴상품 목록 페이지 */
+   @RequestMapping(value="/mystore_s.cider", method=RequestMethod.GET)
+   public ModelAndView get_mystore_s(Model model,
+		@RequestParam(value="smallKeyword", required=false) String smallKeyword,
 		@RequestParam(value="page", defaultValue="1") int nowPage) {
 	   
 	   /** 1) 로그인 된 회원아이디 가져오기 */
@@ -64,6 +142,7 @@ public class MyStoreAjaxContorller {
 	   Product pro = new Product();
 	   pro.setSeller(myNum);
 	   pro.setSubject(smallKeyword);
+	   pro.setTradecon("S");
 		
 	   Member output = null;
 	   List<Product> product = null;
@@ -91,7 +170,60 @@ public class MyStoreAjaxContorller {
        model.addAttribute("pageData", pageData);
        model.addAttribute("product", product);
        
-       return new ModelAndView("user/mystore");
+       return new ModelAndView("user/mystore_s");
+   }
+   
+   /** 찜상품 목록 페이지 */
+   @RequestMapping(value="/mystore_mp.cider", method=RequestMethod.GET)
+   public ModelAndView get_mystore_mp(Model model,
+		@RequestParam(value="smallKeyword", required=false) String smallKeyword,
+		@RequestParam(value="page", defaultValue="1") int nowPage) {
+	   
+	   /** 1) 로그인 된 회원아이디 가져오기 */
+	   HttpSession session = webHelper.getRequest().getSession();
+	   int myNum = (int) session.getAttribute("myNum");
+       
+	   /** 2) 페이지 구현에 필요한 변수값 생성 */
+	   int totalCount = 0;		// 전체 게시글 수
+	   int listCount = 4;		// 한 페이지당 표시할 목록 수
+	   int pageCount = 5;		// 한 그룹당 표시할 페이지 번호 수
+	   
+	   /** 2) 데이터 조회 */
+	   Member input = new Member();
+	   input.setMembno(myNum);
+	   
+	   Product pro = new Product();
+	   pro.setSeller(myNum);
+	   pro.setSubject(smallKeyword);
+	   pro.setTradecon("MP");
+		
+	   Member output = null;
+	   List<Product> product = null;
+	   PageData pageData = null;
+       try {
+           // 멤버 데이터 조회
+           output = memberService.getMemberIndexItem(input);
+           
+           // 전체 상품 수 조회
+		   totalCount = productService.getMemberProductCount(pro);
+		   // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
+		   pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+		   
+		   // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+		   Product.setOffset(pageData.getOffset());
+		   Product.setListCount(pageData.getListCount());
+           // 데이터 조회
+           product = productService.getMemberProductList(pro);
+       } catch (Exception e) {
+           return webHelper.redirect(null, e.getLocalizedMessage());
+       }
+       
+       // 모델 객체에 담기
+       model.addAttribute("output", output);
+       model.addAttribute("pageData", pageData);
+       model.addAttribute("product", product);
+       
+       return new ModelAndView("user/mystore_mp");
    }
  
 }

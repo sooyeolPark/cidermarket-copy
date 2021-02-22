@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyInfoMapper">
 	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
-	<resultMap type="study.shop.cidermarket.model.Member" id="memberMap">
+	<resultMap type="study.shop.cidermarket.model.Member" id="myInfoMap">
 		<result property="membno" column="membno" />
 		<result property="nickname" column="nickname" />
 		<result property="email" column="email" />
@@ -21,7 +21,7 @@
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Member"
-		resultMap="memberMap">
+		resultMap="myInfoMap">
 		SELECT membno, nickname, email, password, tel,
 			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
