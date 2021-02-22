@@ -77,6 +77,7 @@ public interface RecordService {
 	 * @throws Exception
 	 */
 	public int getRecordBuyIngCount(Record input) throws Exception;
+
 	
 	/**
 	 * 구매완료 데이터가 저장되어 있는 갯수 조회
@@ -100,10 +101,7 @@ public interface RecordService {
 	 * @param Record 저장할 정보를 담고 있는 Beans
 	 * @return int
 	 * @throws Exception
-	 * 
-	 * 
 	 */
-	
 	public Record getRecordBuyEndCountByMonth(Record input) throws Exception;
 	
 	/**
@@ -111,8 +109,6 @@ public interface RecordService {
 	 * @param Record 저장할 정보를 담고 있는 Beans
 	 * @return int
 	 * @throws Exception
-	 * 
-	 * 
 	 */
 	public int addRecord(Record input) throws Exception;
 	

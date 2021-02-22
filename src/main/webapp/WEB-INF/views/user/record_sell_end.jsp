@@ -59,7 +59,14 @@
 		                            <c:forEach var="item" items="${output}" varStatus="status">
 			                            <div class="col-xs-12 col-sm-6 col-md-6 item-list">
 							                <div class="sorting itemList">
-							                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+							                    <c:choose>
+						                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+						                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+						                        	</c:when>
+					                        		<c:otherwise>
+					                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+					                        		</c:otherwise>
+					                        	</c:choose>
 							                    <div class="caption">
 							                        <span class="label"><c:if test="${item.how == 'T'}">택배거래</c:if><c:if test="${item.how == 'J'}">직거래</c:if></span>
 							                        <span class="temp-gray"><span>${item.prodno}</span><c:if test="${item.how == 'J'}"> | buyer(${item.buyer})</c:if></span>
