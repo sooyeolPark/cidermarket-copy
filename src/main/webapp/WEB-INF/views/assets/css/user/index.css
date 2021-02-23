@@ -56,6 +56,7 @@
   letter-spacing: -0.8px;
 }
 .thumbnail img {
+  width: 100%;
   border: 1px solid #eee;
 }
 .item-list a:hover img {

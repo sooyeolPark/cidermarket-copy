@@ -88,16 +88,23 @@
 						<c:forEach var="item" items="${output}" varStatus="status">
 							<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
 								<%-- 상세페이지로 이동하기 위한 URL --%>
-								<c:url var="viewUrl" value="/product/item_index.cider">
+								<c:url var="viewUrl" value="/item_index.cider">
 									<c:param name="prodno" value="${item.prodno}" />
 								</c:url>
 								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+				                    	<c:choose>
+				                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+				                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+				                        	</c:when>
+			                        		<c:otherwise>
+			                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+			                        		</c:otherwise>
+			                        	</c:choose>
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
-				                            <h4>${item.price}원</h4>
+				                            <h4><fmt:formatNumber value="${item.price}" pattern="#,###" />원</h4>
 				                        </div>
 				                    </div>
 				                </a>
@@ -118,9 +125,13 @@
         <script id="item_tmpl" type="text/x-handlebars-template">
 			{{#each item}}
             <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-                <a href="${pageContext.request.contextPath}/item_list.cider?prodno={{prodno}}">
+                <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
                     <div class="sorting thumbnail">
-                        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}">
+					{{#if filepath}}
+			        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
+			        {{else}}
+				        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+					{{/if}}
                         <div class="caption">
                             <h5>{{subject}}</h5>
                             <h4>{{price}}원</h4>
