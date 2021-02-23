@@ -23,7 +23,7 @@
             <!-- Item 영역 -->
             <div class="container">
                 <p class="category-name text-center">Category</p>
-                <h3 id="category-title" class="text-center">신발/가방/잡화</h3>
+                <h3 id="category-title" class="text-center">${output.name}</h3>
 
                 <div class="item-filter text-center">
                     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-filter"></span> 상품필터</button>
@@ -78,9 +78,7 @@
 				<c:choose>
 					<%-- 조회결과가 없는 경우 --%>
 					<c:when test="${output == null || fn:length(output) == 0}">
-						<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-							<p>등록된 상품이 없습니다.</p>
-						</div>
+						<div class="noSearch alert alert-success">등록된 상품이 없습니다.</div>
 					</c:when>
 					<%-- 조회결과가 있는 경우 --%>
 					<c:otherwise>
@@ -105,6 +103,7 @@
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4><fmt:formatNumber value="${item.price}" pattern="#,###" />원</h4>
+				                            <h6>${item.sellerNick} 님의 상품</h6>
 				                        </div>
 				                    </div>
 				                </a>
@@ -135,6 +134,7 @@
                         <div class="caption">
                             <h5>{{subject}}</h5>
                             <h4>{{price}}원</h4>
+							<h6>{{sellerNick}} 님의 상품</h6>
                         </div>
                     </div>
                 </a>

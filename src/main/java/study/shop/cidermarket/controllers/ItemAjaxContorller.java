@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,29 +37,29 @@ public class ItemAjaxContorller {
    
    
    /** 목록 페이지 */
-   @RequestMapping(value="/item_list.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/item_list.cider/{cateno}", method=RequestMethod.GET)
    public ModelAndView list(Model model,
+		   @PathVariable("cateno") int cateno,
 		   // 검색어
-	         @RequestParam(value="keyword", required=false) String keyword,
-	         // 페이지 구현에서 사용할 현재 페이지 번호
-	         @RequestParam(value="page", defaultValue="1") int nowPage) {
+	       @RequestParam(value="keyword", required=false) String keyword,
+	       // 페이지 구현에서 사용할 현재 페이지 번호
+	       @RequestParam(value="page", defaultValue="1") int nowPage) {
 	      
 	      /** 1) 페이지 구현에 필요한 변수값 생성 */
 	      int totalCount = 0;      // 전체 게시글 수
 	      int listCount = 4;	   // 한 페이지당 표시할 목록 수
 	      int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
 		  
- 
       
       /** 2) 데이터 조회하기 */
       // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 	      Product input = new Product();
+	      input.setCateno(cateno);
 	      input.setSubject(keyword);
 	      
 	      List<Product> output = null;
 	      PageData pageData = null;
       
-   
       
       try {
     	  // 전체 게시글 수 조회
