@@ -22,30 +22,23 @@
     <div class="container">
       <!-- 유저 프로필 고정부분입니다. -->
       <%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
-      <!-- 탭 메뉴 시작 -->
-      <ul class="my_ctg">
-        <li class="active"><a href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
-        <li><a href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
-        <li><a href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의 등급</a></li>
-        <li><a href="${pageContext.request.contextPath}/mystore_myinfo.cider">내정보 설정</a></li>
-      </ul>
     </div>
     <div class="div_blank"></div>
-    <!--// 탭 메뉴 끝 -->
+    
     <!-- 탭 화면 시작 -->
     <div id="mystore">
       <!-- 탭 메뉴 시작 -->
       <ul class="nav nav-tabs">
-        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore.cider/${output.shopaddress}">판매상품</a></li>
-        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_s.cider">숨긴상품</a></li>
-        <li class="col-sm-4 active"><a href="${pageContext.request.contextPath}/mystore_mp.cider">찜상품</a></li>
+        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore/${output.shopaddress}">판매상품</a></li>
+        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_s/${output.shopaddress}">숨긴상품</a></li>
+        <li class="col-sm-4 active"><a href="${pageContext.request.contextPath}/mystore_mp/${output.shopaddress}">찜상품</a></li>
       </ul>
       <!--// 탭 메뉴 끝 -->
       <!-- 탭 화면 시작 -->
       <div class="container" id="tab1">
               <div class="item-row clearfix">
                 <div id="si_total" class="pull-left">찜상품수 <b>${pageData.totalCount}</b></div>
-                  <form action="${pageContext.request.contextPath}/mystore_mp.cider" method="get">
+                  <form action="${pageContext.request.contextPath}/mystore_mp/${output.shopaddress}" method="get">
                       <div id="searchbox1" class="input-group pull-left">
                         <span id="sbox_addon" class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>
                         <input id="sbox_input" type="search" name="smallKeyword" class="form-control" placeholder="키워드 검색" value="${smallKeyword}">
@@ -122,7 +115,8 @@
                         <%-- 이전 그룹으로 이동 가능하다면? --%>
                         <c:when test="${pageData.prevPage > 0}">
                             <%-- 이동할 URL 생성 --%>
-                            <c:url value="/mystore_mp.cider" var="prevPageUrl">
+                            <c:url value="/mystore_mp/${output.shopaddress}" var="prevPageUrl">
+                                <c:param name="smallKeyword" value="${smallKeyword}" />
                                 <c:param name="page" value="${pageData.prevPage}" />
                             </c:url>
                                 <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
@@ -135,7 +129,8 @@
                     <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
                     <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
                         <%-- 이동할 URL 생성 --%>
-                        <c:url value="/mystore_mp.cider" var="pageUrl">
+                        <c:url value="/mystore_mp/${output.shopaddress}" var="pageUrl">
+                        	<c:param name="smallKeyword" value="${smallKeyword}" /> 
                             <c:param name="page" value="${i}" />
                         </c:url>
 
@@ -156,7 +151,8 @@
                         <%-- 다음 그룹으로 이동 가능하다면? --%>
                         <c:when test="${pageData.nextPage > 0}">
                             <%-- 이동할 URL 생성 --%>
-                            <c:url value="/mystore_mp.cider" var="nextPageUrl">
+                            <c:url value="/mystore_mp/${output.shopaddress}" var="nextPageUrl">
+                                <c:param name="smallKeyword" value="${smallKeyword}" />
                                 <c:param name="page" value="${pageData.nextPage}" />
                             </c:url>
                                 <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>

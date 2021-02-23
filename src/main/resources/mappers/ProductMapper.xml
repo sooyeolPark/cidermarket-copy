@@ -120,14 +120,33 @@
 	<select id="selectCountMemberItems"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultType="int">
-		SELECT COUNT(*) FROM product WHERE seller = #{seller} AND tradecon = #{tradecon}
+		SELECT COUNT(*) FROM product
+		 
+		<where>
+				seller = #{seller} AND tradecon = #{tradecon}
+			<if test="subject != null and subject != ''">
+				AND subject LIKE concat('%', #{subject}, '%')
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
 	</select>
 
 	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 ::::::: 찜상품 -->
 	<select id="selectCountMemberItemsMP"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultType="int">
-		SELECT COUNT(*) FROM membprod WHERE membno = #{seller}
+		SELECT COUNT(*) 
+		FROM membprod mp
+		INNER JOIN product p ON mp.prodno=p.prodno
+		
+		<where>
+				membno = #{seller}
+			<if test="subject != null and subject != ''">
+				AND p.subject LIKE concat('%', #{subject}, '%') OR 
+				p.seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR p.prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
 	</select>
 	
 	<!-- 특정 회원이 올린 다중행 조회를 위한 기능 정의 ::::::: 판매상품 or 숨긴상품 -->

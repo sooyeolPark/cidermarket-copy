@@ -144,8 +144,7 @@
 	<select id="selectShopItem"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultMap="memberMap">
-		SELECT membno, nickname, DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate,intro, outmember, rate, 
-		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
+		SELECT membno, shopaddress
 		FROM member
 		WHERE shopaddress=#{shopaddress}
 	</select>

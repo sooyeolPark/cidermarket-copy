@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,10 +41,10 @@ public class MyStoreRestController {
 	@Qualifier("memberService")
     MemberService memberService;
 	
-	/** 거래내역 판매 택배거래확정 정보 갱신 페이지 */
-	@RequestMapping(value="/mystore.cider/{shopaddress}", method=RequestMethod.PUT)
+	/** 내상점 판매상품 페이지 */
+	@RequestMapping(value="/mystore/{shopaddress}", method=RequestMethod.PUT)
 	public Map<String, Object> get_mystore_json(
-			@RequestParam(value="shopaddress", defaultValue="") String shopaddress,
+			@PathVariable("shopaddress") String shopaddress,
 			@RequestParam(value="smallKeyword", required=false) String smallKeyword,
 			@RequestParam(value="page", defaultValue="1") int nowPage) {
                 
