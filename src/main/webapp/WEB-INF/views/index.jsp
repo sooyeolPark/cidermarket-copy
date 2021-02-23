@@ -105,7 +105,7 @@
 			                        	</c:choose>
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
-				                            <h4>${item.price}원</h4>
+				                            <h4><fmt:formatNumber value="${item.price}" pattern="#,###" />원</h4>
 				                        </div>
 				                    </div>
 				                </a>
