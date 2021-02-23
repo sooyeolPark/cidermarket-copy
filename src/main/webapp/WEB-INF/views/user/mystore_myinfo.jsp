@@ -94,6 +94,7 @@
 				</form>
 
 				<!-- 상점주소 -->
+				<form name="editForm3" id="editForm3" action="${pageContext.request.contextPath}/myinfo_shopaddress">
 				<div class="row">
 					<div class="col-sm-2">
 						<span>상점주소</span>
@@ -101,7 +102,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-9">
-						<span id="address">www.cidermarket.com/s/</span> <input id="store-id" name="store" type="text" class="form-control" value="${output.shopaddress}"></input>
+						<span id="address">www.cidermarket.com/s/</span> <input id="store-id" name="shopaddress" type="text" class="form-control" value="${output.shopaddress}"></input>
 					</div>
 					<div class="col-xs-3">
 						<button id="change-btn3" class="btn btn-warning" type="submit" value="submit">변경</button>
@@ -113,6 +114,7 @@
 						<span class="write-rule">* 한 번 설정한 주소는 30일 이후 변경할 수 있습니다. </span>
 					</div>
 				</div>
+				</form >
 
 				<!-- 아이디 -->
 				<div class="row">
@@ -120,6 +122,7 @@
 						<span class=>아이디</span>
 					</div>
 				</div>
+				<form name="editForm4" id="editForm4" action="${pageContext.request.contextPath}/myinfo_email">
 				<div class="row">
 					<div class="col-xs-9 bottom margin-bt">
 						<span class="form-control">${output.email}</span>
@@ -130,10 +133,10 @@
 
 					<!-- 숨겨진내용 -->
 					<div id="show1" class="col-xs-9 bottom hide-id">
-						<input name="email" type="text" class="form-control" placeholder="이메일주소를 입력하세요"></input>
+						<input id="emailid" name="email" type="text" class="form-control" placeholder="이메일주소를 입력하세요"></input>
 					</div>
 					<div id="show2" class="col-xs-3 hide-id">
-						<button id="prove" class="btn btn-info" type="submit">인증</button>
+						<button id="prove" class="btn btn-info" type="button">인증</button>
 					</div>
 					<div id="show3" class="col-xs-9 bottom hide-id">
 						<input id="id-phone" name="certificate" type="text" class="form-control" placeholder="인증번호를 입력해 주세요"></input>
@@ -143,8 +146,10 @@
 					</div>
 					<!-- 여기까지 -->
 				</div>
+				</form>
 
 				<!-- 휴대폰 -->
+				<form name="editForm5" id="editForm5" action="${pageContext.request.contextPath}/myinfo_tel">
 				<div class="row ">
 					<div class="col-sm-2 margin-top">
 						<span>휴대폰</span>
@@ -152,7 +157,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-9 margin-bt">
-						<input name="tel" class="form-control" value="${output.tel}" />
+						<input class="form-control" value="${output.tel}" />
 					</div>
 					<div class="col-xs-3">
 						<button id="change-btn5" class="btn btn-warning" type="button">변경</button>
@@ -167,13 +172,16 @@
 					</div>
 					<!-- 여기까지 -->
 				</div>
+				</form>
 
 				<!-- 비밀번호 -->
+				<form name="editForm6" id="editForm6" action="${pageContext.request.contextPath}/myinfo_password">
 				<div class="row ">
 					<div class="col-sm-2 margin-top">
 						<span>비밀번호</span>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col-xs-9 margin-bt">
 						<span class="form-control">********</span>
@@ -184,11 +192,11 @@
 
 					<!-- 비밀번호변경 -->
 					<div id="show7" class="col-xs-9 bottom hide-id">
-						<input id="user_pw" name="user_pw" type="password" class="form-control" placeholder="현재 비밀번호를 입력해주세요"></input>
+						<input id="user_pw" name="password" type="password" class="form-control" placeholder="현재 비밀번호를 입력해주세요"></input>
 					</div>
 
 					<div id="show9" class="col-xs-9 bottom hide-id">
-						<input name="user_pw_re" type="password" class="form-control" placeholder="신규 비밀번호를 입력해주세요"></input>
+						<input name="newpassword" type="password" class="form-control" placeholder="신규 비밀번호를 입력해주세요"></input>
 					</div>
 					<div id="show8" class="col-xs-3 hide-id">
 						<button id="confirm1" class="btn btn-info" type="submit">확인</button>
@@ -198,6 +206,7 @@
 					</div>
 
 				</div>
+				</form>
 
 
 				<!-- 수신설정 -->
@@ -206,24 +215,29 @@
 						<span>수신설정</span>
 					</div>
 				</div>
-
+				
 				<div class="row">
-					<form>
+						<form name="editForm7" id="editForm7" action="${pageContext.request.contextPath}/myinfo_SMS">
 						<div class="col-xs-9">
-							<input type="checkbox" id="email" name="email" value="yes"> <span class="email">Email</span> <input class="SMS" type="checkbox" id="sms" name="sms" value="yes"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+							<input type="checkbox" id="email" name="email" value="1"> <span class="email">Email</span> <input class="SMS" type="checkbox" id="sms" name="sms" value="2"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
 						</div>
 						<div class="col-xs-3">
 							<button type="submit" id="change-btn5" class="btn btn-warning" type="button">변경</button>
 						</div>
-					</form>
-
+						</form>
+					
+					<form name="editForm8" id="editForm8" action="${pageContext.request.contextPath}/myinfo_out">
 					<div class="row">
 						<div class="col-xs-3 col-xs-offset-8">
-							<button id="outmember" class="btn btn-default out-btn" type="button">회원탈퇴</button>
+							<button id="outmember1" class="btn btn-default out-btn" type="submit">회원탈퇴</button>
+							<input id="outmember" name=outmember type="hidden" value="y"/>
 						</div>
 					</div>
+					</form>
 					<div class="last-div"></div>
 				</div>
+
+				
 			</div>
 		</div>
 	</section>
@@ -284,19 +298,153 @@
 					});
 			});			
 			
+			$("#editForm3").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});	
+			$("#editForm4").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});		
+			$("#editForm5").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});		
 			
+			$("#editForm6").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});	
+			$("#editForm7").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});	
 			
+
+			$("#editForm8").submit(function(e) {
+				e.preventDefault();
+				
+				var input =confirm("정말 탈퇴하시겠습니까?");
+				alert(input);
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+	
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+								+ json.item.membno;}
+	
+						});
+				});	
+
+			});
+
 			
+
 			
+			  // 아이디, 비밀번호 정규표현식 검사
+            var check_num = /[0-9]/; // 숫자 
+            var check_eng = /[a-zA-Z]/; // 문자 
+            var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+            var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+
+            $('#emailid').keyup(function(){
+              var msg = '', val = this.value;
+              if(!check_email.test(val)){
+                msg = '이메일 형식으로 입력하세요.'
+                $('#idc').html(msg).css('visibility', 'visible');
+              } else {
+                $('#idc').css('visibility', 'hidden');
+              };
+            });
+            
+            $("#show2").click(function(){
+            	alert("인증번호를 이메일로 발송하였습니다.");
+            });
 			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			/** modal 링크를 클릭한 경우 */
 			$("#modal").click(function(e) {
 				e.preventDefault(); // 페이지 이동 방지
@@ -315,43 +463,8 @@
 			// $("#change-btn1").click(function () {
 			//   swal({ text: '변경완료 되었습니다.' });
 			// });
-			// $("#change-btn2").click(function () {
-			//   swal({ text: '변경완료 되었습니다.' });
-			// });
-			// $("#change-btn3").click(function () {
-			//   swal({ text: '변경완료 되었습니다.' });
-			// });
 
-			// $("#prove").click(function () {
-			//   swal({ text: '인증메일을 발송하였습니다.' });
-			// });
 
-			// $("#confirm").click(function () {
-			//   swal({ text: '확인완료' });
-			// });
-			// $("#prove1").click(function () {
-			//   swal({ text: '인증완료' });
-			// });
-			// $("#confirm1").click(function () {
-			//   swal({ text: '확인완료' });
-			// });
-
-			$("#outmember").click(function() {
-				swal({
-					title : '확인',
-					text : "정말 탈퇴 하시겠습니까?",
-					type : 'warning', //종류
-					confirmButtonText : '네', //확인버튼 표시문구
-					showCancelButton : true, //취소버튼 표시여부
-					cancelButtonText : '아니오', //취소버튼 표시문구 
-				}).then(function(result) {
-					if (result.value) { //확인버튼이 눌러진 경우 
-						swal('탈퇴완료', '탈퇴완료 되었습니다.', 'success');
-					} else if (result.dismiss === 'cancel') { //취소버튼 눌러진경우 
-						swal('취소', '취소하였습니다.', 'error');
-					}
-				});
-			});
 
 			// 사진등록& 미리보기
 			// function readInputFile(input) {

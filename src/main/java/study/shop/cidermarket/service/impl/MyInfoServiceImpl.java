@@ -57,6 +57,58 @@ public class MyInfoServiceImpl implements MyInfoService {
 		return result;
 	}
 	//-------------------------------------------------------------------
+	//----DB에 있는지 없는 확인하기 ----------------------------------------------------
+	// '0'은 없음 '1'은 있음 
+	
+	@Override
+	public int getShopaddressCount(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("MyInfoMapper.selectCountShopaddress", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	//-------------------------------------------------------------------
+	
+	@Override
+	public int getEmailCount(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("MyInfoMapper.selectCountEmail", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	//-------------------------------------------------------------------
+	@Override
+	public int getTelCount(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("MyInfoMapper.selectCountTel", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	//-------------------------------------------------------------------
+	@Override
+	public int getCheckPassword(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("MyInfoMapper.selectCheckPassword", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	//-------------------------------------------------------------------
 	
 	@Override
 	public int editNickName(Member input) throws Exception {
@@ -93,13 +145,31 @@ public class MyInfoServiceImpl implements MyInfoService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int editShopaddress(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.update("MyInfoMapper.updateShopaddress", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
+	}
 
 	@Override
-	public int editId(Member input) throws Exception {
+	public int editEmail(Member input) throws Exception {
 		// TODO Auto-generated method stub
 		int result = 0;
 		try {
-			result = sqlSession.update("MyInfoMapper.updateId", input);
+			result = sqlSession.update("MyInfoMapper.updateEmail", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -157,6 +227,25 @@ public class MyInfoServiceImpl implements MyInfoService {
 		int result = 0;
 		try {
 			result = sqlSession.update("MyInfoMapper.updateSMS", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	@Override
+	public int editOutmember(Member input) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			result = sqlSession.update("MyInfoMapper.updateOutmember", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

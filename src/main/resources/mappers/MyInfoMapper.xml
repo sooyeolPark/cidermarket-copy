@@ -16,6 +16,7 @@
 		<result property="outmember" column="outmember" />
 		<result property="rate" column="rate" />
 		<result property="filepath" column="filepath" />
+		<result property="newpassword" column="newpassword" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -37,7 +38,44 @@
 		where nickname=#{nickname}
 
 	</select>
+	
+	<select id="selectCountShopaddress"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(shopaddress) FROM member
+		where shopaddress=#{shopaddress}
 
+	</select>
+	
+	<select id="selectCountEmail"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(email) FROM member
+		where email=#{email}
+
+	</select>
+	<select id="selectCountTel"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(tel) FROM member
+		where tel=#{tel}
+
+	</select>	
+	
+	<select id="selectCheckPassword"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(password) FROM member
+		
+		<!-- oldpassword와 기존 password 비교 일치하면 1 아니면 0  -->
+		where membno=#{membno} and password=#{password} 
+		
+		
+	  SELECT COUNT(password) FROM member
+			where membno=3 and password='123qwe!@#'
+		<!-- oldpassword와 기존 password 비교 일치하면 1 아니면 0  -->
+		where membno=3 and password=123qwe!@#
+	</select>	
 	
 	<!-- 닉네임변경 -->
 	<update id="updateNameItem"
@@ -53,6 +91,24 @@
 			intro=#{intro}
 		WHERE membno=#{membno}
 	</update>
+	<update id="updateShopaddress"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			shopaddress=#{shopaddress}
+		WHERE membno=#{membno}
+	</update>
+	<update id="updateEmail"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			email=#{email}
+		WHERE membno=#{membno}
+	</update>
+		<update id="updateTel"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			tel=#{tel}
+		WHERE membno=#{membno}
+	</update>
 		<!-- ID변경 -->
 	<update id="updateId"
 		parameterType="study.shop.cidermarket.model.Member">
@@ -61,12 +117,6 @@
 		WHERE membno=#{membno}
 	</update>
 		<!-- 연락처변경 -->
-	<update id="updateTel"
-		parameterType="study.shop.cidermarket.model.Member">
-		UPDATE member SET
-			tel=#{tel}
-		WHERE membno=#{membno}
-	</update>
 		<!-- 비밀번호 변경 -->
 	<update id="updatePassword"
 		parameterType="study.shop.cidermarket.model.Member">
@@ -82,6 +132,12 @@
 		WHERE membno=#{membno}
 	</update>
 	
+		<update id="updateOutmember"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			outmember=#{outmember}
+		WHERE membno=#{membno}
+	</update>
 
 
 </mapper>

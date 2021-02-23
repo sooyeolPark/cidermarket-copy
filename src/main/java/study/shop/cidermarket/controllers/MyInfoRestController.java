@@ -114,5 +114,247 @@ public class MyInfoRestController {
 	return webHelper.getJsonData(data);
    }
 
+   //------------shopaddress 변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_shopaddress", method=RequestMethod.PUT)
+   public Map<String, Object> shopaddress(Model model,
+   		@RequestParam(value="shopaddress", defaultValue="") String shopaddress) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setShopaddress(shopaddress);
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회
+		int result = myInfoService.getShopaddressCount(input);
+		if (result == 1) {
+			return webHelper.getJsonError("이미 등록된 주소 입니다.");
+		} 
+
+		myInfoService.editShopaddress(input);
+		output = myInfoService.getMemberItem(input);
+		
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
    
+   //-----------email 변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_email", method=RequestMethod.PUT)
+   public Map<String, Object> email(Model model,
+   		@RequestParam(value="email", defaultValue="") String email) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setEmail(email);
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회
+		int result = myInfoService.getEmailCount(input);
+		if (result == 1) {
+			return webHelper.getJsonError("이미 등록된 이메일 입니다.");
+		} 
+
+		myInfoService.editEmail(input);
+		output = myInfoService.getMemberItem(input);
+		
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
+   //------------Tel 변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_tel", method=RequestMethod.PUT)
+   public Map<String, Object> tel(Model model,
+   		@RequestParam(value="tel", defaultValue="") String tel) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setTel(tel);
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회
+		int result = myInfoService.getTelCount(input);
+		if (result == 1) {
+			return webHelper.getJsonError("이미 등록된 번호 입니다.");
+		} 
+
+		myInfoService.editTel(input);
+		output = myInfoService.getMemberItem(input);
+		
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
+   
+   
+   
+   
+   //------------Password변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_password", method=RequestMethod.PUT)
+   public Map<String, Object> password(Model model,
+   		@RequestParam(value="password", defaultValue="") String password,
+	   @RequestParam(value="newpassword", defaultValue="") String newpassword) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setPassword(password);
+   	
+   	
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회
+		int result = myInfoService.getCheckPassword(input);
+		if (result == 0) {
+			return webHelper.getJsonError("비밀번호가 일치하지 않습니다.");
+		} 
+		else if( result == 1) {
+			
+		input.setPassword(newpassword);
+		myInfoService.editPassword(input);
+		output = myInfoService.getMemberItem(input);
+			}
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
+   
+   //------------SMS변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_SMS", method=RequestMethod.PUT)
+   public Map<String, Object> SMS(Model model,
+   		@RequestParam(value="", defaultValue="") String password,
+	   @RequestParam(value="newpassword", defaultValue="") String newpassword) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setPassword(password);
+   	
+   	
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회
+		int result = myInfoService.getCheckPassword(input);
+		if (result == 0) {
+			return webHelper.getJsonError("비밀번호가 일치하지 않습니다.");
+		} 
+		else if( result == 1) {
+			
+		input.setPassword(newpassword);
+		myInfoService.editPassword(input);
+		output = myInfoService.getMemberItem(input);
+			}
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
+   
+   //-----------회원탈퇴페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_out", method=RequestMethod.PUT)
+   public Map<String, Object> OUT(Model model,
+   		@RequestParam(value="outmember", defaultValue="") String outmember) {
+   	
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+	   
+	   
+   	/** 1) 데이터 조회하기 */
+   	Member input = new Member();
+   	input.setMembno(myNum);
+   	input.setOutmember(outmember);
+   	
+   	
+   	
+   	Member output = null;
+   	
+   	try {
+			// 일치하는 데이터 조회		
+		input.setOutmember(outmember);
+		myInfoService.editOutmember(input);
+		output = myInfoService.getMemberItem(input);
+			
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
+   	
+   	/** 2) View 처리 */
+    Map<String, Object> data = new HashMap<String, Object>();
+    data.put("item", output);
+   	
+	return webHelper.getJsonData(data);
+   }
 }
