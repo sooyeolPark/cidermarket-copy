@@ -26,13 +26,6 @@
 		<div class="container">
 			<!-- 유저 프로필 고정부분 -->
 			<%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
-			<!-- 탭 메뉴 시작 -->
-			<ul class="my_ctg">
-				<li><a href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
-				<li><a href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
-				<li><a href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의 등급</a></li>
-				<li class="active"><a href="#">내정보 설정</a></li>
-			</ul>
 		</div>
 		<div class="div_blank"></div>
 		<!--// 탭 메뉴 끝 -->
