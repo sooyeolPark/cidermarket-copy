@@ -153,6 +153,7 @@
 		SELECT *
 		FROM files
 		WHERE reftable='product' AND refid=#{refid}
+		ORDER BY fname asc;
 	</select>
 
 </mapper>
