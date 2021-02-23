@@ -44,7 +44,8 @@
                 상품 수정
             </div>
             <!-- 입력 양식 -->
-            <form id="item_img_group" class="form-horizontal" enctype=“multipart/form-data” role="form" action="${pageContext.request.contextPath}/Item_index">
+            <form id="item_img_group" class="form-horizontal" enctype=“multipart/form-data” role="form" action="${pageContext.request.contextPath}/Item_update">
+            <input type="hidden" name="prodno" id="prodno" value="${product.prodno }">
             <c:forEach var="item" items="${fileimages}" varStatus="status">
             <c:if test="${item.filepath!='X'}">
     		<input type="hidden" name="origin_image${status.index}" id="origin_image${status.index}" value="">
@@ -160,7 +161,7 @@
                         <div class="form-group">
                             <label for="item_price" class="col-sm-2 control-label">가격</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="item_price" name="item_price" placeholder="가격을 입력해주세요." value="${product.price}">
+                                <input type="number" class="form-control" id="item_price" name="item_price" placeholder="가격을 입력해주세요." value="${product.price}">
                                 <div class="won">원</div>
                                 <p>*가격을 입력하지 않는 경우 무료나눔로 설정됩니다.</p>
                             </div>
@@ -202,7 +203,7 @@
                         <div class="form-group">
                             <label for="item_delfee" class="col-sm-2 control-label">배송비</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="item_delfee" name="item_delfee" placeholder="배송비를 입력해주세요." value="${product.fee}">
+                                <input type="number" class="form-control" id="item_delfee" name="item_delfee" placeholder="배송비를 입력해주세요." value="${product.fee}">
                                 <div class="won">원</div>
                                 <p>*배송비를 입력하지 않는 경우 배송비는 무료로 설정됩니다.</p>
                             </div>
@@ -308,13 +309,24 @@
 
             $(".image_plus").on('change', function () {
                 readInputFile(this);
+                
                 var chk = $(this).data("path");
+                var check = true;
                 for(var i = 0; i<8; i++){
+                	if($("#origin_image"+i+"").val()==chk){
+                	check =	false;
+                	}
+                }
+                
+                if(check){
+                	for(var i = 0; i<8; i++){
                 	if($("#origin_image"+i+"").val()==''){
                 		$("#origin_image"+i+"").val(chk);
                 		break;
                 	}
+                	} 	
                 }
+                
             });
 
             //등록 이미지 삭제
@@ -340,13 +352,23 @@
                     resetInputFile($input);
                     
                     var chk = $(this).prev().data("path");
+                    var check = true;
                     for(var i = 0; i<8; i++){
+                    	if($("#origin_image"+i+"").val()==chk){
+                    	check =	false;
+                    	}
+                    }
+                    
+                    if(check){
+                    	for(var i = 0; i<8; i++){
                     	if($("#origin_image"+i+"").val()==''){
                     		$("#origin_image"+i+"").val(chk);
                     		break;
                     	}
+                    	} 	
                     }
-                }
+                    }
+                
 
             });
             $("#tag_input").keyup(function (e) {
@@ -437,7 +459,8 @@
                     console.log(json);
                  // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
                     if (json.rt == "OK") {
-                   	 window.location="${pageContext.request.contextPath}/item_index.cider?prodno="+json.item.prodno;
+                    	alert("수정이 완료되었습니다.");
+                   	 window.location="${pageContext.request.contextPath}/item_index.cider?prodno="+"${product.prodno}";
                     }
                 }
             });

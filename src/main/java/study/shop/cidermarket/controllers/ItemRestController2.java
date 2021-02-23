@@ -22,7 +22,6 @@ import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Hashtag;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Membprod;
-import study.shop.cidermarket.model.Msgbox;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.model.Reply;
@@ -31,6 +30,7 @@ import study.shop.cidermarket.model.Singo;
 import study.shop.cidermarket.service.FilesService;
 import study.shop.cidermarket.service.HashtagService;
 import study.shop.cidermarket.service.ItemIndexService;
+import study.shop.cidermarket.service.ItemregService;
 import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
@@ -41,11 +41,21 @@ public class ItemRestController2 {
 	@Autowired RegexHelper regexHelper;
 	
 	/** Service 패턴 구현체 주입 */
-	@Autowired ProductService productService;
-	@Autowired HashtagService hashtagService;
+	@Autowired 
+	@Qualifier("productService")
+	ProductService productService;
+	
+	@Autowired 
+	@Qualifier("hashtagService")
+	HashtagService hashtagService;
+	
 	@Autowired   
 	@Qualifier("filesProductService")
 	FilesService filesProductService;
+	
+	@Autowired   
+	@Qualifier("itemregService")
+	ItemregService itemregService;
 	
 	   // 상품 등록 폼에 대한 action page
 	   @RequestMapping(value="/Item_index", method=RequestMethod.POST)
@@ -153,15 +163,13 @@ public class ItemRestController2 {
 			if(image6!=null) {files.add(image6);}
 			if(image7!=null) {files.add(image7);}
 			
-			
-			
-			//for문으로 데이터 입력 처리
-			for(int i = 0; i<files.size(); i++) {
+			//첫번째 파일을 대표이미지로 저장
+			if(files.size()==1) {
 				// 저장된 결과를 조회하기 위한 객체
 				Files f = null;
 				try {
-					f = webHelper.saveMultipartFile(files.get(i));
-			        f.setFname("product"+output.getProdno()+i);
+					f = webHelper.saveMultipartFile(files.get(0));
+			        f.setFname("product"+output.getProdno());
 			        f.setReftable("product");
 			        f.setRefid(output.getProdno());
 			        
@@ -189,8 +197,47 @@ public class ItemRestController2 {
 			      } catch (Exception e) {
 			         return webHelper.getJsonError(e.getLocalizedMessage());
 			      }
-
 			}
+			
+			//두번째 파일이 있으면 두번째 파일부터 다시 입력
+			if(files.size()>1) {
+				//for문으로 데이터 입력 처리
+				for(int i = 1; i<files.size(); i++) {
+					// 저장된 결과를 조회하기 위한 객체
+					Files f = null;
+					try {
+						f = webHelper.saveMultipartFile(files.get(i));
+				        f.setFname("product"+output.getProdno()+String.format("%d", System.currentTimeMillis()));
+				        f.setReftable("product");
+				        f.setRefid(output.getProdno());
+				        
+				        /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
+				        if (f != null && f.getType().indexOf("image") > -1) {
+				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
+				            String thumbnailPath = null;
+				            try {
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				            } catch (Exception e) {
+				                e.printStackTrace();
+				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
+				            }
+				            // 썸네일 경로를 URL로 변환
+				            String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
+				            // 리턴할 객체에 썸네일 정보 추가
+				            f.setThumbnailPath(thumbnailPath);
+				            f.setThumbnailUrl(thumbnailUrl);
+				           }
+				        //files 테이블에 데이터 입력
+				        filesProductService.addFiles(f);			        
+				      } catch (NullPointerException e) {
+				            e.printStackTrace();
+				            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
+				      } catch (Exception e) {
+				         return webHelper.getJsonError(e.getLocalizedMessage());
+				      }
+				}	
+			}
+			
 	      /** 2) JSON 출력하기 */
 	      Map<String, Object> data = new HashMap<String, Object>();
 	      data.put("item", output);
@@ -623,4 +670,271 @@ public class ItemRestController2 {
 			       data.put("item", output);
 			       return webHelper.getJsonData(data);
 		   }
+	   
+	   
+	// 상품 등록 폼에 대한 action page
+	   @RequestMapping(value="/Item_update", method=RequestMethod.POST)
+	   public Map<String, Object> update_item(
+			   @RequestParam(name="origin_image0", required=false) String origin_image0,
+			   @RequestParam(name="origin_image1", required=false) String origin_image1,
+			   @RequestParam(name="origin_image2", required=false) String origin_image2,
+			   @RequestParam(name="origin_image3", required=false) String origin_image3,
+			   @RequestParam(name="origin_image4", required=false) String origin_image4,
+			   @RequestParam(name="origin_image5", required=false) String origin_image5,
+			   @RequestParam(name="origin_image6", required=false) String origin_image6,
+			   @RequestParam(name="origin_image7", required=false) String origin_image7,
+			   @RequestParam(name="image0", required=false) MultipartFile image0,
+			   @RequestParam(name="image1", required=false) MultipartFile image1,
+			   @RequestParam(name="image2", required=false) MultipartFile image2,
+			   @RequestParam(name="image3", required=false) MultipartFile image3,
+			   @RequestParam(name="image4", required=false) MultipartFile image4,
+			   @RequestParam(name="image5", required=false) MultipartFile image5,
+			   @RequestParam(name="image6", required=false) MultipartFile image6,
+			   @RequestParam(name="image7", required=false) MultipartFile image7,
+			   @RequestParam(value="item_subject", defaultValue="") String item_subject,
+			   @RequestParam(value="item_category", defaultValue="0") int item_category,
+			   @RequestParam(value="item_content", defaultValue="") String item_content,
+			   @RequestParam(value="hash1", required=false) String hash1,
+			   @RequestParam(value="hash2", required=false) String hash2,
+			   @RequestParam(value="hash3", required=false) String hash3,
+			   @RequestParam(value="hash4", required=false) String hash4,
+			   @RequestParam(value="hash5", required=false) String hash5,
+			   @RequestParam(value="item_prodcon", defaultValue="") String item_prodcon,
+			   @RequestParam(value="item_price", defaultValue="0") int item_price,
+			   @RequestParam(value="optionsRadios", defaultValue="") String item_how,
+			   @RequestParam(value="seller", defaultValue="0") int seller,
+			   @RequestParam(value="prodno", defaultValue="0") int prodno,
+			   @RequestParam(value="item_delfee", defaultValue="0") int item_delfee) {
+		
+		   /** 1) 유효성 검사 */
+			// 일반 문자열 입력 칼럽 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈문자열로 처리된다.
+			if(!regexHelper.isValue(item_subject))	{return webHelper.getJsonWarning("상품 제목을 입력하세요.");}
+			if(!regexHelper.isValue(item_content))	{return webHelper.getJsonWarning("상품 상세설명을 입력하세요.");}
+			if(item_category==0)	{return webHelper.getJsonWarning("카테고리 분류를 선택해주세요.");}
+			if(seller==0)	{return webHelper.getJsonWarning("로그인을 해주세요.");}
+			if(image0==null && image1==null && image2==null && image3==null && image4==null && image5==null && image6==null 
+					&& image7==null && origin_image0!="" && origin_image1!="" && origin_image2!="" && origin_image3!="" &&
+					origin_image4!="" && origin_image5!="" && origin_image6!="" && origin_image7!="") {
+				return webHelper.getJsonWarning("사진은 최소 1장 이상 등록해주세요.");
+			}
+						
+			/** 2) 데이터 입력하기 */
+		      /** Product 입력 */
+			  // 데이터 입력에 필요한 조건값을 Beans에 저장하기
+		      Product input_01 = new Product();
+		      input_01.setProdno(prodno);
+		      input_01.setCateno(item_category);
+		      input_01.setSubject(item_subject);
+		      input_01.setPrice(item_price);
+		      input_01.setFee(item_delfee);
+		      input_01.setDetail(item_content);
+		      input_01.setProdcon(item_prodcon);
+		      input_01.setHow(item_how);
+		  	  
+		      try {
+		    	//데이터 수정
+					itemregService.editProduct(input_01);
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		      
+		      /** Hashtag 삭제 기존에 있던 해쉬태그를 모두 삭제하고 새로 받아온 값을 다시 등록한다. */
+		      if(hash1.equals("") && hash2.equals("") && hash3.equals("") && hash4.equals("") && hash5.equals("")) {
+		      log.debug("삭제할 해쉬태그 없음");
+		      } else {
+		    	  Hashtag input_02 = new Hashtag();
+		      input_02.setProdno(prodno);
+		      try {
+		    	//데이터 삭제
+					itemregService.deleteHashtag(input_02);
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+		      }
+		      /** Hashtag 입력 hash태그는 필수요소가 아니므로 없을 경우를 대비하여 if문으로 구현*/
+		      boolean isHash;
+		      if(hash1.equals("") && hash2.equals("") && hash3.equals("") && hash4.equals("") && hash5.equals("")) {
+		    	  isHash=false;
+		      } else {
+		    	  isHash = true;
+		      }
+		      if(isHash) {
+		    	// 조회 결과를 저장할 객체 선언
+					//hash태그 있으면 ArrayList에 담는다.
+		    	    List<String> hash= new ArrayList<String>();
+					if(origin_image1!=null && !hash1.equals("")) {hash.add(hash1);}
+					if(hash2!=null && !hash2.equals("")) {hash.add(hash2);}
+					if(hash3!=null && !hash3.equals("")) {hash.add(hash3);}
+					if(hash4!=null && !hash4.equals("")) {hash.add(hash4);}
+					if(hash5!=null && !hash5.equals("")) {hash.add(hash5);}
+					if(hash5!=null && !hash5.equals("")) {hash.add(hash5);}
+					if(hash5!=null && !hash5.equals("")) {hash.add(hash5);}
+					if(hash5!=null && !hash5.equals("")) {hash.add(hash5);}
+					
+					//for문으로 데이터 입력 처리
+					for(int i = 0; i<hash.size(); i++) {
+					Hashtag input1 = new Hashtag();
+					input1.setTagname(hash.get(i));
+					input1.setProdno(prodno);
+						try {
+					    	//데이터 저장
+								itemregService.addHashtag(input1);
+					      } catch (Exception e) {
+					         return webHelper.getJsonError(e.getLocalizedMessage());
+					      }  
+				      }
+					
+					}
+		      
+		      /** 파일 수정하기 (사진이 수정되면 수정된 사진은 삭제하고(삭제될 사진의 fileno가 input에 담겨온다)
+		       * 새로 등록된 사진은 새로 등록해준다. */
+		      // 수정된 파일 삭제하기
+		      List<String> origin_image= new ArrayList<String>();
+		      if(origin_image0!=null && !origin_image0.equals("")) {origin_image.add(origin_image0);}
+		      if(origin_image1!=null && !origin_image1.equals("")) {origin_image.add(origin_image1);}
+		      if(origin_image2!=null && !origin_image2.equals("")) {origin_image.add(origin_image2);}
+		      if(origin_image3!=null && !origin_image3.equals("")) {origin_image.add(origin_image3);}
+		      if(origin_image4!=null && !origin_image4.equals("")) {origin_image.add(origin_image4);}
+		      if(origin_image5!=null && !origin_image5.equals("")) {origin_image.add(origin_image5);}
+		      if(origin_image6!=null && !origin_image6.equals("")) {origin_image.add(origin_image6);}
+		      if(origin_image7!=null && !origin_image7.equals("")) {origin_image.add(origin_image7);}
+
+				//실제 파일 삭제 구현
+				//for문으로 삭제할 파일 불러와서 List에 담기
+				List<Files> del_files = new ArrayList<Files>();
+				
+				for(int i = 0; i<origin_image.size(); i++) {
+					Files temp = new Files();
+					Files temp_output=null;
+					//String 상태이므로 숫자형으로 바꿔준다.
+					temp.setFileno(Integer.parseInt(origin_image.get(i)));
+
+					try {
+				    	//데이터 저장
+							temp_output=itemregService.getFilesItem(temp);
+				      } catch (Exception e) {
+				         return webHelper.getJsonError(e.getLocalizedMessage());
+				      }
+					del_files.add(temp_output);
+			      }
+				
+				//List담은 file객체 실제 파일 삭제하기
+				for(int i = 0; i<del_files.size(); i++) {
+					try {
+						webHelper.deleteFile(del_files.get(i).getFilepath());
+					} catch (Exception e) {
+						return webHelper.getJsonWarning("파일 삭제에 실패했습니다.");
+					}
+				}
+				
+				//썸네일도 지워주기
+				for(int i = 0; i<del_files.size(); i++) {
+					try {
+						webHelper.deleteFile(del_files.get(i).getThumbnailPath());
+					} catch (Exception e) {
+						return webHelper.getJsonWarning("썸네일 파일 삭제에 실패했습니다.");
+					}
+				}
+
+				//for문으로 DB 데이터 삭제 처리
+				for(int i = 0; i<origin_image.size(); i++) {
+					Files temp_01 = new Files();
+					//String 상태이므로 숫자형으로 바꿔준다.
+					temp_01.setFileno(Integer.parseInt(origin_image.get(i)));
+					try {
+				    	//데이터 저장
+							itemregService.deleteFiles(temp_01);
+							temp_01=null;
+				      } catch (Exception e) {
+				         return webHelper.getJsonError(e.getLocalizedMessage());
+				      } 
+			      }
+				
+				//대표이미지가 바뀌었으면 대표이미지 등록
+				if(image0!=null) {
+					// 저장된 결과를 조회하기 위한 객체
+					Files f = null;
+					try {
+						f = webHelper.saveMultipartFile(image0);
+				        f.setFname("product"+prodno);
+				        f.setReftable("product");
+				        f.setRefid(prodno);
+				        
+				        /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
+				        if (f != null && f.getType().indexOf("image") > -1) {
+				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
+				            String thumbnailPath = null;
+				            try {
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				            } catch (Exception e) {
+				                e.printStackTrace();
+				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
+				            }
+				            // 썸네일 경로를 URL로 변환
+				            String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
+				            // 리턴할 객체에 썸네일 정보 추가
+				            f.setThumbnailPath(thumbnailPath);
+				            f.setThumbnailUrl(thumbnailUrl);
+				           }
+				        //files 테이블에 데이터 입력
+				        filesProductService.addFiles(f);			        
+				      } catch (NullPointerException e) {
+				            e.printStackTrace();
+				            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
+				      } catch (Exception e) {
+				         return webHelper.getJsonError(e.getLocalizedMessage());
+				      }	
+				}
+				
+				//나머지 새로 등록된 파일 등록
+				List<MultipartFile> files= new ArrayList<MultipartFile>();
+				if(image1!=null) {files.add(image1);}
+				if(image2!=null) {files.add(image2);}
+				if(image3!=null) {files.add(image3);}
+				if(image4!=null) {files.add(image4);}
+				if(image5!=null) {files.add(image5);}
+				if(image6!=null) {files.add(image6);}
+				if(image7!=null) {files.add(image7);}
+				
+				
+				
+				//for문으로 데이터 입력 처리
+				for(int i = 0; i<files.size(); i++) {
+					// 저장된 결과를 조회하기 위한 객체
+					Files f = null;
+					try {
+						f = webHelper.saveMultipartFile(files.get(i));
+				        f.setFname("product"+prodno+String.format("%d", System.currentTimeMillis()));
+				        f.setReftable("product");
+				        f.setRefid(prodno);
+				        
+				        /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
+				        if (f != null && f.getType().indexOf("image") > -1) {
+				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
+				            String thumbnailPath = null;
+				            try {
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				            } catch (Exception e) {
+				                e.printStackTrace();
+				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
+				            }
+				            // 썸네일 경로를 URL로 변환
+				            String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
+				            // 리턴할 객체에 썸네일 정보 추가
+				            f.setThumbnailPath(thumbnailPath);
+				            f.setThumbnailUrl(thumbnailUrl);
+				           }
+				        //files 테이블에 데이터 입력
+				        itemregService.addFiles(f);			        
+				      } catch (NullPointerException e) {
+				            e.printStackTrace();
+				            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
+				      } catch (Exception e) {
+				         return webHelper.getJsonError(e.getLocalizedMessage());
+				      }
+
+				}
+				
+	      return webHelper.getJsonData();
+	   }
 }
