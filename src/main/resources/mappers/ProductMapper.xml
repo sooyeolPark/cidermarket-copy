@@ -107,13 +107,6 @@
 			seller=#{seller}, hits=#{hits}, editdate=now()
 		WHERE prodno=#{prodno}
 	</update>
-
-	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 -->
-	<select id="selectCountMemberItems"
-		parameterType="study.shop.cidermarket.model.Product"
-		resultType="int">
-		SELECT COUNT(*) FROM product WHERE seller = #{seller} AND tradecon= "J"
-	</select>
 	
 	<!-- 주문 완료했을때 판매 완료로 바꿔주는 기능 위한 기능 정의 -->
 	<update id="orderOkItem"
@@ -122,4 +115,92 @@
 			 tradecon= 'W'
 		WHERE prodno=#{prodno}
 	</update>
+
+	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 ::::::: 판매상품 or 숨긴상품 -->
+	<select id="selectCountMemberItems"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		 
+		<where>
+				seller = #{seller} AND tradecon = #{tradecon}
+			<if test="subject != null and subject != ''">
+				AND subject LIKE concat('%', #{subject}, '%')
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+	</select>
+
+	<!-- 특정 회원이 올린 데이터 수 조회를 위한 기능 정의 ::::::: 찜상품 -->
+	<select id="selectCountMemberItemsMP"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultType="int">
+		SELECT COUNT(*) 
+		FROM membprod mp
+		INNER JOIN product p ON mp.prodno=p.prodno
+		
+		<where>
+				membno = #{seller}
+			<if test="subject != null and subject != ''">
+				AND p.subject LIKE concat('%', #{subject}, '%') OR 
+				p.seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR p.prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+	</select>
+	
+	<!-- 특정 회원이 올린 다중행 조회를 위한 기능 정의 ::::::: 판매상품 or 숨긴상품 -->
+	<select id="selectMemberList"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, cateno, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+		FROM product
+		
+		<where>
+				seller = #{seller} AND tradecon = #{tradecon}
+			<if test="subject != null and subject != ''">
+				AND subject LIKE concat('%', #{subject}, '%')
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+		
+		ORDER BY prodno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 특정 회원이 올린 다중행 조회를 위한 기능 정의 ::::::: 찜상품 -->
+	<select id="selectMemberListMP"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, cateno, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+		FROM product
+		
+		<where>
+				prodno IN (SELECT prodno FROM membprod WHERE membno = #{seller})
+			<if test="subject != null and subject != ''">
+				AND subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+		
+		ORDER BY prodno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>	
 </mapper>

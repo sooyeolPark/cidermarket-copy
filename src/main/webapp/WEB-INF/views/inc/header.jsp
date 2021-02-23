@@ -33,9 +33,9 @@
 		</div>
 	</div>
 	<div id="searchBox" class="container">
-		<form method="post" action="${pageContext.request.contextPath}/search">
+		<form id="searchForm" action="${pageContext.request.contextPath}/search">
 			<input type="text" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력해 주세요." />
-			<button class="btn btnSearch-s" type="submit">
+			<button id="searchBtn" class="btn btnSearch-s" type="submit">
 				<i class="glyphicon glyphicon-search"></i>
 			</button>
 		</form>
@@ -51,7 +51,7 @@
 	      				<li>검색기록없음</li>
 	      			</c:when>
 	      			<c:otherwise>
-	      				<li><a href="${pageContext.request.contextPath}/search.cider?keyword=${cookey.mySearch}">${cookey.mySearch.value}</a></li>     				
+	      				<li><a href="${pageContext.request.contextPath}/search/${cookey.mySearch}">${cookey.mySearch.value}</a></li>     				
 					</c:otherwise>
       			</c:choose>
 			</ul>
@@ -94,7 +94,7 @@
 			<div class="btnn-login">
       			<a href="${pageContext.request.contextPath}/msgbox/receiver.cider" class="btn btn-info">쪽지함</a>
       			<a href="${pageContext.request.contextPath}/member/record/selling.cider" class="btn btn-info">거래내역</a>
-      			<a href="${pageContext.request.contextPath}/user/mystore.cider" class="btn btn-info">내상점</a>
+      			<a href="${pageContext.request.contextPath}/mystore/c${myNum}" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
 	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
 					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
@@ -222,6 +222,26 @@
 
   $(function () {
     get_key_list();
+    
+    /** 검색 Ajax 호출 */
+    $("#searchBtn").click(function(){
+    	const form = $("#searchForm");
+        const url = form.attr('action');
+    	console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa'+ url);
+    	$.ajax({
+	        type: "GET",
+	        url: url,
+	        data: {"keyword":keyword, "page":nowPage},
+	        success: function(json) {
+					console.log(json);
+					alert('검색 성공');
+					if (json.rt == "OK") {
+						window.location = "${pageContext.request.contextPath}/search.cider";
+					}
+				}
+	      });    	
+    });
+    
     
     /** Ajax 호출 */
     $(".logout").click(function(){

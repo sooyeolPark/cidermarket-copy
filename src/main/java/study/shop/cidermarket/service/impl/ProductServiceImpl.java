@@ -122,5 +122,45 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
+	
+	/** 특정 회원이 올린 상품 수 */
+	@Override
+	public int getMemberProductCount(Product input) throws Exception {
+		int result = 0;
+		try {
+			if (input.getTradecon().equals("MP")) {
+				result = sqlSession.selectOne("ProductMapper.selectCountMemberItemsMP", input);
+			} else {
+				result = sqlSession.selectOne("ProductMapper.selectCountMemberItems", input);
+			}
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	/** 특정 회원이 올린 상품 리스트 조회 */
+	@Override
+	public List<Product> getMemberProductList(Product input) throws Exception {
+		List<Product> result = null;
+		try {
+			if (input.getTradecon().equals("MP")) {
+				result = sqlSession.selectList("ProductMapper.selectMemberListMP", input);
+			} else {
+				result = sqlSession.selectList("ProductMapper.selectMemberList", input);
+			}
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 }

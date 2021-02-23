@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.model.Review;
+import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
 
@@ -36,22 +39,21 @@ public class ReviewAjaxContorller {
    @Qualifier("recordService")
    RecordService recordService;
    
+   @Autowired
+   @Qualifier("memberService")
+   MemberService memberService;
+   
    
    
    /** 목록 페이지 */
-   @RequestMapping(value="/mystore_review.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/mystore/{shopaddress}/review.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
-		   // 검색어
+		     @PathVariable("shopaddress") String shopaddress,
+		     // 검색어
 	         @RequestParam(value="keyword", required=false) String keyword,
 	         // 페이지 구현에서 사용할 현재 페이지 번호
 	         @RequestParam(value="page", defaultValue="1") int nowPage) {
 	      
-	   
-		/*
-		 * HttpSession session = webHelper.getRequest().getSession(); int myNum =
-		 * (int)session.getAttribute("myNum");
-		 */
-	   
 	   
 	      /** 1) 페이지 구현에 필요한 변수값 생성 */
 	      int totalCount = 0;      // 전체 게시글 수
@@ -62,14 +64,22 @@ public class ReviewAjaxContorller {
       
           /** 2) 데이터 조회하기 */
           // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-	      Review input = new Review();
-	      //input.setContent(keyword);
-		  //input.setReceiver(myNum);
+	      Member inputM = new Member();
+	      inputM.setShopaddress(shopaddress);
+	      Member outputM = null;
 	      
+	      try {
+	    	  outputM = memberService.getMemberShopItem(inputM);
+	    	  inputM.setMembno(outputM.getMembno());
+	    	  outputM = memberService.getMemberIndexItem(inputM);
+	      } catch (Exception e) {
+	    	  return webHelper.redirect(null, e.getLocalizedMessage());
+	      }
+	      
+	      Review input = new Review();
+	      input.setReceiver(outputM.getMembno());
 	      List<Review> output = null;
 	      PageData pageData = null;
-      
-   
       
       try {
     	  // 전체 게시글 수 조회
@@ -81,14 +91,15 @@ public class ReviewAjaxContorller {
           Review.setOffset(pageData.getOffset());
           Review.setListCount(pageData.getListCount());
 
-         // 데이터 조회하기
-         output = reviewService.getReviewList(input);
+          // 데이터 조회하기
+          output = reviewService.getReviewList(input);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
 
       /** 3) View 처리 */
+      model.addAttribute("user", outputM);
       model.addAttribute("keyword", keyword);
       model.addAttribute("output", output);
       model.addAttribute("pageData", pageData);

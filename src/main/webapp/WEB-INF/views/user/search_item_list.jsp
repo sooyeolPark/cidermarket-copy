@@ -25,7 +25,7 @@
             	<!-- 검색박스 영역 -->
 				<form action="${pageContext.request.contextPath}/search.cider" class="search-form">
 				    <div class="input-group col-lg-6">
-				      <input type="search" name="keyword" class="form-control" id="keyword" value="${keyword}" >
+				      <input type="search" name="keyword" class="form-control" id="keyword2" value="${keyword}" >
 				      <span class="input-group-btn">
 				        <button class="btn btn-default" type="submit">검색</button>
 				      </span>
@@ -195,7 +195,7 @@
             	/** 더보기 버튼에 대한 이벤트 정의 */
         		$("#btnMore").click(function() {
         			nowPage++;
-        			let keyword = $('#category-title').text();
+        			let keyword = $('#keyword2').val();
         			// Restful API에 GET 방식 요청
         			$.get("${pageContext.request.contextPath}/search", {
         				"page": nowPage, "keyword":keyword   // 페이지 번호는 GET 파라미터로 전송한다.

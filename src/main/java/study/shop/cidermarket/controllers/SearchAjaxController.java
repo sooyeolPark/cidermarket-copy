@@ -41,22 +41,9 @@ public class SearchAjaxController {
 	/** 검색 페이지 */
 	@RequestMapping(value = "/search.cider", method = RequestMethod.GET)
 	public ModelAndView search(Model model,
-			@CookieValue(value="mySearch", defaultValue="") String myCookie,
-			// 페이지 구현에서 사용할 현재 페이지 번호
 			@RequestParam(value="page", defaultValue="1") int nowPage,
 			@RequestParam(value="keyword", required=false) String keyword) {
-		
-		/** 컨트롤러에서 쿠키를 식별하기 위한 처리 */
-        try {
-            // 저장시에 URLEncoding이 적용되었으므로 URLDecoding이 별도로 필요함
-            myCookie = URLDecoder.decode(myCookie, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        
-        // 추출한 값을 View에게 전달
-        model.addAttribute("mySearch", myCookie);
-		
+				
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
 		int totalCount = 0;		// 전체 게시글 수
 		int listCount = 4;		// 한 페이지당 표시할 목록 수

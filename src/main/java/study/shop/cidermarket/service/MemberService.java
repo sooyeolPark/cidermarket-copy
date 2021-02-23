@@ -61,8 +61,7 @@ public interface MemberService {
 	 */
 	public int addMember(Member input) throws Exception;
 	
-	/**@Override
-	
+	/**
 	 * 데이터 수정하기
 	 * @param Member 수정할 정보를 담고 있는 Beans 
 	 * @return int
@@ -86,5 +85,13 @@ public interface MemberService {
 	 */
 	public int deleteMember(Member input) throws Exception;
 
+	
+	/**
+	 * 데이터 상세 조회(상점주소로만 조회)
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public Member getMemberShopItem(Member input) throws Exception;
 	
 }

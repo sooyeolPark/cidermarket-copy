@@ -42,22 +42,4 @@ public class HelpController {
         return "user/location";
     }
     
-    /** 문의내역 목록 페이지 */
-    //@RequestMapping(value="/user/inquiry_list.cider", method=RequestMethod.GET)
-    //public String inquiryList() {
-    //    return "user/inquiry_list";
-    //}
-    
-    /** 문의내역 읽기 페이지 */
-    //@RequestMapping(value="/user/inquiry_view.cider", method=RequestMethod.GET)
-    //public String inquiryView() {
-    //    return "user/inquiry_view";
-    //}
-    
-    /** 문의내역 쓰기 페이지 */
-    //@RequestMapping(value="/user/inquiry.cider", method=RequestMethod.GET)
-    //public String inquiry() {
-    //    return "user/inquiry";
-    //}
-    
 }

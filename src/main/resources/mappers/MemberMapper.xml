@@ -139,4 +139,13 @@
 			password=#{password}
 		WHERE membno=#{membno}
 	</update>
+	
+	<!-- 상점주소를 이용한 단일행 조회를 위한 기능 정의 -->
+	<select id="selectShopItem"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, shopaddress
+		FROM member
+		WHERE shopaddress=#{shopaddress}
+	</select>
 </mapper>

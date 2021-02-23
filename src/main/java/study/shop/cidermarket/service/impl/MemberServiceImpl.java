@@ -57,6 +57,25 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+	
+	/** 상점주소로 단일행 조회 */
+	@Override
+	public Member getMemberShopItem(Member input) throws Exception {
+		Member result = null;
+		try {
+			result = sqlSession.selectOne("MemberMapper.selectShopItem", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 정보가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("회원 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 	@Override
 	public List<Member> getMemberList(Member input) throws Exception {
