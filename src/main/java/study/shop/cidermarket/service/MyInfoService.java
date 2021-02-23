@@ -87,9 +87,14 @@ public interface MyInfoService {
 	public int deleteMember(Member input) throws Exception;
 	public int editNickName(Member input) throws Exception;
 	public int editIntro(Member input) throws Exception;
-	public int editId(Member input) throws Exception;
+	public int editEmail(Member input) throws Exception;
 	public int editTel(Member input) throws Exception;
 	public int editPassword(Member input) throws Exception;
 	public int editSMS(Member input) throws Exception;
-	
+	public int editOutmember(Member input) throws Exception;
+	public int editShopaddress(Member input) throws Exception;
+	public int getShopaddressCount(Member input) throws Exception;
+	public int getEmailCount(Member input) throws Exception;
+	public int getTelCount(Member input) throws Exception;
+	public int getCheckPassword(Member input) throws Exception;
 }

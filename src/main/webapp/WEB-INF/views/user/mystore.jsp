@@ -22,26 +22,16 @@
     <div class="container">
       <!-- 유저 프로필 고정부분입니다. -->
       <%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
-      <!-- 탭 메뉴 시작 -->
-      <ul class="my_ctg">
-        <li class="active"><a href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
-        <li><a href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
-        <c:if test="${myNum == output.membno}">
-	        <li><a href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의 등급</a></li>
-	        <li><a href="${pageContext.request.contextPath}/mystore_myinfo.cider">내정보 설정</a></li>
-        </c:if>
-      </ul>
     </div>
     <div class="div_blank"></div>
-    <!--// 탭 메뉴 끝 -->
     <!-- 탭 화면 시작 -->
     <div id="mystore">
       <!-- 탭 메뉴 시작 -->
       <ul class="nav nav-tabs">
-        <li class="col-sm-4 active"><a href="${pageContext.request.contextPath}/mystore.cider/${output.shopaddress}">판매상품</a></li>
-        <c:if test="${myNum == output.membno}">
-	        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_s.cider">숨긴상품</a></li>
-	        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_mp.cider">찜상품</a></li>
+        <li class="col-sm-4 active"><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}">판매상품</a></li>
+        <c:if test="${myNum == user.membno}">
+	        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_s/${user.shopaddress}">숨긴상품</a></li>
+	        <li class="col-sm-4"><a href="${pageContext.request.contextPath}/mystore_mp/${user.shopaddress}">찜상품</a></li>
         </c:if>
       </ul>
       <!--// 탭 메뉴 끝 -->
@@ -49,7 +39,7 @@
       <div class="container" id="tab1">
               <div class="item-row clearfix">
                 <div id="si_total" class="pull-left">판매상품수 <b>${pageData.totalCount}</b></div>
-                  <form action="${pageContext.request.contextPath}/mystore.cider" method="get">
+                  <form action="${pageContext.request.contextPath}/mystore/${user.shopaddress}" method="get">
                       <div id="searchbox1" class="input-group pull-left">
                         <span id="sbox_addon" class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>
                         <input id="sbox_input" type="search" name="smallKeyword" class="form-control" placeholder="키워드 검색" value="${smallKeyword}">
@@ -126,8 +116,9 @@
                         <%-- 이전 그룹으로 이동 가능하다면? --%>
                         <c:when test="${pageData.prevPage > 0}">
                             <%-- 이동할 URL 생성 --%>
-                            <c:url value="/mystore.cider/${output.shopaddress}" var="prevPageUrl">
+                            <c:url value="/mystore/${user.shopaddress}" var="prevPageUrl">
                                 <c:param name="page" value="${pageData.prevPage}" />
+                                <c:param name="smallKeyword" value="${smallKeyword}" />
                             </c:url>
                                 <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
                                 </c:when>
@@ -139,8 +130,9 @@
                     <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
                     <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
                         <%-- 이동할 URL 생성 --%>
-                        <c:url value="/mystore.cider/${output.shopaddress}" var="pageUrl">
+                        <c:url value="/mystore/${user.shopaddress}" var="pageUrl">
                             <c:param name="page" value="${i}" />
+                            <c:param name="smallKeyword" value="${smallKeyword}" />
                         </c:url>
 
                         <%-- 페이지 번호 출력 --%>
@@ -160,8 +152,9 @@
                         <%-- 다음 그룹으로 이동 가능하다면? --%>
                         <c:when test="${pageData.nextPage > 0}">
                             <%-- 이동할 URL 생성 --%>
-                            <c:url value="/mystore.cider/${output.shopaddress}" var="nextPageUrl">
+                            <c:url value="/mystore/${user.shopaddress}" var="nextPageUrl">
                                 <c:param name="page" value="${pageData.nextPage}" />
+                                <c:param name="smallKeyword" value="${smallKeyword}" />
                             </c:url>
                                 <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
                                 </c:when>
@@ -187,6 +180,9 @@
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
   <script type="text/javascript">
+  	/* 서브메뉴버튼 활성화 */
+  	document.querySelector('.my_ctg li:nth-child(1)').className = 'active';
+  	
     $(function () {
       /* 상품리스트형 */
       $(".btn-list").click(function () {

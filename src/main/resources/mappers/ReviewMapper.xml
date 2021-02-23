@@ -30,12 +30,13 @@
 		resultMap="ReviewMap">
 		SELECT 
 		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate,rate,content,rv.recono, sender, receiver, rc.name, rc.how, p.subject  		
-		,rc.buyer,(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=rc.buyer AND reftable='member')) AS filepath,(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
+		,rc.buyer,(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=rc.buyer AND reftable='member')) AS filepath,
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
 		FROM review rv
-		inner join Record rc On rv.recono = rc.recono
-		inner join product p On rv.prodno =p.prodno 
-		order by rv.regdate desc
-
+		INNER JOIN Record rc On rv.recono = rc.recono
+		INNER JOIN product p On rv.prodno = p.prodno 
+		WHERE receiver = #{receiver}
+		ORDER BY rv.regdate DESC
 		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
@@ -47,10 +48,8 @@
 		parameterType="study.shop.cidermarket.model.Review"
 		resultType="int">
 		SELECT COUNT(*) FROM Review
-		
-		<where>
+		WHERE receiver = #{receiver}
 
-		</where>
 	</select>
 	
 	

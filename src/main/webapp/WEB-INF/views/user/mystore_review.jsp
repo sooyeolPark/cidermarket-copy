@@ -22,25 +22,13 @@
     <div class="container">
       <!-- 유저 프로필 고정부분 -->
       <%@ include file="/WEB-INF/views/inc/user_profile.jsp"%>
-      <!-- 탭 메뉴 시작 -->
-      <ul class="my_ctg">
-        <li><a href="${pageContext.request.contextPath}/mystore.cider">내상점</a></li>
-        <li class="active"><a href="${pageContext.request.contextPath}/mystore_review.cider">거래후기</a></li>
-        <c:if test="${myNum == output.membno}">
-	        <li><a href="${pageContext.request.contextPath}/mystore_mygrade.cider">나의 등급</a></li>
-	        <li><a href="${pageContext.request.contextPath}/mystore_myinfo.cider">내정보 설정</a></li>
-        </c:if>
-      </ul>
     </div>
     <div class="div_blank"></div>
-    <!--// 탭 메뉴 끝 -->
-    
-    
     
     <!-- 탭 화면 시작 -->
       <div id="myreview">
         <div id="myreview_subject">
-          <h1>5</h1>
+          <h1>${user.rate}</h1>
           <div id="user_star">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
             <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
@@ -86,8 +74,9 @@
 				        </c:when>				        	        
 				        </c:choose>
 				      </div>
-				      <h4 class="media-heading review_user_name">${item.name} <small>${item.regdate}</small></h4>
-				      <p class="review_item_subject">${item.subject}</p>
+				      <h4 class="media-heading review_user_name">
+				      <a href="${pageContext.request.contextPath}/mystore/c${item.sender}">${item.name}</a> <small>${item.regdate}</small></h4>
+				      <p class="review_item_subject"><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></p>
 				    </div>
 				    <div class="clearfix review_user_rpl">
 				      <p>${item.content}
@@ -103,7 +92,7 @@
 			                <%-- 조회결과가 있는 경우 --%>
 			                <c:otherwise>				    
 								      <a href="#">
-								      <img id="reviewpic"src="${pageContext.request.contextPath}/assets/img/${item.reviewpic}">
+								      <img id="reviewpic"src="${pageContext.request.contextPath}/assets/img${item.reviewpic}">
 								    </a>
 						    </c:otherwise>
 						    </c:choose>
@@ -124,7 +113,7 @@
             	<%-- 이전 그룹으로 이동 가능하다면? --%>
                 <c:when test="${pageData.prevPage > 0}">
                 	<%-- 이동할 URL 생성 --%>
-                    <c:url value="/user/mystore_review.cider" var="prevPageUrl">
+                    <c:url value="/mystore/${user.shopaddress}/review.cider" var="prevPageUrl">
                     	<c:param name="page" value="${pageData.prevPage}" />          
                     </c:url>
                     <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
@@ -137,7 +126,7 @@
             <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
                <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
                   <%-- 이동할 URL 생성 --%>
-                  <c:url value="/user/mystore_review.cider" var="pageUrl">
+                  <c:url value="/mystore/${user.shopaddress}/review.cider" var="pageUrl">
                      <c:param name="page" value="${i}" />
                   </c:url>
                   <%-- 페이지 번호 출력 --%>
@@ -157,7 +146,7 @@
             	<%-- 다음 그룹으로 이동 가능하다면? --%>
                 <c:when test="${pageData.nextPage > 0}">
                 	<%-- 이동할 URL 생성 --%>
-                    <c:url value="/user/mystore_review.cider" var="nextPageUrl">
+                    <c:url value="/mystore/${user.shopaddress}/review.cider" var="nextPageUrl">
                     	<c:param name="page" value="${pageData.nextPage}" />          
                     </c:url>
                     <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
@@ -180,11 +169,9 @@
   <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-  <!-- handlebar plugin -->
-  <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
   <script type="text/javascript">
-    
-
+    /* 서브메뉴버튼 활성화 */
+    document.querySelector('.my_ctg li:nth-child(2)').className = 'active';
   </script>
 </body>
 

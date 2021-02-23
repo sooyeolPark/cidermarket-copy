@@ -9,6 +9,7 @@ public class Member {
 	private String nickname;
 	private String email;
 	private String password;
+	private String newpassword;
 	private String tel;
 	private String joindate;
 	private String editdate;

@@ -32,7 +32,7 @@ public class MyInfoAjaxController {
     @Qualifier("MyInfoService")
     @Autowired MyInfoService myInfoService;
     
-       
+
     
     /** 목록 페이지 */
     @RequestMapping(value = "mystore_myinfo.cider", method = RequestMethod.GET)
