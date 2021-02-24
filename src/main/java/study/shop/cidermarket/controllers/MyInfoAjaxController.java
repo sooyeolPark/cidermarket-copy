@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,8 +36,9 @@ public class MyInfoAjaxController {
 
     
     /** 목록 페이지 */
-    @RequestMapping(value = "mystore_myinfo.cider", method = RequestMethod.GET)
-    public ModelAndView list(Model model) {
+    @RequestMapping(value = "/mystore/{shopaddress}/myinfo.cider", method = RequestMethod.GET)
+    public ModelAndView list(Model model,
+    		@PathVariable("shopaddress") String shopaddress) {
         
     	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();

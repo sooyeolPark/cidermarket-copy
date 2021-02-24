@@ -85,7 +85,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-9">
-						<span id="address">www.cidermarket.com/s/</span> <input id="store-id" name="shopaddress" type="text" class="form-control" value="${output.shopaddress}"></input>
+						<span id="address">www.cidermarket.com/mystore/</span> <input id="store-id" name="shopaddress" type="text" class="form-control" value="${output.shopaddress}"></input>
 					</div>
 					<div class="col-xs-3">
 						<button id="change-btn3" class="btn btn-warning" type="submit" value="submit">변경</button>
@@ -193,6 +193,7 @@
 
 
 				<!-- 수신설정 -->
+		
 				<div class="row margin-top">
 					<div class="col-sm-2">
 						<span>수신설정</span>
@@ -200,7 +201,11 @@
 				</div>
 				
 				<div class="row">
+					
+					
+				
 						<form name="editForm7" id="editForm7" action="${pageContext.request.contextPath}/myinfo_SMS">
+						
 						<div class="col-xs-9">
 							<input type="checkbox" id="email" name="email" value="1"> <span class="email">Email</span> <input class="SMS" type="checkbox" id="sms" name="sms" value="2"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
 						</div>
@@ -254,7 +259,7 @@
 				success : function(json) {
 					console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 					alert("변경되었습니다.");
-					window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+					window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 							+ json.item.membno;}
 
 					});
@@ -275,7 +280,7 @@
 				success : function(json) {
 					console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 					alert("변경되었습니다.");
-					window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+					window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 							+ json.item.membno;}
 
 					});
@@ -295,7 +300,7 @@
 					success : function(json) {
 						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 								+ json.item.membno;}
 
 						});
@@ -314,7 +319,7 @@
 					success : function(json) {
 						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 								+ json.item.membno;}
 
 						});
@@ -333,7 +338,7 @@
 					success : function(json) {
 						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 								+ json.item.membno;}
 
 						});
@@ -353,56 +358,14 @@
 					success : function(json) {
 						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
 						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
 								+ json.item.membno;}
 
 						});
 				});	
-			$("#editForm7").submit(function(e) {
-				e.preventDefault();
-				/** 이름 검사 */
-				/** Ajax 호출 */
-				const form = $(this);
-				const url = form.attr('action');
 
-				$.ajax({
-					type : "PUT",
-					url : url,
-					data : form.serialize(),
-					success : function(json) {
-						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
-						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
-								+ json.item.membno;}
-
-						});
-				});	
 			
 
-			$("#editForm8").submit(function(e) {
-				e.preventDefault();
-				
-				var input =confirm("정말 탈퇴하시겠습니까?");
-				alert(input);
-				/** 이름 검사 */
-				/** Ajax 호출 */
-				const form = $(this);
-				const url = form.attr('action');
-	
-				$.ajax({
-					type : "PUT",
-					url : url,
-					data : form.serialize(),
-					success : function(json) {
-						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
-						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore_myinfo.cider?membno"
-								+ json.item.membno;}
-	
-						});
-				});	
-
-			});
 
 			
 
@@ -675,6 +638,7 @@
 			});
 
 		});
+
 	</script>
 </body>
 
