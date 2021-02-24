@@ -202,4 +202,12 @@
 			LIMIT #{offset}, #{listCount}
 		</if>
 	</select>	
+	
+	<!-- 신고게시판에서 관리자가 상품의 판매 재개/정지 기능 -->
+	<update id="singoUpdateItem"
+		parameterType="study.shop.cidermarket.model.Product">
+		UPDATE product SET
+			 tradecon= #{tradecon}
+		WHERE prodno=#{prodno}
+	</update>
 </mapper>

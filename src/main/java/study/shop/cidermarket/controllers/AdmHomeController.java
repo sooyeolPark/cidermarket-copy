@@ -41,12 +41,6 @@ public class AdmHomeController {
         return "admin/login_adm";
     }
     
-    /** 관리자 회원관리 페이지 */
-    @RequestMapping(value="/admin/member_adm.cider", method=RequestMethod.GET)
-    public String memberAdm() {
-        return "admin/member_adm";
-    }
-    
     /** 관리자 주문관리 페이지 */
     @RequestMapping(value="/admin/order_adm.cider", method=RequestMethod.GET)
     public String orderAdm() {
@@ -72,10 +66,4 @@ public class AdmHomeController {
 		return "admin/product_adm";
 	}
 
-	
-	/** 탈퇴회원관리 */
-	@RequestMapping(value = "/admin/outmember_adm.cider", method = RequestMethod.GET)
-	public String outMemberAdm() {
-		return "admin/outmember_adm";
-	}
 }

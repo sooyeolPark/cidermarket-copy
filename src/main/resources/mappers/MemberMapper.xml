@@ -16,6 +16,8 @@
 		<result property="outmember" column="outmember" />
 		<result property="rate" column="rate" />
 		<result property="filepath" column="filepath" />
+		<result property="totalpay" column="totalpay" />
+		<result property="totalamount" column="totalamount" />
 	</resultMap>
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -147,5 +149,418 @@
 		SELECT membno, shopaddress
 		FROM member
 		WHERE shopaddress=#{shopaddress}
+	</select>
+	
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (멤버no순) -->
+	<select id="adminSelectList"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY membno DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (구매건수 낮은사람 정렬) -->
+	<select id="adminSelectListByAmountAsc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY totalamount ASC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+		
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (구매건수 높은 사람 정렬) -->
+	<select id="adminSelectListByAmountDesc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY totalamount DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (구매액 낮은사람 정렬) -->
+	<select id="adminSelectListByPayAsc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY totalpay ASC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (구매액 높은사람 정렬) -->
+	<select id="adminSelectListByPayDesc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY totalpay DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (가입일 빠름 순 정렬) -->
+	<select id="adminSelectListByJoindateAsc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY joindate ASC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (가입일 늦음 순 정렬) -->
+	<select id="adminSelectListByJoindateDesc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY joindate DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (탈퇴일 빠름 순 정렬) -->
+	<select id="adminSelectListByEditdateAsc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY editdate ASC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (탈퇴일 늦음 순 정렬) -->
+	<select id="adminSelectListByEditdateDesc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY editdate DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (별점 낮은 순 정렬) -->
+	<select id="adminSelectListByRateAsc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY rate ASC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+		<!-- 관리자 페이지에 쓸 다중행 조회를 위한 기능 정의 (별점 높은 순 정렬) -->
+	<select id="adminSelectListByRateDesc"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultMap="memberMap">
+		SELECT membno, nickname, email, tel,
+			DATE_FORMAT(joindate, '%Y-%m-%d') AS joindate, 
+			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
+			outmember, rate,
+			(select count(r.prodno) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalamount,
+			(select sum(p.price) from record r 
+			left join product p on p.prodno=r.prodno where r.tradecon='W' and r.refund='N' and r.buyer=membno) as totalpay
+		FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+			
+		</where>
+		
+		ORDER BY rate DESC
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>	
+	
+	<!-- 데이터 갱신을 위한 기능 정의 (탈퇴 or 복구 처리)-->
+	<update id="updateOutmember"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			outmember = #{outmember}, editdate=now()
+		WHERE membno=#{membno}
+	</update>
+	
+	<!-- 관리자 페이지에서 쓸 데이터 수 조회를 위한 기능 정의 -->
+	<select id="adminSelectCountAll"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM member
+		
+		<where>
+			<if test='outmember == "n"'>
+				outmember=#{outmember}
+			</if>
+			
+			<if test='outmember != "n"'>
+				(outmember='y' OR outmember='a')
+			</if>
+			<if test="email != null and email != ''">
+				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
+			</if>
+		</where>
 	</select>
 </mapper>
