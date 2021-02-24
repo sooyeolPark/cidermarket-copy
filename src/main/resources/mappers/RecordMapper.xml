@@ -315,5 +315,23 @@
     </select>
     
     
+        <!-- 구매자 거래중 다중행 조회를 위한 기능 정의 -->
+    <select id="selectTotalList"
+        parameterType="study.shop.cidermarket.model.Record"
+        resultMap="recordMap">
+        SELECT r.recono, p.price, m.nickname, r.confirmdate, r.how, r.tradecon, r.refund
+        FROM record r
+        INNER JOIN product p ON r.prodno=p.prodno
+        INNER JOIN member m ON r.buyer= m.membno
+        
+        ORDER BY r.confirmdate DESC
+        
+        <if test="listCount > 0">
+            LIMIT #{offset}, #{listCount}
+        </if>
+    </select>
+    
+    
+    
 
 </mapper>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html>
 <head>
@@ -40,18 +43,32 @@
 						<input id="all-check" type="checkbox">
 					</th>
 					<th class="text-center">번호</th>
-					<th class="text-center">주문번호</th>
+					<th class="text-center">거래번호</th>
 					<th class="text-center">구매금액</th>
-					<th class="text-center">주문자ID</th>
+					<th class="text-center">닉네임</th>
 					<th class="text-center">일자</th>
 					<th class="text-center">거래방법</th>
-					<th class="text-center">상태</th>
-					<th class="text-center">정산</th>
+					<th class="text-center">거래상태</th>
+					<th class="text-center">반품</th>
 					<th class="text-center">환불</th>
 
 				</tr>
 			</thead>
-			<tbody id="board_body"></tbody>
+			<tbody id="board_body">
+			<tr>
+		        <td><input id="checkbox" type="checkbox" class="board board-group-item"/></td>
+		        <td class="text-center board-group-item">${item.bbsno}</td>
+		        <td class="text-center board-group-item"><a href="{{url}}">${recono}</a></td>
+		        <td class="text-center board-group-item">${amount}</td>
+		        <td class="text-center board-group-item">${writer}</td>
+		        <td class="text-center board-group-item">${date}</td>
+		        <td class="text-center board-group-item">${delivery}</td>
+		        <td class="text-center board-group-item">${status}</td>
+		        <td class="text-center board-group-item">${payment}</td>
+		        <td class="text-center board-group-item">
+		        <button class="btn btn-danger" type="submit" id="button_refund" >${refund}</button></td>
+        	</tr>
+			</tbody>
 		</table>
 
 		<div class="input-group">
@@ -62,16 +79,65 @@
 			</div>
 			<input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
 		</div>
-		<ul class="pagination">
-			<li class="disabled"><a href="#">&laquo;</a></li>
-			<!-- 활성화 버튼은 아래의 구조로 구성하시면 됩니다. sr-only는 스크린리더 전용 입니다 .-->
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">&raquo;</a></li>
-		</ul>
+	 <!-- 페이지네이션 -->
+	 
+	 <ul class="pagination">
+                  <%-- 이전 그룹에 대한 링크 --%>
+                     <c:choose>
+                  <%-- 이전 그룹으로 이동 가능하다면? --%>
+                  <c:when test="${pageData.prevPage > 0}">
+                     <%-- 이동할 URL 생성 --%>
+                     <c:url value="/admin/notice/list.cider" var="prevPageUrl">
+                        <c:param name="page" value="${pageData.prevPage}" />
+                        <c:param name="keyword" value="${keyword}" />            
+                        <c:param name="listCount" value="${pageData.listCount}" />
+                     </c:url>
+                     <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
+                         </c:when>
+                         <c:otherwise>
+                             <li class="disabled"><a href="#">&laquo;</a></li>
+                  </c:otherwise>
+               </c:choose>
+               
+               <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+               <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+                  <%-- 이동할 URL 생성 --%>
+                  <c:url value="/admin/notice/list.cider" var="pageUrl">
+                     <c:param name="page" value="${i}" />
+                     <c:param name="keyword" value="${keyword}" />            
+                     <c:param name="listCount" value="${pageData.listCount}" />
+                  </c:url>
+                  
+                  <%-- 페이지 번호 출력 --%>
+                  <c:choose>
+                     <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+                     <c:when test="${pageData.nowPage == i}">
+                              <li class="active"><span>${i} <span class="sr-only">(current)</span></span></li>
+                     </c:when>
+                     <c:otherwise>
+                              <li><a href="${pageUrl}">${i}</a></li>                     
+                     </c:otherwise>
+                  </c:choose>
+               </c:forEach>
+                      
+                      <%-- 다음 그룹에 대한 링크 --%>
+               <c:choose>
+                  <%-- 다음 그룹으로 이동 가능하다면? --%>
+                  <c:when test="${pageData.nextPage > 0}">
+                     <%-- 이동할 URL 생성 --%>
+                     <c:url value="/admin/notice/list.cider" var="nextPageUrl">
+                        <c:param name="page" value="${pageData.nextPage}" />
+                        <c:param name="keyword" value="${keyword}" />            
+                        <c:param name="listCount" value="${pageData.listCount}" />            
+                     </c:url>
+                             <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
+                            </c:when>
+                  <c:otherwise>
+                             <li class="disabled"><a href="#">&raquo;</a></li>
+                  </c:otherwise>
+               </c:choose>
+                  </ul>
+
 	</div>
 
 	<!-- 푸터 영역 -->
@@ -86,44 +152,6 @@
     <!-- 유효성검사 -->
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
-
-    <script id="board_tmpl" type="x-handlebars-template">
-        {{#boardlist}}
-        <tr>
-        <td><input id="checkbox" type="checkbox" class="board board-group-item"/></td>
-        <td class="text-center board-group-item">{{number}}</td>
-        <td class="text-center board-group-item"><a href="{{url}}">{{ordernum}}</a></td>
-        <td class="text-center board-group-item">{{amount}}</td>
-        <td class="text-center board-group-item">{{writer}}</td>
-        <td class="text-center board-group-item">{{date}}</td>
-        <td class="text-center board-group-item">{{delivery}}</td>
-        <td class="text-center board-group-item">{{status}}</td>
-        <td class="text-center board-group-item">{{payment}}</td>
-        <td class="text-center board-group-item">
-            <button class="btn btn-danger" type="submit" id="button_refund" >{{refund}}</button></td>
-        </tr>
-        {{/boardlist}}
-    </script>
-
-	<script id="board_tmpl2" type="x-handlebars-template">
-    {{#boardlist}}
-    <tr>
-    <td><input id="checkbox" type="checkbox" class="board checkbox "/></td>
-    <td class="text-center">{{number}}</td>
-    <td class="text-center"><a href="{{url}}">{{ordernum}}</a></td>
-    <td class="text-center">{{amount}}</td>
-    <td class="text-center">{{writer}}</td>
-    <td class="text-center">{{date}}</td>
-    <td class="text-center">{{delivery}}</td>
-    <td class="text-center ">{{status}}</td>
-    <td class="text-center">{{payment}}</td>
-    <td class="text-center">
-        <button class="btn btn-danger" type="submit" id="button_refund" >{{refund}}</button></td>
-    </tr>
-    {{/boardlist}}
-	</script>
-
-        
     <script type="text/javascript">
         $(document).on('click','.btn-danger', function(e){
             e.preventDefault();                  
@@ -139,16 +167,6 @@
                 
         $(function () {
            
-            // Handlebars.registerHelper('refund', function(s) {
-            // if (s == "y") {
-            //     return "거래중";
-            // } else {
-            //     return "거래정지";
-            // }
-            // });
-            // 동적으로 생성된 요소에 대한 disable 적용
-
-            // 상태값에 따라 disable 변화
         Handlebars.registerHelper('convertDisable', function(h) {
                 var h = $("#status").attr()
             if (h == "반품확인(판매자") {
@@ -172,9 +190,6 @@
 
                 }
             });
-   
-
-        //환불버튼 클릭 이벤트 
 
 
     //   전체선택
@@ -183,27 +198,6 @@
       });
 
       // --------------------------------------------추가기능-------------------------------------
-
-    //   드롭다운의 변경이벤트
-    $("#align-number").change(function(){
-            $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
-            var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
-            if (!choice) {//선택값이 없다면 처리 중단 
-                return false; 
-            }
-
-            //ajax요청
-            else if (choice==2) {
-            $.get('${pageContext.request.contextPath}/assets/plugins/ajax/order_adm.json', function(req){
-                var template= Handlebars.compile($("#board_tmpl").html());
-                var html = template(req);
-                $("#result").append(html);
-            });
-            }else if(choice==1) {
-                 $(".board-group-item").detach();
-                } // class가 "hello"인 요소를 모두 삭제한다.
-
-        });
 
         
         // 버튼삭제이벤트
@@ -230,15 +224,7 @@
             
         });
 
-        // --------게시글 불러오기-----
-        $.get("${pageContext.request.contextPath}/assets/plugins/ajax/order_adm.json", function (req) {
-            // 미리 준비한 HTML틀을 읽어온다.
-            var template = Handlebars.compile($("#board_tmpl2").html());
-            // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-            var html = template(req);
-            // #dept_list_body 읽어온 내용을 추가한다.
-            $("#board_body").html(html);
-        });
+
 
     });
 

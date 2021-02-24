@@ -205,13 +205,44 @@
 					
 				
 						<form name="editForm7" id="editForm7" action="${pageContext.request.contextPath}/myinfo_SMS">
-						
+						<c:choose>
+						 <c:when test="${output.sms==1}">
 						<div class="col-xs-9">
-							<input type="checkbox" id="email" name="email" value="1"> <span class="email">Email</span> <input class="SMS" type="checkbox" id="sms" name="sms" value="2"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+							<input type="checkbox" id="email" name="sms" value="1" checked> <span class="email">Email</span> 
+							<input class="SMS" type="checkbox" id="sms" name="sms" value="2"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
 						</div>
 						<div class="col-xs-3">
 							<button type="submit" id="change-btn5" class="btn btn-warning" type="button">변경</button>
 						</div>
+						</c:when>
+						 <c:when test="${output.sms==2}">
+						<div class="col-xs-9">
+							<input type="checkbox" id="email" name="sms" value="1"> <span class="email">Email</span> 
+							<input class="SMS" type="checkbox" id="sms" name="sms" value="2" checked> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+						</div>
+						<div class="col-xs-3">
+							<button type="submit" id="change-btn5" class="btn btn-warning" type="button">변경</button>
+						</div>
+						</c:when>
+						 <c:when test="${output.sms==3}">
+						<div class="col-xs-9">
+							<input type="checkbox" id="email" name="sms" value="1" checked> <span class="email">Email</span> 
+							<input class="SMS" type="checkbox" id="sms" name="sms" value="2" checked> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+						</div>
+						<div class="col-xs-3">
+							<button type="submit" id="change-btn5" class="btn btn-warning" type="button">변경</button>
+						</div>
+						</c:when>
+						 <c:when test="${output.sms==0}">
+						<div class="col-xs-9">
+							<input type="checkbox" id="email" name="sms" value="1"> <span class="email">Email</span> 
+							<input class="SMS" type="checkbox" id="sms" name="sms" value="2"> <span class="SMS">SMS</span> <span class="write-rule block">회원정보, 거래정보 및 서비스 주요 정책 관련 내용은 수신동의 여부와 관계없이 발송됩니다.</span>
+						</div>
+						<div class="col-xs-3">
+							<button type="submit" id="change-btn5" class="btn btn-warning" type="button">변경</button>
+						</div>
+						</c:when>																		
+						</c:choose>
 						</form>
 					
 					<form name="editForm8" id="editForm8" action="${pageContext.request.contextPath}/myinfo_out">
@@ -362,6 +393,50 @@
 								+ json.item.membno;}
 
 						});
+				});	
+			
+			$("#editForm7").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});	
+			
+			$("#editForm8").submit(function(e) {
+				e.preventDefault();
+				var f = confirm("정녕 탈퇴하시겠습니까?");
+				if (f==true) {
+					
+					/** 이름 검사 */
+					/** Ajax 호출 */
+					const form = $(this);
+					const url = form.attr('action');
+					$.ajax({
+						type : "PUT",
+						url : url,
+						data : form.serialize(),
+						success : function(json) {
+							console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+							alert("탈퇴처리 되었습니다.");
+							window.location = "${pageContext.request.contextPath}/"}
+							});
+					// submit(); //실제로 데이터 안넘어갈때 submit() 활성화 할것! 
+				} else {
+					return false;
+				}
 				});	
 
 			

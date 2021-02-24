@@ -28,7 +28,7 @@ import study.shop.cidermarket.service.MyInfoService;
 
 @Slf4j
 @RestController
-public class MyInfoRestController {
+public class AdmOrderRestController {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;
