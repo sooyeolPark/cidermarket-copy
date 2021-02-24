@@ -186,8 +186,16 @@
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50"
-                    height="50" alt="Generic placeholder image"> </a>
+                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> 
+                	<c:choose>
+                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
+                    	</c:when>
+                   		<c:otherwise>
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50" height="50" alt="Generic placeholder image"> 
+                   		</c:otherwise>
+                   	</c:choose>
+                </a>
                 <div class="user_info_detail clearfix">
 
                   <div id="user_id">${seller.nickname}</div>

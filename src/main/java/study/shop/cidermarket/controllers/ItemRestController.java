@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Bbs;
-import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.ItemListService;
-import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
 @RestController
@@ -39,10 +35,11 @@ public class ItemRestController {
 	/** 목록 페이지 */
 //---------------------------------------------------------------------------------------------	
 	@RequestMapping(value = "/Item_list", method = RequestMethod.GET)
-	public Map<String, Object> get_list(
-			// 검색어
+	public Map<String, Object> get_json_list(
+			@RequestParam(value="cateno", defaultValue = "1") int cateno,
 			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "page", defaultValue = "1") int nowPage) {
+			@RequestParam(value = "page", defaultValue = "1") int nowPage,
+			@RequestParam(value = "sort", defaultValue = "") String sort) {
 
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
 		int totalCount = 0; // 전체 게시글 수
@@ -52,23 +49,28 @@ public class ItemRestController {
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Product input = new Product();
+		input.setCateno(cateno);
 		List<Product> output = null;
 		PageData pageData = null;
-
+		
 		try {
-			
-	         // 전체 게시글 수 조회
-	         totalCount = itemListService.getItemListCount(input);
-	         // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-	         pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-	         
-	         // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-	         Product.setOffset(pageData.getOffset());
-	         Product.setListCount(pageData.getListCount());
-			 
+			// 전체 게시글 수 조회
+			totalCount = itemListService.getItemListCount(input);
+			// 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
+			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+			// SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+			Product.setOffset(pageData.getOffset());
+			Product.setListCount(pageData.getListCount());
 
 			// 데이터 조회하기
-			output = itemListService.selectListByPriceAsc(input);
+			if (sort.equals("lowprice")) {
+				output = itemListService.selectListByPriceAsc(input);  // 저가순
+			} else if(sort.equals("highprice")) {
+				output = itemListService.selectListByPriceDesc(input);  // 고가순
+			} else {
+				output = itemListService.selectListByRegdate(input);  // 최신순 조회(기본값)			
+			}
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -78,151 +80,10 @@ public class ItemRestController {
 		data.put("item", output);
 		data.put("keyword", keyword);
 		data.put("pageData", pageData);
+		data.put("sort", sort);
 
 		return webHelper.getJsonData(data);
 	}
-	
-
-	
-	//------------------------------------------------------------------------------가격 오름차순정렬 	
-		@RequestMapping(value = "/Item_listAsc", method = RequestMethod.GET)
-		public Map<String, Object> get_listByPriceAsc(
-				// 검색어
-				@RequestParam(value = "keyword", required = false) String keyword,
-				@RequestParam(value = "page", defaultValue = "1") int nowPage) {
-
-			/** 1) 페이지 구현에 필요한 변수값 생성 */
-			int totalCount = 0; // 전체 게시글 수
-			int listCount = 4; // 한 페이지당 표시할 목록 수
-			int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
-
-			/** 2) 데이터 조회하기 */
-			// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-			Product input = new Product();
-			List<Product> output = null;
-			PageData pageData = null;
-
-			try {
-				
-		         // 전체 게시글 수 조회
-		         totalCount = itemListService.getItemListCount(input);
-		         // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-		         pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-		         
-		         // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-		         Product.setOffset(pageData.getOffset());
-		         Product.setListCount(pageData.getListCount());
-				 
-
-				// 데이터 조회하기
-				output = itemListService.selectListByPriceAsc(input);
-			} catch (Exception e) {
-				return webHelper.getJsonError(e.getLocalizedMessage());
-			}
-
-			/** 3) JSON 출력하기 */
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("item", output);
-			data.put("keyword", keyword);
-			data.put("pageData", pageData);
-
-			return webHelper.getJsonData(data);
-		}
-		
-		//-------------------------------------------------------------------------------가격내림차순정렬
-		@RequestMapping(value = "/Item_listDesc", method = RequestMethod.GET)
-		public Map<String, Object> get_listByPriceDesc(
-				// 검색어
-				@RequestParam(value = "keyword", required = false) String keyword,
-				@RequestParam(value = "page", defaultValue = "1") int nowPage) {
-
-			/** 1) 페이지 구현에 필요한 변수값 생성 */
-			int totalCount = 0; // 전체 게시글 수
-			int listCount = 4; // 한 페이지당 표시할 목록 수
-			int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
-
-			/** 2) 데이터 조회하기 */
-			// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-			Product input = new Product();
-			List<Product> output = null;
-			PageData pageData = null;
-
-			try {
-				
-		         // 전체 게시글 수 조회
-		         totalCount = itemListService.getItemListCount(input);
-		         // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-		         pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-		         
-		         // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-		         Product.setOffset(pageData.getOffset());
-		         Product.setListCount(pageData.getListCount());
-				 
-
-				// 데이터 조회하기
-				output = itemListService.selectListByPriceDesc(input);
-			} catch (Exception e) {
-				return webHelper.getJsonError(e.getLocalizedMessage());
-			}
-
-			/** 3) JSON 출력하기 */
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("item", output);
-			data.put("keyword", keyword);
-			data.put("pageData", pageData);
-
-			return webHelper.getJsonData(data);
-		}
-		
-		
-		//------------------------------------------------------------------------------------날짜순정렬
-		@RequestMapping(value = "/Item_listRegdate", method = RequestMethod.GET)
-		public Map<String, Object> get_listByRegdate(
-				// 검색어
-				@RequestParam(value = "keyword", required = false) String keyword,
-				@RequestParam(value = "page", defaultValue = "1") int nowPage) {
-
-			/** 1) 페이지 구현에 필요한 변수값 생성 */
-			int totalCount = 0; // 전체 게시글 수
-			int listCount = 4; // 한 페이지당 표시할 목록 수
-			int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
-
-			/** 2) 데이터 조회하기 */
-			// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-			Product input = new Product();
-			List<Product> output = null;
-			PageData pageData = null;
-
-			try {
-				
-		         // 전체 게시글 수 조회
-		         totalCount = itemListService.getItemListCount(input);
-		         // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-		         pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-		         
-		         // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-		         Product.setOffset(pageData.getOffset());
-		         Product.setListCount(pageData.getListCount());
-				 
-
-				// 데이터 조회하기
-				output = itemListService.selectListByRegdate(input);
-			} catch (Exception e) {
-				return webHelper.getJsonError(e.getLocalizedMessage());
-			}
-
-			/** 3) JSON 출력하기 */
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("item", output);
-			data.put("keyword", keyword);
-			data.put("pageData", pageData);
-
-			return webHelper.getJsonData(data);
-		}		
-		
-		
-   //---------------------------------------------------------------------------------------------			
-	
-		
+	//---------------------------------------------------------------------------------------------	
 
 }
