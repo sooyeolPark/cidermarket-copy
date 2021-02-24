@@ -422,4 +422,19 @@ public class WebHelper {
     	return saveFile;    	
     }
 	
+    public void deleteFile(String path) throws Exception{
+    	//filepath의 값과 디렉토리에 설정된 경로를 합쳐준다.
+    	String target = this.uploadDir + path;
+    	System.out.println("삭제될 파일의 경로 >>>> "+ target);
+    	File file = new File(target); 
+    	if( file.exists() ){ 
+    		if(file.delete()){ 
+    			System.out.println("삭제될 파일의 경로 >>>> ["+ target+"] 파일삭제 성공"); 
+    			} else { 
+    				System.out.println("삭제될 파일의 경로 >>>> ["+ target+"] 파일삭제 실패"); 
+    				} 
+    		} else { 
+    			System.out.println("삭제될 파일의 경로 >>>> ["+ target+"] 파일이 존재하지 않습니다."); 
+    			} 
+    }
 }
