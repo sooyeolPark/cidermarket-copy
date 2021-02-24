@@ -106,7 +106,7 @@
                 </div>
                 
                <div class="clearfix text-center pagination">
-                    <ul>
+                    <ul class="pagination">
                    	<%-- 이전 그룹에 대한 링크 --%>
                    	<c:choose>
 						<%-- 이전 그룹으로 이동 가능하다면? --%>

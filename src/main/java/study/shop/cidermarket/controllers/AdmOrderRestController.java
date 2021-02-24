@@ -23,337 +23,75 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.model.Review;
 import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.MyInfoService;
 
 @Slf4j
 @RestController
 public class AdmOrderRestController {
-   /** WebHelper 주입 */
-   // -> import org.springframework.beans.factory.annotation.Autowired;
-   @Autowired WebHelper webHelper;
-   
-   /** RegexHelper 주입 */
-   @Autowired RegexHelper regexHelper;
-   
-   /** Service 패턴 구현체 주입 */
-   @Qualifier("MyInfoService")
-   @Autowired MyInfoService myInfoService;
-   
+	/** WebHelper 주입 */
+	// -> import org.springframework.beans.factory.annotation.Autowired;
+	@Autowired
+	WebHelper webHelper;
 
- 
- //------------ID 변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_id", method=RequestMethod.PUT)
-   public Map<String, Object> id(Model model,
-   		@RequestParam(value="nickname", defaultValue="") String nickname) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setNickname(nickname);
-   	
-   	Member output = null;
-   	
-   	try {
-   			// 일치하는 데이터 조회
-			int result = myInfoService.getMemberCount(input);
-			if (result == 1) {
-				return webHelper.getJsonError("이미 등록된 아이디 입니다.");
-			} 
-		myInfoService.editNickName(input);
-		output = myInfoService.getMemberItem(input);
-		
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   
-   //------------Intro 변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_intro", method=RequestMethod.PUT)
-   public Map<String, Object> intro(Model model,
-   		@RequestParam(value="intro", defaultValue="") String intro) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setIntro(intro);
-   	
-   	Member output = null;
-   	
-   	try {
+	/** RegexHelper 주입 */
+	@Autowired
+	RegexHelper regexHelper;
 
-		myInfoService.editIntro(input);
-		output = myInfoService.getMemberItem(input);
-		
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
+	/** Service 패턴 구현체 주입 */
+	@Qualifier("MyInfoService")
+	@Autowired
+	MyInfoService myInfoService;
 
-   //------------shopaddress 변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_shopaddress", method=RequestMethod.PUT)
-   public Map<String, Object> shopaddress(Model model,
-   		@RequestParam(value="shopaddress", defaultValue="") String shopaddress) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setShopaddress(shopaddress);
-   	
-   	Member output = null;
-   	
-   	try {
-			// 일치하는 데이터 조회
-		int result = myInfoService.getShopaddressCount(input);
-		if (result == 1) {
-			return webHelper.getJsonError("이미 등록된 주소 입니다.");
-		} 
+// --------------------------------------------------------------------------------작성폼에
+	// 대한 action페이지
+	/*
+	 * @RequestMapping(value = "/reviewWrite", method = RequestMethod.POST) public
+	 * Map<String, Object> post(
+	 * 
+	 * @RequestParam(value = "prodno", required = false) int prodno,
+	 * 
+	 * @RequestParam(value = "regdate", required = false) String regdate,
+	 * 
+	 * @RequestParam(value = "rate", required = false) int rate,
+	 * 
+	 * @RequestParam(value = "content", required = false) String content,
+	 * 
+	 * @RequestParam(value = "recono", required = false) int recono,
+	 * 
+	 * @RequestParam(value = "receiver", required = false) int receiver) {
+	 * 
+	 * HttpSession session = webHelper.getRequest().getSession(); int myNum = (int)
+	 * session.getAttribute("myNum");
+	 * 
+	 *//** 1) 유효성 검사 */
+	/*
+	 * // 일반 문자열 입력 칼럽 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈문자열로 처리된다. if
+	 * (!regexHelper.isValue(content)) { return
+	 * webHelper.getJsonWarning("리뷰내용을 입력해주세요"); }
+	 * 
+	 * // 숫자형으로 선언된 파라미터()
+	 *//** 2) 데이터 입력하기 */
+	/*
+	*//** Product 입력 */
+	/*
+	 * // 데이터 입력에 필요한 조건값을 Beans에 저장하기 Review input = new Review();
+	 * input.setProdno(prodno); input.setRegdate(regdate); input.setRate(rate);
+	 * input.setContent(content); input.setRecono(recono); input.setSender(myNum);
+	 * input.setReceiver(receiver); // 세션 구현한 뒤 추가
+	 * 
+	 * // 조회 결과를 저장할 객체 선언 Review output = null; try { // 데이터 저장 // --> 데이터 저장에 성공하면
+	 * 파라미터로 전달하는 input 객체에 pk값이 저장된다. reviewService.addReview(input);
+	 * 
+	 * // 데이터 조회 output = reviewService.getReviewItem(input);
+	 * log.debug("----------------------" + output.getRegdate() +
+	 * "-------------------"); } catch (Exception e) { return
+	 * webHelper.getJsonError(e.getLocalizedMessage()); }
+	 * 
+	 *//** 3) JSON 출력하기 *//*
+							 * Map<String, Object> data = new HashMap<String, Object>(); data.put("item",
+							 * output); return webHelper.getJsonData(data); }
+							 */
 
-		myInfoService.editShopaddress(input);
-		output = myInfoService.getMemberItem(input);
-		
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   
-   //-----------email 변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_email", method=RequestMethod.PUT)
-   public Map<String, Object> email(Model model,
-   		@RequestParam(value="email", defaultValue="") String email) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setEmail(email);
-   	
-   	Member output = null;
-   	
-   	try {
-			// 일치하는 데이터 조회
-		int result = myInfoService.getEmailCount(input);
-		if (result == 1) {
-			return webHelper.getJsonError("이미 등록된 이메일 입니다.");
-		} 
-
-		myInfoService.editEmail(input);
-		output = myInfoService.getMemberItem(input);
-		
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   //------------Tel 변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_tel", method=RequestMethod.PUT)
-   public Map<String, Object> tel(Model model,
-   		@RequestParam(value="tel", defaultValue="") String tel) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setTel(tel);
-   	
-   	Member output = null;
-   	
-   	try {
-			// 일치하는 데이터 조회
-		int result = myInfoService.getTelCount(input);
-		if (result == 1) {
-			return webHelper.getJsonError("이미 등록된 번호 입니다.");
-		} 
-
-		myInfoService.editTel(input);
-		output = myInfoService.getMemberItem(input);
-		
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   
-   
-   
-   
-   //------------Password변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_password", method=RequestMethod.PUT)
-   public Map<String, Object> password(Model model,
-   		@RequestParam(value="password", defaultValue="") String password,
-	   @RequestParam(value="newpassword", defaultValue="") String newpassword) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setPassword(password);
-   	
-   	
-   	
-   	Member output = null;
-   	
-   	try {
-			// 일치하는 데이터 조회
-		int result = myInfoService.getCheckPassword(input);
-		if (result == 0) {
-			return webHelper.getJsonError("비밀번호가 일치하지 않습니다.");
-		} 
-		else if( result == 1) {
-			
-		input.setPassword(newpassword);
-		myInfoService.editPassword(input);
-		output = myInfoService.getMemberItem(input);
-			}
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   
-   //------------SMS변경 페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_SMS", method=RequestMethod.PUT)
-   public Map<String, Object> sms(Model model,
-	   @RequestParam(value="sms", defaultValue="") int[] sms) {
-   	
-	   
-
-	   
-	 //checkbox 에서 전달된 파라미터 배열 꺼내기 
-	 //합계를 더해서 전달
-	   int sumVal = 0;
-		  for (int i=0; i<sms.length; i++){ 
-			  sumVal += sms[i]; 
-		  }
-		  
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setSms(sumVal);
-   	
-   	
-   	
-   	Member output = null;
-   	
-   	try {
-
-		myInfoService.editSMS(input);
-		output = myInfoService.getMemberItem(input);
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
-   }
-   
-   private int parseInt(String substring) {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-//-----------회원탈퇴페이지 ----------------------------------------
-   @RequestMapping(value="/myinfo_out", method=RequestMethod.PUT)
-   public Map<String, Object> OUT(Model model,
-   		@RequestParam(value="outmember", defaultValue="") String outmember) {
-   	
-	   
-   	//Session에서 내 회원번호 가져오기 
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-	   
-	   
-   	/** 1) 데이터 조회하기 */
-   	Member input = new Member();
-   	input.setMembno(myNum);
-   	input.setOutmember(outmember);
-   	
-   	
-
-   	
-   	try {
-			// 일치하는 데이터 조회		
-		input.setOutmember(outmember);
-		myInfoService.editOutmember(input);
-			
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
-		}
-	session.invalidate();
-	return webHelper.getJsonData();
-   }
 }
