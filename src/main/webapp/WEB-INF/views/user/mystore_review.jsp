@@ -92,7 +92,7 @@
 			                <%-- 조회결과가 있는 경우 --%>
 			                <c:otherwise>				    
 								      <a href="#">
-								      <img id="reviewpic"src="${pageContext.request.contextPath}/assets/img${item.reviewpic}">
+								      <img id="reviewpic" src="${pageContext.request.contextPath}/assets/img${item.reviewpic}">
 								    </a>
 						    </c:otherwise>
 						    </c:choose>
@@ -169,6 +169,7 @@
   <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
   <script type="text/javascript">
     /* 서브메뉴버튼 활성화 */
     document.querySelector('.my_ctg li:nth-child(2)').className = 'active';

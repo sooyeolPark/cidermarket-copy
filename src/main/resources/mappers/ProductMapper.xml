@@ -26,7 +26,7 @@
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
-		SELECT prodno, p.cateno, name as catename , subject, price, fee, detail,
+		SELECT prodno, p.cateno, c.name, subject, price, fee, detail,
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,

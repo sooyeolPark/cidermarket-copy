@@ -43,9 +43,15 @@
   padding: 5px;
   margin-bottom: 10px;
 }
+.thumbnail img {
+  width: 100%;
+}
 .thumbnail .caption {
   padding: 0;
   height: 80px;
+}
+.thumbnail .caption h6 {
+  color: #47498e;
 }
 .thumbnail .caption h5 {
   font-size: 16px;
