@@ -10,6 +10,8 @@
 		<result property="content" column="content" />
 		<result property="membno" column="membno" />
 		<result property="regdate" column="regdate" />
+		<result property="nickname" column="nickname" />
+		<result property="tradecon" column="tradecon" />
 	</resultMap>
 	<!-- 데이터 저장을 위한 기능 정의 -->
 	<insert id="insertItem"
@@ -21,4 +23,83 @@
 		#{prodno}, #{type}, #{content}, #{membno}, now()
 		)
 	</insert>
+	
+	<!-- 신고에 쓸 다중행 조회를 위한 기능 정의 (최신순) -->
+	<select id="singoSelectList"
+		parameterType="study.shop.cidermarket.model.Singo"
+		resultMap="singoMap">
+		SELECT s.singono, s.prodno, s.content, s.membno, DATE_FORMAT(s.regdate, '%Y-%m-%d') AS regdate, s.type,
+		m.nickname, p.tradecon 
+		FROM singo s
+		INNER JOIN member m ON m.membno=s.membno
+		INNER JOIN product p ON p.prodno=s.prodno
+		
+		<where>
+			<if test='type == "A"'>
+			WHERE s.type IN ('S', 'G', 'P', 'E')
+			</if>
+			<if test='type == "S"'>
+			WHERE s.type = 'S'
+			</if>
+			<if test='type == "P"'>
+			WHERE s.type = 'P'
+			</if>
+			<if test='type == "G"'>
+			WHERE s.type = 'G'
+			</if>
+			<if test='type == "E"'>
+			WHERE s.type = 'E'
+			</if>
+			<if test="email != null and email != ''">
+				AND m.nickname LIKE concat('%', #{email}, '%')
+			</if>
+			
+		</where>
+		
+		<if test='regdate=="desc"'>
+		ORDER BY s.regdate DESC
+		</if>
+		<if test='regdate=="asc"'>
+		ORDER BY s.regdate ASC
+		</if>
+		
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>
+	</select>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Singo">
+		DELETE FROM singo WHERE singono=#{singono}
+	</delete>
+	
+	<!-- 관리자 페이지에서 쓸 데이터 수 조회를 위한 기능 정의 -->
+	<select id="singoSelectCountAll"
+		parameterType="study.shop.cidermarket.model.Singo"
+		resultType="int">
+		SELECT COUNT(*) FROM singo
+		
+				<where>
+			<if test='type == "A"'>
+			WHERE s.type IN ('S', 'G', 'P', 'E')
+			</if>
+			<if test='type == "S"'>
+			WHERE s.type = 'S'
+			</if>
+			<if test='type == "P"'>
+			WHERE s.type = 'P'
+			</if>
+			<if test='type == "G"'>
+			WHERE s.type = 'G'
+			</if>
+			<if test='type == "E"'>
+			WHERE s.type = 'E'
+			</if>
+			<if test="email != null and email != ''">
+				AND m.nickname LIKE concat('%', #{email}, '%')
+			</if>
+			
+		</where>
+	</select>
 </mapper>
