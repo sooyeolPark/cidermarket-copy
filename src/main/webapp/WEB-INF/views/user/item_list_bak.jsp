@@ -23,7 +23,7 @@
 		<!-- Item 영역 -->
 		<div class="container">
 			<p class="category-name text-center">Category</p>
-			<h3 id="category-title" class="text-center" data-cateno="${category.cateno}">${category.name}</h3>
+			<h3 id="category-title" class="text-center">${category.name}</h3>
 
 			<div class="item-filter text-center">
 				<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
@@ -76,7 +76,7 @@
 
 			<div class="item-row">
 				<select class="form-control" id="item-select">
-					<option value="fastest">정렬하기</option>
+					<option>정렬하기</option>
 					<option value="fastest">최신순</option>
 					<option value="lowprice">저가순</option>
 					<option value="highprice">고가순</option>
@@ -134,35 +134,35 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
+			<button type="button" id="more" class="btn btn-primary btn-block btn-lg">더보기</button>
+
 		</div>
 	</section>
 
 	<!-- 푸터 영역 -->
 	<%@ include file="/WEB-INF/views/inc/footer.jsp"%>
-	
-	
-	<!-- Handlebar 템플릿 코드 -->
+
+	<!-- template -->
 	<script id="item_tmpl" type="text/x-handlebars-template">
-		{{#each item}}
-        <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-            <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
-                <div class="sorting thumbnail">
-				{{#if filepath}}
-		        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
-		        {{else}}
-			        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
-				{{/if}}
-                    <div class="caption">
-                        <h5>{{subject}}</h5>
-                        <h4>{{price}}원</h4>
-						<h6>{{sellerNick}} 님의 상품</h6>
+			{{#each item}}
+            <div class="col-xs-6 col-sm-4 col-lg-3 item-list">
+                <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
+                    <div class="sorting thumbnail">
+					{{#if filepath}}
+			        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
+			        {{else}}
+				        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+					{{/if}}
+                        <div class="caption">
+                            <h5>{{subject}}</h5>
+                            <h4>{{price}}원</h4>
+							<h6>{{sellerNick}} 님의 상품</h6>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        {{/each}}
-	</script>
+                </a>
+            </div>
+            {{/each}}
+		</script>
 
 	<!-- Javascript -->
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
@@ -174,7 +174,7 @@
 	<script type="text/javascript">
         
 
-         	/** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
+         /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
          	 function get_sort() {
                 if($("#sortList").hasClass("active")) {
                     $(".item-list").removeClass("col-xs-6 col-sm-4 col-md-3");
@@ -188,55 +188,92 @@
                     $(".sorting").addClass("thumbnail");
                 };
             } 
+            
 
             
-         	let nowPage=1;  // 현재페이지 위치 설정
-         	let isEnd = false;  // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
+
+            
             $(function() {
-            	const cateno = $('#category-title').data('cateno');
-            	
-            	/* 정렬하기 기능 value 값 가져오기 */   		
-    			let sort = $('#item-select option:selected').val();  // 셀렉트 된 값 가져오기(기본값)
-            	
-                $("#item-select").change(function(){
-                	sort = this.value;  // 선택한 셀렉트 값 가져오기
-	    			$("#item-list").empty();  // 기존 상품 호출 지우기
-	    			isEnd = false;  // 무한스크롤 초기화
-	    			nowPage = 1;  // 현재 페이지 1로 초기화
-                	getProduct(sort);  // sort값을 기준으로 상품 다시 가져오기
+            	const url = window.location.pathname;
+                const num = url.lastIndexOf('/');
+                const cateno = url.substr(num+1);
+            	let nowPage=1; 
+                /** 더보기 버튼에 대한 이벤트 정의 */
+                $("#more").click(function() {
+                   nowPage++; // 클릭시 현재페이지 번호에서 1씩 증가
+                   
+                   // Restful API에 GET 방식 요청
+                   $.get("${pageContext.request.contextPath}/Item_list", {
+                      "page": nowPage, "cateno": cateno    // 페이지 번호, 카테고리번호는 GET 파라미터로 전송한다.
+                   }, function(json) {
+                      var source = $("#item_tmpl").html();   // 템플릿 코드 가져오기
+                      var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
+                      var result = template(json);   // 템플릿 컴파일 결과물에 json 전달
+                      $("#item-list").append(result);      // 최종 결과물을 #list 요소에 추가한다.
+                      
+                      // 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
+                      if (json.pageData.totalPage <= nowPage) {
+                         $("#more").hide();
+                      }
+                      
+                   });
                 });
-            	
-            	/* 스크롤 이벤트 */
-            	$(window).scroll(function(e) {
-                    if ($(window).height() + $(window).scrollTop() == $(document).height()) {
-    					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
-        				nowPage++;
-            			getProduct(sort);
-                    }
-                })
                 
-                /** 화면 하단에 스크롤이 도달할 때 일어날 이벤트 정의 */
-        		let getProduct = function(sort){
-					if (isEnd == true) {
-						return;
-					}
 
-        			// Restful API에 GET 방식 요청
-					$.get("${pageContext.request.contextPath}/Item_list", {
-		                   "page": nowPage, "sort":sort, "cateno":cateno    // GET 파라미터로 전송한다.
-	                }, function(json) {
-	                   var source = $("#item_tmpl").html();   // 템플릿 코드 가져오기
-	                   var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
-	                   var result = template(json);   // 템플릿 컴파일 결과물에 json 전달
-	                   $("#item-list").append(result);      // 최종 결과물을 #list 요소에 추가한다.
-	                   
-	                   // 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
-	                   if (json.pageData.totalPage <= nowPage) {
-	                	   isEnd = true;
-	                   }
-	                });
-            	}
-
+                
+                /* 드롭다운정렬 */
+                $("#item-select").change(function() {
+                var choice=$(this).find("option:selected").val();   
+                    if(choice=='highprice') {
+                    // Restful API에 GET 방식 요청
+                    $.get("${pageContext.request.contextPath}/Item_listDesc", {
+                       "page": nowPage, "cateno": cateno    // 페이지 번호는 GET 파라미터로 전송한다.
+                    }, function(json) {
+                       var source = $("#item_tmpl").html();   // 템플릿 코드 가져오기
+                       var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
+                       var result = template(json);   // 템플릿 컴파일 결과물에 json 전달
+                       $("#item-list").append(result);      // 최종 결과물을 #list 요소에 추가한다.
+                       
+                       // 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
+                       if (json.pageData.totalPage <= nowPage) {
+                          $("#more").hide();
+                       }
+                    });
+                    }
+                    else if(choice=='lowprice') {  //낮은 가격선택했을때 데이터 불러오기 
+                        $.get("${pageContext.request.contextPath}/Item_listAsc", {
+                            "page": nowPage, "cateno": cateno    // 페이지 번호는 GET 파라미터로 전송한다.
+                         }, function(json) {
+                            var source = $("#item_tmpl").html();   // 템플릿 코드 가져오기
+                            var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
+                            var result = template(json);   // 템플릿 컴파일 결과물에 json 전달
+                            $("#item-list").append(result);      // 최종 결과물을 #list 요소에 추가한다.
+                            
+                            // 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
+                            if (json.pageData.totalPage <= nowPage) {
+                               $("#more").hide();
+                            }
+                         });
+                    	
+                    }
+                    else if(choice=='fastest') {  //최신순으로 데이터 불러오기 
+                        $.get("${pageContext.request.contextPath}/Item_listRegdate", {
+                            "page": nowPage, "cateno": cateno    // 페이지 번호는 GET 파라미터로 전송한다.
+                         }, function(json) {
+                            var source = $("#item_tmpl").html();   // 템플릿 코드 가져오기
+                            var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
+                            var result = template(json);   // 템플릿 컴파일 결과물에 json 전달
+                            $("#item-list").append(result);      // 최종 결과물을 #list 요소에 추가한다.
+                            
+                            // 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
+                            if (json.pageData.totalPage <= nowPage) {
+                               $("#more").hide();
+                            }
+                         });
+                    	
+                    }
+                    
+                 });
                 
                 /* 필터정렬 */
                 
@@ -258,8 +295,6 @@
                 
 
             });
-         	
-         	
 
 		</script>
 </body>

@@ -54,7 +54,7 @@ public class ItemregAjaxContorller {
    }
    
    /** 목록 페이지 */
-   @RequestMapping(value="/itemupdate.cider", method=RequestMethod.GET)
+   @RequestMapping(value="/item_update.cider", method=RequestMethod.GET)
    public ModelAndView update(Model model,
 		   @RequestParam(value="prodno", defaultValue="0") int prodno) {
 	   

@@ -60,13 +60,13 @@ public class MemberRestController {
 	   log.debug("-------------------------로그인 상태유지 : " + idStateful + "------------------------");
 	   
 	   try {
-		   output = memberService.getMemberItem(input);	
+		   output = memberService.getMemberItem(input);
 		   /** 2) 세션 저장, 삭제 */
 		   	if (!email.equals("")) {
 		   		// 입력 내용이 있다면 세션 저장 처리
 		   		session.setAttribute("myId", email);
 		   		session.setAttribute("myNum", output.getMembno());
-		   		session.setAttribute("shopaddress", output.getShopaddress());
+		   		session.setAttribute("shopaddress", output.getShopaddress());		   		
 		   		if (idStateful.equals("true")) {
 		   			log.debug(idStateful+"---------------- 세션 유지시간 24시간 ---------------------");
 		   			session.setMaxInactiveInterval(86400); // 24시간 유지
@@ -78,6 +78,7 @@ public class MemberRestController {
 		   		// 입력 내용이 없다면 세션 삭제
 		   		session.removeAttribute("myId");
 		   		session.removeAttribute("myNum");
+		   		session.removeAttribute("shopaddress");
 		   	}
 	   } catch (Exception e) {
 		   return webHelper.getJsonError(e.getLocalizedMessage());

@@ -54,6 +54,8 @@
 	
 	<bean id="productService" class="study.shop.cidermarket.service.impl.ProductServiceImpl" />
 	
+	<bean id="hashtagService" class="study.shop.cidermarket.service.impl.HashtagServiceImpl" />
+	
 	<bean id="itemlistService" class="study.shop.cidermarket.service.impl.ItemListServiceImpl" />
 	
 	<bean id="itemregService" class="study.shop.cidermarket.service.impl.ItemregServiceImpl" />

@@ -19,7 +19,7 @@
       <result property="editdate" column="editdate" />
       <result property="filepath" column="filepath" />
       <result property="sellerNick" column="sellerNick" />
-	  <result property="name" column="name" />
+	  <result property="catename" column="catename" />
    </resultMap>
    
    <!-- 단일행 조회를 위한 기능 정의 -->
@@ -27,8 +27,8 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE prodcon=#{prodcon} and how={how}
       
@@ -43,15 +43,16 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price, p.prodno, c.cateno, c.name, prodcon, how, tradecon, hits, seller,
-		 (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
+         subject, price, p.prodno, c.cateno, c.name as catename, prodcon, how, tradecon, hits, seller,
+		 (SELECT nickname FROM member WHERE membno=seller) AS sellerNick,
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
       FROM product p
       INNER JOIN category c ON c.cateno=p.cateno
       
       <where>
+      		tradecon='J'
       	<if test="cateno != null and cateno != ''">
-      		c.cateno = #{cateno}
+      		AND c.cateno = #{cateno}
       	</if>
       </where>
 
@@ -67,9 +68,16 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
+      
+      <where>
+         tradecon='J'
+         <if test="cateno != null and cateno != ''">
+            AND cateno = #{cateno}
+         </if>
+      </where>
       
       ORDER BY price Asc
       
@@ -82,9 +90,16 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
+      
+      <where>
+         tradecon='J'
+         <if test="cateno != null and cateno != ''">
+            AND cateno = #{cateno}
+         </if>
+      </where>
       
       ORDER BY price DESC
       
@@ -97,9 +112,16 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
+      
+      <where>
+         tradecon='J'
+         <if test="cateno != null and cateno != ''">
+            AND cateno = #{cateno}
+         </if>
+      </where>
       
       ORDER BY regdate DESC
       
@@ -115,8 +137,9 @@
       SELECT COUNT(*) FROM Product
       
       <where>
-         <if test="subject != null and subject != ''">
-            subject LIKE concat('%', #{subject}, '%')
+         tradecon='J'
+         <if test="cateno != null and cateno != ''">
+            AND cateno = #{cateno}
          </if>
       </where>
    </select>
@@ -129,8 +152,8 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE cateno=#{cateno} AND tradecon='J'
       <if test="prodno != null and prodno != ''">
@@ -148,8 +171,8 @@
       parameterType="study.shop.cidermarket.model.Product"
       resultMap="ItemListMap">
       SELECT 
-         (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath,
-         subject, price,prodno
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE seller=#{seller} AND tradecon='J'
       <if test="prodno != null and prodno != ''">

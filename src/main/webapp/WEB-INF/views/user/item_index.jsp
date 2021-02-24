@@ -17,7 +17,6 @@
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 	<!-- ligthbox pulgin 참조 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/lightbox/css/lightbox.css" />
 	<script src="${pageContext.request.contextPath}/assets/plugins/lightbox/js/lightbox.min.js"></script>
@@ -187,8 +186,16 @@
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50"
-                    height="50" alt="Generic placeholder image"> </a>
+                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> 
+                	<c:choose>
+                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
+                    	</c:when>
+                   		<c:otherwise>
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50" height="50" alt="Generic placeholder image"> 
+                   		</c:otherwise>
+                   	</c:choose>
+                </a>
                 <div class="user_info_detail clearfix">
 
                   <div id="user_id">${seller.nickname}</div>
@@ -505,9 +512,9 @@
     
     <c:choose>
   	<c:when test="${myNum==product.seller}">
-    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="update_item"><span
           class="cool">쿨하게</span><span class="trade">수정하기</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="dir_pay"><span class="cool">쿨하게</span><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="delete_item"><span class="cool">쿨하게</span><span
           class="trade">삭제하기</span></button></div>  	
   	</c:when>
   	<c:otherwise>
@@ -833,6 +840,12 @@
           		location.reload();
           	  }
         });
+      });
+      
+      //수정하기 클릭했을때
+      $("#update_item").click(function(e){
+    	  e.preventDefault();
+    	  window.location="${pageContext.request.contextPath}/item_update.cider?prodno="+"${product.prodno}";
       });
    
     }); //온로드 제이쿼리 끝

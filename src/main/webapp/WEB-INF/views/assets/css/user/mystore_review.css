@@ -34,12 +34,16 @@ ul.review_list > li:last-child {
   padding-bottom: 0;
 }
 
+.review_user_name {
+	font-weight: bold;
+}
+
 .review_user_name > small {
   color: #f2c489;
   margin-left: 1em;
 }
 .how_trade {
-  background-color: #ccc;
+  background-color: #eee;
   font-size: 0.8em;
   font-weight: bold;
   padding: 0.2em 1em;
@@ -51,7 +55,7 @@ ul.review_list > li:last-child {
   border-radius: 5px;
   margin: 0.2em;
 }
-.review_item_subject {
+.review_item_subject a {
   color: #31a05f;
 }
 .review_user_rpl > p {
@@ -59,5 +63,5 @@ ul.review_list > li:last-child {
 }
 
 #reviewpic {
-	width:50px;
+  width:50px;
 }

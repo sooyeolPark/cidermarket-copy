@@ -26,11 +26,11 @@
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
-		SELECT prodno, p.cateno, name as catename , subject, price, fee, detail,
+		SELECT prodno, p.cateno, c.name, subject, price, fee, detail,
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p
 		INNER JOIN category c ON c.cateno=p.cateno
 		WHERE prodno=#{prodno}
@@ -45,7 +45,7 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product
 		
 		<where>
@@ -103,8 +103,7 @@
 		parameterType="study.shop.cidermarket.model.Product">
 		UPDATE product SET
 			cateno=#{cateno}, subject=#{subject}, price=#{price}, fee=#{fee}, 
-			detail=#{detail}, regdate=#{regdate}, prodcon=#{prodcon}, how=#{how}, tradecon=#{tradecon},
-			seller=#{seller}, hits=#{hits}, editdate=now()
+			detail=#{detail}, prodcon=#{prodcon}, how=#{how}, editdate=now()
 		WHERE prodno=#{prodno}
 	</update>
 	
@@ -158,7 +157,7 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product
 		
 		<where>
@@ -185,7 +184,7 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=prodno AND reftable='product')) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product
 		
 		<where>
