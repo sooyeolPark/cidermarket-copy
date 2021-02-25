@@ -1,6 +1,7 @@
 // 변수 선언 -> init 호출 -> loadKeywords
 
 const searchForm = document.querySelector("#searchForm"),
+searchBtn = document.querySelector("#searchBtn"),
 keywordInput = searchForm.querySelector("#keyword"),
 keywordList = document.querySelector("#l-key");
 
@@ -27,7 +28,7 @@ function paintKeyword(text){
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
   const span = document.createElement("span");
-  const newId = keyword.length + 1;
+  const newId = keyword.length % 10;		
   delBtn.innerText = '❌';
   delBtn.addEventListener("click", deleteKeyword);
   span.innerText = text;
@@ -46,8 +47,10 @@ function paintKeyword(text){
 function handleSubmit(event){
   event.preventDefault();
   const currentValue = keywordInput.value;
-  paintKeyword(currentValue);
-  keywordInput.value = "";
+	if (keyword.length < 10) {
+	  paintKeyword(currentValue);
+	  keywordInput.value = "";
+	}
 }
 
 
@@ -65,6 +68,6 @@ function loadKeywords(){
 // 1.호출
 function init(){
   loadKeywords();
-  searchForm.addEventListener("submit", handleSubmit);
+  searchBtn.addEventListener("click", handleSubmit);
 }
 init();

@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	// 로그인 되어 있지 않으면 메인페이지로 강제 이동
+	if (session.getAttribute("myAdmNum") != null) {
+		response.sendRedirect("/cidermarket/admin/home_adm.cider");
+	}
+%>
 <!doctype html>
 <html>
 <head>
@@ -43,7 +49,9 @@
 					</div>
 
 					<div class="checkbox">
-						<label><input type="checkbox">아이디 저장</label> <label><input type="checkbox">로그인 상태유지</label>
+						<label><input type="checkbox" id="idSave" <c:if test="${cookie.id.value != null && cookie.id.value != ''}">checked</c:if>>아이디 저장</label> 
+						<label><input type="checkbox" id="idStateful" <c:if test="${cookie.idStateful.value != null && cookie.idStateful.value != ''}">checked</c:if>>로그인 상태유지</label>
+						<input type="hidden" name="idStateful" id="ids" value="" />
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>

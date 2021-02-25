@@ -45,7 +45,6 @@
                             <th class="text-center">조회수</th>
                         </tr>
                     </thead>
-                    <tbody id="board_body">
                          <tbody id="result">
                             <!-- Ajax로 로드한 결과가 표시될 곳 -->
                          <c:choose>
@@ -86,7 +85,6 @@
                            </c:forEach>
                         </c:otherwise>
                      </c:choose>
-                         </tbody>
                     </tbody>
                 </table>
                 <form method="get" action="${pageContext.request.contextPath}/admin/notice/list.cider" id="searchBox_help">

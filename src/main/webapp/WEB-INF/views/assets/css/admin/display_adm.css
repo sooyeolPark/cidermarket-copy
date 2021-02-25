@@ -1,13 +1,4 @@
 @charset "utf-8";
-input[type="checkbox"] {
-  zoom: 1;
-}
-th {
-  font-size: 1.1em;
-}
-#search_btn {
-  width: 80%;
-}
 
 /* --------테이블------------ */
 
@@ -75,7 +66,7 @@ th {
   margin: 2px;
 }
 
-#category {
+.form-control.cateSelected.form-control:nth-child(1) {
   width: 100%;
   margin: 0px;
 }
@@ -85,4 +76,8 @@ th {
 }
 .table > tbody + tbody {
   border-top: none;
+}
+
+.title-menu select.form-control {
+	margin-left: 10px;
 }

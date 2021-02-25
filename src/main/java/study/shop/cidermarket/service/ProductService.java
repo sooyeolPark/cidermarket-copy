@@ -4,6 +4,10 @@ import java.util.List;
 
 import study.shop.cidermarket.model.Product;
 
+/**
+ * @author yd
+ *
+ */
 public interface ProductService {
 	/**
 	 * 데이터 상세 조회
@@ -68,5 +72,21 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	List<Product> getMemberProductList(Product input) throws Exception;
+	
+	/**
+	 * 특정 상품 카테고리 변경하기
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public int editCategoryProduct(Product input) throws Exception;
+	
+	/**
+	 * 상품진역 (카테고리) 목록
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Product> getCategoryProductList(Product input) throws Exception;
 	
 }
