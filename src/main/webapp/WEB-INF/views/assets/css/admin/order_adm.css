@@ -214,13 +214,11 @@ td {
 .table > tbody + tbody {
   border-top: none;
 }
-.btn-danger {
-  margin-top: 4px;
-  height: 30%;
-  width: 80%;
-  font-size: 1em;
-}
+
 
 .text-center {
   vertical-align: middle !important;
 }
+
+
+

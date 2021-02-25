@@ -152,5 +152,7 @@ public interface RecordService {
 	 */
 	public int deleteRecord(Record input) throws Exception;
 	public Record getUserInfo(Record input) throws Exception;
+	public List<Record> getTotalList(Record input) throws Exception;
+	public int getTotalCount(Record input) throws Exception;
 	
 }

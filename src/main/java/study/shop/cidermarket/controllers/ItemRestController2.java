@@ -459,12 +459,13 @@ public class ItemRestController2 {
 	   @RequestMapping(value="/admin/singo", method=RequestMethod.POST)
 	   public Map<String, Object> singo(
 			   	@RequestParam(value="singo_type", defaultValue="") String type,
-		        @RequestParam(value="singo_content", defaultValue="0") String content,
+		        @RequestParam(value="singo_content", defaultValue="") String content,
 		        @RequestParam(value="singo_sender", defaultValue="0") int writer,
-		        @RequestParam(value="singo_prodno", defaultValue="") int prodno) {
+		        @RequestParam(value="singo_prodno", defaultValue="0") int prodno) {
 		      
 		      /** 1) 사용자가 입력한 파라미터 유효성 검사 */
-		      if (!regexHelper.isValue(content))   { return webHelper.getJsonWarning("내용을 입력하세요."); }
+		      if (content=="" || content.trim().equals(""))   { return webHelper.getJsonWarning("내용을 입력하세요."); }
+		      if (type=="" || type.trim().equals(""))   { return webHelper.getJsonWarning("신고사유를 입력하세요."); }
 		      
 		      /** 2) 데이터 저장하기 */
 		        // 저장할 값들을 Beans에 담는다.

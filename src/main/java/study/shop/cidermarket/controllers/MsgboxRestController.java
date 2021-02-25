@@ -47,8 +47,7 @@ public class MsgboxRestController {
    @RequestMapping(value="/msgbox/sender_save", method=RequestMethod.PUT)
    public Map<String, Object> put_save(
 		   @RequestParam(value="msgno", defaultValue="0") int msgno) {
-      
-      /** 1) 사용자가 입력한 파라미터 유효성 검사 */
+
 	   /** 1) 파라미터 유효성 검사 */
        // 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
        if (msgno == 0) {

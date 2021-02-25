@@ -56,35 +56,52 @@
                 <div class="title-menu clearfix">
                     <h4>신고상품</h4>
                     <select class="form-control" id="align-number">
-                        <option value="1">10개씩보기</option>
-                        <option value="2">20개씩보기</option>
+                        <option value="10">10개씩보기</option>
+                        <option value="20">20개씩보기</option>
                     </select>
                     <select class="form-control" id="align-menu">
-                        <option value="">사기글 같아요</option>
-                        <option value="">전문 판매업자 같아요</option>
-                        <option value="">판매금지 품목이에요</option>
-                        <option value="">중거거래 게시글이 아니에요</option>
-
+                        <option value="">신고사유</option>
+                        <option value ="P" >판매금지 품목이에요</option>
+            			<option value ="G" >거래 게시글이 아니에요</option>
+            			<option value ="S" >사기글 같아요</option>
+            			<option value ="E" >기타 사유</option>
+                    </select>
+                    <select class="form-control" id="align-order">
+                        <option value="regDesc">작성일순(최신)</option>
+                        <option value="regAsc">작성일순(오래됨)</option>
                     </select>
                 </div>
-
 
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th><input id="all-check" type="checkbox"></th>
-                            <th class="text-center">번호</th>
-                            <th class="text-center">제목</th>
+                            <th class="text-center">상품번호</th>
+                            <th class="text-center">내용</th>
                             <th class="text-center">작성자</th>
                             <th class="text-center">신고사유</th>
                             <th class="text-center">작성일</th>
+                            <th class="text-center">상태</th>
                         </tr>
                     </thead>
                     <tbody id="board_body">
-                    <tbody id="result"></tbody>
+						<tr>
+							<td class="text-center"><input type="checkbox"></td>
+							<td class="text-center">12</td>
+                            <td class="text-center clk_tr">크하하ㅇㄴㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</td>
+                            <td class="text-center">누규나구어요</td>
+                            <td class="text-center">중고거래 게시글이 아니에요</td>
+                            <td class="text-center">2020-12-30</td>
+                            <td class="text-center">거래중</td>
+						</tr>
+						<tr class="singo_content">
+							<td colspan="2"></td>
+      						<td colspan="5">
+        						dddddd        						           
+      						</td>
+    					</tr>
                     </tbody>
                 </table>
-                <table id="example"></table>
                 <div class="input-group">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="button"><span
@@ -123,43 +140,18 @@
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
-    <script id="board_tmpl" type="x-handlebars-template">
-        {{#boardlist}}
-        <tr>
-            <td><input type="checkbox" class="board board-group-item" /></td>
-            <td class="text-center board-group-item">{{no}}</td>
-            <td class="text-center board-group-item">{{ title }}</td>
-            <td class="text-center board-group-item">{{ id }}</td>
-            <td class="text-center board-group-item">{{ reason }}</td>
-            <td class="text-center board-group-item">{{ date }}</td>
-        </tr>
-        {{/boardlist}}
-    </script>
 
     <!-- //게시판 -->
     <script id="board_tmpl2" type="x-handlebars-template">
-            {{#boardlist}}
-            <tr>
-                <td><input type="checkbox" class="board " /></td>
-                <td class="text-center">{{no}}</td>
-                <td class="text-center">{{ title }}</td>
-                <td class="text-center">{{ id }}</td>
-                <td class="text-center">{{ reason }}</td>
-                <td class="text-center">{{ date }}</td>
-            </tr>
-            {{/boardlist}}
     </script>
     <script type="text/javascript">
                 $(function () {
-                    $("#log-out").click(function(e){
-                var result = confirm("로그아웃 하시겠습니까?");
-
-                if(result ==true) {
-                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
-                }else{
-
-                }
-            });
+                    $(".clk_tr").click(function (e) {
+                        e.preventDefault();
+                        $(this).parents("tr").next().slideToggle(200);
+                        $(".singo_content").not($(this).parents("tr").next()).css('display', 'none');       
+                    });
+                    
                     $("#stop").click(function () {
                         swal({
                             title: '확인',
@@ -243,17 +235,6 @@
 
                 });
                 
-            });
-
-            // --------게시글 불러오기-----
-            $.get("${pageContext.request.contextPath}/assets/plugins/ajax/singo_adm.json", function (req) {
-                // 미리 준비한 HTML틀을 읽어온다.
-                var template = Handlebars.compile($("#board_tmpl2").html());
-                // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-                var html = template(req);
-                // #dept_list_body 읽어온 내용을 추가한다.
-                $("#board_body").html(html);
-
             });
 
 });

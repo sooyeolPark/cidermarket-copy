@@ -279,11 +279,19 @@ public class MyInfoRestController {
    
    //------------SMS변경 페이지 ----------------------------------------
    @RequestMapping(value="/myinfo_SMS", method=RequestMethod.PUT)
-   public Map<String, Object> SMS(Model model,
-   		@RequestParam(value="", defaultValue="") String password,
-	   @RequestParam(value="newpassword", defaultValue="") String newpassword) {
+   public Map<String, Object> sms(Model model,
+	   @RequestParam(value="sms", defaultValue="") int[] sms) {
    	
 	   
+
+	   
+	 //checkbox 에서 전달된 파라미터 배열 꺼내기 
+	 //합계를 더해서 전달
+	   int sumVal = 0;
+		  for (int i=0; i<sms.length; i++){ 
+			  sumVal += sms[i]; 
+		  }
+		  
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
 		int myNum = (int) session.getAttribute("myNum");
@@ -292,24 +300,16 @@ public class MyInfoRestController {
    	/** 1) 데이터 조회하기 */
    	Member input = new Member();
    	input.setMembno(myNum);
-   	input.setPassword(password);
+   	input.setSms(sumVal);
    	
    	
    	
    	Member output = null;
    	
    	try {
-			// 일치하는 데이터 조회
-		int result = myInfoService.getCheckPassword(input);
-		if (result == 0) {
-			return webHelper.getJsonError("비밀번호가 일치하지 않습니다.");
-		} 
-		else if( result == 1) {
-			
-		input.setPassword(newpassword);
-		myInfoService.editPassword(input);
+
+		myInfoService.editSMS(input);
 		output = myInfoService.getMemberItem(input);
-			}
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -321,7 +321,12 @@ public class MyInfoRestController {
 	return webHelper.getJsonData(data);
    }
    
-   //-----------회원탈퇴페이지 ----------------------------------------
+   private int parseInt(String substring) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+//-----------회원탈퇴페이지 ----------------------------------------
    @RequestMapping(value="/myinfo_out", method=RequestMethod.PUT)
    public Map<String, Object> OUT(Model model,
    		@RequestParam(value="outmember", defaultValue="") String outmember) {
@@ -338,23 +343,17 @@ public class MyInfoRestController {
    	input.setOutmember(outmember);
    	
    	
-   	
-   	Member output = null;
+
    	
    	try {
 			// 일치하는 데이터 조회		
 		input.setOutmember(outmember);
 		myInfoService.editOutmember(input);
-		output = myInfoService.getMemberItem(input);
 			
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
-   	
-   	/** 2) View 처리 */
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("item", output);
-   	
-	return webHelper.getJsonData(data);
+	session.invalidate();
+	return webHelper.getJsonData();
    }
 }
