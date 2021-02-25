@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-#user_id,
-#user_pw {
+#email,
+#password {
   width: 100%;
   margin: 0;
 }
@@ -27,4 +27,50 @@ h3 {
 
 .checkbox label {
 	margin-right: 20px;
+}
+
+.email-box {
+	position: relative;
+}
+
+.pop {
+    visibility: hidden;
+    position: absolute;
+    top: -28px;
+    left: 100px;
+    padding: 2px 8px;
+    border-radius: 50px;
+    font-size: 12px;
+    background-color: #ff8e18;
+    color: #fff;
+    width: auto;
+    transition: 0.2s;
+}
+
+.pop:after, .pop:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.pop:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-top-color: #ff8e18;
+    border-width: 5px;
+    margin-left: -5px;
+}
+
+.pop:after {
+    border-color: rgba(136, 183, 213, 0);
+    margin-left: -30px;
+}
+
+.in-eng, .in-eng:before, .in-num, .in-num:before, .in-spc, .in-spc:before {
+    color: #aaa;
+    font-size: 12px;
 }

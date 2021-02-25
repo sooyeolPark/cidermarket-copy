@@ -1,13 +1,8 @@
 package study.shop.cidermarket.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +32,7 @@ public class SearchRestController {
 	ProductService productService;
 	
 	/** 검색 페이지 */
-	@RequestMapping(value = "/search/{keyword}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public Map<String, Object> search(Model model,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
 			@RequestParam(value="keyword", required=false) String keyword) {
