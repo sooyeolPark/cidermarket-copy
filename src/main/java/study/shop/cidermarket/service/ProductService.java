@@ -68,5 +68,5 @@ public interface ProductService {
 	 * @throws Exception
 	 */
 	List<Product> getMemberProductList(Product input) throws Exception;
-	
+	public int editTradecon(Product input) throws Exception;
 }

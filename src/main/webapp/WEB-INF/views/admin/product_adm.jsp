@@ -10,18 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/product_adm.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
-    <!-- 반응형 웹을 지원하지 않을 경우 -->
-    <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
-    <!-- IE8 이하 버전 지원 -->
-    <!--[if lt IE 9]>
-<script type="text/javascript" src="assets/js/html5shiv.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<![endif]-->
-    <!-- IE10 반응형 웹 버그 보완 -->
-    <!--[if gt IE 9]>
-<link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-<script type="text/javascript" src="assets/js/ie10.js"></script>
-<![endif]-->
+
 </head>
 
 
@@ -52,14 +41,25 @@
 
 
             </div>
+            
+            <form id="restfulProduct" name="restfulProduct" action="${pageContext.request.contextPath}/adm/product">
             <div class="col-lg-10">
+           	
             
                 <div class="title-menu clearfix">
                     <h4>상품목록</h4>
-                    <select class="form-control" id="align-number">
-                        <option value="1">10개씩보기</option>
-                        <option value="2">20개씩보기</option>
-                    </select>
+						<select class="form-control" id="align-number">
+							<option value="10" <c:if test="${pageData.listCount==10}">selected</c:if>>10개씩보기</option>
+							<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
+						</select>
+						<select class="form-control" id="align-menu">
+							<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
+							<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
+							<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
+							<option value="J" <c:if test="${orderby==''}">selected</c:if>>직거래</option>
+							<option value="W" <c:if test="${orderby==''}">selected</c:if>>택배</option>
+							<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
+						</select>                    
                     <select class="form-control" id="align-menu">
                         <option value="">기본정렬</option>
                         <option value="">상품명순</option>
@@ -68,7 +68,6 @@
 
                     </select>
                 </div>
-
 
                 <table class="table table-hover">
                     <thead>
@@ -83,34 +82,127 @@
                             <th class="text-center">상태</th>
                         </tr>
                     </thead>
+            
+             
                     <tbody id="board_body">
-                        <tbody id="result">
+               	
+                      <c:forEach var="item" items="${output}" varStatus="status">
+
+		    					<c:url var="viewUrl" value="/item_index.cider">
+		                          <c:param name="prodno" value="${item.prodno}" />                     
+		                       </c:url>
+		               			<c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" /> 
+							
+							<tr>
+							    <td><input type="checkbox" class="board-group-item" value="${item.prodno }"></td>
+							    <td class="text-center board-group-item">${num}</td>							    
+							    <td class="text-center board-group-item"><a href="${viewUrl}">${item.subject}</a></td>
+							    <td class="text-center board-group-item">{item.name}</td>
+		      					<td class="text-center board-group-item"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</td>
+						        <c:choose>
+						        <c:when test="${item.how =='J'}">
+						        <td class="text-center board-group-item">직거래</td></c:when>
+						        <c:when test="${item.how =='T'}">
+						        <td class="text-center board-group-item">택배</td>
+						    	</c:when>
+						    	</c:choose>							    
+	       					    <td class="text-center board-group-item">${item.regdate}</td>							    
+								
+						    	<c:choose>
+						    	<c:when test="${item.tradecon =='J'}">
+						        <td class="text-center board-group-item">거래중</td></c:when>
+						        <c:when test="${item.tradecon =='W'}">
+						        <td class="text-center board-group-item">거래완료</td></c:when>
+								</c:choose>					    
+							   
+							</tr>
+							</c:forEach>    		              	
                         </tbody>
-                    </tbody>
-                </table>
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span
-                                class="glyphicon glyphicon-search"></span></button>
-                    </div>
-                    <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
-                    <button class="btn btn-danger" type="submit" id="delete">삭제</button>
-                    <button class="btn btn-primary" type="submit" id="re-start">거래재개</button>
-                    <button class="btn btn-warning" type="submit" id= "stop">거래정지</button>
-                </div>
-                
-                <ul class="pagination">
-                    <li class="disabled"><a href="#">&laquo;</a></li>
-                    <!-- 활성화 버튼은 아래의 구조로 구성하시면 됩니다. sr-only는 스크린리더 전용 입니다 .-->
-                    <li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
+                       
+		                </table>
+		                <div class="input-group">
+		                    <div class="input-group-btn">
+		                        <button class="btn btn-default" type="button"><span
+		                                class="glyphicon glyphicon-search"></span></button>
+		                    </div>
+		                    <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
+
+		                    <button class="btn btn-danger" type="submit" id="delete">삭제</button>
+		
+		                    <button class="btn btn-primary" type="submit" id="re-start">거래재개</button>
+		                    <input type="hidden" value="J"/>
+
+		                    <button class="btn btn-warning" type="submit" id= "stop">거래정지</button>
+		                	<input type="hidden" value="S"/>
+ 
+		                </div>
+		            </div>
+		   			</form>
         </div>
+
+ <!-- 페이지네이션 -->
+	<div class="clearfix text-center pagination">
+        <ul class="pagination">
+        	<%-- 이전 그룹에 대한 링크 --%>
+        	<c:choose>
+            	<%-- 이전 그룹으로 이동 가능하다면? --%>
+                <c:when test="${pageData.prevPage > 0}">
+                	<%-- 이동할 URL 생성 --%>
+                    <c:url value="/admin/order_adm.cider/" var="prevPageUrl">
+                    	<c:param name="page" value="${pageData.prevPage}" />
+                 		<c:param name="orderby" value="${orderby}" />          
+                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="listCount" value="${pageData.listCount}" />                    	
+                    	
+                    	          
+                    </c:url>
+                    <li class="arr"><a href="${prevPageUrl}">&laquo;</a></li>
+                </c:when>
+                <c:otherwise>
+                	<li class="disabled"><a href="#">&laquo;</a></li>
+                </c:otherwise>
+            </c:choose>
+            
+            <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+               <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+                  <%-- 이동할 URL 생성 --%>
+                  <c:url value="/admin/order_adm.cider/" var="pageUrl">
+                     <c:param name="page" value="${i}" />
+                 		<c:param name="orderby" value="${orderby}" />          
+                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="listCount" value="${pageData.listCount}" />                       
+                  </c:url>
+                  <%-- 페이지 번호 출력 --%>
+                  <c:choose>
+                     <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+                     <c:when test="${pageData.nowPage == i}">
+                              <li class="active"><span>${i} <span class="sr-only">(current)</span></span></li>
+                     </c:when>
+                     <c:otherwise>
+                              <li><a href="${pageUrl}">${i}</a></li>                     
+                     </c:otherwise>
+                  </c:choose>
+               </c:forEach>
+          
+          	<%-- 이전 그룹에 대한 링크 --%>
+        	<c:choose>
+            	<%-- 다음 그룹으로 이동 가능하다면? --%>
+                <c:when test="${pageData.nextPage > 0}">
+                	<%-- 이동할 URL 생성 --%>
+                    <c:url value="/admin/order_adm.cider/" var="nextPageUrl">
+                    	<c:param name="page" value="${pageData.nextPage}" />
+                  		<c:param name="orderby" value="${orderby}" />          
+                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="listCount" value="${pageData.listCount}" />                     	          
+                    </c:url>
+                    <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
+                </c:when>
+                <c:otherwise>
+                	<li class="disabled"><a href="#">&raquo;</a></li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+      </div>        
     </div>
 
 
@@ -120,86 +212,14 @@
 	<!-- 푸터 영역 -->
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
-    <!--/.container-->
-    <!-- handlebars template -->
-    <script id="proadm_tmpl" type="text/x-handlebars-template">
-        <!-- //게시판 -->
-        {{#item}}
-        <tr>
-            <td class="text-center"><input type="checkbox"></td>
-            <td class="text-center">{{plus @key}}</td>
-            <td class="text-center"><a href="{{url}}">{{subject}}</a></td>
-            <td class="text-center">{{ctg}}</td>
-            <td class="text-center">{{price}}원</td>
-            <td class="text-center">{{convertHow how}}</td>
-            <td class="text-center">{{date}}</td>
-            {{#if (clr state)}}<td class="text-center">{{convertStat state}}</td>
-            {{else}}<td style="color:red;" class="text-center"><b>{{convertStat state}}</b></td>{{/if}}
-        </tr>
-        {{/item}}
-      </script>
 
-    <!-- //20개보기 -->
-      <script id="proadm_tmpl2" type="text/x-handlebars-template">
-        {{#item}}
-        <tr>
-            <td><input type="checkbox" class="board-group-item"></td>
-            <td class="text-center board-group-item">{{plus @key}}</td>
-            <td class="text-center board-group-item"><a href="{{url}}">{{subject}}</a></td>
-            <td class="text-center board-group-item">{{ctg}}</td>
-            <td class="text-center board-group-item">{{price}}원</td>
-            <td class="text-center board-group-item">{{convertHow how}}</td>
-            <td class="text-center board-group-item">{{date}}</td>
-            {{#if (clr state)}}<td class="text-center board-group-item">{{convertStat state}}</td>
-            {{else}}<td style="color:red;" class="text-center board-group-item"><b>{{convertStat state}}</b></td>{{/if}}
-        </tr>
-        {{/item}}
-      </script>
-    <!-- Javascript -->
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
   <!-- handlebar plugin -->
   <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
   <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
-    Handlebars.registerHelper('plus', function(h) {
-            return 1+h;
-        });
-    /** handlebars 플러그인 안에 convertHow라는 함수를 추가하기 */
-    Handlebars.registerHelper('convertHow', function(h) {
-            if (h == "t") {
-                return "택배거래";
-            } else {
-                return "직거래";
-            }
-        });
-         /** handlebars 플러그인 안에 convertStat라는 함수를 추가하기 */
-    Handlebars.registerHelper('convertStat', function(s) {
-            if (s == "y") {
-                return "거래중";
-            } else {
-                return "거래정지";
-            }
-        });
-        /** handlebars 플러그인 안에 convertStat라는 함수를 추가하기 */
-    Handlebars.registerHelper('clr', function(s) {
-            if (s=="y"){
-                return true;
-            } else{ return false;}
-        });
-        function get_list() {
-      $.get("${pageContext.request.contextPath}/assets/plugins/ajax/proadm.json", function (req) {
-        // 미리 준비한 HTML틀을 읽어온다.
-        var template = Handlebars.compile($("#proadm_tmpl").html());
-        // Ajax를 통해서 읽어온 JSON을 템플릿에 병합한다.
-        var html = template(req);
-        // #dept_list_body 읽어온 내용을 추가한다.
-        $("#board_body").html(html);
-      });
-    }
 
-    
-        
         $(function () {
             get_list();
             $("thead input").change(function(){
@@ -230,50 +250,33 @@
 
                 }
             });
-
-      $("#re-start").click(function () {
-        swal({ 
-          title: '확인',
-          text: "거래재개 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-      });
-
-      $("#stop").click(function () {
-        swal({ 
-          title: '확인',
-          text: "거래정지 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-      });
-
-                  //   드롭다운의 변경이벤트
-             $("#align-number").change(function(){
-            $("#result").empty(); //결과가 표시될 #result에 내용 지우기 
-            var choice=$(this).find("option:selected").val(); //사용자선택값 가져오기
-            if (!choice) {//선택값이 없다면 처리 중단 
-                return false; 
-            }
-
-            //ajax요청
-            else if (choice==2) {
-            $.get('${pageContext.request.contextPath}/assets/plugins/ajax/proadm.json', function(req){
-                var template= Handlebars.compile($("#proadm_tmpl2").html());
-                var html = template(req);
-                $("#result").append(html);
-            });
-            }else if(choice==1) {
-                 $(".board-group-item").detach();
-                } // class가 "hello"인 요소를 모두 삭제한다.
-
-              });
             
+            $("#all-check").change(function(){
+                $(".board").prop('checked',$(this).prop('checked'));
+            });
+            
+            
+			$("#restfulProduct").submit(function(e) {
+				e.preventDefault();
+				/** 이름 검사 */
+				/** Ajax 호출 */
+				const form = $(this);
+				const url = form.attr('action');
+
+				$.ajax({
+					type : "PUT",
+					url : url,
+					data : form.serialize(),
+					success : function(json) {
+						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
+						alert("변경되었습니다.");
+						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
+								+ json.item.membno;}
+
+						});
+				});	
+
+
         });
         
     </script>

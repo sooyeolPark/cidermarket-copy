@@ -59,10 +59,5 @@ public class AdmHomeAjaxController {
 	}
 
 	
-	/** 상품관리 - 상품목록 */
-	@RequestMapping(value = "/admin/product_adm.cider", method = RequestMethod.GET)
-	public String productAdm() {
-		return "admin/product_adm";
-	}
 
 }

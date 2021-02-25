@@ -249,7 +249,7 @@
 					<div class="row">
 						<div class="col-xs-3 col-xs-offset-8">
 							<button id="outmember1" class="btn btn-default out-btn" type="submit">회원탈퇴</button>
-							<input id="outmember" name=outmember type="hidden" value="y"/>
+							<input id="outmember" name=outmember type="hidden" value="Y"/>
 						</div>
 					</div>
 					</form>
