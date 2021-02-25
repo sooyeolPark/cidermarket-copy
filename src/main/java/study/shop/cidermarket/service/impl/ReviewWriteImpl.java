@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Review;
-import study.shop.cidermarket.service.ProductService;
 import study.shop.cidermarket.service.ReviewService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
@@ -93,6 +92,20 @@ public class ReviewWriteImpl implements ReviewService{
 
 	@Override
 	public int deleteReview(Review input) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public float getRate(Review input) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int updateRate(Member input) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

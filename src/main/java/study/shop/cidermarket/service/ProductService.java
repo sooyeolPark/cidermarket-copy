@@ -89,4 +89,7 @@ public interface ProductService {
 	 */
 	public List<Product> getCategoryProductList(Product input) throws Exception;
 	
+
+	public int editTradecon(Product input) throws Exception;
+
 }

@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Review;
 import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
@@ -133,6 +134,7 @@ public class ReviewRestController {
 
 		// 조회 결과를 저장할 객체 선언
 		Review output = null;
+
 		try {
 			// 데이터 저장
 			// --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 pk값이 저장된다.
@@ -140,6 +142,20 @@ public class ReviewRestController {
 
 			// 데이터 조회
 			output = reviewService.getReviewItem(input);
+			
+			// 별점 평균 저장할 객체 선언
+			float avgRate = 0;
+			// 별점 평균점수를 받아와 member테이블에 저장할 객체 선언
+			Member input_rate = new Member();
+			
+			// 별점 데이터 불러오기
+			avgRate = reviewService.getRate(input);
+			
+			// 별점 데이터 Member 테이블에 저장
+			input_rate.setRate(avgRate);
+			input_rate.setMembno(output.getReceiver());
+			
+			reviewService.updateRate(input_rate);
 			log.debug("----------------------" + output.getRegdate() + "-------------------");
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());

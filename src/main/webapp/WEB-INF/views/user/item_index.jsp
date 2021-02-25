@@ -497,6 +497,16 @@
       </div>
   </section>
   <div class="fixed-btn">
+  <c:choose>
+  <c:when test="${myNum==product.seller}">
+  <c:if test="${product.tradecon=='J'}">
+  <div class="col-xs-2 soomgim"><a href="#" id="prod_hide" data-tradecon="${product.tradecon}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-eye-close"></i></a></div>
+  </c:if>
+  <c:if test="${product.tradecon=='S'}">
+  <div class="col-xs-2 soomgim"><a href="#" id="prod_hide" data-tradecon="${product.tradecon}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-eye-open"></i></a></div>
+  </c:if>
+  </c:when>
+  <c:otherwise>
   <c:set var="is" value="NO" />
   <c:forEach var="item" items="${membprod}" varStatus="status">
   	<c:if test="${myNum==item.membno}">
@@ -507,6 +517,8 @@
   <c:if test="${is=='NO'}">
   	<div class="col-xs-2 zzim"><a href="#" id="like" data-membno="${myNum}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-heart-empty"></i></a></div>
   </c:if>
+  </c:otherwise>
+  </c:choose>
     
           
     
@@ -848,6 +860,40 @@
     	  window.location="${pageContext.request.contextPath}/item_update.cider?prodno="+"${product.prodno}";
       });
    
+    //거래 재개 눌렀을 때 
+      $("#prod_hide").click(function () {
+      		let prodno = $(this).data('prodno');
+      		let trade = $(this).data('tradecon');
+      		
+      		if(trade=='J'){
+      		//숨김확인
+      	        if(!confirm("상품을 숨김 처리 하시겠습니까?")){
+      	      	  return false;
+      	        }
+      		}
+      		if(trade=='S'){
+      		//보이기확인
+      	        if(!confirm("숨김 처리를 해제하시겠습니까?")){
+      	      	  return false;
+      	        }
+      		}
+	         	   $.put("${pageContext.request.contextPath}/item_index_update",{
+		              	 "prodno": prodno,
+		              	 "tradecon": trade
+		                }, function(json){
+		              	  if(json.rt=="OK"){
+		              		if(trade=='J'){
+		              			alert("숨김 처리가 완료되었습니다.");
+		              			window.location.reload();
+		              		}
+		              		if(trade=='S'){
+		              			alert("숨김 해제 처리가 완료되었습니다.");
+		              			window.location.reload();
+		              		}
+		              	  }
+		            });
+      });
+    
     }); //온로드 제이쿼리 끝
     
     //답글 버튼 클릭시 입력창 토글

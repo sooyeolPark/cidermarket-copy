@@ -215,7 +215,7 @@
 		WHERE prodno=#{prodno}
 	</update>
 	
-	<!-- 신고게시판에서 관리자가 상품의 판매 재개/정지 기능 -->
+	<!-- 관리자 상품진열(카테고리) 수정 기능 -->
 	<update id="categoryUpdateItem"
 		parameterType="study.shop.cidermarket.model.Product">
 		UPDATE product SET
@@ -223,7 +223,7 @@
 		WHERE prodno=#{prodno}
 	</update>
 	
-	<!-- 상품진열 카테고리 최신순 정렬 -->
+	<!-- 관리자 상품진열(카테고리) 최신순 정렬 -->
 	<select id="selectCategoryLatelyList"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
@@ -251,7 +251,7 @@
 		</if>
 	</select>
 	
-	<!-- 상품진열 카테고리 가나다순 정렬 -->
+	<!-- 관리자 상품진열(카테고리) 가나다순 정렬 -->
 	<select id="selectCategorySubjectList"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
@@ -278,5 +278,5 @@
 			LIMIT #{offset}, #{listCount}
 		</if>
 	</select>
-	
+
 </mapper>

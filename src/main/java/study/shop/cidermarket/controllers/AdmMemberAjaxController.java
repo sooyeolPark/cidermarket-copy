@@ -46,7 +46,7 @@ public class AdmMemberAjaxController {
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
         Member input = new Member();
-        input.setOutmember("n");
+        input.setOutmember("N");
         if(search!="" && search!=null) {
         	input.setEmail(search);
         }
@@ -121,7 +121,7 @@ public class AdmMemberAjaxController {
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
         Member input = new Member();
-        input.setOutmember("a");
+        input.setOutmember("A");
         if(search!="" && search!=null) {
         	input.setEmail(search);
         }

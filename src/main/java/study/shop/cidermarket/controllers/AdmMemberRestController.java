@@ -47,7 +47,7 @@ public class AdmMemberRestController {
         Member input = new Member();
         input.setMembno(membno);
         //탈퇴 처리이기 때문에 Outmember에다가 a를 기록
-        input.setOutmember("a");
+        input.setOutmember("A");
         	try {
                 // 데이터 저장 --> 
                   admmemberService.editMember(input);
@@ -74,7 +74,7 @@ public class AdmMemberRestController {
         Member input = new Member();
         input.setMembno(membno);
         //복구 처리이기 때문에 Outmember에다가 n를 기록
-        input.setOutmember("n");
+        input.setOutmember("N");
         	try {
                 // 데이터 저장 --> 
                   admmemberService.editMember(input);

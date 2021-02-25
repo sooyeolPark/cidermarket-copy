@@ -218,7 +218,7 @@ th {
 }
 
 .table > thead > tr > th:nth-child(3) {
-  width: 40%;
+  width: 25%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -233,7 +233,7 @@ th {
   width: 10%;
 }
 .table > thead > tr > th:nth-child(7) {
-  width: 10%;
+  width: 25%;
 }
 .table > thead > tr > th:nth-child(8) {
   width: 8%;
