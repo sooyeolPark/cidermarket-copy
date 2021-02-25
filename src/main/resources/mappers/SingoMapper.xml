@@ -36,22 +36,22 @@
 		
 		<where>
 			<if test='type == "A"'>
-			WHERE s.type IN ('S', 'G', 'P', 'E')
+			s.type IN ('S', 'G', 'P', 'E')
 			</if>
 			<if test='type == "S"'>
-			WHERE s.type = 'S'
+			s.type = 'S'
 			</if>
 			<if test='type == "P"'>
-			WHERE s.type = 'P'
+			s.type = 'P'
 			</if>
 			<if test='type == "G"'>
-			WHERE s.type = 'G'
+			s.type = 'G'
 			</if>
 			<if test='type == "E"'>
-			WHERE s.type = 'E'
+			s.type = 'E'
 			</if>
-			<if test="email != null and email != ''">
-				AND m.nickname LIKE concat('%', #{email}, '%')
+			<if test="content != null and content != ''">
+				AND (m.nickname LIKE concat('%', #{content}, '%') or s.prodno LIKE concat('%', #{content}, '%'))
 			</if>
 			
 		</where>
@@ -78,26 +78,27 @@
 	<select id="singoSelectCountAll"
 		parameterType="study.shop.cidermarket.model.Singo"
 		resultType="int">
-		SELECT COUNT(*) FROM singo
+		SELECT COUNT(*) FROM singo s
+		INNER JOIN member m ON m.membno=s.membno
 		
 				<where>
 			<if test='type == "A"'>
-			WHERE s.type IN ('S', 'G', 'P', 'E')
+			s.type IN ('S', 'G', 'P', 'E')
 			</if>
 			<if test='type == "S"'>
-			WHERE s.type = 'S'
+			s.type = 'S'
 			</if>
 			<if test='type == "P"'>
-			WHERE s.type = 'P'
+			s.type = 'P'
 			</if>
 			<if test='type == "G"'>
-			WHERE s.type = 'G'
+			s.type = 'G'
 			</if>
 			<if test='type == "E"'>
-			WHERE s.type = 'E'
+			s.type = 'E'
 			</if>
-			<if test="email != null and email != ''">
-				AND m.nickname LIKE concat('%', #{email}, '%')
+			<if test="content != null and content != ''">
+				AND (m.nickname LIKE concat('%', #{content}, '%') or s.prodno LIKE concat('%', #{content}, '%'))
 			</if>
 			
 		</where>

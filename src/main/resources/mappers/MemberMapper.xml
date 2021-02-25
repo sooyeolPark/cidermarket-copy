@@ -81,7 +81,7 @@
 			#{email}, #{password}, #{tel}, 
 			now(), now(), 4, 
 			(select concat('c', max(membno)+1) from member m), null,
-			'n', null
+			'N', null
 		)
 	</insert>
 	
@@ -166,12 +166,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -201,12 +201,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -236,12 +236,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -271,12 +271,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -306,12 +306,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -341,12 +341,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -376,12 +376,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -411,12 +411,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -446,12 +446,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -481,12 +481,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -516,12 +516,12 @@
 		FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
@@ -551,12 +551,12 @@
 		SELECT COUNT(*) FROM member
 		
 		<where>
-			<if test='outmember == "n"'>
+			<if test='outmember == "N"'>
 				outmember=#{outmember}
 			</if>
 			
-			<if test='outmember != "n"'>
-				(outmember='y' OR outmember='a')
+			<if test='outmember != "N"'>
+				(outmember='Y' OR outmember='A')
 			</if>
 			<if test="email != null and email != ''">
 				AND (email LIKE concat('%', #{email}, '%') or nickname LIKE concat('%', #{email}, '%'))
