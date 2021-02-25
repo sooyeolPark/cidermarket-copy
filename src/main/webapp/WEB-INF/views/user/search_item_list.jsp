@@ -134,7 +134,6 @@
 			            </c:otherwise>
 		            </c:choose>
 				</div>
-                <button type="button" id="btnMore" class="btn btn-primary btn-block btn-lg">더보기</button>
                 
             </div>
         </section>
@@ -189,12 +188,24 @@
             
             
             let nowPage = 1;	// 현재 페이지의 기본값
-     		
+            let isEnd = false;  // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
             
-            $(function() {
-            	/** 더보기 버튼에 대한 이벤트 정의 */
-        		$("#btnMore").click(function() {
-        			nowPage++;
+            /** 스크롤이벤트 정의 */
+    		$(function() {
+                $(window).scroll(function(e) {
+                    if ($(window).height() + $(window).scrollTop() == $(document).height()) {
+    					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+        				nowPage++;
+            			getProduct();
+                    }
+                })
+    		
+            	/** Ajax와 Handlebars를 이용해 상품 불러오는 기능 정의 */
+        		let getProduct = function(){
+        			if (isEnd == true) {
+        				return;
+        			}
+        			
         			let keyword = $('#keyword2').val();
         			// Restful API에 GET 방식 요청
         			$.get("${pageContext.request.contextPath}/search", {
@@ -207,11 +218,11 @@
         				
         				// 현재 페이지 번호가 전체 페이지 수에 도달했다면 더 보기 버튼을 숨긴다.
         				if (json.pageData.totalPage <= nowPage) {
-        					$("#btnMore").hide();
+        					isEnd = true;
         				}
         				
         			});
-        		});
+        		}
             	
                 /* 상품필터 */
                 $(".btn-tag").click(function() {

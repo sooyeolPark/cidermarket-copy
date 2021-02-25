@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	// 로그인 되어 있지 않으면 메인페이지로 강제 이동
+	if (session.getAttribute("myAdmNum") == null || session.getAttribute("myAdmNum").equals("")) {
+		out.println("<script>alert('로그인 후 이용 가능합니다.');</script>");
+		response.sendRedirect("/cidermarket/admin/login_adm.cider");
+	}
+%>
 <header>
 	<div class="container">
 		<div class="logo ">
@@ -48,3 +58,20 @@
 	</div>
 	<!-- /.navbar -->
 </header>
+<script>
+/** Ajax 호출 */
+$("#log-out").click(function(){
+	var result = confirm("로그아웃 하시겠습니까?");
+    $.ajax({
+        type: "GET",
+        url: "${pageContext.request.contextPath}/admin/logout.cider",
+        success: function(json) {
+				console.log(json);
+				alert("로그아웃 되셨습니다.");
+				if (json.rt == "OK") {
+					window.location = "${pageContext.request.contextPath}/admin/login_adm.cider";
+				}
+			}
+      });    	
+});
+</script>

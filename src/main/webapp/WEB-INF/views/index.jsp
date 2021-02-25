@@ -171,7 +171,7 @@
         			getProduct();
                 }
             })
-		})
+		});
 		
 		/** Ajax와 Handlebars를 이용해 상품 불러오는 기능 정의 */
 		let getProduct = function(){
