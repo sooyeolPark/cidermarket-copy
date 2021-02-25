@@ -77,6 +77,14 @@
 		
 	</select>
 
+	<!-- 평균 별점 조회를 위한 기능 정의 -->
+	<select id="getAvgRate"
+		parameterType="study.shop.cidermarket.model.Review"
+		resultType="float">
+		SELECT avg(rate) FROM Review
+		WHERE receiver = #{receiver}
+
+	</select>
 
 	
 	

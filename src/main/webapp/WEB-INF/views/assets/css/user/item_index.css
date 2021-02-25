@@ -315,6 +315,25 @@ div.media {
   left: 7px;
   font-weight: bold;
 }
+.soomgim > a {
+  display: block;
+  width: 51px;
+  height: 51px;
+  font-size: 2em;
+  text-align: center;
+  border: 4px solid #ff5937;
+  border-radius: 50px;
+  position: relative;
+  margin: auto;
+}
+
+.soomgim > a > i {
+  display: block;
+  margin-top: 8px;
+  position: absolute;
+  left: 8px;
+  font-weight: bold;
+}
 
 .fixed-btn button {
   display: inline-block;

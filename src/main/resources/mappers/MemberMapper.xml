@@ -563,4 +563,13 @@
 			</if>
 		</where>
 	</select>
+	
+		
+	<!-- 리뷰를 등록하면 receiver의 평균 별점을 계산하여 member 테이블에 추가하는 기능 -->
+	<update id="updateRate"
+		parameterType="study.shop.cidermarket.model.Member">
+		UPDATE member SET
+			 rate= #{rate}
+		WHERE membno=#{membno}
+	</update>
 </mapper>

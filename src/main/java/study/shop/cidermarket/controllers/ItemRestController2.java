@@ -938,4 +938,35 @@ public class ItemRestController2 {
 				
 	      return webHelper.getJsonData();
 	   }
+	   
+	    /** 상품의 숨김상태를 바꿔주는 페이지 */
+	    @RequestMapping(value="/item_index_update", method=RequestMethod.PUT)
+	    public Map<String, Object> hideItem(
+	    		@RequestParam(value="prodno", defaultValue="0") int prodno,
+	    		@RequestParam(value="tradecon") String tradecon) {
+	        /** 1) 거래완료된 상품은 상태 변경 막기*/
+	    		if(prodno==0) {		
+	    			return webHelper.getJsonWarning("상품번호가 없습니다.");
+	    		}
+	    	/** 2) 데이터 수정 **/
+	    	try {
+	    		Product input = new Product();
+	    		input.setProdno(prodno);
+	    		if(tradecon.trim().equals("S")) {
+	    			input.setTradecon("J");
+	    		} else {
+	    			input.setTradecon("S");
+	    		}
+	    			
+	    		
+	    			// 데이터 수정 --> 
+	              itemindexService.editProduct(input);
+
+	         } catch (Exception e) {
+	            return webHelper.getJsonError(e.getLocalizedMessage());
+	         }
+	           
+	         /** 3) 결과를 확인하기 위한 JSON 출력 */
+	         return webHelper.getJsonData();
+	      }
 }
