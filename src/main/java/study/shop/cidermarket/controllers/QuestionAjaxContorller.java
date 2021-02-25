@@ -33,7 +33,7 @@ public class QuestionAjaxContorller {
 
  //--------------------------------------------------------------------------------
    
-   /** 관리자 공지사항 목록 페이지 */
+   /** 관리자 일반문의 목록 페이지 */
    @RequestMapping(value="/admin/question_adm.cider", method=RequestMethod.GET)
    public ModelAndView list_adm(Model model,
          // 검색어
@@ -41,7 +41,8 @@ public class QuestionAjaxContorller {
          // 페이지 구현에서 사용할 현재 페이지 번호
          @RequestParam(value="page", defaultValue="1") int nowPage,
          // 한페이지당 표시할 목록 수
-         @RequestParam(value="listCount", defaultValue="10") int listCount) {
+         @RequestParam(value="listCount", defaultValue="10") int listCount,
+         @RequestParam(value="reply", defaultValue="before") String reply) {
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수
@@ -51,6 +52,7 @@ public class QuestionAjaxContorller {
       // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
       Bbs input = new Bbs();
       input.setTitle(keyword);
+      input.setEditdate(reply);
       
       List<Bbs> output = null;
       PageData pageData = null;
@@ -75,6 +77,7 @@ public class QuestionAjaxContorller {
       model.addAttribute("keyword", keyword);
       model.addAttribute("output", output);
       model.addAttribute("pageData", pageData);
+      model.addAttribute("reply", reply);
       
       return new ModelAndView("admin/question_adm");
    }
@@ -82,8 +85,8 @@ public class QuestionAjaxContorller {
    
  //--------------------------------------------------------------------------------
    
-   /** 관리자 공지사항 상세 페이지 */
-   @RequestMapping(value="admin/question_admDetail.cider/", method=RequestMethod.GET)
+   /** 관리자 일반문의 상세 페이지 */
+   @RequestMapping(value="admin/question_adm_read.cider", method=RequestMethod.GET)
    public ModelAndView view_adm(Model model,
          @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
       
@@ -114,6 +117,6 @@ public class QuestionAjaxContorller {
    
    
  //--------------------------------------------------------------------------------
-   
+
 
 }

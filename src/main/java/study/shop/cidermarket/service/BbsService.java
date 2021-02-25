@@ -54,4 +54,6 @@ public interface BbsService {
 	 */
 	public int deleteBbs(Bbs input) throws Exception;
 
+
+
 }
