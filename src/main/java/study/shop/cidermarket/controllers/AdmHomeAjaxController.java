@@ -45,19 +45,7 @@ public class AdmHomeAjaxController {
     	model.addAttribute("email", email);
         return new ModelAndView("admin/login_adm");
     }
-    
-    /** 관리자 회원관리 페이지 */
-    @RequestMapping(value="/admin/member_adm.cider", method=RequestMethod.GET)
-    public String memberAdm() {
-        return "admin/member_adm";
-    }
-    
-    /** 관리자 주문관리 페이지 */
-    @RequestMapping(value="/admin/order_adm.cider", method=RequestMethod.GET)
-    public String orderAdm() {
-        return "admin/order_adm";
-    }
-    
+        
     /** 신고게시판 */
 	@RequestMapping(value = "/admin/singo_adm.cider", method = RequestMethod.GET)
 	public String singoAdm() {
@@ -77,10 +65,4 @@ public class AdmHomeAjaxController {
 		return "admin/product_adm";
 	}
 
-	
-	/** 탈퇴회원관리 */
-	@RequestMapping(value = "/admin/outmember_adm.cider", method = RequestMethod.GET)
-	public String outMemberAdm() {
-		return "admin/outmember_adm";
-	}
 }
