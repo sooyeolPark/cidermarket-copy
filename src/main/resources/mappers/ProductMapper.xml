@@ -210,4 +210,5 @@
 			 tradecon= #{tradecon}
 		WHERE prodno=#{prodno}
 	</update>
+
 </mapper>

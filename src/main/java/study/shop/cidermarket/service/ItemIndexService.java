@@ -156,5 +156,13 @@ public interface ItemIndexService {
 	 * @throws Exception
 	 */
 	public int deleteMembprod(Membprod input) throws Exception;
+	
+	/**
+	 * 데이터 수정하기
+	 * @param Product 수정할 정보를 담고 있는 Beans 
+	 * @return int
+	 * @throws Exception
+	 */
+	public int editProduct(Product input) throws Exception;
 }
 

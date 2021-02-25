@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Review;
 import study.shop.cidermarket.service.ReviewService;
 
@@ -119,6 +120,36 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 삭제에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public float getRate(Review input) throws Exception {
+		float result = 0;
+		try {
+			result = sqlSession.selectOne("ReviewMapper.getAvgRate", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int updateRate(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.update("MemberMapper.updateRate", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("수정된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
 		}
 		return result;
 	}

@@ -45,12 +45,6 @@ public class AdmHomeAjaxController {
     	model.addAttribute("email", email);
         return new ModelAndView("admin/login_adm");
     }
-        
-    /** 신고게시판 */
-	@RequestMapping(value = "/admin/singo_adm.cider", method = RequestMethod.GET)
-	public String singoAdm() {
-		return "admin/singo_adm";
-	}
 	
 	/** 일반문의 - 답변*/
 	@RequestMapping(value = "/admin/question_reply_adm.cider", method = RequestMethod.GET)
