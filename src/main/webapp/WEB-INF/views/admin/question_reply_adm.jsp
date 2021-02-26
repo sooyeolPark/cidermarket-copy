@@ -76,7 +76,7 @@
                   <div class="panel-heading" id="admin-write"><i class="glyphicon glyphicon-comment"></i> 관리자 답변입니다.</div>
                   <div class="panel-body">
                   <c:if test="${output.reply == null || fn:length(output.reply) == 0}">
-                  	<p>관리자 답변 전입니다.</p>
+                  	<p class="reply-gray">관리자 답변 전입니다.</p>
                   </c:if>
                    	${output.reply}
                   </div>

@@ -49,3 +49,11 @@ th {
 .result {
 	color: red;
 }
+.list-group-item {
+    padding: 0;
+    text-align: center;
+}
+.list-group-item > p {
+    margin: 0;
+    padding: 10px;
+}

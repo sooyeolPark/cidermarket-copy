@@ -71,9 +71,9 @@
 
                 <div class="item-row">
                     <select class="form-control" id="item-select">
-                        <option value="fastest">최신순</option>
-                        <option value="lowprice">저가순</option>
-                        <option value="highprice">고가순</option>
+                        <option value="default" <c:if test="${orderby=='default'}">selected</c:if>>최신순</option>
+						<option value="priceAsc" <c:if test="${orderby=='priceAsc'}">selected</c:if>>저가순</option>
+						<option value="priceDesc" <c:if test="${orderby=='priceDesc'}">selected</c:if>>고가순</option>
                     </select>
                     <div class="btn-group">
                         <button id="sortList" type="button" class="btn btn-default btn-list"><span class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로 보기</span></button>
@@ -223,6 +223,16 @@
         				
         			});
         		}
+                
+                /* 정렬 드롭다운의 변경이벤트 */
+        	    $("#item-select").change(function(){
+                    let orderby = $(this).val(); //사용자선택값 가져오기
+                    let listCount = "${pageData.listCount}";
+                    let keyword = "${keyword}";
+                    window.location = "${pageContext.request.contextPath}/search.cider?"+
+                    		"orderby="+orderby+"&listCount="+listCount+"&keyword="+keyword;
+        	    });
+                
             	
                 /* 상품필터 */
                 $(".btn-tag").click(function() {
