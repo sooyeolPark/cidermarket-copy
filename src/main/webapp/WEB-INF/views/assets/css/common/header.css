@@ -182,3 +182,13 @@ ol {
 .pagination .disabled a {
 	cursor: not-allowed;
 }
+
+.glyphicon-trash:before {
+    content: "\e020";
+    color: #aaa;
+}
+
+.cookie_hover:hover{
+	background-color:#ddd;
+}
+
