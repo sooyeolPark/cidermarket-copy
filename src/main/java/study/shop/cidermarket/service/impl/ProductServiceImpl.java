@@ -169,11 +169,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getCategoryProductList(Product input) throws Exception {
 		List<Product> result = null;
 		try {
-			if (input.getNickname().equals("subject")) {
-				result = sqlSession.selectList("ProductMapper.selectCategorySubjectList", input);								
-			} else {
-				result = sqlSession.selectList("ProductMapper.selectCategoryLatelyList", input);				
-			}
+			result = sqlSession.selectList("ProductMapper.selectCategoryList", input);								
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}

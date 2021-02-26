@@ -94,7 +94,7 @@
                               <span class="glyphicon glyphicon-search"></span>
                            </button>
                        </div>
-                       <input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
+                       <input type="search" class="form-control searchInput" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
                        <a class="btn btn-primary" id="write-btn" href="${pageContext.request.contextPath}/admin/notice/write.cider" role="button">글쓰기</a>
                        <button id="delete" class="btn btn-warning" role="button">삭제</button>
                    </div>
@@ -166,7 +166,6 @@
    <%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <!-- ajax-helper -->

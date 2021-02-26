@@ -11,20 +11,7 @@
     <title>신고게시판 - 사이다마켓</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/singo_adm.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
-    <!-- 반응형 웹을 지원하지 않을 경우 -->
-    <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
-    <!-- IE8 이하 버전 지원 -->
-    <!--[if lt IE 9]>
-<script type="text/javascript" src="assets/js/html5shiv.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<![endif]-->
-    <!-- IE10 반응형 웹 버그 보완 -->
-    <!--[if gt IE 9]>
-<link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-<script type="text/javascript" src="assets/js/ie10.js"></script>
-<![endif]-->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
 </head>
 
 <body>
@@ -34,25 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <nav class="list-group">
-                    <!-- 목록의 아이템 -->
-                    <p>상품관리</p>
-                    <a href="${pageContext.request.contextPath}/admin/product_adm.cider" class="list-group-item">
-                        <p>상품목록</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admin/category_adm.cider" class="list-group-item">
-                        <p>상품분류</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admin/display_adm.cider" class="list-group-item">
-                        <p>상품진열</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admin/singo_adm.cider" class="list-group-item">
-                        <p>신고상품<span class="badge"> 10</span></p>
-                    </a>
-
-                </nav>
-
-
+                <%@ include file="/WEB-INF/views/inc/product_adm_left.jsp" %>
             </div>
             <div class="col-lg-10">
 
@@ -132,16 +101,16 @@
                             <td class="text-center">
                             <c:choose>
                             	<c:when test="${item.tradecon=='W'}">
-                            	<font color="green">거래 완료</font>
+                            	<span class="label label-success">거래완료</span>
                             	</c:when>
                             	<c:when test="${item.tradecon=='S'}">
-                            	<font color="gray"><b>숨김</b></font>
+                            	<span class="label label-danger">숨김</span>
                             	</c:when>
                             	<c:when test="${item.tradecon=='X'}">
-                            	<font color="red"><b>거래 정지</b></font>
+                            	<span class="label label-warning">거래정지</span>
                             	</c:when>
                             	<c:otherwise>
-                            	거래중
+                            	<span class="label label-info">거래중</span>
                             	</c:otherwise>
                             </c:choose>                            
                             </td>
@@ -157,10 +126,10 @@
                 </table>
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="search_item"><span
-                                class="glyphicon glyphicon-search"></span></button>
+                        <button class="btn btn-default" type="button" id="search_item">
+                        <span class="glyphicon glyphicon-search"></span></button>
                     </div>
-                    <input type="text" class="form-control" id="search_btn" placeholder="작성자나 상품 번호로 검색하세요." value="${search}">
+                    	<input type="text" class="form-control searchInput" id="search_btn" placeholder="작성자나 상품 번호로 검색하세요." value="${search}">
                     <button class="btn btn-danger" type="button" id="delete">신고글 삭제</button>
                     <button class="btn btn-primary" type="button" id="re-start">거래 재개</button>
                     <button class="btn btn-warning" type="button" id="stop">거래 정지</button>

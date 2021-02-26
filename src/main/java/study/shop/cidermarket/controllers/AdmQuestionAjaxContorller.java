@@ -18,7 +18,7 @@ import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.service.BbsService;
 
 @Controller
-public class QuestionAjaxContorller {
+public class AdmQuestionAjaxContorller {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;

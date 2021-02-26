@@ -9,8 +9,8 @@
 
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/event_adm.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
-    <link rel="stylesheet" href="plugins/sweetalert/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 
 </head>
@@ -59,7 +59,7 @@
                         <button class="btn btn-default" type="button"><span
                                 class="glyphicon glyphicon-search"></span></button>
                     </div>
-                    <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
+                    <input type="text" class="form-control searchInput" id="search_btn" placeholder="키워드를 입력하세요">
                     <a class="btn btn-primary" href="notice_write_adm.html" role="button">글쓰기</a>
                     <button id="delete"class="btn btn-warning"  role="button">삭제</button>
                 </div>
@@ -97,10 +97,7 @@
 
     <!--/.container-->
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>

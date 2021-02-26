@@ -20,7 +20,7 @@ import study.shop.cidermarket.service.BbsService;
 import study.shop.cidermarket.service.FilesService;
 
 @RestController
-public class QuestionRestController {
+public class AdmQuestionRestController {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;
