@@ -66,6 +66,8 @@
 	
 	<bean id="itemindexService" class="study.shop.cidermarket.service.impl.ItemIndexServiceImpl" />
 
+	<bean id="admhomeService" class="study.shop.cidermarket.service.impl.AdmHomeServiceImpl" />
+	
 	<bean id="admmemberService" class="study.shop.cidermarket.service.impl.AdmMemberServiceImpl" />
 	
 	<bean id="admsingoService" class="study.shop.cidermarket.service.impl.AdmSingoServiceImpl" />
