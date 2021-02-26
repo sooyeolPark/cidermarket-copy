@@ -67,6 +67,6 @@ public interface FilesService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteRefIdFiles(Files input) throws Exception;
+	public int deleteRefFiles(Files input) throws Exception;
 	
 }

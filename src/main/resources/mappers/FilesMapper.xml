@@ -137,7 +137,7 @@
 	</delete>
 	
 	<!-- 데이터 삭제를 위한 기능 정의 -->
-	<delete id="deleteRefIdItem"
+	<delete id="deleteRefItem"
 		parameterType="study.shop.cidermarket.model.Files">
 		DELETE FROM files WHERE refid=#{refid} AND reftable=#{reftable}
 	</delete>

@@ -46,3 +46,6 @@ th {
 	display: inline-block;
 	margin-left: 5px;
 }
+.result {
+	color: red;
+}

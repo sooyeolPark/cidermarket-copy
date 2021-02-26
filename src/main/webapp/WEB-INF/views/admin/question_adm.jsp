@@ -32,6 +32,7 @@
 						<option value="20" <c:if test="${pageData.listCount == '20'}">selected</c:if>>20개씩보기</option>
 					</select>
 					<select class="form-control" id="align-menu">
+						<option value="all" <c:if test="${reply == 'all'}">selected</c:if>>전체보기</option>
 						<option value="before" <c:if test="${reply == 'before'}">selected</c:if>>답변대기</option>
 						<option value="after" <c:if test="${reply == 'after'}">selected</c:if>>답변완료</option>
 					</select>
@@ -89,10 +90,10 @@
 										</td>
 										<td class="text-center">${item.name}</td>
 										<td class="text-center">${item.regdate}</td>
-										<td class="text-center">
+										<td class="text-center result">
 										<c:choose>
-											<c:when test="${empty item.reply}">N</c:when>
-											<c:otherwise>Y</c:otherwise>
+											<c:when test="${empty item.reply}"><span class="label label-danger">미답변</span></c:when>
+											<c:otherwise><span class="label label-success">답변완료</span></c:otherwise>
 										</c:choose>
 										</td>
 									</tr>
@@ -106,17 +107,15 @@
 				</table>
 				
 				
-				<form method="get" action="${pageContext.request.contextPath}/admin/question_adm.cider" id="searchBox_help">
-					<div class="input-group">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit" id="search_memb">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</div>
-						<input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
-						<button id="delete" class="btn btn-warning" role="button">삭제</button>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button" id="search_memb">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
 					</div>
-				</form>
+					<input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
+					<button id="delete" class="btn btn-warning" role="button">삭제</button>
+				</div>
 
 				<div class="clearfix text-center pagination">
 					<ul class="pagination">
@@ -218,6 +217,15 @@
                 let listCount = $(this).val(); //사용자선택값 가져오기
                 let reply = "${reply}";
                 let keyword = "${keyword}";
+                window.location = "${pageContext.request.contextPath}/admin/question_adm.cider?"+
+                		"reply="+reply+"&listCount="+listCount+"&keyword="+keyword;
+    	    });
+    		
+    	//   n개씩 보기 드롭다운의 변경이벤트
+    	    $("#search_memb").click(function(){
+                let keyword = $('#keyword').val(); //사용자선택값 가져오기
+                let reply = "${reply}";
+                let listCount = "${pageData.listCount}";
                 window.location = "${pageContext.request.contextPath}/admin/question_adm.cider?"+
                 		"reply="+reply+"&listCount="+listCount+"&keyword="+keyword;
     	    });

@@ -142,10 +142,10 @@ public class FilesBbsServiceImpl implements FilesService {
 	}
 	
 	@Override
-	public int deleteRefIdFiles(Files input) throws Exception {
+	public int deleteRefFiles(Files input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.delete("FilesMapper.deleteRedIdItem", input);				
+			result = sqlSession.delete("FilesMapper.deleteRefItem", input);				
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
