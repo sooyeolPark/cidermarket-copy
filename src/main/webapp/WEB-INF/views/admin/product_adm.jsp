@@ -8,7 +8,7 @@
     <title>상품관리 - 사이다마켓</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/product_adm.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
 
 </head>
@@ -60,19 +60,12 @@
 							<option value="W" <c:if test="${orderby==''}">selected</c:if>>택배</option>
 							<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
 						</select>                    
-                    <select class="form-control" id="align-menu">
-                        <option value="">기본정렬</option>
-                        <option value="">상품명순</option>
-                        <option value="">등록일순</option>
-                        <option value="">거래정지순</option>
-
-                    </select>
                 </div>
 
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input id="all-check" type="checkbox"></th>
                             <th class="text-center">번호</th>
                             <th class="text-center">상품제목</th>
                             <th class="text-center">카테고리</th>
@@ -94,10 +87,11 @@
 		               			<c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" /> 
 							
 							<tr>
-							    <td><input type="checkbox" class="board-group-item" value="${item.prodno }"></td>
+							<td class="text-center"><input type="checkbox" class="prod_chk" name="prodno" 
+							data-prodno="${item.prodno}"  data-tradecon="${item.tradecon}" value="${item.prodno}"></td>
 							    <td class="text-center board-group-item">${num}</td>							    
 							    <td class="text-center board-group-item"><a href="${viewUrl}">${item.subject}</a></td>
-							    <td class="text-center board-group-item">{item.name}</td>
+							    <td class="text-center board-group-item">${item.catename}</td>
 		      					<td class="text-center board-group-item"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</td>
 						        <c:choose>
 						        <c:when test="${item.how =='J'}">
@@ -105,6 +99,9 @@
 						        <c:when test="${item.how =='T'}">
 						        <td class="text-center board-group-item">택배</td>
 						    	</c:when>
+						        <c:when test="${item.how =='X'}">
+						        <td class="text-center board-group-item">상관없음</td>
+						    	</c:when>						    	
 						    	</c:choose>							    
 	       					    <td class="text-center board-group-item">${item.regdate}</td>							    
 								
@@ -113,7 +110,11 @@
 						        <td class="text-center board-group-item">거래중</td></c:when>
 						        <c:when test="${item.tradecon =='W'}">
 						        <td class="text-center board-group-item">거래완료</td></c:when>
-								</c:choose>					    
+						        <c:when test="${item.tradecon =='S'}">
+						        <td class="text-center board-group-item">숨김</td></c:when>
+						        <c:when test="${item.tradecon =='X'}">
+						        <td class="text-center board-group-item">거래중지</td></c:when>
+								</c:choose>																						    
 							   
 							</tr>
 							</c:forEach>    		              	
@@ -214,32 +215,19 @@
 
 
   <!-- ajax-helper -->
-  <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-  <!-- handlebar plugin -->
-  <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
-  <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <!-- ajax-helper -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
+    <!-- 유효성검사 -->
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
     <script type="text/javascript">
 
         $(function () {
-            get_list();
-            $("thead input").change(function(){
-                var chk = $(this).prop('checked');
-                $("tbody input").prop('checked', chk);
-            });
-            $("#delete").click(function(e){
-                e.preventDefault();
-                var is_ok = confirm("선택하신 게시글을 삭제하시겠습니까?");
-                if (is_ok) {
-                    if($("input").is(":checked") == true){ //체크된 요소가 있으면               
-                        var i = $("input:checked").parents("tr");
-                       i.remove();
-                    
-                    }else {
-                    alert("삭제할 항목을 선택해주세요!")
-
-                    }
-                }
-            });
+        
+ 
 
             $("#log-out").click(function(e){
                 var result = confirm("로그아웃 하시겠습니까?");
@@ -251,8 +239,9 @@
                 }
             });
             
-            $("#all-check").change(function(){
-                $(".board").prop('checked',$(this).prop('checked'));
+            //체크박스 전체선택
+            $("#all-check").change(function () {
+                $(".prod_chk").prop('checked', $(this).prop('checked'));
             });
             
             
@@ -275,6 +264,113 @@
 
 						});
 				});	
+			// 거래정지 눌렀을때
+            $("#stop").click(function () {
+            	var chkArray = new Array();
+            	var chkTradecon = new Array();
+            	$(".prod_chk:checked").each(function(){
+            		var prodno = $(this).data('prodno');
+            		chkArray.push(prodno);
+            		var trade = $(this).data('tradecon');
+            		chkTradecon.push(trade);
+            	});
+            	
+    	        swal({ 
+    		          title: '확인',
+    		          text: "선택한 상품을 거래정지 시키시겠습니까?" ,
+    		          type:'warning', //종류
+    		          confirmButtonText:'네', //확인버튼 표시문구
+    		          showCancelButton:true, //취소버튼 표시여부
+    		          cancelButtonText:'아니오', //취소버튼 표시문구 
+    		        }).then(function(result){
+    		           if(result.value) {   //확인버튼이 눌러진 경우 
+    		        	   $.put("${pageContext.request.contextPath}/admin/product",
+    		        			   {"chkArray": chkArray,"chkTradecon": chkTradecon,"tradecon": "X"}, function(json){
+    		              	  if(json.rt=="OK"){
+     		              		swal('거래정지 완료', '거래정지 처리 되었습니다.', 'success').then(function(result){
+    	 	 	              		//처리완료후 새로고침
+    	 	 	              		window.location.reload();
+    	 	              		});
+    		              	  }
+    		            });
+    		           } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+    		             swal('취소', '취소하였습니다.', 'error');
+    		           }
+    		         });
+            });		
+			//거래 재개 눌렀을 때 
+            $("#re-start").click(function () {
+            	
+            	var chkArray = new Array();
+            	var chkTradecon = new Array();
+            	$(".prod_chk:checked").each(function(){
+            		var prodno = $(this).data('prodno');
+            		chkArray.push(prodno);
+            		var trade = $(this).data('tradecon');
+            		chkTradecon.push(trade);
+            	});
+            	
+    	        swal({ 
+    		          title: '확인',
+    		          text: "선택한 상품을 거래재개 시키시겠습니까?" ,
+    		          type:'warning', //종류
+    		          confirmButtonText:'네', //확인버튼 표시문구
+    		          showCancelButton:true, //취소버튼 표시여부
+    		          cancelButtonText:'아니오', //취소버튼 표시문구 
+    		        }).then(function(result){
+    		           if(result.value) {   //확인버튼이 눌러진 경우 
+    		        	   $.put("${pageContext.request.contextPath}/admin/product_adm_update",{
+    		              	 "chkArray": chkArray,
+    		              	 "chkTradecon": chkTradecon,
+    		              	 "tradecon": "J"
+    		                }, function(json){
+    		              	  if(json.rt=="OK"){
+     		              		swal('거래재개 완료', '거래재개 처리 되었습니다.', 'success').then(function(result){
+    	 	 	              		//처리완료후 새로고침
+    	 	 	              		window.location.reload();
+    	 	              		});
+    		              	  }
+    		            });
+    		           } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+    		             swal('취소', '취소하였습니다.', 'error');
+    		           }
+    		         });
+            });
+			
+			//삭제처리
+            $("#delete").click(function () {
+            	
+            	var chkArray = new Array();
+            	
+            	$(".prod_chk:checked").each(function(){
+            		//chkArray에 prodno 배열이 담겨있음 
+            		chkArray.push(this.value);
+            	});
+            	
+    	        swal({ 
+    		          title: '확인',
+    		          text: "선택한 상품을 삭제 시키시겠습니까?" ,
+    		          type:'warning', //종류
+    		          confirmButtonText:'네', //확인버튼 표시문구
+    		          showCancelButton:true, //취소버튼 표시여부
+    		          cancelButtonText:'아니오', //취소버튼 표시문구 
+    		        }).then(function(result){
+    		           if(result.value) {   //확인버튼이 눌러진 경우 
+    		        	   $.delete("${pageContext.request.contextPath}/admin/product",{
+    		              	 "chkArray": chkArray,
+    		                }, function(json){
+    		              	  if(json.rt=="OK"){
+     		              		swal('삭제 완료', '상품 삭제가 완료 되었습니다.', 'success').then(function(result){
+    	 	 	              		//처리완료후 새로고침
+    	 	 	              		window.location.reload();
+    	 	              		});
+    		              	  }
+    		            });
+    		           } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
+    		             swal('취소', '취소하였습니다.', 'error');
+    		           }
+    		         });
+            });
 
 
         });
