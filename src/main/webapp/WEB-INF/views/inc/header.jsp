@@ -9,7 +9,7 @@
 <%
 
 Cookie[] cookies = request.getCookies();
-
+if(cookies!=null){
 List<CookieModel> cookie_search = new ArrayList<CookieModel>();
 
 for(int i =0; i< cookies.length; i++) {
@@ -20,7 +20,6 @@ for(int i =0; i< cookies.length; i++) {
 	cookie_search.add(temp);
 	}
 }
-
 
 //최신 10개 담기
 List<CookieModel> cookie_10 = new ArrayList<CookieModel>();
@@ -35,6 +34,9 @@ for (int i = 0; i<cookie_search.size() ; i++) {
 }
 
 pageContext.setAttribute("cookie_10", cookie_10);
+} else{
+	pageContext.setAttribute("cookie_10", null);
+}
 %>
 <div class="navbar navbar-fixed-top" role="navigation">
 	<div class="container">
