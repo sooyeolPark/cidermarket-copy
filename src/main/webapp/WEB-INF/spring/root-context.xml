@@ -54,6 +54,8 @@
 	
 	<bean id="productService" class="study.shop.cidermarket.service.impl.ProductServiceImpl" />
 	
+	<bean id="hashtagService" class="study.shop.cidermarket.service.impl.HashtagServiceImpl" />
+	
 	<bean id="itemlistService" class="study.shop.cidermarket.service.impl.ItemListServiceImpl" />
 	
 	<bean id="itemregService" class="study.shop.cidermarket.service.impl.ItemregServiceImpl" />
@@ -63,7 +65,11 @@
 	<bean id="memberService" class="study.shop.cidermarket.service.impl.MemberServiceImpl" />
 	
 	<bean id="itemindexService" class="study.shop.cidermarket.service.impl.ItemIndexServiceImpl" />
+
+	<bean id="admmemberService" class="study.shop.cidermarket.service.impl.AdmMemberServiceImpl" />
 	
+	<bean id="admsingoService" class="study.shop.cidermarket.service.impl.AdmSingoServiceImpl" />
+		
 	<bean id="filesBbsService" class="study.shop.cidermarket.service.impl.FilesBbsServiceImpl" />
 	<bean id="filesCateService" class="study.shop.cidermarket.service.impl.FilesCateServiceImpl" />
 	<bean id="filesProductService" class="study.shop.cidermarket.service.impl.FilesProductServiceImpl" />

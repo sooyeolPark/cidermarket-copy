@@ -47,4 +47,6 @@ public class Record {
 	public static void setListCount(int listCount) {
 		Record.listCount = listCount;
 	}
+	
+	
 }

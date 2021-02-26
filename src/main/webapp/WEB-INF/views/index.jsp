@@ -106,6 +106,7 @@
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4><fmt:formatNumber value="${item.price}" pattern="#,###" />원</h4>
+				                            <h6>${item.sellerNick} 님의 상품</h6>
 				                        </div>
 				                    </div>
 				                </a>
@@ -139,6 +140,7 @@
                     <div class="caption">
                        	<h5>{{subject}}</h5>
                         <h4>{{price}}원</h4>
+						<h6>{{sellerNick}} 님의 상품</h6>
                     </div>
                 </div>
             </a>
@@ -169,7 +171,7 @@
         			getProduct();
                 }
             })
-		})
+		});
 		
 		/** Ajax와 Handlebars를 이용해 상품 불러오는 기능 정의 */
 		let getProduct = function(){

@@ -31,7 +31,7 @@
 		resultMap="ResultMap">
 SELECT 
       p.prodno,p.subject,p.price, m.nickname, sender, receiver, DATE_FORMAT(now(), '%Y-%m-%d') AS regdate, r.recono, p.seller,rc.buyer,
-      (SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=p.prodno AND reftable='product')) AS filepath
+      (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
       FROM review r
       inner join member m On r.sender = m.membno
       inner join record rc On r.recono = rc.recono

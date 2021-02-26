@@ -25,14 +25,13 @@
 	<select id="selectItem"
 		parameterType="study.shop.cidermarket.model.Bbs"
 		resultMap="QuestionMap">
-		SELECT bbsno, title, content, hits,
+		SELECT bbsno, title, content, reply, name, tel, email, category,
 			DATE_FORMAT(regdate, '%Y-%m-%d') AS regdate,  
-			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
-			(SELECT filepath FROM files WHERE refid=bbsno AND reftable='bbs') AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=bbsno AND reftable='bbs' order by fname asc limit 0, 1)) AS filepath
 		FROM bbs
 		
 		<where>
-			type='Q' AND membno=1 AND bbsno=#{bbsno}
+			type='Q' AND bbsno=#{bbsno}
 			<if test="title != null and title != ''">
 				AND title LIKE concat('%', #{title}, '%')
 			</if>
@@ -46,14 +45,21 @@
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Bbs"
 		resultMap="QuestionMap">
-		SELECT bbsno, title, content, hits,
-			DATE_FORMAT(regdate, '%Y-%m-%d') AS regdate,  
-			DATE_FORMAT(editdate, '%Y-%m-%d') AS editdate,
-			(SELECT thumbnailPath FROM files WHERE refid=bbsno AND reftable='bbs') AS filepath
+		SELECT bbsno, title, name, hits, reply,
+			DATE_FORMAT(regdate, '%Y-%m-%d') AS regdate
 		FROM bbs
 		
 		<where>
 			type='Q'
+			<if test="title != null and title != ''">
+				AND title LIKE concat('%', #{title}, '%')
+			</if>
+			<if test="editdate == 'before'">
+				AND (reply is null OR reply = '')
+			</if>
+			<if test="editdate == 'after'">
+				AND reply is not null
+			</if>
 		</where>
 
 		ORDER BY bbsno DESC
@@ -66,24 +72,34 @@
 	
 	
 	
-	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<!-- 전체 데이터 수 조회를 위한 기능 정의 -->
 	<select id="selectCountAll"
 		parameterType="study.shop.cidermarket.model.Bbs"
 		resultType="int">
 		SELECT COUNT(*) FROM bbs
-		WHERE type='N' AND membno=1
+		
+		<where>
+			type='Q'
+			<if test="title != null and title != ''">
+				AND title LIKE concat('%', #{title}, '%')
+			</if>
+			<if test="name == 'before'">
+				AND reply null
+			</if>
+			<if test="name == 'after'">
+				AND reply not null
+			</if>
+		</where>
 	</select>
 	
-	<!-- 데이터 저장을 위한 기능 정의 -->
-	<insert id="insertItem"
+	<!-- 당일 데이터 카운터를 위한 기능 정의 -->
+	<select id="selectCountDay"
 		parameterType="study.shop.cidermarket.model.Bbs"
-		useGeneratedKeys="true" keyProperty="bbsno">
-		INSERT INTO bbs (
-			type, title, content, hits, regdate, editdate, membno
-		) VALUES (
-			'N', #{title}, #{content}, 0, now(), now(), 1
-		)
-	</insert>
+		resultType="int">
+		SELECT COUNT(*) FROM bbs
+		WHERE type='Q'
+		AND regdate BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW();
+	</select>
 	
 	<!-- 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItem"
@@ -95,7 +111,7 @@
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Bbs">
 		UPDATE bbs SET
-			title=#{title}, content=#{content}, editdate=now()
+			reply=#{reply}, editdate=now()
 		WHERE bbsno=#{bbsno}
 	</update>
 

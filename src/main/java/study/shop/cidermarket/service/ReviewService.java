@@ -2,6 +2,7 @@ package study.shop.cidermarket.service;
 
 import java.util.List;
 
+import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Review;
 
 public interface ReviewService {
@@ -53,4 +54,19 @@ public interface ReviewService {
 	 */
 	public int deleteReview(Review input) throws Exception;
 	
+	/**
+	 * product 평균 별점 가져오기
+	 * @param 별점 데이터를 담고 있는 Beans
+	 * @return float
+	 * @throws Exception
+	 */
+	public float getRate(Review input) throws Exception;
+	
+	/**
+	 * product 테이블에 별점 수정해주기
+	 * @param 별점 데이터의 일련번호를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateRate(Member input) throws Exception;
 }

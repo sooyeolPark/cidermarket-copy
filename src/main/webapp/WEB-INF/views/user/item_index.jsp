@@ -17,7 +17,6 @@
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 	<!-- ligthbox pulgin 참조 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/lightbox/css/lightbox.css" />
 	<script src="${pageContext.request.contextPath}/assets/plugins/lightbox/js/lightbox.min.js"></script>
@@ -187,8 +186,16 @@
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="#"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50"
-                    height="50" alt="Generic placeholder image"> </a>
+                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> 
+                	<c:choose>
+                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
+                    	</c:when>
+                   		<c:otherwise>
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50" height="50" alt="Generic placeholder image"> 
+                   		</c:otherwise>
+                   	</c:choose>
+                </a>
                 <div class="user_info_detail clearfix">
 
                   <div id="user_id">${seller.nickname}</div>
@@ -490,6 +497,16 @@
       </div>
   </section>
   <div class="fixed-btn">
+  <c:choose>
+  <c:when test="${myNum==product.seller}">
+  <c:if test="${product.tradecon=='J'}">
+  <div class="col-xs-2 soomgim"><a href="#" id="prod_hide" data-tradecon="${product.tradecon}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-eye-close"></i></a></div>
+  </c:if>
+  <c:if test="${product.tradecon=='S'}">
+  <div class="col-xs-2 soomgim"><a href="#" id="prod_hide" data-tradecon="${product.tradecon}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-eye-open"></i></a></div>
+  </c:if>
+  </c:when>
+  <c:otherwise>
   <c:set var="is" value="NO" />
   <c:forEach var="item" items="${membprod}" varStatus="status">
   	<c:if test="${myNum==item.membno}">
@@ -500,14 +517,16 @@
   <c:if test="${is=='NO'}">
   	<div class="col-xs-2 zzim"><a href="#" id="like" data-membno="${myNum}" data-prodno="${product.prodno}"><i class="glyphicon glyphicon-heart-empty"></i></a></div>
   </c:if>
+  </c:otherwise>
+  </c:choose>
     
           
     
     <c:choose>
   	<c:when test="${myNum==product.seller}">
-    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="dir_trade"><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="update_item"><span
           class="cool">쿨하게</span><span class="trade">수정하기</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="dir_pay"><span class="cool">쿨하게</span><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="delete_item"><span class="cool">쿨하게</span><span
           class="trade">삭제하기</span></button></div>  	
   	</c:when>
   	<c:otherwise>
@@ -834,7 +853,47 @@
           	  }
         });
       });
+      
+      //수정하기 클릭했을때
+      $("#update_item").click(function(e){
+    	  e.preventDefault();
+    	  window.location="${pageContext.request.contextPath}/item_update.cider?prodno="+"${product.prodno}";
+      });
    
+    //거래 재개 눌렀을 때 
+      $("#prod_hide").click(function () {
+      		let prodno = $(this).data('prodno');
+      		let trade = $(this).data('tradecon');
+      		
+      		if(trade=='J'){
+      		//숨김확인
+      	        if(!confirm("상품을 숨김 처리 하시겠습니까?")){
+      	      	  return false;
+      	        }
+      		}
+      		if(trade=='S'){
+      		//보이기확인
+      	        if(!confirm("숨김 처리를 해제하시겠습니까?")){
+      	      	  return false;
+      	        }
+      		}
+	         	   $.put("${pageContext.request.contextPath}/item_index_update",{
+		              	 "prodno": prodno,
+		              	 "tradecon": trade
+		                }, function(json){
+		              	  if(json.rt=="OK"){
+		              		if(trade=='J'){
+		              			alert("숨김 처리가 완료되었습니다.");
+		              			window.location.reload();
+		              		}
+		              		if(trade=='S'){
+		              			alert("숨김 해제 처리가 완료되었습니다.");
+		              			window.location.reload();
+		              		}
+		              	  }
+		            });
+      });
+    
     }); //온로드 제이쿼리 끝
     
     //답글 버튼 클릭시 입력창 토글

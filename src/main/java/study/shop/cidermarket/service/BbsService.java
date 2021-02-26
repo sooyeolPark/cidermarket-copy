@@ -3,7 +3,6 @@ package study.shop.cidermarket.service;
 import java.util.List;
 
 import study.shop.cidermarket.model.Bbs;
-import study.shop.cidermarket.model.Files;
 
 public interface BbsService {
 	/**
@@ -53,5 +52,7 @@ public interface BbsService {
 	 * @throws Exception
 	 */
 	public int deleteBbs(Bbs input) throws Exception;
+
+
 
 }

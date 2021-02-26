@@ -60,5 +60,13 @@ public interface FilesService {
 	 * @throws Exception
 	 */
 	public int deleteFiles(Files input) throws Exception;
+
+	/**
+	 * refid로 데이터 삭제하기
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteRefIdFiles(Files input) throws Exception;
 	
 }

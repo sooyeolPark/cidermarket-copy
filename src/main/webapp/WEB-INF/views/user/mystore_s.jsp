@@ -179,6 +179,9 @@
   <!-- ajax-helper -->
   <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
   <script type="text/javascript">
+  	/* 서브메뉴버튼 활성화 */
+	document.querySelector('.my_ctg li:nth-child(1)').className = 'active';
+  	
     $(function () {
       /* 상품리스트형 */
       $(".btn-list").click(function () {

@@ -127,7 +127,25 @@ public class FilesBbsServiceImpl implements FilesService {
 	public int deleteFiles(Files input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.delete("FilesMapper.deleteItem", input);
+			result = sqlSession.delete("FilesMapper.deleteItem", input);				
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("삭제된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
+		}
+		return result;
+	}
+	
+	@Override
+	public int deleteRefIdFiles(Files input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.delete("FilesMapper.deleteRedIdItem", input);				
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

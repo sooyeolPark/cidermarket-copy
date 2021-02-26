@@ -1,19 +1,15 @@
 package study.shop.cidermarket.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,10 +36,33 @@ public class SearchAjaxController {
 	
 	/** 검색 페이지 */
 	@RequestMapping(value = "/search.cider", method = RequestMethod.GET)
-	public ModelAndView search(Model model,
+	public ModelAndView search(Model model, HttpServletResponse response, HttpServletRequest request,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
-			@RequestParam(value="keyword", required=false) String keyword) {
-				
+			@RequestParam(value="keyword", defaultValue="") String keyword) {
+		
+		Cookie[] cookies = request.getCookies();
+		int cookieNum = cookies.length;
+		
+		log.debug("+++++++++++++++++++++++++++쿠키 갯수: "+cookies.length);
+		// 입력값의 존재 여부에 따라 쿠키를 저장하거나 삭제
+		if (keyword != null) {
+			/** 입력값이 존재할 경우 쿠키 저장 (혹은 덮어쓰기) */
+			Cookie search = new Cookie("mySearch", keyword);	// 쿠키 생성 (이름, 값 설정)
+			search.setMaxAge(60);			// 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
+			search.setPath("/");			// 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
+			search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
+			response.addCookie(search);	// 쿠키 저장하기
+		} else {
+			/** 입력값이 존재하지 않을 경우 쿠키 삭제 */
+			// 유효시간을 과거 시점으로 지정하면 즉시 삭제된다.
+			// 그 밖의 정보(유효경로, 도메인)는 저장시에 설정한 값과 동일해야 한다.
+			Cookie search = new Cookie("mySearch", null);
+			search.setMaxAge(-1);
+			search.setPath("/");
+			search.setDomain("localhost");
+			response.addCookie(search);
+		}
+		
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
 		int totalCount = 0;		// 전체 게시글 수
 		int listCount = 4;		// 한 페이지당 표시할 목록 수
@@ -80,5 +99,5 @@ public class SearchAjaxController {
 		
 		return new ModelAndView("user/search_item_list");
 	}
-	
+
 }

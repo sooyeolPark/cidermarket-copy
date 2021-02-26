@@ -60,13 +60,13 @@ public class MemberRestController {
 	   log.debug("-------------------------로그인 상태유지 : " + idStateful + "------------------------");
 	   
 	   try {
-		   output = memberService.getMemberItem(input);	
+		   output = memberService.getMemberItem(input);
 		   /** 2) 세션 저장, 삭제 */
 		   	if (!email.equals("")) {
 		   		// 입력 내용이 있다면 세션 저장 처리
 		   		session.setAttribute("myId", email);
 		   		session.setAttribute("myNum", output.getMembno());
-		   		session.setAttribute("shopaddress", output.getShopaddress());
+		   		session.setAttribute("shopaddress", output.getShopaddress());		   		
 		   		if (idStateful.equals("true")) {
 		   			log.debug(idStateful+"---------------- 세션 유지시간 24시간 ---------------------");
 		   			session.setMaxInactiveInterval(86400); // 24시간 유지
@@ -78,6 +78,7 @@ public class MemberRestController {
 		   		// 입력 내용이 없다면 세션 삭제
 		   		session.removeAttribute("myId");
 		   		session.removeAttribute("myNum");
+		   		session.removeAttribute("shopaddress");
 		   	}
 	   } catch (Exception e) {
 		   return webHelper.getJsonError(e.getLocalizedMessage());
@@ -159,51 +160,6 @@ public class MemberRestController {
 	return webHelper.getJsonData(data);
    }
    
-   
-   /** 관리자 멤버 목록 페이지 */
-   @RequestMapping(value="/member.cider", method=RequestMethod.GET)
-   public Map<String, Object> get_list(
-         // 검색어
-         @RequestParam(value="keyword", required=false) String keyword,
-         @RequestParam(value="page", defaultValue="1") int nowPage) {
-      
-      /** 1) 페이지 구현에 필요한 변수값 생성 */
-      int totalCount = 0;      // 전체 게시글 수
-      int listCount = 10;      // 한 페이지당 표시할 목록 수
-      int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
-      
-      /** 2) 데이터 조회하기 */
-      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
-      Member input = new Member();
-      input.setEmail(keyword);
-      
-      List<Member> output = null;
-      PageData pageData = null;
-      
-      try {
-         // 전체 게시글 수 조회
-         totalCount = memberService.getMemberCount(input);
-         // 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-         pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-         
-         // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-         Member.setOffset(pageData.getOffset());
-         Member.setListCount(pageData.getListCount());
-
-         // 데이터 조회하기
-         output = memberService.getMemberList(input);
-      } catch (Exception e) {
-         return webHelper.getJsonError(e.getLocalizedMessage());
-      }
-      
-      /** 3) View 처리 */
-      Map<String, Object> data = new HashMap<String, Object>();
-      data.put("keyword", keyword);
-      data.put("item", output);
-      data.put("pageData", pageData);
-      
-      return webHelper.getJsonData(data);
-   }
    
    /** 내상점 내정보설정 페이지 */
    @RequestMapping(value="/member.cider/{membno}", method=RequestMethod.GET)

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html>
 <head>
@@ -15,32 +18,30 @@
 
 	<div class="body_height">
 		<div class="container">
-			<h4 class="market_title">마켓현황 <span id="today"></span> <span id="today-time"></span></h4>
-			
+			<h4 class="market_title">
+				마켓현황 <span id="today"></span> <span id="today-time"></span>
+			</h4>
+
 			<ul class="home_ul text-center">
 				<li class="home_li">
-					<h5>총 거래건수(일주일 기준)</h5>
-					<a href="${pageContext.request.contextPath}/admin/order_adm.cider">
+					<h5>총 거래건수(일주일 기준)</h5> <a href="${pageContext.request.contextPath}/admin/order_adm.cider">
 						<strong>123,456건</strong>
 					</a>
 				</li>
 				<li class="home_li">
-					<h5>총 거래액(일주일 기준)</h5>
-					<a href="${pageContext.request.contextPath}/admin/order_adm.cider">
+					<h5>총 거래액(일주일 기준)</h5> <a href="${pageContext.request.contextPath}/admin/order_adm.cider">
 						<strong>9,999,999원</strong>
-					</a> 
+					</a>
 				</li>
 				<li class="home_li">
-					<h5>상품등록수</h5>
-					<a href="${pageContext.request.contextPath}/admin/product_adm.cider">
+					<h5>상품등록수</h5> <a href="${pageContext.request.contextPath}/admin/product_adm.cider">
 						<strong>123,456개</strong>
-					</a> 
+					</a>
 				</li>
 				<li class="home_li">
-					<h5>전체 회원수</h5>
-					<a href="${pageContext.request.contextPath}/admin/member_adm.cider">
+					<h5>전체 회원수</h5> <a href="${pageContext.request.contextPath}/admin/member_adm.cider">
 						<strong>23,456명</strong>
-					</a> 
+					</a>
 				</li>
 			</ul>
 			<div id="chart">
@@ -55,13 +56,13 @@
 
 	<!-- Javascript -->
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/asidebar.jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- ajax-helper -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
+	<!-- 구글차트 -->
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -69,83 +70,36 @@
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script type="text/javascript">
         $(function () {
-            $(".board_left").load("board_adm_left.cider");
+            // 오늘 날짜 조회
+			function todayTime() {
+			    var todayTime = new Date();
+			    var dd = todayTime.getDate();
+			    var mm = todayTime.getMonth()+1; // Jan is 0
+			    var yyyy = todayTime.getFullYear();
+			    var hh =todayTime.getHours();
+			    var mi =todayTime.getMinutes();
+			
+			    if(dd<10){
+			        dd = '0'+dd
+			    }
+			    if(mm<10){
+			        mm = '0'+mm
+			    }
+			
+			    today = yyyy + '-' + mm + '-' + dd;
+			    todayTime = "("+hh+"시 "+mi+"분 "+"기준"+")" ;
+			    //alert(today);
+			    document.getElementById("today").innerHTML = today;
+			    document.getElementById("today-time").innerHTML = todayTime;
+			    //$('#date').text(today);
+			} 
+			
+			todayTime();
 
-
-
-            // 추가기능------------------------------------------------------------
-         //필터 
-
-
-        // 로그아웃
-        $("#log-out").click(function(e){
-                var result = confirm("로그아웃 하시겠습니까?");
-
-                if(result ==true) {
-                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
-                }else{
-
-                }
-            });
-      $("#delete").click(function () {
-        swal({ 
-          title: '확인',
-          text: "정말 삭제 하시겠습니까?" ,
-          type:'warning', //종류
-          confirmButtonText:'네', //확인버튼 표시문구
-          showCancelButton:true, //취소버튼 표시여부
-          cancelButtonText:'아니오', //취소버튼 표시문구 
-        });
-        // .then(function(result){
-        //   if(result.value) {   //확인버튼이 눌러진 경우 
-        //     swal('로그아웃', '로그아웃 되었습니다.', 'success');
-        //   } else if(result.dismiss==='cancel') {  //취소버튼 눌러진경우 
-        //     swal('취소', '취소하였습니다.', 'error');
-        //   }
-        // });
-      });
-
-    //   전체선택
-      $("#all-check").change(function(){
-          $(".board").prop('checked',$(this).prop('checked'));
-      });
-
-    //   오늘날짜 대입
-    
-
-
-
-
-function todayTime() {
-    var todayTime = new Date();
-    var dd = todayTime.getDate();
-    var mm = todayTime.getMonth()+1; // Jan is 0
-    var yyyy = todayTime.getFullYear();
-    var hh =todayTime.getHours();
-    var mi =todayTime.getMinutes();
-
-    if(dd<10){
-        dd = '0'+dd
-    }
-    if(mm<10){
-        mm = '0'+mm
-    }
-
-    today = yyyy + '-' + mm + '-' + dd;
-    todayTime = "("+hh+"시 "+mi+"분 "+"기준"+")" ;
-    //alert(today);
-    document.getElementById("today").innerHTML = today;
-    document.getElementById("today-time").innerHTML = todayTime;
-    //$('#date').text(today);
-} 
-
-todayTime();
-
-    });
+    	});
     </script>
 
-	<!-- 구글차트 -->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 	<script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);

@@ -141,7 +141,7 @@
                         <div class="form-group">
                             <label for="item_price" class="col-sm-2 control-label">가격</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="item_price" name="item_price" placeholder="가격을 입력해주세요.">
+                                <input type="number" class="form-control" id="item_price" name="item_price" placeholder="가격을 입력해주세요.">
                                 <div class="won">원</div>
                                 <p>*가격을 입력하지 않는 경우 무료나눔로 설정됩니다.</p>
                             </div>
@@ -172,7 +172,7 @@
                         <div class="form-group">
                             <label for="item_delfee" class="col-sm-2 control-label">배송비</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="item_delfee" name="item_delfee" placeholder="배송비를 입력해주세요.">
+                                <input type="number" class="form-control" id="item_delfee" name="item_delfee" placeholder="배송비를 입력해주세요.">
                                 <div class="won">원</div>
                                 <p>*배송비를 입력하지 않는 경우 배송비는 무료로 설정됩니다.</p>
                             </div>
@@ -373,6 +373,7 @@
                     console.log(json);
                  // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
                     if (json.rt == "OK") {
+                    	alert("상품 등록이 완료되었습니다.");
                    	 window.location="${pageContext.request.contextPath}/item_index.cider?prodno="+json.item.prodno;
                     }
                 }

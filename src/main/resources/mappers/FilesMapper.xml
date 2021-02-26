@@ -133,7 +133,13 @@
 	<!-- 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItem"
 		parameterType="study.shop.cidermarket.model.Files">
-		DELETE FROM files WHERE reftable=#{reftable} AND refid=#{refid}
+		DELETE FROM files WHERE fileno=#{fileno}
+	</delete>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteRefIdItem"
+		parameterType="study.shop.cidermarket.model.Files">
+		DELETE FROM files WHERE refid=#{refid} AND reftable=#{reftable}
 	</delete>
 	
 	<!-- 데이터 갱신을 위한 기능 정의 -->
@@ -153,6 +159,7 @@
 		SELECT *
 		FROM files
 		WHERE reftable='product' AND refid=#{refid}
+		ORDER BY fname asc;
 	</select>
 
 </mapper>

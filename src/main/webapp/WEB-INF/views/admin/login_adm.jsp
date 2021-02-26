@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	// 로그인 되어 있지 않으면 메인페이지로 강제 이동
+	if (session.getAttribute("myAdmNum") != null) {
+		response.sendRedirect("/cidermarket/admin/home_adm.cider");
+	}
+%>
 <!doctype html>
 <html>
 <head>
@@ -17,34 +26,35 @@
 		<!-- Item 영역 -->
 		<div class="container">
 			<h3 class="text-center">관리자 로그인</h3>
-			<h5 class="text-center">강사님은 vvip! 그냥 로그인버튼을 눌러주세요!</h5>
 			<!-- login form -->
-			<form role="form" id="login-form">
+			<form role="form" id="login-form" action="${pageContext.request.contextPath}/admin/login.cider">
 				<fieldset>
 					<legend class="sr-only">로그인</legend>
 
 					<div class="form-group clearfix">
-						<label for="user_id">아이디</label>
-						<div>
-							<input type="email" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요." />
+						<label for="email">아이디</label>
+						<div class="email-box">
+							<input type="email" id="email" name="email" class="form-control" placeholder="아이디를 입력하세요." />
 							<p id="idc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="form-group clearfix">
-						<label for="user_pw">비밀번호</label>
+						<label for="password">비밀번호</label>
 						<div class="password_icon">
-							<input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요." />
+							<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요." />
 							<i class="eyeicon glyphicon glyphicon-eye-close"></i> <span class="in-eng">✔ 영어포함</span> <span class="in-num">✔ 숫자포함</span> <span class="in-spc">✔ 특수문자포함</span>
 							<p id="pwc" class="pop"></p>
 						</div>
 					</div>
 
 					<div class="checkbox">
-						<label><input type="checkbox">아이디 저장</label> <label><input type="checkbox">로그인 상태유지</label>
+						<label><input type="checkbox" id="idSave" <c:if test="${cookie.id.value != null && cookie.id.value != ''}">checked</c:if>>아이디 저장</label> 
+						<label><input type="checkbox" id="idStateful" <c:if test="${cookie.idStateful.value != null && cookie.idStateful.value != ''}">checked</c:if>>로그인 상태유지</label>
+						<input type="hidden" name="idStateful" id="ids" value="" />
 					</div>
 
-					<a href="${pageContext.request.contextPath}/admin/home_adm.cider" type="submit" class="btn btn-primary btn-block btn-lg">로그인</a>
+					<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
 				</fieldset>
 			</form>
 		</div>
@@ -59,6 +69,15 @@
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script type="text/javascript">
+	
+	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+	function setCookie(name, value, expiredays) {
+	    var todayDate = new Date();
+	    todayDate.setDate(todayDate.getDate() + expiredays);
+	    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+	}
+	
+	
           $(function() {
 
               $(".eyeicon").click(function() {
@@ -76,7 +95,7 @@
               var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
               var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
-              $('#user_id').keyup(function(){
+              $('#email').keyup(function(){
                 var msg = '', val = this.value;
                 if(!check_email.test(val)){
                   msg = '이메일 형식으로 입력하세요.'
@@ -86,7 +105,7 @@
                 };
               });
 
-              $('#user_pw').keyup(function(){
+              $('#password').keyup(function(){
                 var msg = '', val = this.value;
                 msg = GetAjaxPW(val);
                 if( val.length > 7 && val.length < 21 ){
@@ -107,17 +126,48 @@
               $("#login-form").submit(function(e) {
                 e.preventDefault();
                 /** 이름 검사 */
-                if (!regex.value('#user_id', '아이디(이메일)을 입력하세요.')) { return false; }
-                if (!regex.email('#user_id', '이메일 주소가 잘못되었습니다.')) { return false; }
+                if (!regex.value('#email', '아이디(이메일)을 입력하세요.')) { return false; }
+                if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
 
                 /** 비밀번호 검사 */
-                if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) { return false; }
-                if (!regex.eng_num_spc('#user_pw', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
-                if (!regex.min_length('#user_pw', 8, '비밀번호는 최소 8자 이상 입력 가능합니다.')) { return false; }
-                if (!regex.max_length('#user_pw', 20, '비밀번호는 최대 20자 까지만 입력 가능합니다.')) { return false; }
+                if (!regex.value('#password', '비밀번호를 입력하세요.')) { return false; }
+                if (!regex.eng_num_spc('#password', '비밀번호를 형식에 맞게 입력하세요.')) { return false; }
+                if (!regex.min_length('#password', 8, '비밀번호는 최소 8자 이상 입력 가능합니다.')) { return false; }
+                if (!regex.max_length('#password', 20, '비밀번호는 최대 20자 까지만 입력 가능합니다.')) { return false; }
                 
-                // 처리 완료
-                alert("입력형식 검사 완료!!!");
+             	// 아이디 저장 체크시 쿠키에 값 저장
+                if ($("#idSave").is(":checked") == true) { // 아이디 저장을 체크 하였을때
+  	  	          setCookie("id", $("#email").val(), 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
+  	  	        } else { // 아이디 저장을 체크 하지 않았을때
+  	  	          setCookie("id", $("#email").val(), 0); //날짜를 0으로 저장하여 쿠키삭제
+  	  	        }
+                
+                // 로그인 상태유지
+                if ($("#idStateful").is(":checked") == true) { // 아이디 저장을 체크 하였을때
+                	$("#ids").val("true");
+                } else {
+                	$("#ids").val("");
+                }
+                
+                /** Ajax 호출 */
+                const form = $(this);
+                const url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(json) {
+  	    				console.log(json);
+  	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+  	    				if (json.rt == "OK") {
+  	    					window.location = "${pageContext.request.contextPath}/admin/home_adm.cider";
+  	    				}
+  	    			},
+  	    			error: function(error) {
+  	    				alert("관리자 아이디가 존재하지 않습니다.");
+  	    			}
+			     });
 
               });
 

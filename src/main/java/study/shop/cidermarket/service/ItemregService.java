@@ -40,4 +40,54 @@ public interface ItemregService {
 	 * @throws Exception
 	 */
 	public List<Hashtag> getHashtagList(Hashtag input) throws Exception;
+
+
+	/**
+	 * 상품 수정
+	 * @param 수정한 상품 정보를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int editProduct(Product input) throws Exception;
+	
+	
+	/**
+	 * 해쉬태그 삭제 
+	 * @param 해쉬태그 검색결과 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int deleteHashtag(Hashtag input) throws Exception;
+	
+	/**
+	 * 해쉬태그 등록 
+	 * @param 해쉬태그 검색결과 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int addHashtag(Hashtag input) throws Exception;	
+	
+	/**
+	 * 파일 삭제 
+	 * @param 해쉬태그 검색결과 페이지 구현 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int deleteFiles(Files input) throws Exception;
+	
+	/**
+	 * 파일 등록 
+	 * @param 파일 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int addFiles(Files input) throws Exception;	
+	
+	/**
+	 * 파일 단일행 조회 
+	 * @param 파일 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public Files getFilesItem(Files input) throws Exception;	
 }

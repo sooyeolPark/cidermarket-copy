@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	request.setCharacterEncoding("UTF-8");
 
-%>
 <div class="navbar navbar-fixed-top" role="navigation">
 	<div class="container">
 		<div id="logo" class="text-center">
@@ -33,8 +30,8 @@
 		</div>
 	</div>
 	<div id="searchBox" class="container">
-		<form id="searchForm" action="${pageContext.request.contextPath}/search">
-			<input type="text" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력해 주세요." />
+		<form id="searchForm" action="${pageContext.request.contextPath}/search.cider">
+			<input type="text" class="form-control" name="keyword" id="keyword" value="${cookie.mySearch.value}" placeholder="키워드를 입력해 주세요." />
 			<button id="searchBtn" class="btn btnSearch-s" type="submit">
 				<i class="glyphicon glyphicon-search"></i>
 			</button>
@@ -46,15 +43,18 @@
 		<div class="latest col-xs-6">
 			<h5 class="label label-default">최근 검색</h5>
 			<ul id="l-key">
-      			<c:choose>
-	      			<c:when test="${cookey.mySearch == null}">
-	      				<li>검색기록없음</li>
-	      			</c:when>
-	      			<c:otherwise>
-	      				<li><a href="${pageContext.request.contextPath}/search/${cookey.mySearch}">${cookey.mySearch.value}</a></li>     				
-					</c:otherwise>
-      			</c:choose>
-			</ul>
+   			<c:choose>
+    			<c:when test="${cookie.mySearch == null}">
+   					<li>검색기록없음</li>
+    			</c:when>
+    			<c:otherwise>
+    					<li>${cookie.mySearch.value}</li>
+	    				<c:forEach var="item" items="<%=request.getCookies() %>">
+    					<li>${item.name}</li>
+    				</c:forEach>
+				</c:otherwise>
+   			</c:choose>
+   			</ul>
 		</div>
 		<div id="searchClose" class="col-xs-12 text-center">닫기</div>
 	</div>
@@ -158,6 +158,7 @@
 <!-- // 사이드바 시작 -->
 <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
+<!-- <script src="${pageContext.request.contextPath}/assets/js/keyword.js"></script>  -->
 <!-- ajax-helper -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
@@ -165,10 +166,11 @@
 <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
 <!-- 사용자 정의 스크립트 -->
 <script type="text/javascript">
+
 	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
-	function setCookie(name, value, expiredays) {
+	function setCookie(name, value, exdays) {
 	    var todayDate = new Date();
-	    todayDate.setDate(todayDate.getDate() + expiredays);
+	    todayDate.setDate(todayDate.getTime() + (exdays*60));
 	    document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";"
 	}
 	
@@ -187,7 +189,9 @@
 	    }
 	}
 
+	
 
+	
 
   /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
   function get_key_list() {
@@ -223,17 +227,16 @@
     get_key_list();
     
     /** 검색 Ajax 호출 */
-    $("#searchBtn").click(function(){
+   $("#searchBtn").click(function(e){
+	   e.preventDefault;
     	const form = $("#searchForm");
         const url = form.attr('action');
-    	console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaa'+ url);
     	$.ajax({
 	        type: "GET",
 	        url: url,
 	        data: {"keyword":keyword, "page":nowPage},
 	        success: function(json) {
 					console.log(json);
-					alert('검색 성공');
 					if (json.rt == "OK") {
 						window.location = "${pageContext.request.contextPath}/search.cider";
 					}
