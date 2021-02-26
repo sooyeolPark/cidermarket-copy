@@ -360,7 +360,7 @@ public class NoticeRestController {
 	
 	        try {
 	           bbsNoticeService.deleteBbs(input); // 데이터 삭제
-	           filesBbsService.deleteFiles(f); // 데이터 삭제
+	           filesBbsService.deleteRefFiles(f); // 데이터 삭제
 	        } catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }

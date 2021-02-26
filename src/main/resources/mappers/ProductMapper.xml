@@ -51,13 +51,21 @@
 		
 		<where>
 			<if test="subject != null and subject != ''">
-				subject LIKE concat('%', #{subject}, '%') OR 
+				(subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
-				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
-			</if>
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+			</if>			
 		</where>
 		
-		ORDER BY prodno DESC
+		<if test="sort == 'default'">
+			ORDER BY regdate DESC
+		</if>
+		<if test="sort == 'priceAsc'">
+			ORDER BY price ASC
+		</if>
+		<if test="sort == 'priceDesc'">
+			ORDER BY price DESC
+		</if>
 		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
@@ -223,8 +231,8 @@
 		WHERE prodno=#{prodno}
 	</update>
 	
-	<!-- 관리자 상품진열(카테고리) 최신순 정렬 -->
-	<select id="selectCategoryLatelyList"
+	<!-- 관리자 상품진열(카테고리) 최신순/가나다순 정렬 -->
+	<select id="selectCategoryList"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
 		SELECT prodno, p.cateno, c.name AS catename, subject,
@@ -244,39 +252,17 @@
 			</if>
 		</where>
 		
-		ORDER BY regdate DESC
+		<if test="nickname == 'regdate'">
+			ORDER BY regdate DESC
+		</if>
+		<if test="nickname == 'subject'">
+			ORDER BY subject ASC
+		</if>
 		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>
 	</select>
 	
-	<!-- 관리자 상품진열(카테고리) 가나다순 정렬 -->
-	<select id="selectCategorySubjectList"
-		parameterType="study.shop.cidermarket.model.Product"
-		resultMap="productMap">
-		SELECT prodno, p.cateno, c.name AS catename, subject,
-			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick, 
-			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate
-		FROM product p 
-		INNER JOIN category c ON c.cateno=p.cateno
-		
-		<where>
-			<if test="cateno != 0">
-				p.cateno = #{cateno}
-			</if>
-			<if test="subject != null and subject != ''">
-				AND (subject LIKE concat('%', #{subject}, '%') OR 
-				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
-				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
-			</if>
-		</where>
-		
-		ORDER BY subject ASC
-		
-		<if test="listCount > 0">
-			LIMIT #{offset}, #{listCount}
-		</if>
-	</select>
 
 </mapper>

@@ -73,8 +73,11 @@
                 <hr />
                 <!-- reply -->
                 <div class="panel panel-danger">
-                  <div class="panel-heading" id="admin-write"><i class="glyphicon glyphicon-comment"></i> 사이다마켓이 답변 드립니다.</div>
+                  <div class="panel-heading" id="admin-write"><i class="glyphicon glyphicon-comment"></i> 관리자 답변입니다.</div>
                   <div class="panel-body">
+                  <c:if test="${output.reply == null || fn:length(output.reply) == 0}">
+                  	<p class="reply-gray">관리자 답변 전입니다.</p>
+                  </c:if>
                    	${output.reply}
                   </div>
                 </div>

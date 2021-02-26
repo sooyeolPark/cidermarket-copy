@@ -112,7 +112,7 @@
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</div>
-					<input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요" value="${search}">
+					<input type="text" class="form-control searchInput" id="search_btn" placeholder="키워드를 입력하세요" value="${search}">
 
 				</div>
 				

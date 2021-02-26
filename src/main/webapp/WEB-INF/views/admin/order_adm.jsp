@@ -122,7 +122,7 @@
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</div>
-			<input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
+			<input type="text" class="form-control searchInput" id="search_btn" placeholder="키워드를 입력하세요">
 		</div>
 	 <!-- 페이지네이션 -->
 	<div class="clearfix text-center pagination">

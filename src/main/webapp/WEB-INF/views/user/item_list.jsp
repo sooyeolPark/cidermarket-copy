@@ -212,6 +212,7 @@
     					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
         				nowPage++;
             			getProduct(sort);
+            			get_sort();
                     }
                 })
                 

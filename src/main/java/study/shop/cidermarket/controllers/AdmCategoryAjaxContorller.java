@@ -18,7 +18,7 @@ import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.service.CategoryService;
 
 @Controller
-public class CategoryAdmAjaxContorller {
+public class AdmCategoryAjaxContorller {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;

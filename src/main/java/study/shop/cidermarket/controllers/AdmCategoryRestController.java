@@ -23,7 +23,7 @@ import study.shop.cidermarket.service.FilesService;
 
 @Slf4j
 @RestController
-public class CategoryAdmRestController {
+public class AdmCategoryRestController {
 	/** WebHelper 주입 */
 	// -> import org.springframework.beans.factory.annotation.Autowired;
 	@Autowired

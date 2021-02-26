@@ -45,7 +45,7 @@ public class AdmDisplayrAjaxController {
         @RequestParam(value="keyword", defaultValue="") String keyword,
         @RequestParam(value="page", defaultValue="1") int nowPage,
         @RequestParam(value="category", defaultValue="0") int category,
-        @RequestParam(value="orderby", defaultValue="") String orderby,
+        @RequestParam(value="orderby", defaultValue="regdate") String orderby,
 		@RequestParam(value="listCount", defaultValue="10") int listCount) {
      
   

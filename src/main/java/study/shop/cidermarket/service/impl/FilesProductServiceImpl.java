@@ -130,7 +130,7 @@ public class FilesProductServiceImpl implements FilesService {
 	}
 
 	@Override
-	public int deleteRefIdFiles(Files input) throws Exception {
+	public int deleteRefFiles(Files input) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

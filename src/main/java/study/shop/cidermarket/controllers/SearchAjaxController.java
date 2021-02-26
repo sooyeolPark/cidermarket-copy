@@ -43,7 +43,8 @@ public class SearchAjaxController {
 	@RequestMapping(value = "/search.cider", method = RequestMethod.GET)
 	public ModelAndView search(Model model, HttpServletResponse response, HttpServletRequest request,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
-			@RequestParam(value="keyword", defaultValue="") String keyword) {
+			@RequestParam(value="keyword", defaultValue="") String keyword,
+			@RequestParam(value="orderby", defaultValue="default") String orderby) {
 
 		Cookie[] chk_cookies = request.getCookies();
 		//쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
@@ -81,6 +82,7 @@ public class SearchAjaxController {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Product input = new Product();
 		input.setSubject(keyword);
+		input.setSort(orderby);
 		
 		List<Product> output = null;
 		PageData pageData = null;
@@ -105,6 +107,7 @@ public class SearchAjaxController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("output", output);
 		model.addAttribute("pageData", pageData);
+		model.addAttribute("orderby", orderby);
 		
 		return new ModelAndView("user/search_item_list");
 	}

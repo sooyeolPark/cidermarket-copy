@@ -2,19 +2,16 @@ package study.shop.cidermarket.controllers;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
@@ -23,7 +20,7 @@ import study.shop.cidermarket.service.BbsService;
 import study.shop.cidermarket.service.FilesService;
 
 @RestController
-public class QuestionRestController {
+public class AdmQuestionRestController {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;
@@ -179,16 +176,16 @@ public class QuestionRestController {
 
 	        /** 2) 데이터 삭제하기 */
 	        // 데이터 삭제에 필요한 조건값을 Beans에 저장하기
-	        Bbs input = new Bbs();
-	        input.setBbsno(arr[i]);
+    	    Files f = new Files();
+    	    f.setRefid(arr[i]);
+    	    f.setReftable("bbs");
 	        
-	        Files f = new Files();
-			f.setRefid(arr[i]);
-			f.setReftable("bbs");
+    	    Bbs input = new Bbs();
+	        input.setBbsno(arr[i]);
 	
 	        try {
-	           bbsService.deleteBbs(input); // 데이터 삭제
-	           filesBbsService.deleteRefIdFiles(f); // 데이터 삭제
+	        	filesBbsService.deleteRefFiles(f); // 데이터 삭제
+	            bbsService.deleteBbs(input); // 데이터 삭제
 	        } catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }

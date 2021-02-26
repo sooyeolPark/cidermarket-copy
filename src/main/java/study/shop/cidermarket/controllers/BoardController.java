@@ -30,5 +30,12 @@ public class BoardController {
         return "user/event_view";
     }
     
+    /** 관리자 이벤트 페이지 */
+    @RequestMapping(value="/admin/event_adm.cider", method=RequestMethod.GET)
+    public String eventAdmList() {
+        return "admin/event_adm";
+    }
+    
+    
     
 }

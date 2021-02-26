@@ -21,24 +21,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2">
-				<nav class="list-group">
-					<!-- 목록의 아이템 -->
-					<p>상품관리</p>
-					<a href="${pageContext.request.contextPath}/admin/product_adm.cider" class="list-group-item">
-						<p>상품목록</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/category_adm.cider" class="list-group-item">
-						<p>상품분류</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/display_adm.cider" class="list-group-item">
-						<p>상품진열</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/singo_adm.cider" class="list-group-item">
-						<p>
-							신고상품<span class="badge"> 10</span>
-						</p>
-					</a>
-				</nav>
+				<%@ include file="/WEB-INF/views/inc/product_adm_left.jsp" %>
 			</div>
 			<div class="col-lg-10">
 
@@ -128,7 +111,7 @@
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</div>
-						<input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
+						<input type="search" class="form-control searchInput" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
 					</div>
 				</form>
 

@@ -132,7 +132,7 @@
                         <button class="btn btn-default" type="button" id="search_membno"><span
                                 class="glyphicon glyphicon-search"></span></button>
                     </div>
-                    <input type="text" class="form-control" id="search_btn" placeholder="키워드를 입력하세요">
+                    <input type="text" class="form-control searchInput" id="search_btn" placeholder="키워드를 입력하세요">
 
                 </div>
                 <ul class="pagination">

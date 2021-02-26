@@ -13,7 +13,7 @@ if(cookies!=null){
 List<CookieModel> cookie_search = new ArrayList<CookieModel>();
 
 for(int i =0; i< cookies.length; i++) {
-	if(cookies[i].getName().substring(0, 8).equals("mySearch")) {
+	if(cookies[i].getName().contains("mySearch")) {
 		CookieModel temp = new CookieModel();
 		temp.setName(cookies[i].getName());
 		temp.setValue(cookies[i].getValue());
@@ -24,12 +24,14 @@ for(int i =0; i< cookies.length; i++) {
 //최신 10개 담기
 List<CookieModel> cookie_10 = new ArrayList<CookieModel>();
 
-for (int i = 0; i<cookie_search.size() ; i++) {
-	if(!cookie_search.get(cookie_search.size()-1-i).getValue().trim().equals("")) {
-		cookie_10.add(cookie_search.get(cookie_search.size()-1-i));
-	}
-	if (cookie_10.size()==10) {
-		break;
+if(cookie_search.size()!=0) {
+	for (int i = 0; i<cookie_search.size() ; i++) {
+		if(!cookie_search.get(cookie_search.size()-1-i).getValue().trim().equals("")) {
+			cookie_10.add(cookie_search.get(cookie_search.size()-1-i));
+		}
+		if (cookie_10.size()==10) {
+			break;
+		}
 	}
 }
 
