@@ -15,12 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.ItemListService;
-import study.shop.cidermarket.service.ProductService;
 
 @Controller
 public class ItemAjaxContorller {
@@ -56,8 +54,8 @@ public class ItemAjaxContorller {
 	      int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
 		  
       
-      /** 2) 데이터 조회하기 */
-      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
+	      /** 2) 데이터 조회하기 */
+	      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 	      Product input = new Product();
 	      input.setCateno(cateno);
 	      input.setSubject(keyword);

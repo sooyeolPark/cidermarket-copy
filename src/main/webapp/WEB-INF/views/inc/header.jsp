@@ -77,12 +77,17 @@ pageContext.setAttribute("cookie_10", cookie_10);
 			<ul id="l-key">
 			<c:set var="cookie_10" value="${pageScope.cookie_10}" />
    			<c:choose>
-    			<c:when test="${cookie == null}">
+    			<c:when test="${cookie_10 == null}">
    					<li>검색기록없음</li>
     			</c:when>
     			<c:otherwise>
     				<c:forEach var="item" items="${cookie_10}">
-    					<li class="cookie_hover"><a href="${pageContext.request.contextPath}/search.cider?keyword=${item.value}" >${item.value}</a> <a href="#" class="pull-right cookie_del " data-name="${item.name}"><i class="glyphicon glyphicon-trash"></i></a></li>
+    					<li class="cookie_hover">
+    					<a href="${pageContext.request.contextPath}/search.cider?keyword=${item.value}" >${item.value}</a> 
+    					<a href="#" class="pull-right cookie_del " data-name="${item.name}">
+    					<i class="glyphicon glyphicon-trash"></i>
+    					</a>
+    					</li>
     				</c:forEach>
 				</c:otherwise>
    			</c:choose>
@@ -257,7 +262,8 @@ pageContext.setAttribute("cookie_10", cookie_10);
   $(function () {
     get_key_list();
     /** 검색 Ajax 호출 */
-   $("#searchBtn").click(function(){
+   $("#searchBtn").click(function(e){
+	   e.preventDefault;
     	const form = $("#searchForm");
         const url = form.attr('action');
     	$.ajax({

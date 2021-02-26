@@ -15,7 +15,7 @@
   top: 13px;
 }
 .content_body {
-  padding: 0 30px;
+  padding: 0 30px 30px;
   min-height: 400px;
   font-size: 1.1em;
   white-space: normal;
@@ -38,11 +38,15 @@
 .reply_info > span {
   display: block;
 }
-#content {
+#content,
+#content_re {
   width: 100%;
   margin-bottom: 10px;
 }
-
+.panel.panel-danger {
+	display: inline-block;
+	width: 100%;
+}
 
 
 /* ----------------------------------------- */

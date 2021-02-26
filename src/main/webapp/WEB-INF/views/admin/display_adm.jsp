@@ -49,8 +49,8 @@
 						<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
 					</select>
 					<select class="form-control" id="align-menu">
-						<option value="regdate" <c:if test="${orderby==regdate}">selected</c:if>>최신순</option>
-						<option value="subject" <c:if test="${orderby==subject}">selected</c:if>>가나다순</option>
+						<option value="regdate" <c:if test="${orderby=='regdate'}">selected</c:if>>최신순</option>
+						<option value="subject" <c:if test="${orderby=='subject'}">selected</c:if>>가나다순</option>
 					</select>
 					<select class="form-control" id="align-category">
 						<option value="0">- 카테고리순 -</option>
@@ -242,6 +242,16 @@
     	    	let listCount = "${pageData.listCount}";
                 let orderby = "${orderby}";
                 let keyword = "${keyword}";
+                window.location = "${pageContext.request.contextPath}/admin/display_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&category="+category+"&keyword="+keyword;
+    	    });
+	    	
+    		//   카테고리순 보기 드롭다운의 변경이벤트
+    	    $("#search_memb").click(function(){
+                let keyword = $('#keyword').val();  //사용자선택값 가져오기
+    	    	let listCount = "${pageData.listCount}";
+                let orderby = "${orderby}";
+                let category = "${category}";
                 window.location = "${pageContext.request.contextPath}/admin/display_adm.cider?"+
                 		"orderby="+orderby+"&listCount="+listCount+"&category="+category+"&keyword="+keyword;
     	    });

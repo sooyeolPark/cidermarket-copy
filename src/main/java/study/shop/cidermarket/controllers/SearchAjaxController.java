@@ -44,13 +44,10 @@ public class SearchAjaxController {
 	public ModelAndView search(Model model, HttpServletResponse response, HttpServletRequest request,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
 			@RequestParam(value="keyword", defaultValue="") String keyword) {
-		Cookie[] chkNull_cookies = request.getCookies();
-		if(chkNull_cookies!=null) {
-		/** 쿠키를 이용하여 최근 검색어 10개 불러오기 */
-		// 입력값의 존재 여부에 따라 쿠키를 저장하거나 삭제
-		if (keyword != null) {
-			//기존 쿠키에 같은 검색어가 있을 경우 원래 쿠키 삭제
-			Cookie[] chk_cookies = request.getCookies();
+
+		Cookie[] chk_cookies = request.getCookies();
+		//쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
+		if(chk_cookies!=null && keyword != "") {		
 			for(int i =0; i<chk_cookies.length; i++) {
 				if(keyword.trim().equals(chk_cookies[i].getValue().trim())) {
 					// 유효시간을 과거 시점으로 지정하면 즉시 삭제된다.
@@ -63,14 +60,16 @@ public class SearchAjaxController {
 				}
 			}
 		}
-			
+		
+		
+		if (keyword != null) {
 			/** 입력값이 존재할 경우 쿠키 저장*/
 			Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword);	// 쿠키 생성 (이름, 값 설정)
 			search.setMaxAge(60*60*24*7);			// 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
 			search.setPath("/");			// 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
 			search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
 			response.addCookie(search);	// 쿠키 저장하기
-		} 
+		}
 
 		
 		/** 1) 페이지 구현에 필요한 변수값 생성 */

@@ -188,7 +188,7 @@ public class QuestionRestController {
 	
 	        try {
 	           bbsService.deleteBbs(input); // 데이터 삭제
-	           filesBbsService.deleteFiles(f); // 데이터 삭제
+	           filesBbsService.deleteRefIdFiles(f); // 데이터 삭제
 	        } catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }

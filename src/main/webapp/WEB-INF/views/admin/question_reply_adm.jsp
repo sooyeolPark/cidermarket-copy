@@ -38,14 +38,14 @@
 
                 
                     <div class="row1 clearfix">
-                    <p class="reply_info col-md-2">
+                    <p class="reply_info col-xs-2">
                         <span>이름</span>
                         <span>연락처</span>
                         <span>이메일</span>
                         <span>유형</span>
                     </p>
                     
-                    <p class="reply_info col-md-2">
+                    <p class="reply_info col-xs-3">
                         <span class="name">${output.name}</span>
                         <span class="phone">${output.tel}</span>
                         <span class="email">${output.email}</span>
@@ -71,13 +71,43 @@
                    	${output.content}
                 </div>
                 <hr />
-                <form id="editForm" action="${pageContext.request.contextPath}/admin/question">
-                	<div class="form-group">
-                   		<label for="content" class="control-label">답변 </label>
-                    	<textarea id="content" class="form-control ckeditor" rows="3" placeholder="답변을 입력해주세요.">${output.reply}</textarea>
-                  	</div>
-                    <button id="regi"type="submit" class="btn btn-primary btn-lg">등록</button>
-                  </form>
+                <!-- reply -->
+                <div class="panel panel-danger">
+                  <div class="panel-heading" id="admin-write"><i class="glyphicon glyphicon-comment"></i> 사이다마켓이 답변 드립니다.</div>
+                  <div class="panel-body">
+                   	${output.reply}
+                  </div>
+                </div>
+                
+                
+                <c:choose>
+                	<c:when test="${output.reply == null || fn:length(output.reply) == 0}">
+	                  <form id="editForm" action="${pageContext.request.contextPath}/admin/question">
+	                	<div class="form-group">
+	                   		<label for="content" class="control-label">답변 등록</label>
+	                   		<input type="hidden" name="bbsno" value="${output.bbsno}" />
+	                    	<textarea id="content" class="form-control" name="reply" rows="3" placeholder="답변을 입력해주세요."></textarea>
+	                  	</div>
+	                  	<div class="text-center">
+		                	<button id="regi" type="submit" class="btn btn-primary btn-lg">등록</button>
+		                    <button type="button" class="btn btn-lg btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/question_adm.cider'">목록</button>
+		               </div>
+	                  </form>
+                  </c:when>
+                  <c:otherwise>
+	                  <form id="editForm_re" action="${pageContext.request.contextPath}/admin/question">
+	                	<div class="form-group">
+	                   		<label for="content" class="control-label">답변 수정</label>
+	                   		<input type="hidden" name="bbsno" value="${output.bbsno}" />
+	                    	<textarea id="content_re" class="form-control" name="reply" rows="3" placeholder="답변을 수정합니다."></textarea>
+	                  	</div>
+	                  	<div class="text-center">
+		                	<button id="regi_re" type="submit" class="btn btn-warning btn-lg">수정</button>
+		                    <button type="button" class="btn btn-lg btn-info" onclick="location.href='${pageContext.request.contextPath}/admin/question_adm.cider'">목록</button>
+		               </div>
+	                  </form>
+                  </c:otherwise>
+                 </c:choose>
 
             </div>
 
@@ -94,41 +124,73 @@
 
     <!-- Javascript -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <!-- jQeury Ajax Form plugin CDN -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
-    <!-- CKEditor CDN -->
-    <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script type="text/javascript">
+    
+    $(function(){
+    	
  	
-	$("#editForm").ajaxForm({
-		let bbsno = "${output.bbsno}";
-		beforeSerialize:function($Form, options){
-	        /* Before serialize */
-	        for ( instance in CKEDITOR.instances ) {
-	            CKEDITOR.instances[instance].updateElement();
-	        }
-	        return true; 
-	    },
-		// 전송 메서드 지정
-		method: "PUT",
-		Data: {"bbsno":bbsno},
-		// 서버에서 200 응답을 전달한 경우 실행됨
-		success: function(json) {
-			console.log(json);
-			
-			//var contents = CKEDITOR.instances.content.getData();
-			
-			// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
-			if (json.rt == "OK") {
-				window.location = "${pageContext.request.contextPath}/admin/question_adm_read.cider?bbsno=" + json.item.bbsno;
-			}
-		}
-	});
+    	$("#editForm").submit(function(e) {
+         	  e.preventDefault();
+		    /** Ajax 호출 */
+	        const form = $(this);
+	        const url = form.attr('action');
+	        const bbsno = $('input[name=bbsno]').val();
+	        const reply = $('textarea[name=reply]').val();
+	        $.ajax({
+	        	beforeSerialize:function($Form, options){
+    		        /* Before serialize */
+    		        for ( instance in CKEDITOR.instances ) {
+    		            CKEDITOR.instances[instance].updateElement();
+    		        }
+    		        return true; 
+    		    },
+	            type: "PUT",
+	            url: url,
+	            data: {"bbsno": bbsno, "reply":reply},
+	            success: function(json) {
+	  				console.log(json);
+	  				alert("답변 완료되었습니다.");
+	  				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	  				if (json.rt == "OK") {
+	  					window.location = "${pageContext.request.contextPath}/admin/question_adm_read.cider?bbsno=" + json.item.bbsno;
+	  				}
+	  			}
+	          });
+		});
+    	
+    	
+    	$("#editForm_re").submit(function(e) {
+       	  e.preventDefault();
+		    /** Ajax 호출 */
+	        const form = $(this);
+	        const url = form.attr('action');
+	        const bbsno = $('input[name=bbsno]').val();
+	        const reply = $('textarea[name=reply]').val();
+	        $.ajax({
+	        	beforeSerialize:function($Form, options){
+  		        /* Before serialize */
+  		        for ( instance in CKEDITOR.instances ) {
+  		            CKEDITOR.instances[instance].updateElement();
+  		        }
+  		        return true; 
+  		    },
+	            type: "PUT",
+	            url: url,
+	            data: {"bbsno": bbsno, "reply":reply},
+	            success: function(json) {
+	  				console.log(json);
+	  				alert("수정 완료되었습니다.");
+	  				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	  				if (json.rt == "OK") {
+	  					window.location = "${pageContext.request.contextPath}/admin/question_adm_read.cider?bbsno=" + json.item.bbsno;
+	  				}
+	  			}
+	          });
+		});
 
+    });
     </script>
 
 </body>
