@@ -49,7 +49,7 @@
 	                    <c:choose>
 							<%-- 조회결과가 없는 경우 --%>
 							<c:when test="${output == null || fn:length(output) == 0}">
-								<p>조회 결과가 없습니다.</p>
+								<p class="alert alert-success" role="alert">조회 결과가 없습니다.</p>
 							</c:when>
 							<%-- 조회결과가 있는 경우 --%>
 							<c:otherwise>

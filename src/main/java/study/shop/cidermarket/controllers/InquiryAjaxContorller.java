@@ -49,11 +49,14 @@ public class InquiryAjaxContorller {
    
    /** 목록 페이지 */
    @RequestMapping(value="/help/inquiry_list.cider", method=RequestMethod.GET)
-   public ModelAndView list(Model model,
+   public ModelAndView list(Model model, HttpServletRequest request,
          @RequestParam(value="membno", defaultValue="0") int membno,
          // 페이지 구현에서 사용할 현재 페이지 번호
          @RequestParam(value="page", defaultValue="1") int nowPage) {
       
+	  HttpSession session = request.getSession();
+	  int myNum = (int)session.getAttribute("myNum");
+	   
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수
       int listCount = 10;      // 한 페이지당 표시할 목록 수
@@ -62,7 +65,7 @@ public class InquiryAjaxContorller {
       /** 2) 데이터 조회하기 */
       // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
       Bbs input = new Bbs();
-      input.setMembno(membno);
+      input.setMembno(myNum);
       
       List<Bbs> output = null;
       PageData pageData = null;

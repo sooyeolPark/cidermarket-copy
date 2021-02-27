@@ -8,7 +8,7 @@
 
 <head>
 <%@ include file="/WEB-INF/views/inc/head.jsp"%>
-<title>헬프센터 자주묻는질문 - 사이다마켓</title>
+<title>헬프센터 일반문의 - 사이다마켓</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/index.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
