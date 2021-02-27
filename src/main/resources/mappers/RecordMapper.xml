@@ -354,6 +354,11 @@
         WHERE tradecon='W' AND DATE_FORMAT(confirmdate, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(), INTERVAL -#{recono} DAY),'%Y-%m-%d')
     </select>    
     
+    <!-- 특정 상품을 참조하는 데이터를 모두 참조 해제한다.  -->
+    <update id="unsetProduct"
+    	parameterType="study.shop.cidermarket.model.Record">
+    	Update record set prodno=null where prodno=#{prodno}
+    </update>
 <!-- 관리자 메인화면에 쓸 지난 일주일 간 거래액 조회를 위한 기능 정의 -->
     <select id="selectAdmTotalPayCount"
         parameterType="study.shop.cidermarket.model.Record"
@@ -362,7 +367,6 @@
         INNER JOIN product p ON r.prodno=p.prodno
         WHERE r.tradecon='W'AND DATE_FORMAT(r.confirmdate, '%Y-%m-%d') > DATE_FORMAT(DATE_ADD(now(), INTERVAL -6 DAY),'%Y-%m-%d')
     </select>    
-    
     
     
 
