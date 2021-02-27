@@ -357,7 +357,7 @@
 <!-- 관리자 메인화면에 쓸 지난 일주일 간 거래액 조회를 위한 기능 정의 -->
     <select id="selectAdmTotalPayCount"
         parameterType="study.shop.cidermarket.model.Record"
-        resultType="int"> 
+        resultType="string"> 
         SELECT SUM(p.price)+SUM(p.fee) FROM record r
         INNER JOIN product p ON r.prodno=p.prodno
         WHERE r.tradecon='W'AND DATE_FORMAT(r.confirmdate, '%Y-%m-%d') > DATE_FORMAT(DATE_ADD(now(), INTERVAL -6 DAY),'%Y-%m-%d')
