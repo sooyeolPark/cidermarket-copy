@@ -53,13 +53,14 @@ public class AdmProductRestController {
 	 //------------Tradecon 변경 페이지 ----------------------------------------
 	   @RequestMapping(value="/adm/product", method=RequestMethod.PUT)
 	   public Map<String, Object> tradecon(Model model,
-		@RequestParam(value="chkArray[]", defaultValue="0") List<Integer> prodno) {
-		   
+		@RequestParam(value="chkArray[]", defaultValue="0") List<Integer> prodno,
+		@RequestParam(value="tradecon", defaultValue="0") String tradecon) {
+
 	    	
 	    	try {
 	    		for(int i=0; i<prodno.size(); i++) {
 	    			Product input = new Product();
-	    			input.setTradecon("X");
+	    			input.setTradecon(tradecon);
 	    			input.setProdno(prodno.get(i));
 	    			// 데이터 수정 --> 
 	              productService.editTradecon(input);
@@ -77,7 +78,7 @@ public class AdmProductRestController {
 	   
 	   //--------------------------------------------------------------------------------------
 	    /** 상품관리 삭제 페이지 */
-	    @RequestMapping(value="/admin/product", method=RequestMethod.DELETE)
+	    @RequestMapping(value="/adm/product", method=RequestMethod.DELETE)
 	    public Map<String, Object> Delete(
 	    		@RequestParam(value="chkArray[]", defaultValue="0") List<Integer> prodno
 	    		) {
@@ -88,7 +89,7 @@ public class AdmProductRestController {
 	    			Product input = new Product();
 	    		input.setProdno(prodno.get(i));
 	    		
-	    			// 데이터 수정 --> 
+	    			// 데이터 수정 -->
 	              productService.deleteProduct(input);
 	    		}
 	         } catch (Exception e) {

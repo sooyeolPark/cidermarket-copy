@@ -345,7 +345,11 @@
 		
 		</select>
     
-    
+    <!-- 특정 상품을 참조하는 데이터를 모두 참조 해제한다.  -->
+    <update id="unsetProduct"
+    	parameterType="study.shop.cidermarket.model.Record">
+    	Update record set prodno=null where prodno=#{prodno}
+    </update>
     
     
 

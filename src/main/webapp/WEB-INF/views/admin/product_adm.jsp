@@ -42,10 +42,7 @@
 
             </div>
             
-            <form id="restfulProduct" name="restfulProduct" action="${pageContext.request.contextPath}/adm/product">
             <div class="col-lg-10">
-           	
-            
                 <div class="title-menu clearfix">
                     <h4>상품목록</h4>
 						<select class="form-control" id="align-number">
@@ -56,9 +53,10 @@
 							<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
 							<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
 							<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
-							<option value="J" <c:if test="${orderby==''}">selected</c:if>>직거래</option>
-							<option value="W" <c:if test="${orderby==''}">selected</c:if>>택배</option>
-							<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
+							<option value="J" <c:if test="${how=='J'}">selected</c:if>>직거래</option>
+							<option value="T" <c:if test="${how=='T'}">selected</c:if>>택배</option>
+							<option value="tradeconJ" <c:if test="${tradecon=='J'}">selected</c:if>>거래중</option>
+							<option value="tradeconW" <c:if test="${tradecon=='W'}">selected</c:if>>거래완료</option>
 						</select>                    
                 </div>
 
@@ -226,7 +224,45 @@
     <script type="text/javascript">
 
         $(function () {
-        
+            //   정렬 드롭다운의 변경이벤트
+    	    $("#align-type").change(function(){
+                let type = $(this).val(); //사용자선택값 가져오기
+                let orderby = "${orderby}"
+                let listCount = "${pageData.listCount}";
+                let search = "${search}";
+                window.location = "${pageContext.request.contextPath}/admin/product_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
+    	    });
+        	
+       //   n개씩 보기 드롭다운의 변경이벤트
+    	    $("#align-number").change(function(){
+                let type = "${type}"; //사용자선택값 가져오기
+                let orderby = "${orderby}"
+                let listCount = $(this).val();
+                let search = "${search}";
+                window.location = "${pageContext.request.contextPath}/admin/product_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
+    	    });             
+       
+       //   날짜정렬 드롭다운의 변경이벤트
+    	    $("#align-order").change(function(){
+                let type = "${type}"; //사용자선택값 가져오기
+                let orderby = $(this).val();
+                let listCount = "${pageData.listCount}";
+                let search = "${search}";
+                window.location = "${pageContext.request.contextPath}/product_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
+    	    });
+       
+     	//   검색 입력의 이벤트
+    	    $("#search_item").click(function(){
+                let search = $("#search_btn").val(); //사용자선택값 가져오기
+                let type = "${type}";
+                let orderby = "${orderby}";
+                let listCount = "${pageData.listCount}";
+                window.location = "${pageContext.request.contextPath}/admin/singo_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
+    	    });
  
 
             $("#log-out").click(function(e){
@@ -245,25 +281,6 @@
             });
             
             
-			$("#restfulProduct").submit(function(e) {
-				e.preventDefault();
-				/** 이름 검사 */
-				/** Ajax 호출 */
-				const form = $(this);
-				const url = form.attr('action');
-
-				$.ajax({
-					type : "PUT",
-					url : url,
-					data : form.serialize(),
-					success : function(json) {
-						console.log(">>>>>>>>>>>>>>>>>>>>>>"+ json);
-						alert("변경되었습니다.");
-						window.location = "${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
-								+ json.item.membno;}
-
-						});
-				});	
 			// 거래정지 눌렀을때
             $("#stop").click(function () {
             	var chkArray = new Array();
@@ -284,7 +301,7 @@
     		          cancelButtonText:'아니오', //취소버튼 표시문구 
     		        }).then(function(result){
     		           if(result.value) {   //확인버튼이 눌러진 경우 
-    		        	   $.put("${pageContext.request.contextPath}/admin/product",
+    		        	   $.put("${pageContext.request.contextPath}/adm/product",
     		        			   {"chkArray": chkArray,"chkTradecon": chkTradecon,"tradecon": "X"}, function(json){
     		              	  if(json.rt=="OK"){
      		              		swal('거래정지 완료', '거래정지 처리 되었습니다.', 'success').then(function(result){
@@ -319,7 +336,7 @@
     		          cancelButtonText:'아니오', //취소버튼 표시문구 
     		        }).then(function(result){
     		           if(result.value) {   //확인버튼이 눌러진 경우 
-    		        	   $.put("${pageContext.request.contextPath}/admin/product_adm_update",{
+    		        	   $.put("${pageContext.request.contextPath}/adm/product",{
     		              	 "chkArray": chkArray,
     		              	 "chkTradecon": chkTradecon,
     		              	 "tradecon": "J"
@@ -356,7 +373,7 @@
     		          cancelButtonText:'아니오', //취소버튼 표시문구 
     		        }).then(function(result){
     		           if(result.value) {   //확인버튼이 눌러진 경우 
-    		        	   $.delete("${pageContext.request.contextPath}/admin/product",{
+    		        	   $.delete("${pageContext.request.contextPath}/adm/product",{
     		              	 "chkArray": chkArray,
     		                }, function(json){
     		              	  if(json.rt=="OK"){

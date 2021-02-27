@@ -87,6 +87,7 @@
 	
 	<bean id="orderService" class="study.shop.cidermarket.service.impl.OrderServiceImpl" />
 	<bean id="MyInfoService" class="study.shop.cidermarket.service.impl.MyInfoServiceImpl" />
+	<bean id="AdmProductService" class="study.shop.cidermarket.service.impl.AdmProductServiceImpl" />
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

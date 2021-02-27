@@ -109,6 +109,9 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteProduct(Product input) throws Exception {
 		int result = 0;
 		try {
+			
+			//상품삭제전 참조하는 prod을 null값으로 수정 
+			sqlSession.update("RecordMapper.unsetProduct",input);
 			result = sqlSession.delete("ProductMapper.deleteItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
@@ -211,7 +214,7 @@ public class ProductServiceImpl implements ProductService {
 	public int editTradecon(Product input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.update("ProductMapper.singoupdateItem", input);
+			result = sqlSession.update("ProductMapper.singoUpdateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
