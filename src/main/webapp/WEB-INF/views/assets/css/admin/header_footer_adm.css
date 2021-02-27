@@ -116,6 +116,7 @@ div.navbar-default {
 .form-control {
   width: 13%;
   float: right;
+  margin-left: 10px;
 }
 .form-control:nth-child(1) {
   margin-top: 16px;
@@ -228,3 +229,12 @@ address {
   font-size: 14px;
 }
 /* ---------------로고수정------ */
+
+.product-left-nav a span {
+	display: block;
+	margin: 0;
+	padding: 10px;
+}
+.searchInput {
+	margin-left: 0;
+}

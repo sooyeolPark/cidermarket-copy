@@ -1,9 +1,45 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="study.shop.cidermarket.model.CookieModel"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
 
+Cookie[] cookies = request.getCookies();
+if(cookies!=null){
+List<CookieModel> cookie_search = new ArrayList<CookieModel>();
+
+for(int i =0; i< cookies.length; i++) {
+	if(cookies[i].getName().contains("mySearch")) {
+		CookieModel temp = new CookieModel();
+		temp.setName(cookies[i].getName());
+		temp.setValue(cookies[i].getValue());
+	cookie_search.add(temp);
+	}
+}
+
+//최신 10개 담기
+List<CookieModel> cookie_10 = new ArrayList<CookieModel>();
+
+if(cookie_search.size()!=0) {
+	for (int i = 0; i<cookie_search.size() ; i++) {
+		if(!cookie_search.get(cookie_search.size()-1-i).getValue().trim().equals("")) {
+			cookie_10.add(cookie_search.get(cookie_search.size()-1-i));
+		}
+		if (cookie_10.size()==10) {
+			break;
+		}
+	}
+}
+
+pageContext.setAttribute("cookie_10", cookie_10);
+} else{
+	pageContext.setAttribute("cookie_10", null);
+}
+%>
 <div class="navbar navbar-fixed-top" role="navigation">
 	<div class="container">
 		<div id="logo" class="text-center">
@@ -43,16 +79,22 @@
 		<div class="latest col-xs-6">
 			<h5 class="label label-default">최근 검색</h5>
 			<ul id="l-key">
-   			<%-- <c:choose>
-    			<c:when test="${cookie == null}">
+			<c:set var="cookie_10" value="${pageScope.cookie_10}" />
+   			<c:choose>
+    			<c:when test="${cookie_10 == null}">
    					<li>검색기록없음</li>
     			</c:when>
     			<c:otherwise>
-    				<c:forEach var="item" items="<%=request.getCookies() %>">
-    					<li>${item.name}</li>
+    				<c:forEach var="item" items="${cookie_10}">
+    					<li class="cookie_hover">
+    					<a href="${pageContext.request.contextPath}/search.cider?keyword=${item.value}" >${item.value}</a> 
+    					<a href="#" class="pull-right cookie_del " data-name="${item.name}">
+    					<i class="glyphicon glyphicon-trash"></i>
+    					</a>
+    					</li>
     				</c:forEach>
 				</c:otherwise>
-   			</c:choose> --%>
+   			</c:choose>
    			</ul>
 		</div>
 		<div id="searchClose" class="col-xs-12 text-center">닫기</div>
@@ -157,7 +199,6 @@
 <!-- // 사이드바 시작 -->
 <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/keyword.js"></script>
 <!-- ajax-helper -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
@@ -166,7 +207,7 @@
 <!-- 사용자 정의 스크립트 -->
 <script type="text/javascript">
 
-	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
+ 	//쿠키 저장함수 | 쿠키이름=쿠키값; Domain=도메인값; Path=경로값; Expires=GMT형식의만료일시
 	function setCookie(name, value, exdays) {
 	    var todayDate = new Date();
 	    todayDate.setDate(todayDate.getTime() + (exdays*60));
@@ -193,7 +234,7 @@
 	
 
   /** AJAX로 JSON데이터를 가져와서 화면에 출력하는 함수 */
-  function get_key_list() {
+ function get_key_list() {
     $.get("${pageContext.request.contextPath}/assets/plugins/ajax/interest_keyword.json", function (req) {
       // 미리 준비한 HTML틀을 읽어온다.
       var template = Handlebars.compile($("#key_tmpl").html());
@@ -224,9 +265,9 @@
 
   $(function () {
     get_key_list();
-    
     /** 검색 Ajax 호출 */
-   $("#searchBtn").click(function(){
+   $("#searchBtn").click(function(e){
+	   e.preventDefault;
     	const form = $("#searchForm");
         const url = form.attr('action');
     	$.ajax({
@@ -258,5 +299,12 @@
 	      });    	
     });
     
+    /** 최근검색어 삭제 */
+    $(".cookie_del").click(function(e){
+    	var c_name = $(this).data("name");
+    	//과거시점으로 설정하여 쿠키 삭제
+    	setCookie(c_name, "", -1);
+    	$(this).parent("li").remove();
+    });
   });
 </script>

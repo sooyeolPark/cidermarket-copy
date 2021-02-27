@@ -18,7 +18,7 @@ import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.service.BbsService;
 
 @Controller
-public class QuestionAjaxContorller {
+public class AdmQuestionAjaxContorller {
    /** WebHelper 주입 */
    // -> import org.springframework.beans.factory.annotation.Autowired;
    @Autowired WebHelper webHelper;
@@ -42,7 +42,7 @@ public class QuestionAjaxContorller {
          @RequestParam(value="page", defaultValue="1") int nowPage,
          // 한페이지당 표시할 목록 수
          @RequestParam(value="listCount", defaultValue="10") int listCount,
-         @RequestParam(value="reply", defaultValue="before") String reply) {
+         @RequestParam(value="reply", defaultValue="all") String reply) {
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수

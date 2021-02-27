@@ -110,4 +110,10 @@ public class FilesCateServiceImpl implements FilesService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int deleteRefFiles(Files input) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

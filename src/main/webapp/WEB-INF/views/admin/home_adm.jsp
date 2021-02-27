@@ -25,28 +25,33 @@
 			<ul class="home_ul text-center">
 				<li class="home_li">
 					<h5>총 거래건수(일주일 기준)</h5> <a href="${pageContext.request.contextPath}/admin/order_adm.cider">
-						<strong>123,456건</strong>
+						<strong><fmt:formatNumber value="${recordbyday[0]+recordbyday[1]+recordbyday[2]+recordbyday[3]+
+						recordbyday[4]+recordbyday[5]+recordbyday[6]}" pattern="#,###" />건</strong>
 					</a>
 				</li>
 				<li class="home_li">
 					<h5>총 거래액(일주일 기준)</h5> <a href="${pageContext.request.contextPath}/admin/order_adm.cider">
-						<strong>9,999,999원</strong>
+						<strong><fmt:formatNumber value="${totalpay}" pattern="#,###" />원</strong>
 					</a>
 				</li>
 				<li class="home_li">
 					<h5>상품등록수</h5> <a href="${pageContext.request.contextPath}/admin/product_adm.cider">
-						<strong>123,456개</strong>
+						<strong><fmt:formatNumber value="${totalproduct}" pattern="#,###" />개</strong>
 					</a>
 				</li>
 				<li class="home_li">
 					<h5>전체 회원수</h5> <a href="${pageContext.request.contextPath}/admin/member_adm.cider">
-						<strong>23,456명</strong>
+						<strong><fmt:formatNumber value="${totalmember}" pattern="#,###" />명</strong>
 					</a>
 				</li>
 			</ul>
 			<div id="chart">
-				<div id="transaction_qty" style="width: 500px; height: 400px;"></div>
-				<div id="new_member" style="width: 500px; height: 400px;"></div>
+				<div style="width: 500px; height: 400px;">
+				<canvas id="transaction_qty"></canvas>
+				</div>
+				<div style="width: 500px; height: 400px;">
+				<canvas id="new_member"></canvas>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -61,102 +66,104 @@
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
-	<!-- 구글차트 -->
-	<script src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/data.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/export-data.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-	<script type="text/javascript">
-        $(function () {
-            // 오늘 날짜 조회
-			function todayTime() {
-			    var todayTime = new Date();
-			    var dd = todayTime.getDate();
-			    var mm = todayTime.getMonth()+1; // Jan is 0
-			    var yyyy = todayTime.getFullYear();
-			    var hh =todayTime.getHours();
-			    var mi =todayTime.getMinutes();
-			
-			    if(dd<10){
-			        dd = '0'+dd
-			    }
-			    if(mm<10){
-			        mm = '0'+mm
-			    }
-			
-			    today = yyyy + '-' + mm + '-' + dd;
-			    todayTime = "("+hh+"시 "+mi+"분 "+"기준"+")" ;
-			    //alert(today);
-			    document.getElementById("today").innerHTML = today;
-			    document.getElementById("today-time").innerHTML = todayTime;
-			    //$('#date').text(today);
-			} 
-			
-			todayTime();
-
-    	});
-    </script>
-
+	<!-- chartjs cdn 참조 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
 	<script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+    // 오늘 날짜 조회
+	function todayTime() {
+	    var todayTime = new Date();
+	    var dd = todayTime.getDate();
+	    var mm = todayTime.getMonth()+1; // Jan is 0
+	    var yyyy = todayTime.getFullYear();
+	    var hh =todayTime.getHours();
+	    var mi =todayTime.getMinutes();
+	
+	    if(dd<10){
+	        dd = '0'+dd
+	    }
+	    if(mm<10){
+	        mm = '0'+mm
+	    }
+	
+	    today = yyyy + '-' + mm + '-' + dd;
+	    todayTime = "("+hh+"시 "+mi+"분 "+"기준"+")" ;
+	    //alert(today);
+	    document.getElementById("today").innerHTML = today;
+	    document.getElementById("today-time").innerHTML = todayTime;
+	    //$('#date').text(today);
+	} 
+    
+    function printDateTime(date){
+    	var year = date.getFullYear();
+    	var month = (date.getMonth() + 1)+"";
+    	var day = date.getDate()+"";
+    	if(month.length==1){
+    		month = "0"+month;
+    	}
+    	if(day.length==1){
+    		month = "0"+month;
+    	}
+    	return year + '-' + month + '-' + day;
+    }
+    
+    function setDate(i) {
+    	  var d = new Date();
+    	  var dayOfMonth = d.getDate();
+    	  d.setDate(dayOfMonth - i);
+    	  return printDateTime(d);
+    	}
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['date', 'qty'],
-          ['2020-12-21', 1201],
-          ['2020-12-22', 850],
-          ['2020-12-23', 991],
-          ['2020-12-24', 300],
-          ['2020-12-25', 750],
-          ['2020-12-26', 750],
-          ['2020-12-27',800]
-
-
-        ]);
-
-        var options = {
-          chart: {
-            title: '일주일간 거래건수'
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('transaction_qty'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>
-	<script type="text/javascript">
-            google.charts.load('current', {'packages':['bar']});
-            google.charts.setOnLoadCallback(drawChart);
-      
-            function drawChart() {
-              var data = google.visualization.arrayToDataTable([
-              ['Date', 'Qty', { role: 'style' }],
-                ['2020-12-21', 85 ,'#31a05f'],
-                ['2020-12-22', 58,'#31a05f'],
-                ['2020-12-23', 30,'#31a05f'],
-                ['2020-12-24', 200,'#31a05f'],
-                ['2020-12-25', 26,'#31a05f'],
-                ['2020-12-26', 180,'#31a05f'],
-                ['2020-12-27',100,'#31a05f']
-      
-      
-              ]);
-      
-              var options = {
-                chart: {
-                  title: '일주일간 회원가입'
-                }
-              };
-      
-              var chart = new google.charts.Bar(document.getElementById('new_member'));
-      
-              chart.draw(data, google.charts.Bar.convertOptions(options));
+    var ctx = document.getElementById('transaction_qty').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [ setDate(6), setDate(5), setDate(4), setDate(3), setDate(2), setDate(1), setDate(0)], // 각각의 bar에 표시할 x축 텍스트들 (영화제목)
+            datasets: [{
+                label: '일별 거래건수', // 범주
+                data: [${recordbyday[6]}, ${recordbyday[5]}, ${recordbyday[4]}, ${recordbyday[3]}, ${recordbyday[2]}, ${recordbyday[1]}, ${recordbyday[0]}],       // 각 bar에 대한 y축 좌표 데이터 (관람객 수)
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // 각 bar의 배경 색상
+                borderColor: 'rgba(255, 99, 132, 1)',       // 각 bar의 테두리 색상
+                borderWidth: 1                              // 각 bar의 테두리 굵기
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
+        }
+    });
+    
+    var ctx2 = document.getElementById('new_member').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: [ setDate(6), setDate(5), setDate(4), setDate(3), setDate(2), setDate(1), setDate(0)], // 각각의 bar에 표시할 x축 텍스트들 (영화제목)
+            datasets: [{
+                label: '일별 회원 가입수', // 범주
+                data: [${memberbyday[6]}, ${memberbyday[5]}, ${memberbyday[4]}, ${memberbyday[3]}, ${memberbyday[2]}, ${memberbyday[1]}, ${memberbyday[0]}],       // 각 bar에 대한 y축 좌표 데이터 (관람객 수)
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // 각 bar의 배경 색상
+                borderColor: 'rgba(255, 99, 132, 1)',       // 각 bar의 테두리 색상
+                borderWidth: 1                              // 각 bar의 테두리 굵기
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+        $(function () {			
+			todayTime();
+        });
           </script>
 
 </body>

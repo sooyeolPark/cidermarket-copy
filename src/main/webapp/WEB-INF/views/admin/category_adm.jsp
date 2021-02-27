@@ -24,23 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
-                <nav class="list-group">
-                    <!-- 목록의 아이템 -->
-                    <p>상품관리</p>
-                    <a href="${pageContext.request.contextPath}/admin/product_adm.cider" class="list-group-item">
-                        <p>상품목록</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admincategory_adm.cider" class="list-group-item">
-                        <p>상품분류</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admin/display_adm.cider" class="list-group-item">
-                        <p>상품진열</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/admin/singo_adm.html" class="list-group-item">
-                        <p>신고상품<span class="badge"> 10</span></p>
-                    </a>
-                </nav>
-
+                <%@ include file="/WEB-INF/views/inc/product_adm_left.jsp" %>
             </div>
             <div class="col-lg-10">
 
@@ -70,7 +54,7 @@
                         <form id="addForm" class="clearfix" action ="${pageContext.request.contextPath}/Category">
                        		<h4>카테고리 추가</h4>
                         	<div class="item-img">
-                                <input type="file" id="photo" name="photo" class="image_plus" accept="image/*" />
+                                <input type="file" id="photo" name="photo" class="image_plus searchInput" accept="image/*" />
                                 <a class="remove_img" href="#" title="삭제"><i class="glyphicon glyphicon-remove"></i></a>
                             </div>
 	                        <input type="text" name="name" class="" id="add_input">

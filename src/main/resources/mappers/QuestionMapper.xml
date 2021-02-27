@@ -83,11 +83,11 @@
 			<if test="title != null and title != ''">
 				AND title LIKE concat('%', #{title}, '%')
 			</if>
-			<if test="name == 'before'">
-				AND reply null
+			<if test="editdate == 'before'">
+				AND (reply is null OR reply = '')
 			</if>
-			<if test="name == 'after'">
-				AND reply not null
+			<if test="editdate == 'after'">
+				AND reply is not null
 			</if>
 		</where>
 	</select>

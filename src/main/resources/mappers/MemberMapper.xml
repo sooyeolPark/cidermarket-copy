@@ -572,4 +572,13 @@
 			 rate= #{rate}
 		WHERE membno=#{membno}
 	</update>
+	
+	<!-- 관리자 메인화면에 쓸 총 거래건수 조회를 위한 기능 정의 -->
+    <select id="selectAdmMembCountByDay"
+        parameterType="study.shop.cidermarket.model.Member"
+        resultType="int"> 
+        SELECT COUNT(*) 
+        FROM member
+        WHERE outmember='N' AND DATE_FORMAT(joindate, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(), INTERVAL -#{membno} DAY),'%Y-%m-%d')
+    </select> 
 </mapper>

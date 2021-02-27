@@ -21,24 +21,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-2">
-				<nav class="list-group">
-					<!-- 목록의 아이템 -->
-					<p>상품관리</p>
-					<a href="${pageContext.request.contextPath}/admin/product_adm.cider" class="list-group-item">
-						<p>상품목록</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/category_adm.cider" class="list-group-item">
-						<p>상품분류</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/display_adm.cider" class="list-group-item">
-						<p>상품진열</p>
-					</a>
-					<a href="${pageContext.request.contextPath}/admin/singo_adm.cider" class="list-group-item">
-						<p>
-							신고상품<span class="badge"> 10</span>
-						</p>
-					</a>
-				</nav>
+				<%@ include file="/WEB-INF/views/inc/product_adm_left.jsp" %>
 			</div>
 			<div class="col-lg-10">
 
@@ -49,8 +32,8 @@
 						<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
 					</select>
 					<select class="form-control" id="align-menu">
-						<option value="regdate" <c:if test="${orderby==regdate}">selected</c:if>>최신순</option>
-						<option value="subject" <c:if test="${orderby==subject}">selected</c:if>>가나다순</option>
+						<option value="regdate" <c:if test="${orderby=='regdate'}">selected</c:if>>최신순</option>
+						<option value="subject" <c:if test="${orderby=='subject'}">selected</c:if>>가나다순</option>
 					</select>
 					<select class="form-control" id="align-category">
 						<option value="0">- 카테고리순 -</option>
@@ -128,7 +111,7 @@
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
 						</div>
-						<input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
+						<input type="search" class="form-control searchInput" name="keyword" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
 					</div>
 				</form>
 
@@ -242,6 +225,16 @@
     	    	let listCount = "${pageData.listCount}";
                 let orderby = "${orderby}";
                 let keyword = "${keyword}";
+                window.location = "${pageContext.request.contextPath}/admin/display_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&category="+category+"&keyword="+keyword;
+    	    });
+	    	
+    		//   카테고리순 보기 드롭다운의 변경이벤트
+    	    $("#search_memb").click(function(){
+                let keyword = $('#keyword').val();  //사용자선택값 가져오기
+    	    	let listCount = "${pageData.listCount}";
+                let orderby = "${orderby}";
+                let category = "${category}";
                 window.location = "${pageContext.request.contextPath}/admin/display_adm.cider?"+
                 		"orderby="+orderby+"&listCount="+listCount+"&category="+category+"&keyword="+keyword;
     	    });
