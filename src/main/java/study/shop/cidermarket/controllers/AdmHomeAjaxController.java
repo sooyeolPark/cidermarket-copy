@@ -57,7 +57,7 @@ public class AdmHomeAjaxController {
 		}
 		
 		// 2) 일주일 총 거래액 구하기
-		int result_01 = 0;
+		String result_01 = null;
 		try {
 	           // 데이터 조회
 	           result_01 = admhomeService.getTotalPayByWeek(null);

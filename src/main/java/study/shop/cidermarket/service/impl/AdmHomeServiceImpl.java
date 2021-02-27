@@ -35,8 +35,8 @@ public class AdmHomeServiceImpl implements AdmHomeService{
 	}
 
 	@Override
-	public int getTotalPayByWeek(Record input) throws Exception {
-		int result = 0;
+	public String getTotalPayByWeek(Record input) throws Exception {
+		String result = null;
 		try {
 			result = sqlSession.selectOne("RecordMapper.selectAdmTotalPayCount", input);
 		} catch (NullPointerException e) {

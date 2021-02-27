@@ -31,7 +31,17 @@
 				</li>
 				<li class="home_li">
 					<h5>총 거래액(일주일 기준)</h5> <a href="${pageContext.request.contextPath}/admin/order_adm.cider">
-						<strong><fmt:formatNumber value="${totalpay}" pattern="#,###" />원</strong>
+						<strong>
+						<c:choose>
+						<c:when test="${totalpay==null}">
+						0
+						</c:when>
+						<c:otherwise>
+						<fmt:formatNumber value="${totalpay}" pattern="#,###" />
+						</c:otherwise>
+						</c:choose>
+						원
+						</strong>
 					</a>
 				</li>
 				<li class="home_li">
