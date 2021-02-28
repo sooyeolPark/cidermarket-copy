@@ -15,7 +15,9 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.service.BbsService;
+import study.shop.cidermarket.service.FilesService;
 
 @Controller
 public class AdmQuestionAjaxContorller {
@@ -30,6 +32,10 @@ public class AdmQuestionAjaxContorller {
    @Autowired
    @Qualifier("QuestionService")
    BbsService bbsService;
+   
+   @Autowired
+   @Qualifier("filesBbsService")
+   FilesService filesBbsService;
 
  //--------------------------------------------------------------------------------
    
@@ -99,18 +105,24 @@ public class AdmQuestionAjaxContorller {
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
       Bbs input = new Bbs();
       input.setBbsno(bbsno);
+      Files f = new Files();
+      f.setRefid(bbsno);
       
       // 조회 결과를 저장할 객체 선언
       Bbs output = null;
+      List<Files> files = null;
       try {
          // 데이터 조회
          output = bbsService.getBbsItem(input);
+         // 파일 조회
+         files = filesBbsService.getRefFilesList(f);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
       /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("files", files);
       return new ModelAndView("admin/question_reply_adm");
    }
 

@@ -26,7 +26,7 @@
             
             <div class="col-lg-10">
 
-                <form class="form-horizontal" id="editForm" role="form" enctype=“multipart/form-data” action="${pageContext.request.contextPath}/admin/notice">
+                <form class="form-horizontal" id="editForm" role="form" enctype=“multipart/form-data”>
                     <fieldset>
                         <!-- 입력양식 -->
                         <div class="form-group">
@@ -57,7 +57,17 @@
                         <div class="form-group">
                             <label for="photo" class="col-md-2 control-label">이미지선택</label>
                             <div class="col-md-2">
-      	 	                    ${output.filepath}
+      	 	                    <c:choose>
+			                   		<%-- 조회결과가 없는 경우 --%>
+									<c:when test="${files == null || fn:length(files) == 0}">
+										<div class="text-center alert alert-info" role="alert">등록된 이미지가 없습니다.</div>
+									</c:when>	
+									<c:otherwise>
+										<c:forEach var="item" items="${files}" varStatus="status">
+				                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" alt="${output.title}" /></div>
+				                    	</c:forEach>
+									</c:otherwise>
+			                   	</c:choose>
                                 <input type="file" id="photo" name="photo" accept="image/*">
                             </div>
                         </div>
@@ -91,14 +101,6 @@
     <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script type="text/javascript">
         $(function () {
-            //로그아웃
-            $("#log-out").click(function(e){
-                var result = confirm("로그아웃 하시겠습니까?");
-
-                if(result == true) {
-                    location.replace('${pageContext.request.contextPath}/admin/login_adm.cider'); 
-                }
-            });
 
             $("#cancel").click(function(e){
                 e.preventDefault();
@@ -118,6 +120,7 @@
                  });
              });
                         
+            const bbsno = "${output.bbsno}";
         	// #addForm에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
     		$("#editForm").ajaxForm({
     			beforeSerialize:function($Form, options){
@@ -128,13 +131,12 @@
     		        return true; 
     		    },
     			// 전송 메서드 지정
-    			method: "PUT",
+    			method: "POST",
+    			url : "${pageContext.request.contextPath}/admin/notice/edit",
+    			data: {"bbsno":bbsno},
     			// 서버에서 200 응답을 전달한 경우 실행됨
     			success: function(json) {
     				console.log(json);
-    				
-    				//var contents = CKEDITOR.instances.content.getData();
-    				
     				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
     				if (json.rt == "OK") {
     					window.location = "${pageContext.request.contextPath}/admin/notice/view.cider?bbsno=" + json.item.bbsno;

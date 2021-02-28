@@ -2,6 +2,7 @@ package study.shop.cidermarket.controllers;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,80 +39,6 @@ public class AdmQuestionRestController {
    FilesService filesBbsService;
    
 
-   //--------------------------------------------------------------------------------
-   /** 작성 폼에 대한 action 페이지 */
-   @RequestMapping(value="/question", method=RequestMethod.POST)
-   public Map<String, Object> post(
-         @RequestParam(value="title", defaultValue="") String title,
-         @RequestParam(value="content", defaultValue="") String content,
-         @RequestParam(required=false) MultipartFile photo) {
-
-      /** 1) 사용자가 입력한 파라미터 유효성 검사 */
-      // 일반 문자열 입력 컬럼 --> String으로 파라미터가 선언되어 있는 경우는 값이 입력되지 않으면 빈 문자열로 처리된다.
-      if (!regexHelper.isValue(title))   { return webHelper.getJsonWarning("제목을 입력하세요."); }
-      if (!regexHelper.isValue(content))   { return webHelper.getJsonWarning("내용을 입력하세요."); }
-      if (photo == null) {return webHelper.getJsonWarning("이미지를 첨부하세요.");}
-
-      /** 2) 데이터 저장하기 */
-        // 저장할 값들을 Beans에 담는다.
-        Bbs input = new Bbs();
-        input.setTitle(title);
-        input.setContent(content);
-
-        // 저장된 결과를 조회하기 위한 객체
-        Bbs output = null;
-        Files f = null;
-
-        try {
-         // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
-           bbsService.addBbs(input);
-
-           // 데이터 조회
-           output = bbsService.getBbsItem(input);
-
-           // 파일 업로드
-           f = webHelper.saveMultipartFile(photo);
-           f.setFname("bbs"+output.getBbsno());
-           f.setReftable("bbs");
-           f.setRefid(output.getBbsno());
-           
-           /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
-           if (f != null && f.getType().indexOf("image") > -1) {
-               // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
-               String thumbnailPath = null;
-
-               try {
-                   thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 100, 100, false);
-               } catch (Exception e) {
-                   e.printStackTrace();
-                   return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
-               }
-
-               // 썸네일 경로를 URL로 변환
-               String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
-               // 리턴할 객체에 썸네일 정보 추가
-               f.setThumbnailPath(thumbnailPath);
-               f.setThumbnailUrl(thumbnailUrl);
-           }
-
-           filesBbsService.addFiles(f);
-           f = filesBbsService.getFilesItem(f);
-      } catch (NullPointerException e) {
-            e.printStackTrace();
-            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
-      } catch (Exception e) {
-         return webHelper.getJsonError(e.getLocalizedMessage());
-      }
-
-        
-
-      /** 3) 결과를 확인하기 위한 JSON 출력 */
-      Map<String, Object> map = new HashMap<String, Object>();
-      map.put("item", output);
-      map.put("file", f);
-      return webHelper.getJsonData(map);
-   }
-   
  //--------------------------------------------------------------------------------
    /** 수정 폼에 대한 action 페이지 */
    @RequestMapping(value="/admin/question", method=RequestMethod.PUT)
@@ -179,13 +106,20 @@ public class AdmQuestionRestController {
     	    Files f = new Files();
     	    f.setRefid(arr[i]);
     	    f.setReftable("bbs");
+    	    List<Files> files = null;
 	        
     	    Bbs input = new Bbs();
 	        input.setBbsno(arr[i]);
 	
 	        try {
-	        	filesBbsService.deleteRefFiles(f); // 데이터 삭제
-	            bbsService.deleteBbs(input); // 데이터 삭제
+	        	files = filesBbsService.getRefFilesList(f);
+	        	if (files.size() > 0) {
+		        	filesBbsService.deleteRefFiles(f); // 데이터 삭제
+		            for (Files file : files) {
+		            	webHelper.deleteFile(file.getFilepath());
+		            }
+	        	}
+	        	bbsService.deleteBbs(input); // 데이터 삭제
 	        } catch (Exception e) {
 	            return webHelper.getJsonError(e.getLocalizedMessage());
 	        }

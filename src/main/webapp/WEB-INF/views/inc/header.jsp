@@ -67,7 +67,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 	</div>
 	<div id="searchBox" class="container">
 		<form id="searchForm" action="${pageContext.request.contextPath}/search.cider">
-			<input type="text" class="form-control" name="keyword" id="keyword" value="${cookie.mySearch.value}" placeholder="키워드를 입력해 주세요." />
+			<input type="search" class="form-control" name="keyword" id="keyword" value="${cookie.mySearch.value}" placeholder="키워드를 입력해 주세요." />
 			<button id="searchBtn" class="btn btnSearch-s" type="submit">
 				<i class="glyphicon glyphicon-search"></i>
 			</button>
@@ -126,7 +126,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 					<a href="${pageContext.request.contextPath}/member/login.cider" class="btn btn-primary">로그인</a>
 					<a href="${pageContext.request.contextPath}/member/join.cider" class="btn btn-info">회원가입</a>
 					<div class="btnn-temp">
-						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" target="_blank" class="btn btn-danger templogin">임시관리자</a>
+						<a href="${pageContext.request.contextPath}/admin/login_adm.cider" target="_blank" class="btn btn-danger templogin">관리자</a>
 					</div>
 				</div>
 			</div>
@@ -138,7 +138,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
       			<a href="${pageContext.request.contextPath}/mystore/${shopaddress}" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
 	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
-					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">임시관리자</a>
+					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">관리자</a>
 				</div>
     		</div>			
 		</c:otherwise>
@@ -200,7 +200,6 @@ pageContext.setAttribute("cookie_10", cookie_10);
 <script src="${pageContext.request.contextPath}/assets/js/searchbox.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/headerScroll.js"></script>
 <!-- ajax-helper -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 <!-- handlebar plugin -->
 <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
@@ -264,25 +263,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
   
 
   $(function () {
-    get_key_list();
-    /** 검색 Ajax 호출 */
-   $("#searchBtn").click(function(e){
-	   e.preventDefault;
-    	const form = $("#searchForm");
-        const url = form.attr('action');
-    	$.ajax({
-	        type: "GET",
-	        url: url,
-	        data: {"keyword":keyword, "page":nowPage},
-	        success: function(json) {
-					console.log(json);
-					if (json.rt == "OK") {
-						window.location = "${pageContext.request.contextPath}/search.cider";
-					}
-				}
-	      });    	
-    });
-    
+    get_key_list(); // 인기키워드 호출    
     
     /** Ajax 호출 */
     $(".logout").click(function(){

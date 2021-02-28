@@ -272,6 +272,7 @@
 }
 .first_img img {
 	width: 100%;
+	margin-bottom: 15px;
 }
 .form-horizontal {
   margin-top: 20px;

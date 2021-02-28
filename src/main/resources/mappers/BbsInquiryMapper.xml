@@ -39,12 +39,9 @@
 		FROM bbs
 		
 		<where>
-				type='Q'
+				type='Q' AND membno=#{membno}
 			<if test="title != null and title != ''">
 				AND title LIKE concat('%', #{title}, '%')
-			</if>
-			<if test="membno != null and membno != ''">
-				AND membno=#{membno}
 			</if>
 		</where>
 		
@@ -62,12 +59,9 @@
 		SELECT COUNT(*) FROM bbs
 		
 		<where>
-				type='Q'
+				type='Q' AND membno=#{membno}
 			<if test="title != null and title != ''">
 				AND title LIKE concat('%', #{title}, '%')
-			</if>
-			<if test="membno != null and membno != ''">
-				AND membno=#{membno}
 			</if>
 		</where>
 	</select>
@@ -78,28 +72,12 @@
 		useGeneratedKeys="true" keyProperty="bbsno">
 		INSERT INTO bbs (
 			type, name, tel, email, category, title, 
-			content, hits, regdate, editdate, reply
+			content, hits, regdate, editdate, reply, membno
 		) VALUES (
 			'Q', #{name}, #{tel}, #{email}, 
 			#{category}, #{title}, #{content}, 0, now(),
-			now(), #{reply}
+			now(), #{reply}, #{membno}
 		)
 	</insert>
-	
-	<!-- 데이터 삭제를 위한 기능 정의 -->
-	<delete id="deleteItem"
-		parameterType="study.shop.cidermarket.model.Bbs">
-		DELETE FROM bbs WHERE bbsno=#{bbsno}
-	</delete>
-	
-	<!-- 데이터 갱신을 위한 기능 정의 -->
-	<update id="updateItem"
-		parameterType="study.shop.cidermarket.model.Bbs">
-		UPDATE bbs SET
-			type=#{type}, name=#{name}, tel=#{tel}, email=#{email}, 
-			category=#{category}, title=#{title}, content=#{content}, 
-			editdate=now(), reply=#{reply}
-		WHERE bbsno=#{bbsno}
-	</update>
 
 </mapper>
