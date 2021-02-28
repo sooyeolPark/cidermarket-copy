@@ -31,7 +31,17 @@
                             <span class="boardDate boardDate-view">${output.regdate}</span>
                         </div>
                         <div class="panel-body">
-                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.title}"></div>
+	                        <c:choose>
+		                   		<%-- 조회결과가 없는 경우 --%>
+								<c:when test="${files == null || fn:length(files) == 0}">
+									<div class="text-center alert alert-info" role="alert">등록된 이미지가 없습니다.</div>
+								</c:when>	
+								<c:otherwise>
+									<c:forEach var="item" items="${files}" varStatus="status">
+			                    	<div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${output.title}" /></div>
+			                    	</c:forEach>
+								</c:otherwise>
+		                   	</c:choose>
                             <p>${output.content}</p>
                         </div>
                     </div>

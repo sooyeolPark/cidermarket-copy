@@ -15,7 +15,9 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Bbs;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.service.BbsService;
+import study.shop.cidermarket.service.FilesService;
 
 @Controller
 public class NoticeAjaxContorller {
@@ -30,6 +32,10 @@ public class NoticeAjaxContorller {
    @Autowired
    @Qualifier("bbsNoticeService")
    BbsService bbsNoticeService;
+   
+   @Autowired
+   @Qualifier("filesBbsService")
+   FilesService filesBbsService;
    
    /** 목록 페이지 */
    @RequestMapping(value="/notice/list.cider", method=RequestMethod.GET)
@@ -90,18 +96,24 @@ public class NoticeAjaxContorller {
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
       Bbs input = new Bbs();
       input.setBbsno(bbsno);
+      Files f = new Files();
+      f.setRefid(bbsno);
+      f.setReftable("bbs");
+      List<Files> files = null;
       
       // 조회 결과를 저장할 객체 선언
       Bbs output = null;
       try {
          // 데이터 조회
          output = bbsNoticeService.getBbsItem(input);
+         files = filesBbsService.getRefFilesList(f);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
       /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("files", files);
       return new ModelAndView("user/notice_view");
       
    }
@@ -166,18 +178,24 @@ public class NoticeAjaxContorller {
       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
       Bbs input = new Bbs();
       input.setBbsno(bbsno);
+      Files f = new Files();
+      f.setRefid(bbsno);
+      f.setReftable("bbs");
       
       // 조회 결과를 저장할 객체 선언
       Bbs output = null;
+      List<Files> files = null;
       try {
          // 데이터 조회
          output = bbsNoticeService.getBbsItem(input);
+         files = filesBbsService.getRefFilesList(f);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
       /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("files", files);
       return new ModelAndView("admin/notice_read_adm");
    }
    
@@ -192,28 +210,33 @@ public class NoticeAjaxContorller {
    public ModelAndView edit(Model model,
          @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
       
-      /** 1) 파라미터 유효성 검사 */
-      if (bbsno == 0) { 
-         return webHelper.redirect(null, "글번호가 없습니다."); 
-      }
+        /** 1) 파라미터 유효성 검사 */
+        if (bbsno == 0) { 
+           return webHelper.redirect(null, "글번호가 없습니다."); 
+        }
       
-      /** 2) 데이터 조회하기 */
-      // 데이터 조회에 필요한 조건값을 Beans에 저장하기
-      Bbs input = new Bbs();
+        /** 2) 데이터 조회하기 */
+        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+        Bbs input = new Bbs();
         input.setBbsno(bbsno);
+        Files f = new Files();
+        f.setRefid(bbsno);
+        f.setReftable("bbs");
         
         // 저장된 결과를 조회하기 위한 객체
         Bbs output = null;
-        
+        List<Files> files = null;
         try {
            // 데이터 조회
            output = bbsNoticeService.getBbsItem(input);
+           files = filesBbsService.getRefFilesList(f);
       } catch (Exception e) {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
         
         /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("files", files);
       return new ModelAndView("admin/notice_edit_adm");
    }
 }

@@ -34,11 +34,13 @@
                     <div class="content_body">
                     	<c:choose>
                     		<%-- 조회결과가 없는 경우 --%>
-							<c:when test="${output.filepath == null || fn:length(output.filepath) == 0}">
+							<c:when test="${files == null || fn:length(files) == 0}">
 								<div class="text-center alert alert-info" role="alert">등록된 이미지가 없습니다.</div>
 							</c:when>	
 							<c:otherwise>
-		                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.title}" /></div>
+								<c:forEach var="item" items="${files}" varStatus="status">
+		                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${output.title}" /></div>
+		                    	</c:forEach>
 							</c:otherwise>
                     	</c:choose>
                     	${output.content}

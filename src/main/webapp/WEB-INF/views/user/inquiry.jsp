@@ -52,6 +52,7 @@
 						      <label for="name" class="col-sm-2 control-label">이름 <span class="star">*</span></label>
 						      <div class="col-sm-10">
 						        <input type="text" name="name" id="name" class="form-control" maxlength="20" placeholder="이름을 입력해 주세요." value="${output.nickname}" />
+						        <input type="hidden" name="membno" value="${myNum}" />
 						      </div>
 						    </div>
 						    <div class="form-group">
@@ -70,7 +71,7 @@
 						      <label for="category" class="col-sm-2 control-label">유형 <span class="star">*</span></label>
 						      <div class="col-sm-10">
 						        <select class="form-control" id="category" name="category">
-						          <option>--- 선택하세요 ---</option>
+						          <option value="">--- 선택하세요 ---</option>
 						          <option value="M">회원관련</option>
 						          <option value="P">상품관련</option>
 						          <option value="O">주문관련</option>
@@ -98,7 +99,7 @@
 						        <button type="button" class="file_input_img_btn btn btn-info" value="사진 선택">사진 선택</button>
 						        <input type="file" name="photo" id="photo" accept="image/*" class="file_input_hidden multiple" multiple>
 						        <div class="preview clearfix">
-						          <span class="help-block">이미지 파일만 5개 이내 업로드 가능합니다.</span>
+						          <span class="help-block">이미지 파일만 5장까지 업로드 가능합니다.</span>
 						        </div>
 						      </div>
 						    </div>
@@ -204,9 +205,15 @@
 	  // 정규표현식 검사
 	  $(function(){  
 	
-	    
-	    $("#addForm").submit(function(e) {
-  		      if (!regex.value('#name', '이름을 입력하세요.')) { return false; }
+    	$("#addForm").ajaxForm({
+    		beforeSerialize:function($Form, options){
+		        /* Before serialize */
+		        for ( instance in CKEDITOR.instances ) {
+		            CKEDITOR.instances[instance].updateElement();
+		        }
+		        return true; 
+		    
+	   		  if (!regex.value('#name', '이름을 입력하세요.')) { return false; }
 	  	      if (!regex.kor_eng('#name', '이름은 한글과 영문만 입력 가능합니다.')) { return false; }
 	  	      if (!regex.min_length('#name', 2, '이름은 최소 2자 이상 입력 가능합니다.')) { return false; }
 	  	      if (!regex.max_length('#name', 20, '이름은 최대 20자 까지만 입력 가능합니다.')) { return false; }
@@ -222,10 +229,7 @@
 	  	      /** 유형 검사 */
 	  	      if (!regex.value('#title', '제목을 입력하세요.')) { return false; }
 	  	      if (!regex.value('#content', '내용을 입력하세요.')) { return false; }
-    	});
-	    
-    	$("#addForm").ajaxForm({
-
+    		},
 	    	method: "POST",
   			success: function(json) {
   				console.log(json);

@@ -55,7 +55,7 @@
                         <div class="form-group">
                             <label for="photo" class="col-md-2 control-label">이미지선택</label>
                             <div class="col-md-2">
-                                <input type="file" id="photo" name="photo" accept="image/*" />
+                                <input type="file" id="photo" name="photo" accept="image/*" multiple />
                             </div>
                         </div>
                         <hr />

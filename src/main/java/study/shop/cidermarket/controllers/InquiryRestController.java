@@ -113,7 +113,7 @@ public class InquiryRestController {
          @RequestParam(value="name", defaultValue="") String name,
          @RequestParam(value="tel", defaultValue="") String tel,
          @RequestParam(value="email", defaultValue="") String email,
-         @RequestParam(value="category", defaultValue="") String category,
+         @RequestParam(value="category", defaultValue="E") String category,
          @RequestParam(value="title", defaultValue="") String title,
          @RequestParam(value="content", defaultValue="") String content,
          @RequestParam(value="membno", defaultValue="0") int membno,
@@ -127,7 +127,10 @@ public class InquiryRestController {
       if (!regexHelper.isValue(category))   { return webHelper.getJsonWarning("문의유형을 선택하세요."); }
       if (!regexHelper.isValue(title))   { return webHelper.getJsonWarning("제목을 입력하세요."); }
       if (!regexHelper.isValue(content))   { return webHelper.getJsonWarning("내용을 입력하세요."); }
-      if (photo == null) {return webHelper.getJsonWarning("이미지를 첨부하세요.");}
+     
+      if (photo != null) {
+      	if (photo.size() > 5) {return webHelper.getJsonWarning("이미지는 5장까지 첨부 가능합니다.");}
+      }
       
       /** 2) 데이터 저장하기 */
         // 저장할 값들을 Beans에 담는다.
@@ -144,6 +147,7 @@ public class InquiryRestController {
         Bbs output = null;
         // 저장된 파일을 담기 위한 객체
         Files f = null;
+        List<Files> files = null;
         
         try {
          // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
@@ -151,23 +155,29 @@ public class InquiryRestController {
            
            // 데이터 조회
            output = bbsInquiryService.getBbsItem(input);
-           
-           // 반복문을 통한 다중 파일 업로드
-           for (MultipartFile multipartFile : photo) {
-	           f = webHelper.saveMultipartFile(multipartFile);
-	           f.setFname("bbs"+output.getBbsno());
-	           f.setReftable("bbs");
-	           f.setRefid(output.getBbsno());
-	           
-	           filesBbsService.addFiles(f);
-	           f = filesBbsService.getFilesItem(f);
-           }
-      } catch (NullPointerException e) {
-           e.printStackTrace();
-           return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
-      } catch (Exception e) {
-         return webHelper.getJsonError(e.getLocalizedMessage());
-      }
+	      } catch (Exception e) {
+	         return webHelper.getJsonError(e.getLocalizedMessage());
+	      }
+        
+        if (photo != null) {
+	    	try {
+	              // 반복문을 통한 다중 파일 업로드
+	              for (MultipartFile multipartFile : photo) {
+	   	           f = webHelper.saveMultipartFile(multipartFile);
+	   	           f.setFname("bbs"+output.getBbsno());
+	   	           f.setReftable("bbs");
+	   	           f.setRefid(output.getBbsno());
+	   	           
+	   	           filesBbsService.addFiles(f);
+	   	           files = filesBbsService.getRefFilesList(f);
+	              }
+	         } catch (NullPointerException e) {
+	              e.printStackTrace();
+	              return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
+	         } catch (Exception e) {
+	            return webHelper.getJsonError(e.getLocalizedMessage());
+	         }
+        }
         
       /** 3) 결과를 확인하기 위한 JSON 출력 */
       Map<String, Object> map = new HashMap<String, Object>();
