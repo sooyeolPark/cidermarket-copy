@@ -40,9 +40,7 @@ public class AdmProductAjaxController {
     /** 목록 페이지 */
     @RequestMapping(value = "/admin/product_adm.cider", method = RequestMethod.GET)
     public ModelAndView list(Model model,
-        @RequestParam(value="orderby", defaultValue="desc") String orderby,
-        @RequestParam(value="how", defaultValue="") String how,
-        @RequestParam(value="tradecon", required=false) String tradecon,
+    	@RequestParam(value="orderby", defaultValue="default") String orderby,
         @RequestParam(value="keyword", required=false) String keyword,
         @RequestParam(value="listCount", defaultValue="10") int listCount,
         @RequestParam(value="page", defaultValue="1") int nowPage) {
@@ -50,17 +48,10 @@ public class AdmProductAjaxController {
   
     	 /** 1) 페이지 구현에 필요한 변수값 생성 */
         int totalCount = 0;              // 전체 게시글 수
-        int pageCount  = 5;              // 한 그룹당 표시할 페이지 번호 수
-
+        int pageCount  = 5;         // 한 그룹당 표시할 페이지 번호 수
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
         Product input = new Product();
-        input.setRegdate(orderby);
-        input.setHow(how);
-        input.setTradecon(tradecon);
-     
-        
-
         List<Product> output = null;   // 조회결과가 저장될 객체
         PageData pageData = null;        // 페이지 번호를 계산한 결과가 저장될 객체
 
@@ -74,20 +65,71 @@ public class AdmProductAjaxController {
             Product.setOffset(pageData.getOffset());
             Product.setListCount(pageData.getListCount());
             
-            // 데이터 조회하기
-            output = admProductService.getProductList(input);
-        } catch (Exception e) {
+            // orderby에 때라서 데이터 조회하기
+            switch (orderby) {
+            case "default":
+         	   output = productService.getProductList(input);
+         	   break;
+            case "payAsc":
+         	   output = admProductService.getPriceAsc(input);
+         	   break;        	   
+            case "payDesc":
+         	   output = admProductService.getPriceDesc(input);
+         	   break;
+         	   
+
+            case "J":
+               totalCount = admProductService.getProductCount(input);
+               pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+               // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+               Product.setOffset(pageData.getOffset());
+               Product.setListCount(pageData.getListCount());
+         	   output = admProductService.getHowJ(input);
+         	   break;
+            case "T":
+            	totalCount = admProductService.getProductCount(input);
+                pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+                // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+                Product.setOffset(pageData.getOffset());
+                Product.setListCount(pageData.getListCount());
+         	   output = admProductService.getHowT(input);
+         	   break;
+            case "tradeconJ":
+            	totalCount = admProductService.getProductCount(input);
+                pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+                // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+                Product.setOffset(pageData.getOffset());
+                Product.setListCount(pageData.getListCount());
+         	   output = admProductService.getTradeconJ(input);
+         	   break;
+            case "tradeconW":
+            	totalCount = admProductService.getProductCount(input);
+                pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+                // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+                Product.setOffset(pageData.getOffset());
+                Product.setListCount(pageData.getListCount());
+         	   output = admProductService.getTradeconW(input);
+         	   break;  
+
+            }
+         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
-        }
+         }
 
         /** 3) View 처리 */
         model.addAttribute("keyword", keyword);
         model.addAttribute("output", output);
+        model.addAttribute("orderby", orderby);
         model.addAttribute("pageData", pageData);
 
         return new ModelAndView("admin/product_adm");
     }
-   
+    
+    
 }
 
     
