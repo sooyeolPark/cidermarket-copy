@@ -3,10 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!doctype html>
 <html lang="ko">
-
 <head>
 	<%@ include file="/WEB-INF/views/inc/head.jsp"%>
     <title>거래후기 - 사이다마켓</title>
@@ -28,11 +26,9 @@
                     <div class="panel panel-default user-write">
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
-                          <a href="${pageContext.request.contextPath}/user/item_index.cider" class="clearfix">
-                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/item_07.jpg" alt="에어팟프로 선물용 미개봉"></span>
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.subject}"></span>
                             <span class="boardTitle">${output.subject}</span>
                             <span class="boardDate">${output.price}원</span>
-                          </a>                            
                         </div>
                         <div class="panel-body">
                           <div class="foryou">To. <b>${output.nickname}</b>님께 따뜻한 후기를 보냈어요.</div>
@@ -47,7 +43,7 @@
                     </div>
                     <!-- button -->
                     <div class="text-center">
-                        <button type="button" class="btn btn-lg btn-danger" onclick="javascript:history.back()">돌아가기</button>
+                        <a href="${pageContext.request.contextPath}/member/record/selling.cider" class="btn btn-lg btn-danger">돌아가기</a>
                     </div>
                 </div>
 

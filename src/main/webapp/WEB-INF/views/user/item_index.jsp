@@ -186,7 +186,7 @@
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> 
+                <a class="pull-left" href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}"> 
                 	<c:choose>
                     	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
  			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
@@ -198,7 +198,7 @@
                 </a>
                 <div class="user_info_detail clearfix">
 
-                  <div id="user_id">${seller.nickname}</div>
+                  <div id="user_id"><a href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}">${seller.nickname}</a></div>
                   <div id="user_info_item" class="pull-right">상품 <span>${productcount}</span></div>
                   <div id="user_lv">
                   <c:choose>
@@ -331,8 +331,16 @@
         					<c:if test="${item.replyno==rere.replyno}">
         						<div class="media">
         							
-      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}"
-          								width="60" height="60" alt="Generic placeholder image"> </div>
+      								<div class="pull-left">
+      								<c:choose>
+				                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+				 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
+				                    	</c:when>
+				                   		<c:otherwise>
+			    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}" width="60" height="60" alt="Generic placeholder image">
+				                   		</c:otherwise>
+				                   	</c:choose>
+      								</div>
       								<div class="media-body">
         								<div class="clearfix">
           									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>
@@ -354,8 +362,16 @@
 						
 						</c:when>
 						<c:otherwise>
-          				<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}"
-          						width="60" height="60" alt="Generic placeholder image"> </div>
+          				<div class="pull-left"> 
+          				<c:choose>
+	                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+	 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
+	                    	</c:when>
+	                   		<c:otherwise>
+    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="60" height="60" alt="Generic placeholder image">
+	                   		</c:otherwise>
+	                   	</c:choose>
+	                   	</div>
       					<div class="media-body">
         					<div class="clearfix">
           					<h4 class="media-heading pull-left re_user_name">${item.nickname} <small>${item.regdate}</small></h4>
@@ -388,8 +404,16 @@
         					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
         					<c:if test="${item.replyno==rere.replyno}">
         						<div class="media">
-      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}"
-          								width="60" height="60" alt="Generic placeholder image"> </div>
+      								<div class="pull-left"> 
+      								<c:choose>
+				                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+				 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
+				                    	</c:when>
+				                   		<c:otherwise>
+			    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}" width="60" height="60" alt="Generic placeholder image">
+				                   		</c:otherwise>
+				                   	</c:choose>
+      								</div>
       								<div class="media-body">
         								<div class="clearfix">
           									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>

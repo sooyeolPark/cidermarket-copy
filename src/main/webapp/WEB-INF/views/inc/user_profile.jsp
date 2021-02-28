@@ -14,7 +14,6 @@
 	      		<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${user.filepath}" width="110" height="110" alt="${user.nickname}" />
 	   		</c:otherwise>
 	  </c:choose>
-      <img class="img-circle" src="${pageContext.request.contextPath}/assets/img/grade_3.png" width="40" height="40" id="user_grade" />
     </a>
     <div class="media-body">
       <div id="user_id">${user.nickname}</div>
@@ -31,8 +30,8 @@
 <ul class="my_ctg">
   <li><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}">내상점</a></li>
   <li data-url="review"><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}/review.cider">거래후기</a></li>
+  <li data-url="mygrade"><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}/mygrade.cider">나의 등급</a></li>
   <c:if test="${myNum == user.membno}">
-   <li data-url="mygrade"><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}/mygrade.cider">나의 등급</a></li>
    <li data-url="myinfo"><a href="${pageContext.request.contextPath}/mystore/${user.shopaddress}/myinfo.cider">내정보 설정</a></li>
   </c:if>
 </ul>

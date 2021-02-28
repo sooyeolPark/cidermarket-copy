@@ -264,5 +264,13 @@
 		</if>
 	</select>
 	
+	<!-- 알람 조회를 위한 상품명 조회 -->
+	<select id="selectAlarmItem"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, subject, seller
+		FROM product
+		WHERE prodno=#{prodno}		
+	</select>
 
 </mapper>

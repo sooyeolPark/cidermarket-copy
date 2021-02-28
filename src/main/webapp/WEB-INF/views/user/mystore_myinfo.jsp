@@ -11,7 +11,7 @@
 <title>내상점-내정보설정 - 사이다마켓</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/mystore_common.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/user/mystore_myinfo.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 </head>
 
@@ -35,7 +35,16 @@
 				<div class="media">
 
 					<!-- 조던이미지 -->
-					<span> <img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/user_jordan.jpg" width="110" height="110" alt="Generic placeholder image"> <input type="file" id="imgInput" class="image_plus" accept="image/*" />
+					<span> 
+					<c:choose>
+                    	<c:when test="${output.filepath == null && fn:length(output.filepath) == 0}">
+							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="110" height="110" alt="${output.nickname}">
+                    	</c:when>
+                   		<c:otherwise>
+							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${output.filepath}" width="110" height="110" alt="${output.nickname}">
+                   		</c:otherwise>
+                   	</c:choose>
+                   	<input type="file" id="imgInput" class="image_plus" accept="image/*" />
 					</span>
 
 					<!-- 이미지파일추가 -->

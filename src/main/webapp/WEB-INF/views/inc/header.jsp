@@ -54,7 +54,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 				</a>
 			</div>
 			<div id="btnAlarm">
-				<a href="${pageContext.request.contextPath}/user/alarm.cider">
+				<a href="${pageContext.request.contextPath}/alarm.cider">
 					<span class="newAlarm"></span><img src="${pageContext.request.contextPath}/assets/img/ico_bell.png" width="100%" alt="알림" />
 				</a>
 			</div>

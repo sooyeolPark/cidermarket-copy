@@ -188,6 +188,7 @@ ul {
 #user_id {
   font-weight: bold;
   font-size: 1.1em;
+  overflow: hidden;
 }
 
 #user_lv {

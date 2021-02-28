@@ -69,11 +69,12 @@
 		resultMap="ReviewMap">
 		
 		SELECT 
-		r.revino,r.receiver, p.subject, p.price,r.content, m.nickname,m.rate
-		from review r 
-		inner join product p On r.prodno=p.prodno
-		inner join member m On r.receiver = m.membno
-		where revino=#{revino}
+		r.revino, r.receiver, p.subject, p.price, r.content, m.nickname, m.rate,
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM review r 
+		INNER JOIN product p ON r.prodno=p.prodno
+		INNER JOIN member m ON r.receiver = m.membno
+		WHERE revino=#{revino}
 		
 	</select>
 
