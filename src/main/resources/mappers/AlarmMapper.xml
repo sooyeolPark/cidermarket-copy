@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AlarmMapper">
+
+	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	<resultMap type="study.shop.cidermarket.model.Alarm" id="alarmMap">
+		<result property="alarno" column="alarno" />
+		<result property="sender" column="sender" />
+		<result property="receiver" column="receiver" />
+		<result property="sort" column="sort" />
+		<result property="regdate" column="regdate" />
+		<result property="prodno" column="prodno" />
+		<result property="subject" column="subject" />
+		<result property="nickname" column="nickname" />
+	</resultMap>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectList"
+		parameterType="study.shop.cidermarket.model.Alarm"
+		resultMap="alarmMap">
+		SELECT alarno, sender, receiver, sort, regdate, prodno, subject,
+		(SELECT nickname FROM member WHERE membno=sender) AS nickname 
+		FROM alarm
+		WHERE receiver=#{receiver}
+	</select>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="study.shop.cidermarket.model.Alarm"
+		resultMap="alarmMap">
+		SELECT alarno, sender, receiver, sort, regdate, prodno, subject,
+		(SELECT nickname FROM member WHERE membno=sender) AS nickname
+		FROM alarm
+		WHERE receiver=#{receiver}
+	</select>	
+	
+	<!-- 특정회원의 알람 갯수 조회 -->
+    <select id="selectCountAll"
+        parameterType="study.shop.cidermarket.model.Record"
+        resultType="int">
+        SELECT COUNT(*) 
+        FROM alarm
+        WHERE receiver=#{receiver}
+    </select>
+	
+	<!-- 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+		parameterType="study.shop.cidermarket.model.Alarm"
+		useGeneratedKeys="true" keyProperty="alarno">
+		INSERT INTO alarm (
+		sender, receiver, sort, regdate, prodno, subject
+		) VALUES (
+		#{sender}, #{receiver}, #{sort}, now(), #{prodno}, #{subject}
+		)
+	</insert>
+	
+	<!-- 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+		parameterType="study.shop.cidermarket.model.Alarm">
+		DELETE FROM alarm WHERE alarno=#{alarno}
+	</delete>
+</mapper>

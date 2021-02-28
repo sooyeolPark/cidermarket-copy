@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Alarm;
 import study.shop.cidermarket.model.Msgbox;
+import study.shop.cidermarket.service.AlarmService;
 import study.shop.cidermarket.service.MsgboxService;
 
 @RestController
@@ -40,6 +42,10 @@ public class MsgboxRestController {
    @Autowired
    @Qualifier("ReceiverMsgboxService")
    MsgboxService rmsgboxService;
+   
+   @Autowired
+   @Qualifier("AlarmService")
+   AlarmService alarmService;	
    
   
 
@@ -181,11 +187,17 @@ public class MsgboxRestController {
         input.setReceiver(receiver);
         input.setProdno(prodno);
         input.setContent(content);
+        
+        // 알람 전송을 위한 등록
+		Alarm al = new Alarm();
+		al.setSender(sender);
+		al.setReceiver(receiver);
+		al.setSort("M");
        
         try {
          // 데이터 저장 --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
            rmsgboxService.addMsgbox(input);
-
+           alarmService.addAlarm(al);
       } catch (Exception e) {
          return webHelper.getJsonError(e.getLocalizedMessage());
       }

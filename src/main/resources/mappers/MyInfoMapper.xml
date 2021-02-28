@@ -26,7 +26,8 @@
 		SELECT membno, nickname, email, password, tel,
 			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			sms, shopaddress, intro, outmember, rate
+			sms, shopaddress, intro, outmember, rate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
 		FROM member
 		WHERE membno=#{membno}
 	</select>

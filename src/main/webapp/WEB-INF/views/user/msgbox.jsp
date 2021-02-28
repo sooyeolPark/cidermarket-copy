@@ -184,8 +184,8 @@
             var sender = $(this).data("sender");
             var receiver = $(this).data("receiver");
             var prodno = $(this).data("prodno");
-            $("#send_sender").val(sender);
-            $("#send_receiver").val(receiver);
+            $("#send_sender").val(receiver);
+            $("#send_receiver").val(sender);
             $("#send_prodno").val(prodno);
             $("#to_user").html(user);
             $("#background").fadeIn(300);

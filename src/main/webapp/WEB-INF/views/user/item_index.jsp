@@ -186,7 +186,7 @@
                 </div>
               </div>
               <div class="user_info clearfix">
-                <a class="pull-left" href="${pageContext.request.contextPath}/mystore.cider/${seller.shopaddress}"> 
+                <a class="pull-left" href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}"> 
                 	<c:choose>
                     	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
  			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
@@ -198,7 +198,7 @@
                 </a>
                 <div class="user_info_detail clearfix">
 
-                  <div id="user_id">${seller.nickname}</div>
+                  <div id="user_id"><a href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}">${seller.nickname}</a></div>
                   <div id="user_info_item" class="pull-right">상품 <span>${productcount}</span></div>
                   <div id="user_lv">
                   <c:choose>
@@ -312,7 +312,7 @@
                 <ul class="media-list" id="reply_box">
                 
                   <!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-                	<c:forEach var="item" items="${reply}" varStatus="status">
+                	                	<c:forEach var="item" items="${reply}" varStatus="status">
                 		<li class="media">
                 		<c:choose>
 						<c:when test="${item.redelete=='Y'}">

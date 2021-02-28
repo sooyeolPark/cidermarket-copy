@@ -17,8 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Alarm;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Review;
+import study.shop.cidermarket.service.AlarmService;
 import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
 
@@ -39,6 +41,10 @@ public class ReviewRestController {
 	@Autowired
 	@Qualifier("recordService")
 	RecordService recordService;
+	
+	@Autowired
+	@Qualifier("AlarmService")
+	AlarmService alarmService;	
 	
 	/** myStore Review목록 페이지 */
 //---------------------------------------------------------------------------------------------	
@@ -131,6 +137,12 @@ public class ReviewRestController {
 		input.setSender(myNum);
 		input.setReceiver(receiver);
 		// 세션 구현한 뒤 추가
+		
+		// 알람 전송을 위한 등록
+		Alarm al = new Alarm();
+		al.setSender(myNum);
+		al.setReceiver(receiver);
+		al.setSort("R");
 
 		// 조회 결과를 저장할 객체 선언
 		Review output = null;
@@ -157,6 +169,7 @@ public class ReviewRestController {
 			
 			reviewService.updateRate(input_rate);
 			log.debug("----------------------" + output.getRegdate() + "-------------------");
+			alarmService.addAlarm(al);
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}

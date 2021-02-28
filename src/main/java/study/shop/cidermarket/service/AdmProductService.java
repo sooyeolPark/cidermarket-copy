@@ -38,5 +38,20 @@ public interface AdmProductService {
 	 * @throws Exception
 	 */
 	public int deleteProduct(Product input) throws Exception;
+	
+	public List<Product> getPriceAsc(Product input) throws Exception;
+	public List<Product> getPriceDesc(Product input) throws Exception;
+	public List<Product> getHowJ(Product input) throws Exception;
+	public List<Product> getHowT(Product input) throws Exception;
+	public List<Product> getTradeconJ(Product input) throws Exception;
+	public List<Product> getTradeconW(Product input) throws Exception;
+	public int getHowJCount(Product input) throws Exception;
+	public int getHowTCount(Product input) throws Exception;
+	public int getTradeconJCount(Product input) throws Exception;
+	public int getTradeconWCount(Product input) throws Exception;
+	
+	
+	
+	
 
 }

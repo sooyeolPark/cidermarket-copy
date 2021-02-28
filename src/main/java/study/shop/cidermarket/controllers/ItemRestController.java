@@ -6,10 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
@@ -17,6 +20,7 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.ItemListService;
+import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
 @RestController
@@ -31,6 +35,10 @@ public class ItemRestController {
 	@Autowired
 	@Qualifier("itemlistService")
 	ItemListService itemListService;
+	
+   @Autowired
+   @Qualifier("productService")
+   ProductService productService;
 
 	/** 목록 페이지 */
 //---------------------------------------------------------------------------------------------	
@@ -39,6 +47,7 @@ public class ItemRestController {
 			@RequestParam(value="cateno", defaultValue = "1") int cateno,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int nowPage,
+			 @RequestParam(value="filter", defaultValue="0") int filter,
 			@RequestParam(value = "sort", defaultValue = "") String sort) {
 
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
@@ -50,6 +59,9 @@ public class ItemRestController {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Product input = new Product();
 		input.setCateno(cateno);
+		if(filter!=0) {
+		input.setProdno(filter);
+		}
 		List<Product> output = null;
 		PageData pageData = null;
 		
@@ -81,9 +93,10 @@ public class ItemRestController {
 		data.put("keyword", keyword);
 		data.put("pageData", pageData);
 		data.put("sort", sort);
+		data.put("filter", filter);
 
 		return webHelper.getJsonData(data);
 	}
-	//---------------------------------------------------------------------------------------------	
 
+	   
 }

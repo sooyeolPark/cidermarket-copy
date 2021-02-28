@@ -91,6 +91,8 @@
 	<bean id="MyInfoService" class="study.shop.cidermarket.service.impl.MyInfoServiceImpl" />
 	<bean id="AdmProductService" class="study.shop.cidermarket.service.impl.AdmProductServiceImpl" />
 	
+	<bean id="AlarmService" class="study.shop.cidermarket.service.impl.AlarmServiceImpl" />
+	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

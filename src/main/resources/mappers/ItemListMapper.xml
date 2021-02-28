@@ -77,6 +77,83 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
+ <if test="prodno == 10">
+            AND prodcon='N'
+        </if>
+        <if test="prodno == 100">
+            AND prodcon='A' 
+        </if>
+        <if test="prodno == 110">
+            AND (prodcon='A' or prodcon='N')
+        </if>       
+        <if test="prodno == 1000">
+            AND prodcon='U'
+        </if>
+        <if test="prodno == 1010">
+            AND (prodcon='U'or prodcon='N')
+        </if>       
+        
+        <if test="prodno == 20">
+            AND tradecon='T'
+        </if>
+        <if test="prodno == 200">
+            AND prodcon='J'
+        </if>
+        <if test="prodno == 30">
+            AND (prodcon='N' and how="T")
+        </if>
+        <if test="prodno == 210">
+            AND (prodcon='N' and how="J")
+        </if>
+        <if test="prodno == 230">
+            AND (prodcon='N' and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 120">
+            AND (prodcon='A' and how="T")
+        </if>
+        <if test="prodno == 300">
+            AND (prodcon='A' and how="J")
+        </if>
+        <if test="prodno == 320">
+            AND (prodcon='A' and (how="T" or how="J"))
+        </if>
+        <if test="prodno == 1020">
+            AND (prodcon='U' and how="T")
+        </if>
+        <if test="prodno == 1200">
+            AND (prodcon='U' and how="J")
+        </if>
+        <if test="prodno == 1220">
+            AND (prodcon='U' and (how="T" or how="J") )
+        </if>
+        <if test="prodno == 130">
+            AND (prodcon='N' and (how="A" or how="T"))
+        </if>
+        <if test="prodno == 310">
+            AND (prodcon='N' and (how="A" or how="J"))
+        </if>       
+        <if test="prodno == 330">
+            AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 1030">
+            AND ((prodcon='N' or prodcon="U") and (how="T"))
+        </if>
+        <if test="prodno == 1210">
+            AND ((prodcon='N' or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1230">
+            AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
+        </if>               
+        <if test="prodno == 1130">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
+        </if>
+        <if test="prodno ==1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1330">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
+        </if>         
+         
       </where>
       
       ORDER BY price Asc
@@ -99,6 +176,83 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
+ <if test="prodno == 10">
+            AND prodcon='N'
+        </if>
+        <if test="prodno == 100">
+            AND prodcon='A' 
+        </if>
+        <if test="prodno == 110">
+            AND (prodcon='A' or prodcon='N')
+        </if>       
+        <if test="prodno == 1000">
+            AND prodcon='U'
+        </if>
+        <if test="prodno == 1010">
+            AND (prodcon='U'or prodcon='N')
+        </if>       
+        
+        <if test="prodno == 20">
+            AND tradecon='T'
+        </if>
+        <if test="prodno == 200">
+            AND prodcon='J'
+        </if>
+        <if test="prodno == 30">
+            AND (prodcon='N' and how="T")
+        </if>
+        <if test="prodno == 210">
+            AND (prodcon='N' and how="J")
+        </if>
+        <if test="prodno == 230">
+            AND (prodcon='N' and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 120">
+            AND (prodcon='A' and how="T")
+        </if>
+        <if test="prodno == 300">
+            AND (prodcon='A' and how="J")
+        </if>
+        <if test="prodno == 320">
+            AND (prodcon='A' and (how="T" or how="J"))
+        </if>
+        <if test="prodno == 1020">
+            AND (prodcon='U' and how="T")
+        </if>
+        <if test="prodno == 1200">
+            AND (prodcon='U' and how="J")
+        </if>
+        <if test="prodno == 1220">
+            AND (prodcon='U' and (how="T" or how="J") )
+        </if>
+        <if test="prodno == 130">
+            AND (prodcon='N' and (how="A" or how="T"))
+        </if>
+        <if test="prodno == 310">
+            AND (prodcon='N' and (how="A" or how="J"))
+        </if>       
+        <if test="prodno == 330">
+            AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 1030">
+            AND ((prodcon='N' or prodcon="U") and (how="T"))
+        </if>
+        <if test="prodno == 1210">
+            AND ((prodcon='N' or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1230">
+            AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
+        </if>               
+        <if test="prodno == 1130">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
+        </if>
+        <if test="prodno ==1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1330">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
+        </if>         
+         
       </where>
       
       ORDER BY price DESC
@@ -121,6 +275,82 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
+ <if test="prodno == 10">
+            AND prodcon='N'
+        </if>
+        <if test="prodno == 100">
+            AND prodcon='A' 
+        </if>
+        <if test="prodno == 110">
+            AND (prodcon='A' or prodcon='N')
+        </if>       
+        <if test="prodno == 1000">
+            AND prodcon='U'
+        </if>
+        <if test="prodno == 1010">
+            AND (prodcon='U'or prodcon='N')
+        </if>       
+        
+        <if test="prodno == 20">
+            AND tradecon='T'
+        </if>
+        <if test="prodno == 200">
+            AND prodcon='J'
+        </if>
+        <if test="prodno == 30">
+            AND (prodcon='N' and how="T")
+        </if>
+        <if test="prodno == 210">
+            AND (prodcon='N' and how="J")
+        </if>
+        <if test="prodno == 230">
+            AND (prodcon='N' and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 120">
+            AND (prodcon='A' and how="T")
+        </if>
+        <if test="prodno == 300">
+            AND (prodcon='A' and how="J")
+        </if>
+        <if test="prodno == 320">
+            AND (prodcon='A' and (how="T" or how="J"))
+        </if>
+        <if test="prodno == 1020">
+            AND (prodcon='U' and how="T")
+        </if>
+        <if test="prodno == 1200">
+            AND (prodcon='U' and how="J")
+        </if>
+        <if test="prodno == 1220">
+            AND (prodcon='U' and (how="T" or how="J") )
+        </if>
+        <if test="prodno == 130">
+            AND (prodcon='N' and (how="A" or how="T"))
+        </if>
+        <if test="prodno == 310">
+            AND (prodcon='N' and (how="A" or how="J"))
+        </if>       
+        <if test="prodno == 330">
+            AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 1030">
+            AND ((prodcon='N' or prodcon="U") and (how="T"))
+        </if>
+        <if test="prodno == 1210">
+            AND ((prodcon='N' or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1230">
+            AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
+        </if>               
+        <if test="prodno == 1130">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
+        </if>
+        <if test="prodno ==1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1330">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
+        </if>         
       </where>
       
       ORDER BY regdate DESC
@@ -141,6 +371,83 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
+         
+ <if test="prodno == 10">
+            AND prodcon='N'
+        </if>
+        <if test="prodno == 100">
+            AND prodcon='A' 
+        </if>
+        <if test="prodno == 110">
+            AND (prodcon='A' or prodcon='N')
+        </if>       
+        <if test="prodno == 1000">
+            AND prodcon='U'
+        </if>
+        <if test="prodno == 1010">
+            AND (prodcon='U'or prodcon='N')
+        </if>       
+        
+        <if test="prodno == 20">
+            AND tradecon='T'
+        </if>
+        <if test="prodno == 200">
+            AND prodcon='J'
+        </if>
+        <if test="prodno == 30">
+            AND (prodcon='N' and how="T")
+        </if>
+        <if test="prodno == 210">
+            AND (prodcon='N' and how="J")
+        </if>
+        <if test="prodno == 230">
+            AND (prodcon='N' and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 120">
+            AND (prodcon='A' and how="T")
+        </if>
+        <if test="prodno == 300">
+            AND (prodcon='A' and how="J")
+        </if>
+        <if test="prodno == 320">
+            AND (prodcon='A' and (how="T" or how="J"))
+        </if>
+        <if test="prodno == 1020">
+            AND (prodcon='U' and how="T")
+        </if>
+        <if test="prodno == 1200">
+            AND (prodcon='U' and how="J")
+        </if>
+        <if test="prodno == 1220">
+            AND (prodcon='U' and (how="T" or how="J") )
+        </if>
+        <if test="prodno == 130">
+            AND (prodcon='N' and (how="A" or how="T"))
+        </if>
+        <if test="prodno == 310">
+            AND (prodcon='N' and (how="A" or how="J"))
+        </if>       
+        <if test="prodno == 330">
+            AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
+        </if>
+        <if test="prodno == 1030">
+            AND ((prodcon='N' or prodcon="U") and (how="T"))
+        </if>
+        <if test="prodno == 1210">
+            AND ((prodcon='N' or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1230">
+            AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
+        </if>               
+        <if test="prodno == 1130">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
+        </if>
+        <if test="prodno ==1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1330">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
+        </if>         
       </where>
    </select>
    
@@ -184,5 +491,8 @@
          LIMIT #{offset}, #{listCount}
       </if>
    </select>
+   
+      <!-- 다중행 조회를 위한 기능 정의 -->
+
 
 </mapper>

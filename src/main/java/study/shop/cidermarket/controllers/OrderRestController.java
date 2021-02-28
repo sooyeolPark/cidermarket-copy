@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Alarm;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.model.Record;
+import study.shop.cidermarket.service.AlarmService;
 import study.shop.cidermarket.service.OrderService;
 
 @Slf4j
@@ -30,6 +32,10 @@ public class OrderRestController {
 	@Autowired
 	@Qualifier("orderService")
 	OrderService orderService;
+	
+	@Autowired
+    @Qualifier("AlarmService")
+    AlarmService alarmService;
 	   
     /** 주문서 작성 페이지 */
     @RequestMapping(value="/order_ok", method=RequestMethod.POST)
@@ -68,6 +74,13 @@ public class OrderRestController {
 		input.setAddress(address);
 		input.setPay(pay);
 		
+		// 알람 전송을 위한 등록
+		Alarm al = new Alarm();
+		al.setSender(buyer);
+		al.setProdno(prodno);
+		al.setSort("P");
+		Product pd = null;
+		
 		//Product 테이블에 접근할 객체
 		input_01.setProdno(prodno);
 		// 저장된 결과를 조회하기 위한 객체
@@ -81,6 +94,11 @@ public class OrderRestController {
 			orderService.editProduct(input_01);
 			//데이터 조회
 			output = orderService.getRecord(input);
+			// 알람을 보내기 위해 등록
+			pd = alarmService.getProductItem(al);
+			al.setReceiver(pd.getSeller());
+			al.setSubject(pd.getSubject());
+			alarmService.addAlarm(al);
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}

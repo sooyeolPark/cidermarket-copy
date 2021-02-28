@@ -92,4 +92,6 @@ public interface ProductService {
 
 	public int editTradecon(Product input) throws Exception;
 
+	List<Product> selectListByFilter(Product input) throws Exception;
+	public int getProductCountByFilter(Product input) throws Exception;
 }

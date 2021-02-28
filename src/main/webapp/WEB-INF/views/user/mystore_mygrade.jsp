@@ -68,7 +68,7 @@
 							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_1.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
-									이번달 ${output.nickname}님은 <b>화이트 등급</b>입니다.
+									이번달 ${user.nickname}님은 <b>화이트 등급</b>입니다.
 								</div>
 								<div id="user_number">
 									<b>1</b>건 더 거래하면 다음 달에 블루 등급이 됩니다!
@@ -148,6 +148,8 @@
 								<td>11월</td>
 							</c:if>
 							<td>${thisMonth}월</td>
+							
+							
 							<c:if test="${lastMonth ==0 }">
 								<td>12월</td>
 							</c:if>
@@ -155,15 +157,16 @@
 								<td>11월</td>
 							</c:if>
 							<td>${lastMonth}월</td>
+							
+							
 							<c:if test="${lastTwoMonth ==0 }">
 								<td>12월</td>
 							</c:if>
 							<c:if test="${lastTwoMonth ==-1 }">
 								<td>11월</td>
 							</c:if>
-							<c:if test="${lastTwoMonth ==-1 }">
 								<td>${lastTwoMonth}월</td>
-							</c:if>
+							
 						</tr>
 
 						<tr>

@@ -62,6 +62,7 @@ public class MyInfoAjaxController {
         }
 
         /** 3) View 처리 */
+        model.addAttribute("user", output);
         model.addAttribute("output", output);
         return new ModelAndView("user/mystore_myinfo");
     }
