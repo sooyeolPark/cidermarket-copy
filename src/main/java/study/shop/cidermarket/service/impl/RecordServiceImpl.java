@@ -358,23 +358,7 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 
-	@Override
-	public Record getUserInfo(Record input) throws Exception {
-		Record result = null;
-		try {
-			result = sqlSession.selectOne("RecordMapper.selectUserInfo", input);
-			if(result == null) {
-				throw new NullPointerException("result=null");
-			}
-		} catch (NullPointerException e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("회원 정보가 없습니다.");
-		} catch (Exception e) {
-			log.error(e.getLocalizedMessage());
-			throw new Exception("회원 조회에 실패했습니다.");
-		}
-		return result;
-	}
+
 	// -------------- 관리자 거래내역 ------------------------------//
 	@Override
 	public List<Record> getTotalList(Record input) throws Exception {

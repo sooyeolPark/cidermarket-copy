@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="SingoMapper">
+<mapper namespace="AdmProductMapper">
 
 	<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 	<resultMap type="study.shop.cidermarket.model.Product" id="productMap">
@@ -24,7 +24,7 @@
 	<!-- 데이터 저장을 위한 기능 정의 -->
 
 	<!-- 신고에 쓸 다중행 조회를 위한 기능 정의 (최신순) -->
-	<select id="ProductSelectList"
+	<select id="getPriceAsc"
 		parameterType="study.shop.cidermarket.model.Product"
 		resultMap="productMap">
 		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
@@ -35,72 +35,152 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		
-		
-		
-		<where>
-			<if test='type == "A"'>
-			s.type IN ('S', 'G', 'P', 'E')
-			</if>
-			<if test='type == "S"'>
-			s.type = 'S'
-			</if>
-			<if test='type == "P"'>
-			s.type = 'P'
-			</if>
-			<if test='type == "G"'>
-			s.type = 'G'
-			</if>
-			<if test='type == "E"'>
-			s.type = 'E'
-			</if>
-			<if test="content != null and content != ''">
-				AND (m.nickname LIKE concat('%', #{content}, '%') or s.prodno LIKE concat('%', #{content}, '%'))
-			</if>
-			
-		</where>
-		
-		<if test='regdate=="desc"'>
-		ORDER BY s.regdate DESC
-		</if>
-		<if test='regdate=="asc"'>
-		ORDER BY s.regdate ASC
-		</if>
-		
+		order by price asc
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
-		</if>
+		</if>		
+	</select>
+	
+		<select id="getPriceDesc"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		order by price desc
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+	
+		<select id="getHowJ"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		where how="J"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+	
+		<select id="getHowT"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		where how="T"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+	
+		<select id="getTradeconJ"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		where tradecon="J"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+	
+		<select id="getTradeconW"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		where tradecon="W"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+	
+		<select id="ProductSelectList"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, p.cateno, c.name AS catename, subject, price, fee, detail,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
+			prodcon, how, tradecon, hits, seller,
+			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+		FROM product p 
+		INNER JOIN category c ON c.cateno=p.cateno
+		where 
+	</select>
+	<select id="ProductSelectCountAll"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		
+	</select>
+		<select id="getHowJCount"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		where how="J"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+		
+	</select>
+		<select id="getHowTCount"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		where how="T"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+		<select id="getTradeconJCount"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		where tradecon="J"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
+	</select>
+		<select id="getTradeconWCount"
+		parameterType="study.shop.cidermarket.model.Member"
+		resultType="int">
+		SELECT COUNT(*) FROM product
+		where tradecon="W"
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>		
 	</select>
 
-	
-	<!-- 관리자 페이지에서 쓸 데이터 수 조회를 위한 기능 정의 -->
-	<select id="ProductSelectCountAll"
-		parameterType="study.shop.cidermarket.model.Product"
-		resultType="int">
-		SELECT COUNT(*) FROM product p
-		
-	
-		
-				<where>
-			<if test='how == "J"'>
-			how = "J"
-			</if>
-			<if test='type == "S"'>
-			s.type = 'S'
-			</if>
-			<if test='type == "P"'>
-			s.type = 'P'
-			</if>
-			<if test='type == "G"'>
-			s.type = 'G'
-			</if>
-			<if test='type == "E"'>
-			s.type = 'E'
-			</if>
-			<if test="content != null and content != ''">
-				AND (m.nickname LIKE concat('%', #{content}, '%') or s.prodno LIKE concat('%', #{content}, '%'))
-			</if>
-			
-		</where>
-	</select>
 </mapper>

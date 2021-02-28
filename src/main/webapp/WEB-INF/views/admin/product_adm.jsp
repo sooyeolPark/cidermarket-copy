@@ -224,34 +224,23 @@
     <script type="text/javascript">
 
         $(function () {
-            //   정렬 드롭다운의 변경이벤트
-    	    $("#align-type").change(function(){
-                let type = $(this).val(); //사용자선택값 가져오기
-                let orderby = "${orderby}"
-                let listCount = "${pageData.listCount}";
-                let search = "${search}";
-                window.location = "${pageContext.request.contextPath}/admin/product_adm.cider?"+
-                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
-    	    });
         	
-       //   n개씩 보기 드롭다운의 변경이벤트
+            //   n개씩 보기 드롭다운의 변경이벤트
     	    $("#align-number").change(function(){
-                let type = "${type}"; //사용자선택값 가져오기
-                let orderby = "${orderby}"
-                let listCount = $(this).val();
+                let listCount = $(this).val(); //사용자선택값 가져오기
+                let orderby = "${orderby}";
                 let search = "${search}";
                 window.location = "${pageContext.request.contextPath}/admin/product_adm.cider?"+
-                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
-    	    });             
-       
-       //   날짜정렬 드롭다운의 변경이벤트
-    	    $("#align-order").change(function(){
-                let type = "${type}"; //사용자선택값 가져오기
-                let orderby = $(this).val();
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
+    	    });
+            
+    	       //   정렬 드롭다운의 변경이벤트
+    	    $("#align-menu").change(function(){
+                let orderby = $(this).val(); //사용자선택값 가져오기
                 let listCount = "${pageData.listCount}";
                 let search = "${search}";
-                window.location = "${pageContext.request.contextPath}/product_adm.cider?"+
-                		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
+                window.location = "${pageContext.request.contextPath}/admin/product_adm.cider?"+
+                		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
     	    });
        
      	//   검색 입력의 이벤트
@@ -263,6 +252,8 @@
                 window.location = "${pageContext.request.contextPath}/admin/singo_adm.cider?"+
                 		"orderby="+orderby+"&listCount="+listCount+"&search="+search+"&type="+type;
     	    });
+     	
+        	/* 정렬하기 기능 value 값 가져오기 */   		
  
 
             $("#log-out").click(function(e){
