@@ -75,7 +75,7 @@
 				        </c:choose>
 				      </div>
 				      <h4 class="media-heading review_user_name">
-				      <a href="${pageContext.request.contextPath}/mystore/c${item.sender}">${item.name}</a> <small>${item.regdate}</small></h4>
+				      <a href="${pageContext.request.contextPath}/mystore/c${item.shopaddress}">${item.nickname}</a> <small>${item.regdate}</small></h4>
 				      <p class="review_item_subject"><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></p>
 				    </div>
 				    <div class="clearfix review_user_rpl">
