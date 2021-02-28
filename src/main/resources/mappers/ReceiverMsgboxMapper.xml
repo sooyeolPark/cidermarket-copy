@@ -17,13 +17,15 @@
 		<result property="receiverdelete" column="receiverdelete" />
 		<result property="senderNickname" column="senderNickname" />
 		<result property="receiverNickname" column="receiverNickname" />
+		<result property="outmember" column="outmember" />
+		<result property="shopaddress" column="shopaddress" />
 	</resultMap>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Msgbox"
 		resultMap="rmsgboxMap">
-		SELECT msgno, receiver, sender, m.nickname as senderNickname, content, receiversave, p.prodno,
+		SELECT msgno, receiver, sender, m.nickname as senderNickname, outmember, shopaddress, content, receiversave, p.prodno,
 			DATE_FORMAT(ms.regdate, '%Y-%m-%d %H:%i:%S') AS regdate,
 			p.subject as subject
 		FROM msgbox ms

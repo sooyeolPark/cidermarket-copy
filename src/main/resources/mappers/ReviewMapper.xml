@@ -19,6 +19,9 @@
 		<result property="filepath" column="filepath" />
 		<result property="reviewpic" column="reviewpic" />
 		<result property="price" column="price" />
+		<result property="nickname" column="nickname" />
+		<result property="outmember" column="outmember" />
+		<result property="shopaddress" column="shopaddress" />
 	</resultMap>
 	
 	
@@ -29,12 +32,13 @@
 		parameterType="study.shop.cidermarket.model.Review"
 		resultMap="ReviewMap">
 		SELECT 
-		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate,rate,content,rv.recono, sender, receiver, rc.name, rc.how, p.subject  		
+		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate, content,rv.recono, sender, receiver, m.shopaddress, m.outmember, m.nickname, rc.name, rc.how, p.subject  		
 		,rc.buyer,(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=rc.buyer AND reftable='member')) AS filepath,
 		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
 		FROM review rv
 		INNER JOIN Record rc On rv.recono = rc.recono
-		INNER JOIN product p On rv.prodno = p.prodno 
+		INNER JOIN product p On rv.prodno = p.prodno
+		INNER JOIN member m ON rc.buyer= m.membno
 		WHERE receiver = #{receiver}
 		ORDER BY rv.regdate DESC
 		

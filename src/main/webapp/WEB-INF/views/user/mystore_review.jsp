@@ -29,14 +29,69 @@
       <div id="myreview">
         <div id="myreview_subject">
           <h1>${user.rate}</h1>
-          <div id="user_star">
-            <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-            <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-            <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-            <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-            <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-            <span class="badge">${pageData.totalCount}</span>
-          </div>
+          <fmt:parseNumber var="rate" type="number" value="${user.rate}" />
+          <c:choose>                  	
+        				<c:when test="${rate < 1}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        				<c:when test="${rate >= 1 && rate < 2}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        				<c:when test="${rate >= 2 && rate < 3}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        				<c:when test="${rate >= 3 && rate < 4}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        				<c:when test="${rate >= 4 && rate < 5}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        				<c:when test="${rate == 5}">
+        				<div id="user_star">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<span class="badge">${pageData.totalCount}</span>
+      				  	</div>
+        				</c:when>
+        			</c:choose>
         </div>
         <div class="container">
           <div class="review2u">
@@ -57,7 +112,15 @@
                     		<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50">
                     	</c:when>
                    		<c:otherwise>
+                   			<c:choose>
+                   			<c:when test="${item.outmember=='N'}">
                    			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="50" height="50">
+                   			</c:when>
+                   			<c:otherwise>
+                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50">
+                   			</c:otherwise>
+                   			</c:choose>
+                   			
                    		</c:otherwise>
                    	</c:choose>
 				  </a>
@@ -75,8 +138,17 @@
 				        </c:choose>
 				      </div>
 				      <h4 class="media-heading review_user_name">
-				      <a href="${pageContext.request.contextPath}/mystore/c${item.sender}">${item.name}</a> <small>${item.regdate}</small></h4>
-				      <p class="review_item_subject"><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></p>
+				      <c:choose>
+      						<c:when test="${item.outmember=='N'}">
+      						<a href="${pageContext.request.contextPath}/mystore/${item.shopaddress}">${item.nickname}</a> 
+      						</c:when>
+      						<c:otherwise>
+      						<font style="color:#ccc;">탈퇴한 회원</font>
+      						</c:otherwise>
+      						</c:choose> 
+				      
+				      <small>${item.regdate}</small></h4>
+				      <p class="review_item_subject">${item.subject}</p>
 				    </div>
 				    <div class="clearfix review_user_rpl">
 				      <p>${item.content}
@@ -157,7 +229,7 @@
             </c:choose>
         </ul>
       </div>
-    
+    </div>
   </section>
   
  	 <!-- 푸터 영역 -->
