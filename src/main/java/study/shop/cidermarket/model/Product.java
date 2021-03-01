@@ -25,6 +25,7 @@ public class Product {
 	private String catename;  // 카테고리제목
 	private String nickname;  // 셀러닉네임
 	private String sort;  // 정렬 구분자
+	private String refund;  // 환불
 	
 	// 3) 페이지 구현을 위한 static 변수
     /** LIMIT 절에서 사용할 조회 시작 위치 */

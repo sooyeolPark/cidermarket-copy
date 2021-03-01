@@ -48,7 +48,6 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		
 		<where>
 				tradecon='J'
 			<if test="subject != null and subject != ''">

@@ -45,19 +45,20 @@
             <div class="col-lg-10">
                 <div class="title-menu clearfix">
                     <h4>상품목록</h4>
-						<select class="form-control" id="align-number">
-							<option value="10" <c:if test="${pageData.listCount==10}">selected</c:if>>10개씩보기</option>
-							<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
-						</select>
-						<select class="form-control" id="align-menu">
-							<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
-							<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
-							<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
-							<option value="J" <c:if test="${how=='J'}">selected</c:if>>직거래</option>
-							<option value="T" <c:if test="${how=='T'}">selected</c:if>>택배</option>
-							<option value="tradeconJ" <c:if test="${tradecon=='J'}">selected</c:if>>거래중</option>
-							<option value="tradeconW" <c:if test="${tradecon=='W'}">selected</c:if>>거래완료</option>
-						</select>                    
+			<select class="form-control" id="align-number">
+				<option value="10" <c:if test="${pageData.listCount==10}">selected</c:if>>10개씩보기</option>
+				<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
+			</select>
+			<select class="form-control" id="align-menu">
+				<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
+				<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
+				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
+				<option value="editDesc" <c:if test="${orderby=='editDesc'}">selected</c:if>>반품중</option>
+				<option value="J" <c:if test="${orderby==''}">selected</c:if>>반품중</option>
+				<option value="W" <c:if test="${orderby==''}">selected</c:if>>반품완료</option>
+				
+			<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
+			</select>                
                 </div>
 
                 <table class="table table-hover">

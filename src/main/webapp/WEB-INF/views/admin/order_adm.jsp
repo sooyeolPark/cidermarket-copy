@@ -32,9 +32,7 @@
 				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
 				<option value="editDesc" <c:if test="${orderby=='editDesc'}">selected</c:if>>반품중</option>
 				<option value="J" <c:if test="${orderby==''}">selected</c:if>>반품중</option>
-				<option value="W" <c:if test="${orderby==''}">selected</c:if>>반품완료</option>
-				
-			<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
+				<option value="W" <c:if test="${orderby==''}">selected</c:if>>반품완료</option>				
 			</select>
 		</div>
 
@@ -61,7 +59,7 @@
 
               <c:forEach var="item" items="${output}" varStatus="status">
 
-    					<c:url var="viewUrl" value="/item_index.cider">
+    					<c:url var="viewUrl" value="/item_order.cider">
                           <c:param name="prodno" value="${item.prodno}" />                     
                        </c:url>
                <c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" /> 
@@ -71,8 +69,8 @@
 				<td class="text-center board-group-item">${num}</td>
 		        <td class="text-center board-group-item"><a href="${viewUrl}">${item.prodno}</a></td>
 		        <td class="text-center board-group-item"><fmt:formatNumber value="${item.price}" pattern="#,###" />원</td>
-		        <td class="text-center board-group-item">${item.nickname}</td>
-		        <td class="text-center board-group-item">${item.confirmdate}</td>
+		        <td class="text-center board-group-item">${item.sellerNick}</td>
+		        <td class="text-center board-group-item">${item.regdate}</td>
 		        
 		        <c:choose>
 		        <c:when test="${item.how =='J'}">
@@ -80,6 +78,9 @@
 		        <c:when test="${item.how =='T'}">
 		        <td class="text-center board-group-item">택배</td>
 		    	</c:when>
+		        <c:when test="${item.how =='X'}">
+		        <td class="text-center board-group-item">상관없음</td>
+		    	</c:when>		    	
 		    	</c:choose>
 		    	
 		    	<c:choose>
@@ -100,19 +101,13 @@
 				<c:choose>
 		        <c:when test="${item.refund =='N'}">
 		        <td class="text-center board-group-item">일반</td></c:when>
-		        <c:when test="${item.tradecon =='J'}">
+		        <c:when test="${item.refund =='J'}">
 		        <td class="text-center board-group-item">반품중</td></c:when>	
-		        <c:when test="${item.tradecon =='W'}">
+		        <c:when test="${item.refund =='W'}">
 		        <td class="text-center board-group-item">반품완료</td></c:when>	
 		        </c:choose>
-		        
-		      <!-- 	<form id="refundConfirm" name="refundConfirm" action="${pageContext.request.contextPath}/admin/order">      	 -->	        
-	<!-- 	        <td class="text-center board-group-item">
-		        <input type="hidden" value="y"/>
-		        <button class="btn btn-warning" type="submit" id="button_refund" >환불승인</button></td> -->
-		 <!--   </form> -->
-        		</tr>
-        		</c:forEach>
+        	</tr>
+        	</c:forEach>
 			</tbody>
 		</table>
 
@@ -206,19 +201,19 @@
    
     $(function(){
     	
-        //   정렬 드롭다운의 변경이벤트
-	    $("#align-menu").change(function(){
-            let orderby = $(this).val(); //사용자선택값 가져오기
-            let listCount = "${pageData.listCount}";
+        //   n개씩 보기 드롭다운의 변경이벤트
+	    $("#align-number").change(function(){
+            let listCount = $(this).val(); //사용자선택값 가져오기
+            let orderby = "${orderby}";
             let search = "${search}";
             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
             		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
 	    });
-    	
-   //   n개씩 보기 드롭다운의 변경이벤트
-	    $("#align-number").change(function(){
-            let listCount = $(this).val(); //사용자선택값 가져오기
-            let orderby = "${orderby}";
+        
+	       //   정렬 드롭다운의 변경이벤트
+	    $("#align-menu").change(function(){
+            let orderby = $(this).val(); //사용자선택값 가져오기
+            let listCount = "${pageData.listCount}";
             let search = "${search}";
             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
             		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
@@ -229,7 +224,7 @@
              let search = $("#search_btn").val(); //사용자선택값 가져오기
              let listCount = "${pageData.listCount}";
              let orderby = "${orderby}";
-             window.location = "${pageContext.request.contextPath}/admin/outmember_adm.cider?"+
+             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
              		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
  	    });
     	

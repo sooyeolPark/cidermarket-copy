@@ -151,7 +151,7 @@ public class ReviewAjaxContorller {
 
        try {
            // 데이터 조회
-           output_01 = itemindexService.getFilesListItem(input_01);
+           output_01 = itemindexService.getFilesReviewListItem(input_01);
        } catch (Exception e) {
            return webHelper.redirect(null, e.getLocalizedMessage());
        }
