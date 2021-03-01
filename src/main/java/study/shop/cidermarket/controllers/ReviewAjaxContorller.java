@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.model.Review;
+import study.shop.cidermarket.service.ItemIndexService;
 import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.RecordService;
 import study.shop.cidermarket.service.ReviewService;
@@ -43,6 +45,11 @@ public class ReviewAjaxContorller {
    @Qualifier("memberService")
    MemberService memberService;
    
+   /** Service 패턴 구현체 주입 */
+   @Autowired
+   @Qualifier("itemindexService")
+   ItemIndexService itemindexService;
+   
    
    
    /** 목록 페이지 */
@@ -51,6 +58,8 @@ public class ReviewAjaxContorller {
 		     @PathVariable("shopaddress") String shopaddress,
 		     // 검색어
 	         @RequestParam(value="keyword", required=false) String keyword,
+	         @RequestParam(value="prodno", defaultValue="0") int prodno,
+	         @RequestParam(value="revino", defaultValue="0") int revino,
 	         // 페이지 구현에서 사용할 현재 페이지 번호
 	         @RequestParam(value="page", defaultValue="1") int nowPage) {
 	      
@@ -60,6 +69,21 @@ public class ReviewAjaxContorller {
 	      int listCount = 3;	   // 한 페이지당 표시할 목록 수
 	      int pageCount = 5;      // 한 그룹당 표시할 페이지 번호 수
 		  
+	      
+	       //이미지 파일 경로 불러오기
+	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+	       Files input_01 = new Files();
+	       input_01.setRefid(revino);
+
+	       // 조회결과를 저장할 객체 선언
+	       List<Files> output_01 = null;
+
+	       try {
+	           // 데이터 조회
+	           output_01 = itemindexService.getFilesListItem(input_01);
+	       } catch (Exception e) {
+	           return webHelper.redirect(null, e.getLocalizedMessage());
+	       }
  
       
           /** 2) 데이터 조회하기 */
@@ -103,6 +127,7 @@ public class ReviewAjaxContorller {
       model.addAttribute("keyword", keyword);
       model.addAttribute("output", output);
       model.addAttribute("pageData", pageData);
+   
       
       return new ModelAndView("user/mystore_review");
    }
@@ -112,14 +137,24 @@ public class ReviewAjaxContorller {
    // --------------------------------------------------------------------------Review_View 페이지 
    @RequestMapping(value="/review_view.cider", method=RequestMethod.GET)
    public ModelAndView list(Model model,
-		   @RequestParam(value="revino", defaultValue="0") int revino) {
+		   @RequestParam(value="revino", defaultValue="0") int revino,
+		   @RequestParam(value="filepath", defaultValue="0") int filepath
+		   ) {
 	      
 	   
-		/*
-		 * HttpSession session = webHelper.getRequest().getSession(); int myNum =
-		 * (int)session.getAttribute("myNum");
-		 */
+	   //파일 이미지 가져오기 
+       Files input_01 = new Files();
+       input_01.setRefid(revino);
 
+       // 조회결과를 저장할 객체 선언
+       List<Files> output_01 = null;
+
+       try {
+           // 데이터 조회
+           output_01 = itemindexService.getFilesListItem(input_01);
+       } catch (Exception e) {
+           return webHelper.redirect(null, e.getLocalizedMessage());
+       }
 
       
       /** 2) 데이터 조회하기 */
@@ -141,6 +176,7 @@ public class ReviewAjaxContorller {
 
       /** 3) View 처리 */
       model.addAttribute("output", output);
+      model.addAttribute("fileimages", output_01);
       
       return new ModelAndView("user/review_view");
    }
