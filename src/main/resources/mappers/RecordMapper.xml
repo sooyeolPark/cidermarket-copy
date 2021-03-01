@@ -368,6 +368,12 @@
         WHERE r.tradecon='W'AND DATE_FORMAT(r.confirmdate, '%Y-%m-%d') > DATE_FORMAT(DATE_ADD(now(), INTERVAL -6 DAY),'%Y-%m-%d')
     </select>    
     
-    
+     <!-- 멤버 탈퇴시 buyer를 대표더미데이터로 기능 정의 -->
+    <update id="updateItemByMembno"
+        parameterType="study.shop.cidermarket.model.Record">
+        UPDATE record SET
+            buyer=999
+        WHERE buyer=#{buyer}
+    </update>
 
 </mapper>

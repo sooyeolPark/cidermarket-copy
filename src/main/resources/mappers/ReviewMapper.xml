@@ -91,7 +91,19 @@
 
 	</select>
 
+		<!-- 센더가 회원 탈퇴 시 더미데이터로 수정을 위한 기능 정의 (실제로 삭제하지 않고 데이터 값을 바꾼다). -->	
+	<update id="updateItemBySender"
+		parameterType="study.shop.cidermarket.model.Review">
+		UPDATE review SET
+			sender= 999
+		WHERE sender=#{sender}
+	</update>	
 	
+		<!-- receiver가 탈퇴시 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItemByReceiver"
+		parameterType="study.shop.cidermarket.model.Review">
+		DELETE FROM review WHERE receiver=#{receiver}
+	</delete>
 	
 
 </mapper>
