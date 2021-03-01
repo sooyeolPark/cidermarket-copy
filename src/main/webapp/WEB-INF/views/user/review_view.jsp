@@ -33,12 +33,11 @@
                         <div class="panel-body">
                           <div class="foryou">To. <b>${output.nickname}</b>님께 따뜻한 후기를 보냈어요.</div>
                             <p>${output.content}<br></p>
-<%--                             <div class="review_img">
-                                <img src="${pageContext.request.contextPath}/assets/img/review_img1.jpg" alt="리뷰이미지">
-                                <img src="${pageContext.request.contextPath}/assets/img/review_img2.png" alt="리뷰이미지">
-                                <img src="${pageContext.request.contextPath}/assets/img/review_img3.jpg" alt="리뷰이미지">
-                                <img src="${pageContext.request.contextPath}/assets/img/review_img4.jpg" alt="리뷰이미지">
-                            </div> --%>
+                            <div id="review_img" class="review_img">
+                             <c:forEach var="item" items="${fileimages}" varStatus="status">
+                                <img class="userreview_img" src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="리뷰이미지">
+                            </c:forEach>
+                            </div> 
                         </div>
                     </div>
                     <!-- button -->

@@ -161,5 +161,14 @@
 		WHERE reftable='product' AND refid=#{refid}
 		ORDER BY fname asc;
 	</select>
+	
+		<select id="selectReviewImgList"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT *
+		FROM files
+		WHERE reftable='review' AND refid=#{refid}
+		ORDER BY fname asc;
+	</select>
 
 </mapper>
