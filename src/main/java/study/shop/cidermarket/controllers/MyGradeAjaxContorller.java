@@ -45,17 +45,20 @@ public class MyGradeAjaxContorller {
 	@RequestMapping(value = "/mystore/{shopaddress}/mygrade.cider", method = RequestMethod.GET)
 	public ModelAndView get_list(Model model, @PathVariable("shopaddress") String shopaddress) {
 
-		/** 2) 데이터 조회하기 */
-		HttpSession session = webHelper.getRequest().getSession();
-		int myNum = (int) session.getAttribute("myNum");
-
 		// 회원정보 조회
-		Member input_user = new Member();
-		input_user.setMembno(myNum);
-		
-		// 조회겨로가를 저장할 객체 선언
+		Member input_shop = new Member();
+		input_shop.setShopaddress(shopaddress);
 		Member user = null;
 		
+		try {
+			user = memberService.getMemberShopItem(input_shop); 
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		Member input_user = new Member();
+		input_user.setMembno(user.getMembno());
+
 		try {
 			// 멤버 데이터 조회
 			user = memberService.getMemberIndexItem(input_user);
@@ -65,7 +68,7 @@ public class MyGradeAjaxContorller {
 		
 		// 판매갯수 불러오기
 		Record input_01 = new Record();
-		input_01.setSeller(myNum);
+		input_01.setSeller(user.getMembno());
 
 		// 조회결과를 저장할 객체 선언
 		Record output_sell = null;
@@ -79,7 +82,7 @@ public class MyGradeAjaxContorller {
 
 		// 구매 갯수 불러오기
 		Record input_02 = new Record();
-		input_02.setBuyer(myNum);
+		input_02.setBuyer(user.getMembno());
 
 		// 조회결과를 저장할 객체 선언
 		Record output_buy = null;
