@@ -181,7 +181,7 @@
                 <div class="row">
                   <div class="col-xs-1"><i class="glyphicon glyphicon-tag"></i></div>
                   <div class="col-xs-11">
-                  <span>${product.catename}</span>
+                  <a href="${pageContext.request.contextPath}/item_list.cider/${product.cateno}"><span>${product.catename}</span></a>
                   </div>
                 </div>
               </div>
