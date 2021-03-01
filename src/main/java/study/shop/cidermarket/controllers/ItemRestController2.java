@@ -177,21 +177,20 @@ public class ItemRestController2 {
 			if(image7!=null) {files.add(image7);}
 			
 			//첫번째 파일을 대표이미지로 저장
-			if(files.size()==1) {
 				// 저장된 결과를 조회하기 위한 객체
-				Files f = null;
+				Files f1 = null;
 				try {
-					f = webHelper.saveMultipartFile(files.get(0));
-			        f.setFname("product"+output.getProdno());
-			        f.setReftable("product");
-			        f.setRefid(output.getProdno());
+					f1 = webHelper.saveMultipartFile(files.get(0));
+			        f1.setFname("product"+output.getProdno());
+			        f1.setReftable("product");
+			        f1.setRefid(output.getProdno());
 			        
 			        /** [신규] 파일 형식이 이미지인 경우 썸네일 이미지 생성하기 */
-			        if (f != null && f.getType().indexOf("image") > -1) {
+			        if (f1 != null && f1.getType().indexOf("image") > -1) {
 			            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
 			            String thumbnailPath = null;
 			            try {
-			                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+			                thumbnailPath = webHelper.createThumbnail(f1.getFilepath(), 600, 600, false);
 			            } catch (Exception e) {
 			                e.printStackTrace();
 			                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
@@ -199,18 +198,18 @@ public class ItemRestController2 {
 			            // 썸네일 경로를 URL로 변환
 			            String thumbnailUrl = webHelper.getUploadUrl(thumbnailPath);
 			            // 리턴할 객체에 썸네일 정보 추가
-			            f.setThumbnailPath(thumbnailPath);
-			            f.setThumbnailUrl(thumbnailUrl);
+			            f1.setThumbnailPath(thumbnailPath);
+			            f1.setThumbnailUrl(thumbnailUrl);
 			           }
 			        //files 테이블에 데이터 입력
-			        filesProductService.addFiles(f);			        
+			        filesProductService.addFiles(f1);			        
 			      } catch (NullPointerException e) {
 			            e.printStackTrace();
 			            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
 			      } catch (Exception e) {
 			         return webHelper.getJsonError(e.getLocalizedMessage());
 			      }
-			}
+			
 			
 			//두번째 파일이 있으면 두번째 파일부터 다시 입력
 			if(files.size()>1) {
