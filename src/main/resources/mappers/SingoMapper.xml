@@ -67,11 +67,17 @@
 			LIMIT #{offset}, #{listCount}
 		</if>
 	</select>
-	
+
 	<!-- 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItem"
 		parameterType="study.shop.cidermarket.model.Singo">
 		DELETE FROM singo WHERE singono=#{singono}
+	</delete>
+	
+	<!-- 상품 삭제에 따른 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteProductItem"
+		parameterType="study.shop.cidermarket.model.Singo">
+		DELETE FROM singo WHERE prodno = #{prodno}
 	</delete>
 	
 	<!-- 관리자 페이지에서 쓸 데이터 수 조회를 위한 기능 정의 -->

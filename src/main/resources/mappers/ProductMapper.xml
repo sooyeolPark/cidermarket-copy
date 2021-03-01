@@ -50,16 +50,15 @@
 		INNER JOIN category c ON c.cateno=p.cateno
 		
 		<where>
+				tradecon='J'
 			<if test="subject != null and subject != ''">
-				(subject LIKE concat('%', #{subject}, '%') OR 
+				AND ((subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
-				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
 			</if>			
 		</where>
 		
-		<if test="sort == 'default'">
 			ORDER BY regdate DESC
-		</if>
 		<if test="sort == 'priceAsc'">
 			ORDER BY price ASC
 		</if>
@@ -79,13 +78,14 @@
 		SELECT COUNT(*) FROM product
 		
 		<where>
+				tradecon='J'
 			<if test="cateno != 0 and cateno != null and cateno != ''">
-				cateno = #{cateno}
+				AND cateno = #{cateno}
 			</if>
 			<if test="subject != null and subject != ''">
-				AND (subject LIKE concat('%', #{subject}, '%') OR 
+				AND ((subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
-				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
 			</if>
 		</where>
 	</select>
@@ -104,10 +104,10 @@
 		)
 	</insert>
 	
-	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<!-- 데이터 삭제를 위한 기능 정의 (최종 상품 삭제(거래완료 전일 때까지만 삭제 가능)) -->
 	<delete id="deleteItem"
 		parameterType="study.shop.cidermarket.model.Product">
-		DELETE FROM product WHERE prodno=#{prodno}
+		DELETE FROM product WHERE prodno = #{prodno} AND tradecon in ('J', 'S')
 	</delete>
 	
 	<!-- 멤버 탈퇴시 데이터 삭제를 위한 기능 정의 -->

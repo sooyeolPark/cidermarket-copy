@@ -45,6 +45,7 @@
 }
 .thumbnail img {
   width: 100%;
+  min-height: 222px;
 }
 .thumbnail .caption {
   padding: 0;
