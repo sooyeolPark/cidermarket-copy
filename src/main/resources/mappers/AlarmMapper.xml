@@ -59,4 +59,18 @@
 		parameterType="study.shop.cidermarket.model.Alarm">
 		DELETE FROM alarm WHERE alarno=#{alarno}
 	</delete>
+	
+	<!-- Receiver 회원 탈퇴 시 알람 삭제를 위한 기능 정의 -->
+	<delete id="deleteItemByReceiver"
+		parameterType="study.shop.cidermarket.model.Alarm">
+		DELETE FROM alarm WHERE receiver=#{receiver}
+	</delete>
+
+     <!-- 멤버 탈퇴시 Sender를 대표더미데이터로 기능 정의 -->
+    <update id="updateItemBySender"
+        parameterType="study.shop.cidermarket.model.Alarm">
+        UPDATE alarm SET
+            sender=999
+        WHERE sender=#{sender}
+    </update>
 </mapper>
