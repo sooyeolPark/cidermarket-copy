@@ -231,7 +231,7 @@
 	                    $.ajax({
 	                        type: "PUT",
 	                        url: "${pageContext.request.contextPath}/record/ing/refund",
-	                        data: {"recono":recono, "refund":"J"},
+	                        data: {"recono":recono, "refund":"J", "tradecon":"J"},
 	                        success: function(json) {
 	      	    				console.log(json);
 	      	    				if (json.rt == "OK") {
@@ -270,7 +270,7 @@
 	                    $.ajax({
 	                        type: "PUT",
 	                        url: "${pageContext.request.contextPath}/record/ing/refund",
-	                        data: {"recono":recono, "refund":"N"},
+	                        data: {"recono":recono, "refund":"N", "tradecon":"J"},
 	                        success: function(json) {
 	      	    				console.log(json);
 	      	    				if (json.rt == "OK") {
