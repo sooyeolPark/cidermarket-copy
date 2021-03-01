@@ -109,12 +109,27 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteProduct(Product input) throws Exception {
 		int result = 0;
 		try {
-			
-			//상품삭제전 참조하는 prod을 null값으로 수정 
-			sqlSession.update("RecordMapper.unsetProduct",input);
-			result = sqlSession.delete("ProductMapper.deleteItem", input);
-			if(result == 0) {
-				throw new NullPointerException("result=0");
+			if(input.getTradecon().equals("W")) {
+				throw new NullPointerException("판매가 완료된 상품은 삭제할 수 없습니다.");
+			} else {
+				// 신고 테이블 삭제
+				sqlSession.delete("SingoMapper.deleteProductItem", input);
+				// 해시태그 테이블 삭제
+				sqlSession.delete("HashtagMapper.deleteItem", input);
+				// 찜하기 테이블 삭제
+				sqlSession.delete("MembprodMapper.deleteProductItem", input);
+				// 대댓글-댓글 테이블 삭제
+				sqlSession.delete("RereplyMapper.deleteProductItem", input);
+				sqlSession.delete("ReplyMapper.deleteProductItem", input);
+				// 거래내역 테이블 삭제 (직거래/상관없음 경우)
+				sqlSession.delete("RecordMapper.deleteProductItem",input);
+				// 쪽지함 주고받은 쪽지 더미상품으로 변경
+				sqlSession.update("ReceiverMsgboxMapper.updateItemByProdno",input);
+				
+				result = sqlSession.delete("ProductMapper.deleteItem", input);
+				if(result == 0) {
+					throw new NullPointerException("result=0");
+				}				
 			}
 		} catch (NullPointerException e) {
 			log.error(e.getLocalizedMessage());

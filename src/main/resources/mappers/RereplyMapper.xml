@@ -54,5 +54,9 @@
 		WHERE writer=#{writer}
 	</update>	
 	
-	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteProductItem"
+		parameterType="study.shop.cidermarket.model.Membprod">
+		DELETE FROM rereply WHERE prodno=#{prodno}
+	</delete>
 </mapper>

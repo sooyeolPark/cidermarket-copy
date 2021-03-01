@@ -103,4 +103,12 @@
 		WHERE receiver=#{receiver}
 	</update>
 	
+	<!-- 상품삭제시 prodno을 대표 더미데이터로 바꾸기 위한 위한 기능 정의 -->
+	<update id="updateItemByProdno"
+		parameterType="study.shop.cidermarket.model.Msgbox">
+		UPDATE msgbox SET
+			prodno = 9999
+		WHERE prodno=#{prodno}
+	</update>
+	
 </mapper>

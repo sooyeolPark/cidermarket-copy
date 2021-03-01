@@ -640,7 +640,7 @@
   	<c:when test="${myNum==product.seller}">
     <div class="col-xs-5"><button type="submit" class="btn btn-warning" id="update_item"><span
           class="cool">쿨하게</span><span class="trade">수정하기</span></button></div>
-    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="delete_item"><span class="cool">쿨하게</span><span
+    <div class="col-xs-5"><button type="submit" class="btn btn-danger" id="delete_item" data-prodno="${product.prodno}"><span class="cool">쿨하게</span><span
           class="trade">삭제하기</span></button></div>  	
   	</c:when>
   	<c:otherwise>
@@ -972,6 +972,27 @@
       $("#update_item").click(function(e){
     	  e.preventDefault();
     	  window.location="${pageContext.request.contextPath}/item_update.cider?prodno="+"${product.prodno}";
+      });
+      
+      //삭제하기 클릭했을때
+      $("#delete_item").click(function(e){
+    	  let prodno = $(this).data("prodno");
+    	  e.preventDefault();
+    	  
+    	  //삭제 확인
+          if(!confirm("상품을 삭제하시겠습니까?")){
+        	  return false;
+          }
+    	  
+    	  $.delete("${pageContext.request.contextPath}/item_index_delete",{
+           	 "prodno": prodno
+             }, function(json){
+           	  if(json.rt=="OK"){
+           		alert("삭제가 완료되었습니다.");
+           		//삭제 완료 후 메인 페이지로 이동
+           		window.location="${pageContext.request.contextPath}";
+           	  }
+         });
       });
    
     //거래 재개 눌렀을 때 
