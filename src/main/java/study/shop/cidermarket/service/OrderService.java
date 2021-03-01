@@ -23,8 +23,16 @@ public interface OrderService {
 	/**
 	 * 레코드 테이블에 새로운 정보 저장
 	 * @param 입력할 정보를 담고 있는 Beans
-	 * @return int
+	 * @return Record
 	 * @throws Exception
 	 */
 	public Record getRecord(Record input) throws Exception;
+	
+	/**
+	 * 레코드 테이블에 직거래 필드 삭제
+	 * @param 입력할 정보를 담고 있는 Beans
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteRecord(Record input) throws Exception;
 }

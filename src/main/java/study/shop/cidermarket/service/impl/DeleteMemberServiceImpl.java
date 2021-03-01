@@ -6,9 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
-
 import lombok.extern.slf4j.Slf4j;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Membprod;
 import study.shop.cidermarket.model.Msgbox;
@@ -43,7 +42,7 @@ public class DeleteMemberServiceImpl implements DeleteMemberService {
 	}
 
 	@Override
-	public int deleteFile(File input) throws Exception {
+	public int deleteFile(Files input) throws Exception {
 		int result = 0;
 		try {
 			result = sqlSession.delete("FilesMapper.deleteRefItem", input);
@@ -79,7 +78,7 @@ public class DeleteMemberServiceImpl implements DeleteMemberService {
 	}
 
 	@Override
-	public int updateReceiver(Member input) throws Exception {
+	public int updateReceiver(Msgbox input) throws Exception {
 		int result = 0;
 		try {
 			result = sqlSession.update("ReceiverMsgboxMapper.updateItemByReceiver", input);
@@ -158,6 +157,18 @@ public class DeleteMemberServiceImpl implements DeleteMemberService {
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteMember(Member input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.delete("MemberMapper.deleteItem", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
 		}
 		return result;
 	}

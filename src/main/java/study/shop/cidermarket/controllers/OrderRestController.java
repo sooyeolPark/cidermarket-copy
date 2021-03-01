@@ -103,6 +103,16 @@ public class OrderRestController {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
 		
+		//만약 레코드에 how가 j로 적힌 같은 prodno의 record 필드를 삭제한다.
+		Record input_02= new Record();
+		input_02.setProdno(output.getProdno());
+		
+		try {
+			orderService.deleteRecord(input_02);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/** 3) 결과를 확인하기 위한 JSON 출력 */
 		Map<String, Object> map = new HashMap<String, Object>();

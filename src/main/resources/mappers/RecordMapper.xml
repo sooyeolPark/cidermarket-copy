@@ -376,4 +376,19 @@
         WHERE buyer=#{buyer}
     </update>
 
+    <!-- 상품등록을 했을 때 레코드 테이블에 생성  -->
+    <insert id="insertItemReg"
+        parameterType="study.shop.cidermarket.model.Record"
+        useGeneratedKeys="true" keyProperty="recono">
+        INSERT INTO record (
+            prodno, buyer, tradecon, refund, how 
+        ) VALUES (
+            #{prodno}, null, 'J', 'N', 'J' )
+    </insert>
+    
+    <!-- 택배거래 확정되면 직거래로 등록되있던 record 필드 지움-->
+    <delete id="deleteJItem"
+        parameterType="study.shop.cidermarket.model.Record">
+        delete FROM record WHERE prodno=#{prodno} AND how='J'
+    </delete>
 </mapper>

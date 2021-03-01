@@ -2,8 +2,8 @@ package study.shop.cidermarket.service;
 
 import java.util.List;
 
-import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
 
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Membprod;
 import study.shop.cidermarket.model.Msgbox;
@@ -29,7 +29,7 @@ public interface DeleteMemberService {
 	 * @return 조회 결과에 대한 컬렉션
 	 * @throws Exception
 	 */
-	public int deleteFile(File input) throws Exception;
+	public int deleteFile(Files input) throws Exception;
 	
 	/**
 	 * Membprod 테이블(찜하기) 테이블 데이터 삭제
@@ -53,7 +53,7 @@ public interface DeleteMemberService {
 	 * @return 조회 결과에 대한 컬렉션
 	 * @throws Exception
 	 */
-	public int updateReceiver(Member input) throws Exception;
+	public int updateReceiver(Msgbox input) throws Exception;
 	
 	/**
 	 * record 테이블에서 buyer를 대표더미데이터로 변경
@@ -102,4 +102,12 @@ public interface DeleteMemberService {
 	 * @throws Exception
 	 */
 	public int updateSingo(Singo input) throws Exception;
+	
+	/**
+	 * Member 테이블에서 삭제
+	 * @param delete 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int deleteMember(Member input) throws Exception;
 }

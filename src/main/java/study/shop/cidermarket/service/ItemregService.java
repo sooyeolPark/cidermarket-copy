@@ -6,6 +6,7 @@ import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Hashtag;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.model.Record;
 
 public interface ItemregService {
 
@@ -90,4 +91,12 @@ public interface ItemregService {
 	 * @throws Exception
 	 */
 	public Files getFilesItem(Files input) throws Exception;	
+	
+	/**
+	 * 레코드 테이블에 등록 
+	 * @param 파일 정보를 담고 있는 Beans
+	 * @return 조회 결과에 대한 컬렉션
+	 * @throws Exception
+	 */
+	public int addRecord(Record input) throws Exception;	
 }

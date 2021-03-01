@@ -119,6 +119,19 @@ public class ItemRestController2 {
 	         return webHelper.getJsonError(e.getLocalizedMessage());
 	      }
 	      
+	      //직거래나 상관없음을 눌렀을 때 record 테이블에 기록
+	      if(item_how!="T") {
+	    	  Record input_record = new Record(); 
+	    	  input_record.setProdno(output.getProdno());
+	    	  
+	    	  try {
+				itemregService.addRecord(input_record);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      }
+	      
 	      /** Hashtag 입력 hash태그는 필수요소가 아니므로 없을 경우를 대비하여 if문으로 구현*/
 	      boolean isHash;
 	      if(hash1.equals("") && hash2.equals("") && hash3.equals("") && hash4.equals("") && hash5.equals("")) {
