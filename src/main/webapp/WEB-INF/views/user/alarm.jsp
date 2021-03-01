@@ -47,7 +47,7 @@
 							<div class="alarmContent">
 							<c:choose>
 								<c:when test="${item.sort == 'R'}">
-								<a href="${pageContext.request.contextPath}/mystore/${shopaddress}/review.cider" class="alarmDel" data-alarno="${item.alarno}">
+								<a href="${pageContext.request.contextPath}/mystore/${shop}/review.cider" class="alarmDel" data-alarno="${item.alarno}">
 									<span class="alarmTitle">거래후기</span> 
 									<span> <b class="userId">${item.nickname}</b> 님이 회원님과의 거래 후기를 남겼습니다.</span>										
 									<i class="glyphicon glyphicon-menu-right"></i>

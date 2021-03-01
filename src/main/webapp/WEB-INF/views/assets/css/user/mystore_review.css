@@ -55,7 +55,7 @@ ul.review_list > li:last-child {
   border-radius: 5px;
   margin: 0.2em;
 }
-.review_item_subject a {
+.review_item_subject {
   color: #31a05f;
 }
 .review_user_rpl > p {

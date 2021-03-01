@@ -31,11 +31,12 @@
 		parameterType="study.shop.cidermarket.model.Review"
 		resultMap="ReviewMap">
 		SELECT 
-		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS rv.regdate,
+		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate,
 		rv.content, rv.recono, rv.sender, rv.receiver, rv.rate,  
-		m.outmember, m.nickname, rc.how, p.subject, rc.buyer,
+		m.outmember, rc.how, p.subject, rc.buyer,
+		(SELECT nickname FROM member WHERE membno=sender) AS nickname,
 		(SELECT shopaddress FROM member WHERE membno=sender) AS shopaddress,   		
-		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=rc.buyer AND reftable='member' order by fname asc limit 0, 1)) AS filepath,
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=rv.sender AND reftable='member' order by fname asc limit 0, 1)) AS filepath,
 		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
 		FROM review rv
 		INNER JOIN Record rc On rv.recono = rc.recono
