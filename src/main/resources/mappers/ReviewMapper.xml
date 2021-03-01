@@ -33,8 +33,11 @@
 		parameterType="study.shop.cidermarket.model.Review"
 		resultMap="ReviewMap">
 		SELECT 
-		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS regdate, content, rv.recono, sender, receiver, m.shopaddress, m.outmember, m.nickname, rc.name, rc.how, p.subject, rv.rate,  		
-		rc.buyer,(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=rc.buyer AND reftable='member' order by fname asc limit 0, 1)) AS filepath,
+		revino, rv.prodno, DATE_FORMAT(rv.regdate, '%Y-%m-%d') AS rv.regdate,
+		rv.content, rv.recono, rv.sender, rv.receiver, rv.rate,  
+		m.outmember, m.nickname, rc.how, p.subject, rc.buyer,
+		(SELECT shopaddress FROM member WHERE membno=sender) AS shopaddress,   		
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=rc.buyer AND reftable='member' order by fname asc limit 0, 1)) AS filepath,
 		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
 		FROM review rv
 		INNER JOIN Record rc On rv.recono = rc.recono
@@ -91,7 +94,22 @@
 		WHERE receiver = #{receiver}
 
 	</select>
-		
+
+		<!-- 센더가 회원 탈퇴 시 더미데이터로 수정을 위한 기능 정의 (실제로 삭제하지 않고 데이터 값을 바꾼다). -->	
+	<update id="updateItemBySender"
+		parameterType="study.shop.cidermarket.model.Review">
+		UPDATE review SET
+			sender= 999
+		WHERE sender=#{sender}
+	</update>	
+	
+		<!-- receiver가 탈퇴시 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItemByReceiver"
+		parameterType="study.shop.cidermarket.model.Review">
+		DELETE FROM review WHERE receiver=#{receiver}
+	</delete>
+	
+	
 	
 
 </mapper>

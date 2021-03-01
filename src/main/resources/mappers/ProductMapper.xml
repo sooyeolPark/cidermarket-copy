@@ -110,6 +110,20 @@
 		DELETE FROM product WHERE prodno=#{prodno}
 	</delete>
 	
+	<!-- 멤버 탈퇴시 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItemByMembno"
+		parameterType="study.shop.cidermarket.model.Product">
+		DELETE FROM product WHERE seller=#{seller} AND tradecon IN ('J', 'S', 'X')
+	</delete>
+	
+	<!-- 멤버 탈퇴 시 대표 더미데이터 입력 위한 기능 정의 -->
+	<update id="updateItemByMembno"
+		parameterType="study.shop.cidermarket.model.Product">
+		UPDATE product SET
+			seller=999
+		WHERE seller=#{seller} AND tradecon='W'
+	</update>
+	
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Product">

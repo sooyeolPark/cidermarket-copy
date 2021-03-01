@@ -47,4 +47,12 @@
 			redelete= 'Y'
 		WHERE replyno=#{replyno}
 	</update>	
+	
+	<!-- 회원 탈퇴 시 더미데이터로 수정을 위한 기능 정의 (실제로 삭제하지 않고 데이터 값을 바꾼다). -->	
+	<update id="updateItemByMemebno"
+		parameterType="study.shop.cidermarket.model.Reply">
+		UPDATE reply SET
+			writer= 999
+		WHERE writer=#{writer}
+	</update>	
 </mapper>
