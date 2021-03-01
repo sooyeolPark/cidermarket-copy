@@ -124,6 +124,15 @@
 		WHERE seller=#{seller} AND tradecon='W'
 	</update>
 	
+	<!-- 멤버 탈퇴 시 해당 멤버의 상품조회를 위한 기능 정의 -->
+	<select id="selectOutList"
+		parameterType="study.shop.cidermarket.model.Product"
+		resultMap="productMap">
+		SELECT prodno, tradecon, seller
+		FROM product
+		WHERE seller=#{seller}
+	</select>	
+	
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Product">

@@ -119,7 +119,7 @@
             (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=r.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
         FROM record r
         INNER JOIN product p ON r.prodno=p.prodno
-        WHERE p.tradecon='W' AND r.tradecon='J' AND r.refund in('N', 'J', 'X') AND p.seller=#{seller} AND (p.how in('J', 'X') AND p.tradecon='J')
+        WHERE r.tradecon='J' AND r.refund in('N', 'J', 'X') AND p.seller=#{seller}
         
         ORDER BY r.prodno DESC
         

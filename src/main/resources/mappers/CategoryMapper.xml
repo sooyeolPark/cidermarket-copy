@@ -14,7 +14,7 @@
 		parameterType="study.shop.cidermarket.model.Category"
 		resultMap="categoryMap">
 		SELECT cateno, name,
-		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=cateno AND reftable='category')) AS filepath
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=cateno AND reftable='category' order by fname asc limit 0, 1)) AS filepath
 		FROM Category
 		WHERE cateno=#{cateno}
 	</select>
@@ -24,7 +24,7 @@
 		parameterType="study.shop.cidermarket.model.Category"
 		resultMap="categoryMap">
 		SELECT cateno, name,
-		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=cateno AND reftable='category')) AS filepath
+		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=cateno AND reftable='category' order by fname asc limit 0, 1)) AS filepath
 		FROM Category
 <!-- 		
 		<where>

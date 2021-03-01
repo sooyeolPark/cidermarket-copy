@@ -67,7 +67,7 @@
 					                        	</c:choose>
 							                    <div class="caption">
 							                        <span class="label"><c:if test="${item.how == 'T'}">택배거래</c:if><c:if test="${item.how == 'J'}">직거래</c:if></span>
-							                    	<span class="temp-gray"><span>${item.prodno}</span> | seller(${item.seller})</span>
+							                    	<span class="temp-gray">${item.prodno}</span>
 							                        <h4><a href="${pageContext.request.contextPath}/item_index.cider?prodno=${item.prodno}">${item.subject}</a></h4>
 							                        <h4><b><fmt:formatNumber value="${item.price}" pattern="#,###" />원</b></h4>
 							                        <div class="resultBtn">

@@ -33,7 +33,7 @@ public class ItemIndexServiceImpl implements ItemIndexService {
 	public List<Files> getFilesListItem(Files input) throws Exception {
 		List<Files> result = null;
 		try {
-			result = sqlSession.selectList("FilesMapper.selectReviewImgList", input);
+			result = sqlSession.selectList("FilesMapper.selectItemIndexList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
