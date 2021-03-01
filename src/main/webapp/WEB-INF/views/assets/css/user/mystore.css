@@ -117,6 +117,7 @@
 }
 .thumbnail img {
   width: 100%;
+  min-height: 222px;
   border: 1px solid #eee;
 }
 .item-list a:hover img {

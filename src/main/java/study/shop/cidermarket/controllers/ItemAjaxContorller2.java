@@ -44,8 +44,8 @@ public class ItemAjaxContorller2 {
       
 	   /** 1) 유효성 검사 */
        // 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
-       if (prodno == 0) {
-           return webHelper.redirect(null, "상품번호가 없습니다.");
+       if (prodno == 0 | prodno==9999) {
+           return webHelper.redirect(null, "삭제된 상품입니다.");
        }
        
        /** 2) 데이터 조회하기 */

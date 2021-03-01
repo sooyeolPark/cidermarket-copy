@@ -37,6 +37,16 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- 스케쥴러 어노테이션 선언 -->
+	<task:annotation-driven/>
 	
+	<!-- 스케쥴러로 동작할 객체생성 -->
+	<beans:bean id="deleteJob" class="study.shop.cidermarket.scheduler.DeleteScheduler" />
 	
+	<!-- 생성한 스케쥴러 객체에 대한 작업 스케쥴 지정 -->
+	<task:scheduled-tasks>
+		<!-- 매일 자정에 실행되는 작업 -->
+		<task:scheduled ref="deleteJob" method="deleteMsgbox" cron="0 0 0 * * ?"/>
+		<task:scheduled ref="deleteJob" method="deleteOutmember" cron="0 0 0 * * ?"/>
+	</task:scheduled-tasks>
 </beans:beans>

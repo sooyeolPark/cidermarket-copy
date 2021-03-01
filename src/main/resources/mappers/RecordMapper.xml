@@ -119,7 +119,7 @@
             (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=r.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
         FROM record r
         INNER JOIN product p ON r.prodno=p.prodno
-        WHERE p.tradecon='W' AND r.tradecon='J' AND r.refund in('N', 'J', 'X') AND p.seller=#{seller}
+        WHERE p.tradecon='W' AND r.tradecon='J' AND r.refund in('N', 'J', 'X') AND p.seller=#{seller} AND (p.how in('J', 'X') AND p.tradecon='J')
         
         ORDER BY r.prodno DESC
         
@@ -155,7 +155,7 @@
     <update id="updateTradeconJWItem"
         parameterType="study.shop.cidermarket.model.Record">
         UPDATE record SET
-            tradecon='W', confirmdate=now(), buyer=#{buyer}, name=#{nickname}
+            tradecon='W', how='J', confirmdate=now(), buyer=#{buyer}, name=#{nickname}
         WHERE prodno=#{prodno} AND tradecon='J'
     </update>
     
@@ -173,7 +173,7 @@
     <update id="updateTradeconTWItem"
         parameterType="study.shop.cidermarket.model.Record">
         UPDATE record SET
-            tradecon='W', confirmdate=now(), buyer=#{buyer}
+            tradecon='W', how='T', confirmdate=now(), buyer=#{buyer}
         WHERE recono=#{recono} AND tradecon='J' AND not refund='J'
     </update>
     
@@ -375,5 +375,26 @@
             buyer=999
         WHERE buyer=#{buyer}
     </update>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteProductItem"
+		parameterType="study.shop.cidermarket.model.Record">
+		DELETE FROM record WHERE prodno=#{prodno}
+	</delete>
 
+    <!-- 상품등록을 했을 때 레코드 테이블에 생성  -->
+    <insert id="insertItemReg"
+        parameterType="study.shop.cidermarket.model.Record"
+        useGeneratedKeys="true" keyProperty="recono">
+        INSERT INTO record (
+            prodno, buyer, tradecon, refund, how 
+        ) VALUES (
+            #{prodno}, null, 'J', 'N', 'J' )
+    </insert>
+    
+    <!-- 택배거래 확정되면 직거래로 등록되있던 record 필드 지움-->
+    <delete id="deleteJItem"
+        parameterType="study.shop.cidermarket.model.Record">
+        delete FROM record WHERE prodno=#{prodno} AND how='J'
+    </delete>
 </mapper>

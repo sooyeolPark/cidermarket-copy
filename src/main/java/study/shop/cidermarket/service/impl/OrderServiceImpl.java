@@ -72,4 +72,16 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 
+	@Override
+	public int deleteRecord(Record input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.delete("RecordMapper.deleteJItem", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 삭제에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

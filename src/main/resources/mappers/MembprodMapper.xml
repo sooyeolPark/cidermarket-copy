@@ -27,12 +27,18 @@
 	</insert>
 	
 	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteProductItem"
+		parameterType="study.shop.cidermarket.model.Membprod">
+		DELETE FROM membprod WHERE prodno=#{prodno}
+	</delete>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItem"
 		parameterType="study.shop.cidermarket.model.Membprod">
 		DELETE FROM membprod WHERE prodno=#{prodno} AND membno=#{membno}
 	</delete>
 	
-	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<!-- 멤버 탈퇴 시 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItemByMembno"
 		parameterType="study.shop.cidermarket.model.Membprod">
 		DELETE FROM membprod WHERE membno=#{membno}

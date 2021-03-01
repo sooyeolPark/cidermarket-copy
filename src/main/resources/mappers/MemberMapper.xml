@@ -580,5 +580,16 @@
         SELECT COUNT(*) 
         FROM member
         WHERE outmember='N' AND DATE_FORMAT(joindate, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(), INTERVAL -#{membno} DAY),'%Y-%m-%d')
-    </select> 
+    </select>
+    
+   <!-- 3개월 지난 멤버리스트를 뽑는 다중행 조회를 위한 기능 정의 -->
+   <select id="selectListbyOutmember"
+      parameterType="study.shop.cidermarket.model.Member"
+      resultMap="memberMap">
+      SELECT membno
+      FROM member
+      
+      WHERE outmember != 'N' AND DATE_FORMAT(editdate, '%Y-%m-%d') <![CDATA[<]]> DATE_FORMAT(DATE_ADD(now(), INTERVAL -3 MONTH),'%Y-%m-%d')
+   </select> 
+
 </mapper>

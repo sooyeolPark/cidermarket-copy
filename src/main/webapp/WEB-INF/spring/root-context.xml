@@ -92,6 +92,8 @@
 	<bean id="AdmProductService" class="study.shop.cidermarket.service.impl.AdmProductServiceImpl" />
 	
 	<bean id="AlarmService" class="study.shop.cidermarket.service.impl.AlarmServiceImpl" />
+	<bean id="deletememberService" class="study.shop.cidermarket.service.impl.DeleteMemberServiceImpl" />
+	<bean id="deletemsgboxService" class="study.shop.cidermarket.service.impl.DeleteMsgboxServiceImpl" />
 	
 	<!-- ===== DATABASE 연동 설정 =====  -->
 	<!-- JDBC 객체 생성 -->

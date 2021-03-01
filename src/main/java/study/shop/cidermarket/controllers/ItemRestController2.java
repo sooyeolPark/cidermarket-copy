@@ -119,6 +119,19 @@ public class ItemRestController2 {
 	         return webHelper.getJsonError(e.getLocalizedMessage());
 	      }
 	      
+	      //직거래나 상관없음을 눌렀을 때 record 테이블에 기록
+	      if(item_how!="T") {
+	    	  Record input_record = new Record(); 
+	    	  input_record.setProdno(output.getProdno());
+	    	  
+	    	  try {
+				itemregService.addRecord(input_record);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      }
+	      
 	      /** Hashtag 입력 hash태그는 필수요소가 아니므로 없을 경우를 대비하여 if문으로 구현*/
 	      boolean isHash;
 	      if(hash1.equals("") && hash2.equals("") && hash3.equals("") && hash4.equals("") && hash5.equals("")) {
@@ -969,4 +982,44 @@ public class ItemRestController2 {
 	         /** 3) 결과를 확인하기 위한 JSON 출력 */
 	         return webHelper.getJsonData();
 	      }
+	    
+	    /** 상품 삭제 페이지 */
+	    @RequestMapping(value="/item_index_delete", method=RequestMethod.DELETE)
+	    public Map<String, Object> deleteItem(
+	    		@RequestParam(value="prodno", defaultValue="0") int prodno,
+	    		@RequestParam(value="tradecon", defaultValue="") String tradecon) {
+	    	
+	    	/** 1) 거래완료된 상품은 상태 변경 막기*/
+    		if(prodno==0) {		
+    			return webHelper.getJsonWarning("상품번호가 없습니다.");
+    		} else if (tradecon.trim().equals("W")) {
+    			return webHelper.getJsonWarning("판매가 완료된 상품은 삭제할 수 없습니다.");
+    		}
+    		
+    		/** 2) 데이터 삭제 */
+    		Product input = new Product();
+    		input.setProdno(prodno);
+    		input.setTradecon(tradecon);
+    		
+    		Files f = new Files();
+    		f.setRefid(prodno);
+    		f.setReftable("product");
+    		List<Files> files = null;
+    		
+    		try {
+    			files = itemindexService.getFilesListItem(f);
+    			if (files.size() > 0) {
+	        		filesProductService.deleteRefFiles(f);  // 테이블에서 데이터 삭제
+		            for (Files file : files) {
+		            	webHelper.deleteFile(file.getFilepath());
+		            	webHelper.deleteFile(file.getThumbnailPath());
+		            }
+	        	}
+    			productService.deleteProduct(input);
+			} catch (Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+    		
+    		return webHelper.getJsonData();
+	    }
 }
