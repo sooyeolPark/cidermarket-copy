@@ -21,6 +21,8 @@ public class Msgbox {
 	private String subject;
 	private String senderNickname;
 	private String receiverNickname;
+	private String outmember;
+	private String shopaddress;
 	
 	// 3) 페이지 구현을 위한 static 변수
     /** LIMIT 절에서 사용할 조회 시작 위치 */

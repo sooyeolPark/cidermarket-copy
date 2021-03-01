@@ -13,12 +13,14 @@
 		<result property="nickname" column="nickname" />
 		<result property="filepath" column="filepath" />
 		<result property="redelete" column="redelete" />
+		<result property="outmember" column="outmember" />
+		<result property="shopaddress" column="shopaddress" />
 	</resultMap>	
 	<!-- 댓글 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Reply"
 		resultMap="replyMap">
-		SELECT r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, r.redelete, nickname,
+		SELECT r.replyno, r.prodno, r.writer, r.content, r.regdate, r.editdate, r.redelete, nickname, outmember, shopaddress,
 		(SELECT filepath FROM files WHERE fileno=(SELECT MIN(fileno) FROM files WHERE refid=membno AND reftable='member')) AS filepath
 		FROM reply r
 		INNER JOIN member m ON r.writer=m.membno

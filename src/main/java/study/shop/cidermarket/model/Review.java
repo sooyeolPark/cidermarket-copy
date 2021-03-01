@@ -25,6 +25,7 @@ public class Review {
 	private int price;
 	private int seller;
 	private String nickname;
+	private String outmember;
 	private String shopaddress;
 	
 	

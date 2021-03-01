@@ -53,7 +53,16 @@
                     	<c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" />
    						 <tr>
   	    					<td class="msgbox_num">${num}</td>
-      						<td class="msgbox_subject"><a href="#" class="clk_tr"><span class="user_id">${item.senderNickname}</span> 님이 <span class="msg_cont">[${item.subject}]</span> 상품에 대해 보낸 쪽지</a></td>
+      						<td class="msgbox_subject"><a href="#" class="clk_tr">
+      						<c:choose>
+      						<c:when test="${item.outmember=='N'}">
+      						<span class="user_id">${item.senderNickname}</span>
+      						</c:when>
+      						<c:otherwise>
+      						<span class="user_id" style="color:#ccc;">탈퇴한 회원</span>
+      						</c:otherwise>
+      						</c:choose>
+      						 님이 <span class="msg_cont">[${item.subject}]</span> 상품에 대해 보낸 쪽지</a></td>
       						<td class="msg_date">${item.regdate}</td>
     					</tr>
     					<tr class="msgbox_content">

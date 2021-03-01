@@ -312,7 +312,7 @@
                 <ul class="media-list" id="reply_box">
                 
                   <!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-                	<c:forEach var="item" items="${reply}" varStatus="status">
+                	                	<c:forEach var="item" items="${reply}" varStatus="status">
                 		<li class="media">
                 		<c:choose>
 						<c:when test="${item.redelete=='Y'}">
@@ -329,21 +329,14 @@
         					<div class="reply_div">
         					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
         					<c:if test="${item.replyno==rere.replyno}">
+        						<c:choose>
+        						<c:when test="${rere.outmember=='N'}">
         						<div class="media">
-        							
-      								<div class="pull-left">
-      								<c:choose>
-				                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-				 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
-				                    	</c:when>
-				                   		<c:otherwise>
-			    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}" width="60" height="60" alt="Generic placeholder image">
-				                   		</c:otherwise>
-				                   	</c:choose>
-      								</div>
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+          								width="60" height="60" alt="Generic placeholder image"> </div>
       								<div class="media-body">
         								<div class="clearfix">
-          									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>
+          									<h4 class="media-heading pull-left re_user_name"><a href="${pageContext.request.contextPath}/mystore/${rere.shopaddress}">${rere.nickname}</a> <small>${rere.regdate}</small></h4>
           									<c:if test="${myNum==rere.writer}">
           									<div class="pull-right">
             									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
@@ -355,6 +348,23 @@
         								</div>
       								</div>
     							</div>
+        						</c:when>
+        						<c:otherwise>
+        						<div class="media">
+      								<div class="pull-left" style="width:70px; height:40px;" ></div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name" style="color:#ccc;">탈퇴한 회원입니다<small></small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+      								</div>
+    							</div>
+        						</c:otherwise>
+        						</c:choose>
     						</c:if>
         					</c:forEach>
         					</div>
@@ -362,19 +372,13 @@
 						
 						</c:when>
 						<c:otherwise>
-          				<div class="pull-left"> 
-          				<c:choose>
-	                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-	 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
-	                    	</c:when>
-	                   		<c:otherwise>
-    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="60" height="60" alt="Generic placeholder image">
-	                   		</c:otherwise>
-	                   	</c:choose>
-	                   	</div>
+						<c:choose>
+						<c:when test="${item.outmember=='N'}">
+						<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${item.filepath!=null}">${item.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+          						width="60" height="60" alt="Generic placeholder image"> </div>
       					<div class="media-body">
         					<div class="clearfix">
-          					<h4 class="media-heading pull-left re_user_name">${item.nickname} <small>${item.regdate}</small></h4>
+          					<h4 class="media-heading pull-left re_user_name"><a href="${pageContext.request.contextPath}/mystore/${item.shopaddress}">${item.nickname}</a><small>${item.regdate}</small></h4>
           					<c:if test="${myNum==item.writer}">
           					<div class="pull-right">
             					<a class="re_remove" href="#" title="삭제" data-replyno ="${item.replyno}"><i class="glyphicon glyphicon-remove"></i></a>
@@ -403,20 +407,14 @@
         					<div class="reply_div">
         					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
         					<c:if test="${item.replyno==rere.replyno}">
+        						<c:choose>
+        						<c:when test="${rere.outmember=='N'}">
         						<div class="media">
-      								<div class="pull-left"> 
-      								<c:choose>
-				                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-				 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="60" height="60" alt="Generic placeholder image"> 
-				                    	</c:when>
-				                   		<c:otherwise>
-			    	  	    				<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${rere.filepath}" width="60" height="60" alt="Generic placeholder image">
-				                   		</c:otherwise>
-				                   	</c:choose>
-      								</div>
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+          								width="60" height="60" alt="Generic placeholder image"> </div>
       								<div class="media-body">
         								<div class="clearfix">
-          									<h4 class="media-heading pull-left re_user_name">${rere.nickname} <small>${rere.regdate}</small></h4>
+          									<h4 class="media-heading pull-left re_user_name"><a href="${pageContext.request.contextPath}/mystore/${rere.shopaddress}">${rere.nickname}</a> <small>${rere.regdate}</small></h4>
           									<c:if test="${myNum==rere.writer}">
           									<div class="pull-right">
             									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
@@ -428,11 +426,103 @@
         								</div>
       								</div>
     							</div>
+        						</c:when>
+        						<c:otherwise>
+        						<div class="media">
+      								<div class="pull-left" style="width:70px; height:40px;" ></div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name" style="color:#ccc;">탈퇴한 회원입니다<small></small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+      								</div>
+    							</div>
+        						</c:otherwise>
+        						</c:choose>
     						</c:if>
         					</c:forEach>
         					</div>
       					</div>
-      					</c:otherwise>
+						</c:when>
+						<c:otherwise>
+						<div class="pull-left" style="width:70px; height:70px;" ></div>
+      					<div class="media-body">
+        					<div class="clearfix">
+          					<h4 class="media-heading pull-left re_user_name" style="color:#ccc;">탈퇴한 회원입니다<small></small></h4>
+          					<c:if test="${myNum==item.writer}">
+          					<div class="pull-right">
+            					<a class="re_remove" href="#" title="삭제" data-replyno ="${item.replyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          					</div>
+          					</c:if>
+        					</div>
+        					<div class="clearfix re_user_rpl">
+          					<p> </p>
+          					<div class="repl_form">
+            					<form role="form" class="send_rereply" action="${pageContext.request.contextPath}/rereply" >
+              					<fieldset>
+                					<div class="form-group">
+                  					<textarea class="form-control re_reply rereply_content" name="rereply_content" rows="3" placeholder="댓글을 입력해주세요."></textarea>
+                  					<input type="hidden" class="rereply_prodno" name="rereply_prodno" value="${product.prodno}" >
+                      				<input type="hidden" class="rereply_writer" name="rereply_writer" value="${myNum}" >
+                      				<input type="hidden" class="rereply_replyno" name="rereply_replyno" value="${item.replyno}" >
+                					</div>
+                					<div class="form-group clearfix">
+                  					<button type="submit" class="btn btn-default pull-right reply_submit1">등록</button>
+                					</div>
+              					</fieldset>
+            					</form>
+          					</div>
+        					</div>
+        					<div class="reply_div">
+        					<c:forEach var="rere" items="${rereply}" varStatus="restatus">
+        					<c:if test="${item.replyno==rere.replyno}">
+        						<c:choose>
+        						<c:when test="${rere.outmember=='N'}">
+        						<div class="media">
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+          								width="60" height="60" alt="Generic placeholder image"> </div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name"><a href="${pageContext.request.contextPath}/mystore/${rere.shopaddress}">${rere.nickname}</a> <small>${rere.regdate}</small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+        								<div class="clearfix re_user_rpl">
+          									<p>${rere.content}</p>
+        								</div>
+      								</div>
+    							</div>
+        						</c:when>
+        						<c:otherwise>
+        						<div class="media">
+      								<div class="pull-left" style="width:70px; height:40px;" ></div>
+      								<div class="media-body">
+        								<div class="clearfix">
+          									<h4 class="media-heading pull-left re_user_name" style="color:#ccc;">탈퇴한 회원입니다<small></small></h4>
+          									<c:if test="${myNum==rere.writer}">
+          									<div class="pull-right">
+            									<a class="rere_remove" href="#" title="삭제" data-rereplyno ="${rere.rereplyno}"><i class="glyphicon glyphicon-remove"></i></a>
+          									</div>
+          									</c:if>
+        								</div>
+      								</div>
+    							</div>
+        						</c:otherwise>
+        						</c:choose>
+    						</c:if>
+        					</c:forEach>
+        					</div>
+      					</div>
+						</c:otherwise>
+						</c:choose>
+          				</c:otherwise>
       					</c:choose>
       					</li>
           			</c:forEach>
