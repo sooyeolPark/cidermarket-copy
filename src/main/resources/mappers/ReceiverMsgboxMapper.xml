@@ -86,17 +86,8 @@
 		DELETE FROM msgbox WHERE sendersave IS NULL AND receiversave IS NULL AND senderdelete IS NULL AND receiverdelete IS NULL 
 		AND regdate &lt; date_add(now(), INTERVAL -50 DAY)
 	</delete>
-
-		<!-- 보관함에 저장하기 위한 기능 정의 -->
-	<update id="saveMsg"
-		parameterType="study.shop.cidermarket.model.Msgbox">
-		UPDATE msgbox SET
-			receiversave='Y'
-		WHERE msgno=#{msgno}
-	</update>
-	
 		
-		<!-- 회원탈퇴시 sender를 대표 더미데이터로 바꾸기 위한 위한 기능 정의 -->
+	<!-- 회원탈퇴시 sender를 대표 더미데이터로 바꾸기 위한 위한 기능 정의 -->
 	<update id="updateItemBySender"
 		parameterType="study.shop.cidermarket.model.Msgbox">
 		UPDATE msgbox SET
@@ -104,7 +95,7 @@
 		WHERE sender=#{sender}
 	</update>
 	
-		<!-- 회원탈퇴시 receiver를 대표 더미데이터로 바꾸기 위한 위한 기능 정의 -->
+	<!-- 회원탈퇴시 receiver를 대표 더미데이터로 바꾸기 위한 위한 기능 정의 -->
 	<update id="updateItemByReceiver"
 		parameterType="study.shop.cidermarket.model.Msgbox">
 		UPDATE msgbox SET

@@ -26,8 +26,6 @@
 	</resultMap>
 	
 	
-	
-	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Review"
