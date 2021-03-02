@@ -176,7 +176,7 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
- <if test="prodno == 10">
+ 		<if test="prodno == 10">
             AND prodcon='N'
         </if>
         <if test="prodno == 100">
@@ -275,7 +275,7 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
- <if test="prodno == 10">
+ 		<if test="prodno == 10">
             AND prodcon='N'
         </if>
         <if test="prodno == 100">
@@ -364,7 +364,7 @@
    <select id="selectCountAll"
       parameterType="study.shop.cidermarket.model.Product"
       resultType="int">
-      SELECT COUNT(*) FROM Product
+      SELECT COUNT(*) FROM product
       
       <where>
          tradecon='J'
@@ -372,7 +372,7 @@
             AND cateno = #{cateno}
          </if>
          
- <if test="prodno == 10">
+ 		<if test="prodno == 10">
             AND prodcon='N'
         </if>
         <if test="prodno == 100">

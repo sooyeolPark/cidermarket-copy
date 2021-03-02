@@ -13,7 +13,7 @@
 		parameterType="study.shop.cidermarket.model.Category"
 		resultMap="itemregMap">
 		SELECT cateno, name
-		FROM Category
+		FROM category
 	</select>
 
 </mapper>

@@ -114,7 +114,7 @@
 					</tbody>
 				</table>
 				
-				<form method="get" action="${pageContext.request.contextPath}/admin/product_adm.cider" id="searchBox_help">
+				
 					<div class="input-group">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit" id="search_memb">
@@ -130,7 +130,7 @@
 
 					<button class="btn btn-warning" type="submit" id="stop">거래정지</button>
 					<input type="hidden" value="S" />
-				</form>
+				
 		
 			</div>
 		</div>
