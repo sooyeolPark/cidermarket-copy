@@ -56,6 +56,24 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Product> getProductOutList(Product input) throws Exception {
+		List<Product> result = null;
+		try {
+			result = sqlSession.selectList("ProductMapper.selectOutList", input);
+			if(result == null) {
+				throw new NullPointerException("result=null");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 	@Override
 	public int getProductCount(Product input) throws Exception {
@@ -110,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
 		int result = 0;
 		try {
 			if(input.getTradecon().equals("W")) {
-				throw new NullPointerException("판매가 완료된 상품은 삭제할 수 없습니다.");
+				throw new NullPointerException("판매가 완료된 상품이 있습니다.");
 			} else {
 				// 신고 테이블 삭제
 				sqlSession.delete("SingoMapper.deleteProductItem", input);

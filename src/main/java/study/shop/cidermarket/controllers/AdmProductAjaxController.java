@@ -52,6 +52,7 @@ public class AdmProductAjaxController {
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
         Product input = new Product();
+        input.setSubject(keyword);
         List<Product> output = null;   // 조회결과가 저장될 객체
         PageData pageData = null;        // 페이지 번호를 계산한 결과가 저장될 객체
 
@@ -68,7 +69,7 @@ public class AdmProductAjaxController {
             // orderby에 때라서 데이터 조회하기
             switch (orderby) {
             case "default":
-         	   output = productService.getProductList(input);
+         	   output = admProductService.getProductList(input);
          	   break;
             case "payAsc":
          	   output = admProductService.getPriceAsc(input);

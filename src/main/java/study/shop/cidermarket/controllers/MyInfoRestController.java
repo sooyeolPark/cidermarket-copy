@@ -1,5 +1,6 @@
 package study.shop.cidermarket.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.service.FilesService;
+import study.shop.cidermarket.service.ItemIndexService;
 import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.MyInfoService;
+import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
 @RestController
@@ -40,6 +46,17 @@ public class MyInfoRestController {
    @Qualifier("MyInfoService")
    @Autowired MyInfoService myInfoService;
    
+   @Autowired 
+   @Qualifier("productService")
+   ProductService productService;
+   
+   @Autowired
+   @Qualifier("itemindexService")
+   ItemIndexService itemindexService;
+   
+   @Autowired   
+   @Qualifier("filesProductService")
+   FilesService filesProductService;
 
  
  //------------ID 변경 페이지 ----------------------------------------
@@ -321,10 +338,6 @@ public class MyInfoRestController {
 	return webHelper.getJsonData(data);
    }
    
-   private int parseInt(String substring) {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 //-----------회원탈퇴페이지 ----------------------------------------
    @RequestMapping(value="/myinfo_out", method=RequestMethod.PUT)
@@ -342,17 +355,62 @@ public class MyInfoRestController {
    	input.setMembno(myNum);
    	input.setOutmember(outmember);
    	
-   	
-
-   	
    	try {
 			// 일치하는 데이터 조회		
 		input.setOutmember(outmember);
 		myInfoService.editOutmember(input);
 			
-		} catch (Exception e) {
-			return webHelper.getJsonError(e.getLocalizedMessage());
+	} catch (Exception e) {
+		return webHelper.getJsonError(e.getLocalizedMessage());
+	}
+   	
+   	Product input_pro = new Product();
+   	input_pro.setSeller(myNum);
+   	List<Product> output = new ArrayList<Product>();
+	try {
+		output = productService.getProductOutList(input_pro);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	if(output!=null) {
+		for(int i=0; i<output.size(); i++) {
+			int prodno = output.get(i).getProdno();
+			String tradecon = output.get(i).getTradecon(); 
+			/** 1) 거래완료된 상품은 상태 변경 막기*/
+    		if(prodno==0) {		
+    			return webHelper.getJsonWarning("상품번호가 없습니다.");
+    		} else if (tradecon.trim().equals("W")) {
+    			break;
+    		}
+    		
+    		/** 2) 데이터 삭제 */
+    		Product input_pro2 = new Product();
+    		input_pro2.setProdno(prodno);
+    		input_pro2.setTradecon(tradecon);
+    		
+    		Files f = new Files();
+    		f.setRefid(prodno);
+    		f.setReftable("product");
+    		List<Files> files = null;
+    		
+    		try {
+    			files = itemindexService.getFilesListItem(f);
+    			if (files.size() > 0) {
+	        		filesProductService.deleteRefFiles(f);  // 테이블에서 데이터 삭제
+		            for (Files file : files) {
+		            	webHelper.deleteFile(file.getFilepath());
+		            	webHelper.deleteFile(file.getThumbnailPath());
+		            }
+	        	}
+    			productService.deleteProduct(input_pro2);
+			} catch (Exception e) {
+				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
 		}
+	}
+		
+   	
 	session.invalidate();
 	return webHelper.getJsonData();
    }

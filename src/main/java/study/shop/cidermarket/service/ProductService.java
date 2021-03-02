@@ -90,8 +90,17 @@ public interface ProductService {
 	public List<Product> getCategoryProductList(Product input) throws Exception;
 	
 
+	/**
+	 * 멤버 탈퇴 시 상품삭제를 위한 상품목록 조회
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Product> getProductOutList(Product input) throws Exception;
+	
 	public int editTradecon(Product input) throws Exception;
 
 	List<Product> selectListByFilter(Product input) throws Exception;
 	public int getProductCountByFilter(Product input) throws Exception;
+	
 }

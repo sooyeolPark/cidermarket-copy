@@ -31,8 +31,8 @@
 				<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
 				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
 				<option value="editDesc" <c:if test="${orderby=='editDesc'}">selected</c:if>>반품중</option>
-				<option value="J" <c:if test="${orderby==''}">selected</c:if>>반품중</option>
-				<option value="W" <c:if test="${orderby==''}">selected</c:if>>반품완료</option>				
+				<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>반품중</option>
+				<option value="W" <c:if test="${orderby=='W'}">selected</c:if>>반품완료</option>				
 			</select>
 		</div>
 

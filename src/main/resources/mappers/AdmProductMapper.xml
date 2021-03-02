@@ -51,6 +51,15 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
+		
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+		
 		order by price asc
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
@@ -69,6 +78,13 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
 		order by price desc
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
@@ -87,7 +103,15 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
-		where how="J"
+		
+		<where>
+				how="J"
+			<if test="subject != null and subject != ''">
+				AND (subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+			</if>
+		</where>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -105,7 +129,14 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
-		where how="T"
+		<where>
+				how="T"
+			<if test="subject != null and subject != ''">
+				AND (subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+			</if>
+		</where>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -123,7 +154,14 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
-		where r.tradecon="J"
+		<where>
+				tradecon="J"
+			<if test="subject != null and subject != ''">
+				AND (subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+			</if>
+		</where>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -142,6 +180,14 @@
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
 		where r.tradecon="W"
+		<where>
+				tradecon="W"
+			<if test="subject != null and subject != ''">
+				AND (subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+			</if>
+		</where>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -159,21 +205,46 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount}
+		</if>	
 	</select>
+	
 	<select id="ProductSelectCountAll"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultType="int">
-		SELECT COUNT(*) FROM product
-		
+		SELECT COUNT(*) FROM product		
+		<where>
+			<if test="subject != null and subject != ''">
+				subject LIKE concat('%', #{subject}, '%') OR 
+				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+				OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))
+			</if>
+		</where>
 	</select>
-		<select id="getHowJCount"
+	
+	<select id="getHowJCount"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultType="int">
 		SELECT COUNT(*) FROM product
 		where how="J"
+		
+		<if test="subject != null and subject != ''">
+			AND (subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+		</if>
+		
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
-		</if>		
+		</if>
 		
 	</select>
 		<select id="getHowTCount"
@@ -181,6 +252,12 @@
 		resultType="int">
 		SELECT COUNT(*) FROM product
 		where how="T"
+		
+		<if test="subject != null and subject != ''">
+			AND (subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+		</if>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -190,6 +267,12 @@
 		resultType="int">
 		SELECT COUNT(*) FROM product
 		where r.tradecon="J"
+		
+		<if test="subject != null and subject != ''">
+			AND (subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+		</if>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
@@ -199,6 +282,12 @@
 		resultType="int">
 		SELECT COUNT(*) FROM product
 		where r.tradecon="W"
+		
+		<if test="subject != null and subject != ''">
+			AND (subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%')))
+		</if>
 		<if test="listCount > 0">
 			LIMIT #{offset}, #{listCount}
 		</if>		
