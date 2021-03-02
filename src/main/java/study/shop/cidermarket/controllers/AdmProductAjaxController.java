@@ -79,8 +79,8 @@ public class AdmProductAjaxController {
          	   break;
          	   
 
-            case "J":
-               totalCount = admProductService.getProductCount(input);
+            case "J": //직택배
+               totalCount = admProductService.getHowJCount(input);
                pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 
                // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
@@ -88,8 +88,8 @@ public class AdmProductAjaxController {
                Product.setListCount(pageData.getListCount());
          	   output = admProductService.getHowJ(input);
          	   break;
-            case "T":
-            	totalCount = admProductService.getProductCount(input);
+            case "T": //택배 
+            	totalCount = admProductService.getHowTCount(input);
                 pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 
                 // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
@@ -97,8 +97,8 @@ public class AdmProductAjaxController {
                 Product.setListCount(pageData.getListCount());
          	   output = admProductService.getHowT(input);
          	   break;
-            case "tradeconJ":
-            	totalCount = admProductService.getProductCount(input);
+            case "tradeconJ": //판매중 
+            	totalCount = admProductService.getTradeconJCount(input);
                 pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 
                 // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
@@ -106,8 +106,8 @@ public class AdmProductAjaxController {
                 Product.setListCount(pageData.getListCount());
          	   output = admProductService.getTradeconJ(input);
          	   break;
-            case "tradeconW":
-            	totalCount = admProductService.getProductCount(input);
+            case "tradeconW": //판매완료 
+            	totalCount = admProductService.getTradeconWCount(input);
                 pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 
                 // SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장

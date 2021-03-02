@@ -105,7 +105,7 @@
 		INNER JOIN RECORD R on p.prodno=r.prodno
 		
 		<where>
-				how="J"
+				p.how="J"
 			<if test="subject != null and subject != ''">
 				AND (subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
@@ -130,7 +130,7 @@
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
 		<where>
-				how="T"
+				p.how="T"
 			<if test="subject != null and subject != ''">
 				AND (subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
@@ -155,7 +155,7 @@
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
 		<where>
-				tradecon="J"
+				p.tradecon="J"
 			<if test="subject != null and subject != ''">
 				AND (subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
@@ -179,9 +179,8 @@
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		INNER JOIN RECORD R on p.prodno=r.prodno
-		where r.tradecon="W"
 		<where>
-				tradecon="W"
+				p.tradecon="W"
 			<if test="subject != null and subject != ''">
 				AND (subject LIKE concat('%', #{subject}, '%') OR 
 				seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
@@ -266,7 +265,7 @@
 		parameterType="study.shop.cidermarket.model.Member"
 		resultType="int">
 		SELECT COUNT(*) FROM product
-		where r.tradecon="J"
+		where tradecon="J"
 		
 		<if test="subject != null and subject != ''">
 			AND (subject LIKE concat('%', #{subject}, '%') OR 
@@ -281,7 +280,7 @@
 		parameterType="study.shop.cidermarket.model.Member"
 		resultType="int">
 		SELECT COUNT(*) FROM product
-		where r.tradecon="W"
+		where tradecon="W"
 		
 		<if test="subject != null and subject != ''">
 			AND (subject LIKE concat('%', #{subject}, '%') OR 

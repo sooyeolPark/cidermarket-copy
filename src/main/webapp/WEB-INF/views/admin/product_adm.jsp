@@ -38,8 +38,8 @@
 						<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
 						<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>직거래</option>
 						<option value="T" <c:if test="${orderby=='T'}">selected</c:if>>택배</option>
-						<option value="tradeconJ" <c:if test="${orderby=='tradeconJ'}">selected</c:if>>거래중</option>
-						<option value="tradeconW" <c:if test="${orderby=='tradeconW'}">selected</c:if>>거래완료</option>
+						<option value="tradeconJ" <c:if test="${orderby=='tradeconJ'}">selected</c:if>>판매중</option>
+						<option value="tradeconW" <c:if test="${orderby=='tradeconW'}">selected</c:if>>판매완료</option>
 					</select>
 				</div>
 
@@ -61,33 +61,13 @@
 
 
 					<tbody id="board_body">
-
-            </div>
-            
-            <div class="col-lg-10">
-                <div class="title-menu clearfix">
-                    <h4>상품목록</h4>
-			<select class="form-control" id="align-number">
-				<option value="10" <c:if test="${pageData.listCount==10}">selected</c:if>>10개씩보기</option>
-				<option value="20" <c:if test="${pageData.listCount==20}">selected</c:if>>20개씩보기</option>
-			</select>
-			<select class="form-control" id="align-menu">
-				<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
-				<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
-				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
-				<option value="editDesc" <c:if test="${orderby=='editDesc'}">selected</c:if>>반품중</option>
-				<option value="J" <c:if test="${orderby==''}">selected</c:if>>반품중</option>
-				<option value="W" <c:if test="${orderby==''}">selected</c:if>>반품완료</option>
-				
-			<option value="editAsc" <c:if test="${orderby=='editAsc'}">selected</c:if>>반품완료</option>
-			</select>                
-                </div>
-
+	 					<c:forEach var="item" items="${output}" varStatus="status">
 							<c:url var="viewUrl" value="/item_index.cider">
 								<c:param name="prodno" value="${item.prodno}" />
 							</c:url>
 							<c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" />
-
+							
+							
 							<tr>
 								<td class="text-center">
 									<input type="checkbox" class="prod_chk" name="prodno" data-prodno="${item.prodno}" data-tradecon="${item.tradecon}" value="${item.prodno}">
@@ -151,7 +131,7 @@
 					<button class="btn btn-warning" type="submit" id="stop">거래정지</button>
 					<input type="hidden" value="S" />
 				</form>
-
+		
 			</div>
 		</div>
 

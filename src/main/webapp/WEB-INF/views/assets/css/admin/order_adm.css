@@ -17,7 +17,7 @@ td {
 
 /* ---------------로고수정------ */
 .table > thead > tr > th:nth-child(1) {
-  width: 2%;
+  width: 3%;
   text-align: left;
 }
 
@@ -32,7 +32,7 @@ td {
   width: 10%;
 }
 .table > thead > tr > th:nth-child(5) {
-  width: 6%;
+  width: 15%;
 }
 .table > thead > tr > th:nth-child(6) {
   width: 10%;
