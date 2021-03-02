@@ -193,7 +193,7 @@
         WHERE prodno=#{prodno}
     </update>
     
-    <!-- 반품승인 갱신을 위한 기능 정의 -->
+    <!-- 반품요청/승인 갱신을 위한 기능 정의 -->
     <update id="updateRefundItem"
         parameterType="study.shop.cidermarket.model.Record">
         UPDATE record SET

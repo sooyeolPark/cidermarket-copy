@@ -142,12 +142,14 @@ public class RecordRestController {
 	@RequestMapping(value="/record/ing/refund", method=RequestMethod.PUT)
 	public Map<String, Object> recordIngRefund(
 			@RequestParam(value="recono", defaultValue="0") int recono,
-			@RequestParam(value="refund", defaultValue="0") String refund) {
+			@RequestParam(value="refund", defaultValue="0") String refund,
+			@RequestParam(value="tradecon", defaultValue="0") String tradecon) {
                 
         /** 가져온 값을 이용하여 거래내역 조회 */
         Record input = new Record();
         input.setRecono(recono);
         input.setRefund(refund);
+        input.setTradecon(tradecon);
         
         try {
         	recordService.editRefundRecord(input);
