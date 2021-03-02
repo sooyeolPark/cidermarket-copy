@@ -52,7 +52,7 @@
 		<update id="deleteMsg"
 		parameterType="study.shop.cidermarket.model.Msgbox">
 		UPDATE msgbox SET
-			receiversave=null
+			receiversave=NULL
 		WHERE msgno=#{msgno}
 	</update>		
 </mapper>

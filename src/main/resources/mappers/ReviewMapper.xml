@@ -39,7 +39,7 @@
 		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=rv.sender AND reftable='member' order by fname asc limit 0, 1)) AS filepath,
 		(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=revino AND reftable='review')) AS reviewpic
 		FROM review rv
-		INNER JOIN Record rc On rv.recono = rc.recono
+		INNER JOIN record rc On rv.recono = rc.recono
 		INNER JOIN product p On rv.prodno = p.prodno
 		INNER JOIN member m ON rc.buyer= m.membno
 		WHERE receiver = #{receiver}
@@ -54,7 +54,7 @@
 	<select id="selectCountAll"
 		parameterType="study.shop.cidermarket.model.Review"
 		resultType="int">
-		SELECT COUNT(*) FROM Review
+		SELECT COUNT(*) FROM review
 		WHERE receiver = #{receiver}
 
 	</select>
@@ -89,7 +89,7 @@
 	<select id="getAvgRate"
 		parameterType="study.shop.cidermarket.model.Review"
 		resultType="float">
-		SELECT avg(rate) FROM Review
+		SELECT avg(rate) FROM review
 		WHERE receiver = #{receiver}
 
 	</select>
