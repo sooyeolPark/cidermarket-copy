@@ -29,14 +29,14 @@
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			sms, shopaddress, intro, outmember, rate
 		FROM member
-		WHERE email=#{email} AND password=#{password} AND outmember='N'
+		WHERE email=#{email} AND password=MD5(#{password}) AND outmember='N'
 	</select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultMap="memberMap">
-		SELECT membno, nickname, email, password, tel,
+		SELECT membno, nickname, email, tel,
 			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			sms, shopaddress, intro, outmember, rate
@@ -78,7 +78,7 @@
 			outmember, rate
 		) VALUES (
 			(select concat('cider', max(membno)+1) from member m), 
-			#{email}, #{password}, #{tel}, 
+			#{email}, MD5(#{password}), #{tel}, 
 			now(), now(), 4, 
 			(select concat('c', max(membno)+1) from member m), null,
 			'N', null
@@ -95,7 +95,7 @@
 	<update id="updateItem"
 		parameterType="study.shop.cidermarket.model.Member">
 		UPDATE member SET
-			nickname=#{nickname}, email=#{email}, password=#{password}, 
+			nickname=#{nickname}, email=#{email}, password=MD5(#{password}), 
 			tel=#{tel}, editdate=now(), sms=#{sms}, shopaddress=#{shopaddress}, 
 			intro=#{intro}
 		WHERE membno=#{membno}
@@ -105,7 +105,7 @@
 	<select id="selectItemIndex"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultMap="memberMap">
-		SELECT membno, nickname, email, password, tel,
+		SELECT membno, nickname, email, tel,
 			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
 			sms, shopaddress, intro, outmember, rate,
@@ -128,7 +128,7 @@
 	<select id="selectEmailItem"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultMap="memberMap">
-		SELECT membno, email, tel, password,
+		SELECT membno, email, tel,
 			DATE_FORMAT(joindate, '%Y-%m-%d %H:%i:%S') AS joindate
 		FROM member
 		WHERE tel=#{tel} AND email=#{email}
@@ -138,7 +138,7 @@
 	<update id="updatePassItem"
 		parameterType="study.shop.cidermarket.model.Member">
 		UPDATE member SET
-			password=#{password}
+			password=MD5(#{password})
 		WHERE membno=#{membno}
 	</update>
 	

@@ -52,7 +52,7 @@
 						      <label for="name" class="col-sm-2 control-label">이름 <span class="star">*</span></label>
 						      <div class="col-sm-10">
 						        <input type="text" name="name" id="name" class="form-control" maxlength="20" placeholder="이름을 입력해 주세요." value="${output.nickname}" />
-						        <input type="hidden" name="membno" value="${myNum}" />
+						        <input type="hidden" name="membno" id="memberno" value="${myNum}" />
 						      </div>
 						    </div>
 						    <div class="form-group">
@@ -204,7 +204,7 @@
 	  
 	  // 정규표현식 검사
 	  $(function(){  
-	
+		const membno = $('#memberno').val();
     	$("#addForm").ajaxForm({
     		beforeSerialize:function($Form, options){
 		        /* Before serialize */
@@ -231,6 +231,7 @@
 	  	      if (!regex.value('#content', '내용을 입력하세요.')) { return false; }
     		},
 	    	method: "POST",
+	    	data: {"membno":membno},
   			success: function(json) {
   				console.log(json);
   				alert("등록되었습니다.");

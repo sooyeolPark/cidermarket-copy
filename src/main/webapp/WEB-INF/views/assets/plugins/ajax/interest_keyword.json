@@ -1,54 +1,54 @@
 {
   "i-key": [
       {
-        "khref": "/search?q=벨벳",
+        "khref": "search.cider?keyword=신발",
         "knum": "1",
-        "ktitle": "벨벳"
+        "ktitle": "신발"
       },
       {
-        "khref": "/search?q=아이패드 프로",
+        "khref": "search.cider?keyword=나이키",
         "knum": "2",
-        "ktitle": "아이패드 프로"
+        "ktitle": "나이키"
       },
       {
-        "khref": "/search?q=와이책",
+        "khref": "search.cider?keyword=아이폰",
         "knum": "3",
-        "ktitle": "와이책"
+        "ktitle": "아이폰"
       },
       {
-        "khref": "/search?q=시계",
+        "khref": "search.cider?keyword=시계",
         "knum": "4",
         "ktitle": "시계"
       },
       {
-        "khref": "/search?q=접시",
+        "khref": "search.cider?keyword=접시",
         "knum": "5",
         "ktitle": "접시"
       },
       {
-        "khref": "/search?q=이불",
+        "khref": "search.cider?keyword=이불",
         "knum": "6",
         "ktitle": "이불"
       },
       {
-        "khref": "/search?q=오르골",
+        "khref": "search.cider?keyword=오르골",
         "knum": "7",
         "ktitle": "오르골"
       },
       {
-        "khref": "/search?q=어항",
+        "khref": "search.cider?keyword=어항",
         "knum": "8",
         "ktitle": "어항"
       },
       {
-        "khref": "/search?q=애플워치",
+        "khref": "search.cider?keyword=애플워치",
         "knum": "9",
         "ktitle": "애플워치"
       },
       {
-        "khref": "/search?q=아이폰12",
+        "khref": "search.cider?keyword=쇼파",
         "knum": "10",
-        "ktitle": "아이폰12"
+        "ktitle": "쇼파"
       }
  ]
 }

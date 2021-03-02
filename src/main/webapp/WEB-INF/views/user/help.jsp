@@ -227,15 +227,16 @@
 			// 일반문의 작성은 로그인 후 이용 가능
 			$("#inquiry").click(function(e){
 				e.preventDefault();
-				var myNum = '<%=session.getAttribute("myNum")%>';
-	    	    if(myNum=="null"){
+				let myNum = '${myNum}';
+	    	    if(myNum){
+		    	    window.location="${pageContext.request.contextPath}/help/inquiry_write.cider";
+	    	    } else {
 	    		    if(confirm("문의하기는 로그인 후 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
 	    			  window.location = "${pageContext.request.contextPath}/member/login.cider";  
 	    		    } else {
 	    		  	  return false;
 	    		    }
 	    	    }
-	    	    window.location="${pageContext.request.contextPath}/help/inquiry_write.cider";
 			});
 
 		});
