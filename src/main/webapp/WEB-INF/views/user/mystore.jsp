@@ -91,7 +91,7 @@
                                                     <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="caption">

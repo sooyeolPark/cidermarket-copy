@@ -96,7 +96,9 @@
 #btn-radius 
   border-radius: 15px; */
 /* width: 60px; */
-
+.media {
+  position: relative;
+}
 .media > span {
   width: 110px;
   margin: 1em auto;
@@ -107,12 +109,11 @@
 
 .media-object {
   margin: 0 auto;
+  border: 1px solid #eee;
 }
 
 .col-sm-2 {
   margin-bottom: 4px;
-}
-.col-xs-9 {
 }
 
 .col-sm-2 > span {
@@ -227,4 +228,9 @@ margin-bt {
   font-weight: bold;
   right: 10%;
   top: 3%;
+}
+.mediaBtn {
+  position: relative;
+  top: -40px;
+  left: 21%;
 }

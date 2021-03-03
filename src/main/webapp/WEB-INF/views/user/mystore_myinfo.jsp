@@ -35,7 +35,7 @@
 				
 				<form id="addForm" name="addForm" enctype=“multipart/form-data” role="form" action="${pageContext.request.contextPath}/myinfo_profile">
 				<div class="media">
-					<!-- 조던이미지 -->
+					<!-- 프로필이미지 -->
 					<span> 
 					<c:choose>
                     	<c:when test="${output.filepath == null && fn:length(output.filepath) == 0}">
@@ -49,8 +49,8 @@
                    	<input name="image0" type="file" id="imgInput" class="image_plus" accept="image/*"/>
                    	
 					</span>
-					<div class="col-xs-3 col-xs-offset-6">
-					<button id="change-btn1" class="btn btn-warning" type="submit">사진변경</button>
+					<div class="col-xs-3 col-xs-offset-6 mediaBtn">
+						<button id="change-btn1" class="btn btn-warning" type="submit">사진변경</button>
 					</div>	
 				</div>
 				</form>
@@ -286,6 +286,9 @@
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 	<script type="text/javascript">
+		/* 서브메뉴버튼 활성화 */
+    	document.querySelector('.my_ctg li:nth-child(4)').className = 'active';
+	
 		$(function() {
 			
 		
