@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,8 +27,10 @@ import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.model.Review;
 import study.shop.cidermarket.service.FilesService;
 import study.shop.cidermarket.service.ItemIndexService;
+import study.shop.cidermarket.service.ItemregService;
 import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.MyInfoService;
 import study.shop.cidermarket.service.ProductService;
@@ -57,8 +60,114 @@ public class MyInfoRestController {
    @Autowired   
    @Qualifier("filesProductService")
    FilesService filesProductService;
+   
+	@Autowired   
+	@Qualifier("itemregService")
+	ItemregService itemregService;
+   
+   //-----------프로필  변경 페이지 ----------------------------------------
+   @RequestMapping(value="/myinfo_profile", method=RequestMethod.POST)
+   public Map<String, Object> id(Model model,
+	   @RequestParam(name="origin_image0", required=false) String origin_image0,
+	   @RequestParam(name="image0", required=false) MultipartFile image0,
+	   @RequestParam(value="nickname", defaultValue="") String nickname) {
+   
+	   
+   	//Session에서 내 회원번호 가져오기 
+		HttpSession session = webHelper.getRequest().getSession();
+		int myNum = (int) session.getAttribute("myNum");
+   
+		Member input = new Member();
+		input.setMembno(myNum);
+		
+		
+		Member output = null;
+		
+	   	try {
+   			// 일치하는 데이터 조회
+		output = myInfoService.getMemberItem(input);
+		
+		} catch (Exception e) {
+			return webHelper.getJsonError(e.getLocalizedMessage());
+		}
 
- 
+	    /** 파일 수정하기 (사진이 수정되면 수정된 사진은 삭제하고(삭제될 사진의 fileno가 input에 담겨온다)
+	       * 새로 등록된 사진은 새로 등록해준다. */
+	      // 수정된 파일 삭제하기
+	     
+	   	
+	   	
+	   if(origin_image0 != null) {
+		
+		   int origin_image1 = Integer.parseInt(origin_image0);
+		   
+	    //실제 파일 삭제 구현
+			//for문으로 삭제할 파일 불러와서 List에 담기
+
+			Files temp = new Files();
+			Files temp_output=null;
+			//String 상태이므로 숫자형으로 바꿔준다.
+			temp.setFileno(origin_image1);
+
+			try {
+		    	//데이터 저장
+					temp_output=itemregService.getFilesItem(temp);
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      }
+
+			try {
+				webHelper.deleteFile(temp_output.getFilepath());
+			} catch (Exception e) {
+				return webHelper.getJsonWarning("파일 삭제에 실패했습니다.");
+			}
+		
+
+
+			Files temp_01 = new Files();
+			//String 상태이므로 숫자형으로 바꿔준다.
+			temp_01.setFileno(origin_image1);
+			try {
+		    	//데이터 저장
+					itemregService.deleteFiles(temp_01);
+					temp_01=null;
+		      } catch (Exception e) {
+		         return webHelper.getJsonError(e.getLocalizedMessage());
+		      } 
+	   } 
+		
+		//일반적인 사진 추가하기 =========================
+		List<MultipartFile> files= new ArrayList<MultipartFile>(); 
+		if(image0!=null) {files.add(image0);}
+
+
+		if(files.size()>0) {
+			//for문으로 데이터 입력 처리
+			for(int i = 0; i<files.size(); i++) {
+				// 저장된 결과를 조회하기 위한 객체
+				Files f = null;
+				try {
+					f = webHelper.saveMultipartFile(files.get(i));
+			        f.setFname("member"+myNum+String.format("%d", System.currentTimeMillis()));
+			        f.setReftable("member");
+			        f.setRefid(myNum);
+
+			        //files 테이블에 데이터 입력
+			        filesProductService.addFiles(f);			        
+			      } catch (NullPointerException e) {
+			            e.printStackTrace();
+			            return webHelper.getJsonWarning("업로드 된 파일이 없습니다.");
+			      } catch (Exception e) {
+			         return webHelper.getJsonError(e.getLocalizedMessage());
+			      }
+			}	
+		}
+	      /** 2) JSON 출력하기 */
+	      Map<String, Object> data = new HashMap<String, Object>();
+	      data.put("item", output);
+	      return webHelper.getJsonData(data);
+   }
+   
  //------------ID 변경 페이지 ----------------------------------------
    @RequestMapping(value="/myinfo_id", method=RequestMethod.PUT)
    public Map<String, Object> id(Model model,

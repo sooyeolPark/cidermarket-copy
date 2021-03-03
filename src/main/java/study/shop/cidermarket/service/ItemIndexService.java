@@ -165,5 +165,6 @@ public interface ItemIndexService {
 	 */
 	public int editProduct(Product input) throws Exception;
 	public List<Files> getFilesReviewListItem(Files input) throws Exception;
+	public Files getFilesMemberListItem(Files input) throws Exception;
 }
 

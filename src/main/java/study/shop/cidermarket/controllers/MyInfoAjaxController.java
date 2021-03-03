@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.service.ItemIndexService;
 import study.shop.cidermarket.service.MyInfoService;
 
 @Controller
@@ -32,6 +34,10 @@ public class MyInfoAjaxController {
     /** Service 패턴 구현체 주입 */
     @Qualifier("MyInfoService")
     @Autowired MyInfoService myInfoService;
+    /** Service 패턴 구현체 주입 */
+    @Autowired
+    @Qualifier("itemindexService")
+    ItemIndexService itemindexService;
     
 
     
@@ -44,7 +50,19 @@ public class MyInfoAjaxController {
 		HttpSession session = webHelper.getRequest().getSession();
 		int myNum = (int) session.getAttribute("myNum");
     	
-   
+		   //파일 이미지 가져오기 
+	       Files input_01 = new Files();
+	       input_01.setRefid(myNum);
+	       input_01.setReftable("member");
+
+	       // 조회결과를 저장할 객체 선언
+			
+			  Files output_01 = null;
+			  
+			  	try { // 데이터 조회 output_01 =
+			  output_01= itemindexService.getFilesMemberListItem(input_01); } catch (Exception e) {
+			  return webHelper.redirect(null, e.getLocalizedMessage()); }
+			 
 
         /** 2) 데이터 조회하기 */
         // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
@@ -64,6 +82,7 @@ public class MyInfoAjaxController {
         /** 3) View 처리 */
         model.addAttribute("user", output);
         model.addAttribute("output", output);
+		 model.addAttribute("output_01", output_01); 
         return new ModelAndView("user/mystore_myinfo");
     }
     

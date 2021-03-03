@@ -32,8 +32,9 @@
 		<!-- 탭 화면 시작 -->
 		<div id="myinfo">
 			<div class="container">
+				
+				<form id="addForm" name="addForm" enctype=“multipart/form-data” role="form" action="${pageContext.request.contextPath}/myinfo_profile">
 				<div class="media">
-
 					<!-- 조던이미지 -->
 					<span> 
 					<c:choose>
@@ -41,16 +42,18 @@
 							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="110" height="110" alt="${output.nickname}">
                     	</c:when>
                    		<c:otherwise>
-							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${output.filepath}" width="110" height="110" alt="${output.nickname}">
+                   			<input type="hidden" name="origin_image0" value="${output_01.fileno}">
+							<img name="origin_img" id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${output.filepath}" width="110" height="110" alt="${output.nickname}" >
                    		</c:otherwise>
                    	</c:choose>
-                   	<input type="file" id="imgInput" class="image_plus" accept="image/*" />
+                   	<input name="image0" type="file" id="imgInput" class="image_plus" accept="image/*"/>
+                   	
 					</span>
-
-					<!-- 이미지파일추가 -->
-
+					<div class="col-xs-3 col-xs-offset-6">
+					<button id="change-btn1" class="btn btn-warning" type="submit">사진변경</button>
+					</div>	
 				</div>
-
+				</form>
 				<!-- ---------------------------------------------------- -->
 				<form name="editForm1" id="editForm1" action="${pageContext.request.contextPath}/myinfo_id">
 					<div class="row ">
@@ -281,8 +284,11 @@
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/jquery.validate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/validate/additional-methods.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			
+		
 
 			// 이름변경 
 			$("#editForm1").submit(function(e) {
@@ -720,7 +726,26 @@
 			$("#imgInput").on('change', function() {
 				readURL(this);
 			});
+			
+			
+			// #item_img_group에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
+         	 $("#addForm").ajaxForm({
+	                // 전송 메서드 지정
+	                method: "POST",
+	                // 서버에서 200 응답을 전달한 경우 실행됨
+	                success: function(json) {
+	                    console.log(json);
+	                 // json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
+	                    if (json.rt == "OK") {
+	                    	alert("프로필사진을 변경하였습니다.");
+	                   	 window.location="${pageContext.request.contextPath}/mystore/{shopaddress}/myinfo.cider?membno"
+								+ json.item.membno;;
+	                    }
+	                }
+	            });
+				
 
+ 
 		});
 
 	</script>

@@ -159,16 +159,23 @@
 		SELECT *
 		FROM files
 		WHERE reftable='product' AND refid=#{refid}
-		ORDER BY fname asc;
+		ORDER BY fname asc
 	</select>
 	
-		<select id="selectReviewImgList"
+	<select id="selectReviewImgList"
 		parameterType="study.shop.cidermarket.model.Files"
 		resultMap="filesMap">
 		SELECT *
 		FROM files
 		WHERE reftable='review' AND refid=#{refid}
-		ORDER BY fname asc;
+		ORDER BY fname asc
+	</select>
+	
+		<select id="selectMemberImgList"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT fileno FROM files
+		WHERE reftable='member' and refid=#{refid}
 	</select>
 
 </mapper>
