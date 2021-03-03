@@ -177,5 +177,16 @@
 		SELECT fileno FROM files
 		WHERE reftable='member' and refid=#{refid}
 	</select>
-
+		
+		<!-- 관리자가 카테고리 삭제를 위한 정보 -->
+		<select id="selectAdmCategory"
+		parameterType="study.shop.cidermarket.model.Files"
+		resultMap="filesMap">
+		SELECT fileno, fname, filepath, thumbnailPath, type, size,
+			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate,  
+			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
+			reftable, refid
+		FROM files
+		WHERE reftable='category' AND refid=#{refid}
+	</select>
 </mapper>

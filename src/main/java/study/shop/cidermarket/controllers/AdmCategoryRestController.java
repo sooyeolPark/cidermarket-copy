@@ -18,6 +18,7 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Files;
+import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.FilesService;
 
@@ -187,15 +188,31 @@ public class AdmCategoryRestController {
 			Category input = new Category();
 			input.setCateno(arr[i]);
 			
+			Product input_01 = new Product();
+			input_01.setCateno(arr[i]);
+			
 			Files f = new Files();
 			f.setRefid(arr[i]);
 			f.setReftable("category");
 			
+			Files f_01 = new Files();
+			f_01.setRefid(arr[i]);
+			
+			Files output_01 = null;
 			try {
+				output_01 = categoryService.getFilesItem(f_01); // 선택된 카테고리의 filepath 조회
+				categoryService.updateProductCateno(input_01); //Product테이블에서 cateno을 기타로 바꿔준다.
 				categoryService.deleteCategory(input); // 데이터 삭제
 				filesCateService.deleteFiles(f); // 데이터 삭제
 			} catch (Exception e) {
 				return webHelper.getJsonError(e.getLocalizedMessage());
+			}
+			
+			//조회한 filepath를 불러와 파일 삭제
+			try {
+				webHelper.deleteFile(output_01.getFilepath());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
