@@ -18,6 +18,7 @@
 		<result property="hits" column="hits" />
 		<result property="editdate" column="editdate" />
 		<result property="filepath" column="filepath" />
+		<result property="thumbnailPath" column="thumbnailPath" />
 		<result property="sellerNick" column="sellerNick" />
 		<result property="catename" column="catename" />
 	</resultMap>
@@ -30,7 +31,8 @@
 			DATE_FORMAT(regdate, '%Y-%m-%d %H:%i:%S') AS regdate, 
 			prodcon, how, tradecon,	seller, hits, 
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+			(SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
 		FROM product p
 		INNER JOIN category c ON c.cateno=p.cateno
 		WHERE prodno=#{prodno}
@@ -45,7 +47,8 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+			(SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
 		<where>
@@ -191,7 +194,8 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+			(SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
 		FROM product
 		
 		<where>
@@ -218,7 +222,8 @@
 			prodcon, how, tradecon, hits, seller,
 			(SELECT nickname FROM member WHERE membno=seller) AS sellerNick,  
 			DATE_FORMAT(editdate, '%Y-%m-%d %H:%i:%S') AS editdate,
-			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+			(SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
 		FROM product
 		
 		<where>
@@ -301,7 +306,8 @@
       SELECT 
          subject, price, p.prodno, c.cateno, c.name as catename, prodcon, how, tradecon, hits, seller,
 		 (SELECT nickname FROM member WHERE membno=seller) AS sellerNick,
-         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
       FROM product p,category c
       
       <where>

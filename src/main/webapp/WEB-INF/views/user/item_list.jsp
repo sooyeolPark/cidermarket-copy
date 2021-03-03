@@ -116,7 +116,7 @@
 												<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
 											</c:when>
 											<c:otherwise>
-												<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+												<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
 											</c:otherwise>
 										</c:choose>
 										<div class="caption">
@@ -149,7 +149,7 @@
             <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
                 <div class="sorting thumbnail">
 				{{#if filepath}}
-		        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
+		        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{thumbnailPath}}" />
 		        {{else}}
 			        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
 				{{/if}}
@@ -233,12 +233,17 @@
 			/* 스크롤 이벤트 */
 			$(window).scroll(
 					function(e) {
+						let totalPage = "${pageData.totalPage}";
 						if ($(window).height() + $(window).scrollTop() == $(
 								document).height()) {
-							// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
-							nowPage++;
-							getProduct(sort,filter);
-							get_sort();
+							// 현재페이지 체크 후 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+							if (totalPage <= nowPage) {
+								isEnd = true;
+							} else {
+								nowPage++;
+								getProduct(sort,filter);
+								get_sort();
+							}
 						}
 					})
 

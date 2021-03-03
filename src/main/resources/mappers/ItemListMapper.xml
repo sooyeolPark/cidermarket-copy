@@ -28,6 +28,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE prodcon=#{prodcon} and how={how}
@@ -45,7 +46,8 @@
       SELECT 
          subject, price, p.prodno, c.cateno, c.name as catename, prodcon, how, tradecon, hits, seller,
 		 (SELECT nickname FROM member WHERE membno=seller) AS sellerNick,
-         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
+         (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath
       FROM product p
       INNER JOIN category c ON c.cateno=p.cateno
       
@@ -69,6 +71,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       
@@ -168,6 +171,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       
@@ -267,6 +271,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       
@@ -460,6 +465,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE cateno=#{cateno} AND tradecon='J'
@@ -479,6 +485,7 @@
       resultMap="ItemListMap">
       SELECT 
          (SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath,
+         (SELECT thumbnailPath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=prodno AND reftable='product' order by fname asc limit 0, 1)) AS thumbnailPath,
          subject, price, prodno, (SELECT nickname FROM member WHERE membno=seller) AS sellerNick
       FROM product
       WHERE seller=#{seller} AND tradecon='J'

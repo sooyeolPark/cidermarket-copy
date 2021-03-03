@@ -108,8 +108,7 @@
                         <div class="form-group">
                             <label for="item_content" class="col-sm-2 control-label">설명</label>
                             <div class="col-sm-10">
-                                <textarea id="item_content" name="item_content" class="form-control" rows="5"
-                                    placeholder="상품 설명을 입력해주세요."></textarea>
+                                <textarea id="item_content" name="item_content" class="form-control ckeditor" rows="5" placeholder="상품 설명을 입력해주세요."></textarea>
                             </div>
                         </div>
                 
@@ -183,7 +182,7 @@
 
             <div id="final">
                     <fieldset>
-                        <button id="allow" type="submit" class="btn btn-primary btn-block">
+                        <button id="allow" type="submit" class="btn btn-primary btn-block" onClick="CKupdate();">
                             상 품 등 록
                         </button>
                     </fieldset>
@@ -216,7 +215,14 @@
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     <!-- handlebar plugin -->
     <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.7.6.js"></script>
+    <!-- CKEditor CDN -->
+    <script src="//cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
     <script type="text/javascript">
+	    function CKupdate(){
+	        for ( instance in CKEDITOR.instances )
+	            CKEDITOR.instances[instance].updateElement();
+	    }
+    
         $(function () {
         	// 직거래 선택시 배송비 입력칸 비활성화
             $(".radio_check").click(function () {
