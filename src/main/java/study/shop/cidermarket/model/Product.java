@@ -21,6 +21,7 @@ public class Product {
 	
 	// 2) JOIN절에 따른 추가 컬럼
 	private String filepath;  // 이미지 파일 첨부용
+	private String thumbnailPath;  // 썸네일이미지 파일 첨부용
 	private String sellerNick;  // 판매자(닉네임)
 	private String catename;  // 카테고리제목
 	private String nickname;  // 셀러닉네임

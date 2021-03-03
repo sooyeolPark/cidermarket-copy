@@ -551,7 +551,7 @@
 								</c:url>								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}">
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4>${item.price}원</h4>
@@ -587,7 +587,7 @@
 								</c:url>								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}">
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4>${item.price}원</h4>

@@ -119,7 +119,7 @@
 					                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
 					                        	</c:when>
 				                        		<c:otherwise>
-				                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+				                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
 				                        		</c:otherwise>
 				                        	</c:choose>
 					                        <div class="caption">
@@ -148,7 +148,7 @@
              	<a href="${pageContext.request.contextPath}/product/item_index.cider?prodno={{prodno}}">
              		<div class="sorting thumbnail">
                 		{{#if filepath}}
-			        		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{filepath}}" />
+			        		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{thumbnailPath}}" />
 			        	{{else}}
 				        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
 						{{/if}}
