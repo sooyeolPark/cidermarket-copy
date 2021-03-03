@@ -30,9 +30,8 @@
 				<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
 				<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
 				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
-				<option value="editDesc" <c:if test="${orderby=='editDesc'}">selected</c:if>>반품중</option>
-				<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>반품중</option>
-				<option value="W" <c:if test="${orderby=='W'}">selected</c:if>>반품완료</option>				
+				<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>거래중</option>
+				<option value="W" <c:if test="${orderby=='W'}">selected</c:if>>거래완료</option>				
 			</select>
 		</div>
 
@@ -113,11 +112,11 @@
 
 		<div class="input-group">
 			<div class="input-group-btn">
-				<button class="btn btn-default" type="button">
+				<button class="btn btn-default" type="button" id="search_prod">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</div>
-			<input type="text" class="form-control searchInput" id="search_btn" placeholder="키워드를 입력하세요">
+			<input type="text" class="form-control searchInput" id="keyword" placeholder="키워드를 입력하세요" value="${keyword}">
 		</div>
 	 <!-- 페이지네이션 -->
 	<div class="clearfix text-center pagination">
@@ -130,7 +129,7 @@
                     <c:url value="/admin/order_adm.cider/" var="prevPageUrl">
                     	<c:param name="page" value="${pageData.prevPage}" />
                  		<c:param name="orderby" value="${orderby}" />          
-                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="keyword" value="${keyword}" />          
                     	<c:param name="listCount" value="${pageData.listCount}" />                    	
                     	
                     	          
@@ -148,7 +147,7 @@
                   <c:url value="/admin/order_adm.cider/" var="pageUrl">
                      <c:param name="page" value="${i}" />
                  		<c:param name="orderby" value="${orderby}" />          
-                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="keyword" value="${keyword}" />          
                     	<c:param name="listCount" value="${pageData.listCount}" />                       
                   </c:url>
                   <%-- 페이지 번호 출력 --%>
@@ -171,7 +170,7 @@
                     <c:url value="/admin/order_adm.cider/" var="nextPageUrl">
                     	<c:param name="page" value="${pageData.nextPage}" />
                   		<c:param name="orderby" value="${orderby}" />          
-                    	<c:param name="search" value="${search}" />          
+                    	<c:param name="keyword" value="${keyword}" />          
                     	<c:param name="listCount" value="${pageData.listCount}" />                     	          
                     </c:url>
                     <li class="arr"><a href="${nextPageUrl}">&raquo;</a></li>
@@ -205,28 +204,28 @@
 	    $("#align-number").change(function(){
             let listCount = $(this).val(); //사용자선택값 가져오기
             let orderby = "${orderby}";
-            let search = "${search}";
+            let keyword = "${keyword}";
             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
-            		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
+            		"orderby="+orderby+"&listCount="+listCount+"&keyword="+keyword;
 	    });
         
-	       //   정렬 드롭다운의 변경이벤트
+	    //   정렬 드롭다운의 변경이벤트
 	    $("#align-menu").change(function(){
             let orderby = $(this).val(); //사용자선택값 가져오기
             let listCount = "${pageData.listCount}";
-            let search = "${search}";
+            let keyword = "${keyword}";
             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
-            		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
+            		"orderby="+orderby+"&listCount="+listCount+"&keyword="+keyword;
 	    });
    
-      	//   검색 드롭다운의 변경이벤트
- 	    $("#search_memb").click(function(){
-             let search = $("#search_btn").val(); //사용자선택값 가져오기
-             let listCount = "${pageData.listCount}";
-             let orderby = "${orderby}";
-             window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
-             		"orderby="+orderby+"&listCount="+listCount+"&search="+search;
- 	    });
+ 	    //   검색 입력의 이벤트
+	    $("#search_prod").click(function(){
+            let keyword = $("#keyword").val(); //사용자선택값 가져오기
+            let orderby = "${orderby}";
+            let listCount = "${pageData.listCount}";
+            window.location = "${pageContext.request.contextPath}/admin/order_adm.cider?"+
+            		"orderby="+orderby+"&listCount="+listCount+"&keyword="+keyword;
+	    });
     	
  /*        // 드롭다운의 변경이벤트
         $("#align-number").change(function(){

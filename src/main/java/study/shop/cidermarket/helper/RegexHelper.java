@@ -215,4 +215,24 @@ public class RegexHelper {
         
         return result;
     }
+    /**
+     * "-"없이 주민번호에 대한 형식검사
+     * 
+     * @param str - 검사할 문자열
+     * @return boolean - 형식에 맞을 경우 true, 맞지 않을 경우 false
+     */
+    public boolean isPassword(String str) {
+        boolean result = false;
+        if (isValue(str)) {
+            result = Pattern.matches("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\\\(\\\\)\\-_=+]).{8,16}$", str);
+        }
+        
+        if (result) {
+            log.debug(String.format("(regex) -> `%s`(은)는 비밀번호 형식이 맞습니다.", str));           
+        } else {
+            log.debug(String.format("(regex) -> `%s`(은)는 비밀번호 형식이 아닙니다.", str));
+        }
+        
+        return result;
+    }
 }

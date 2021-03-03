@@ -90,6 +90,7 @@
 	<bean id="orderService" class="study.shop.cidermarket.service.impl.OrderServiceImpl" />
 	<bean id="MyInfoService" class="study.shop.cidermarket.service.impl.MyInfoServiceImpl" />
 	<bean id="AdmProductService" class="study.shop.cidermarket.service.impl.AdmProductServiceImpl" />
+	<bean id="admOrderService" class="study.shop.cidermarket.service.impl.AdmOrderServiceImpl" />
 	
 	<bean id="AlarmService" class="study.shop.cidermarket.service.impl.AlarmServiceImpl" />
 	<bean id="deletememberService" class="study.shop.cidermarket.service.impl.DeleteMemberServiceImpl" />

@@ -66,16 +66,11 @@
 	<select id="selectCheckPassword"
 		parameterType="study.shop.cidermarket.model.Member"
 		resultType="int">
-		SELECT COUNT(password) FROM member
+		SELECT COUNT(MD5(password)) FROM member
 		
 		<!-- oldpassword와 기존 password 비교 일치하면 1 아니면 0  -->
-		where membno=#{membno} and password=#{password} 
+		where membno=#{membno} and password=MD5(#{password})
 		
-		
-	  SELECT COUNT(password) FROM member
-			where membno=3 and password='123qwe!@#'
-		<!-- oldpassword와 기존 password 비교 일치하면 1 아니면 0  -->
-		where membno=3 and password=123qwe!@#
 	</select>	
 	
 	<!-- 닉네임변경 -->
@@ -122,7 +117,7 @@
 	<update id="updatePassword"
 		parameterType="study.shop.cidermarket.model.Member">
 		UPDATE member SET
-			password=#{password}
+			password=MD5(#{password})
 		WHERE membno=#{membno}
 	</update>
 	

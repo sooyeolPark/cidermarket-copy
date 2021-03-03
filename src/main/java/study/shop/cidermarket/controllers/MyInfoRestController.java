@@ -174,6 +174,8 @@ public class MyInfoRestController {
    		@RequestParam(value="nickname", defaultValue="") String nickname) {
    	
 	   
+	   if (!regexHelper.isValue(nickname))     { return webHelper.getJsonWarning("닉네임을 입력하세요"); }
+	   
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
 		int myNum = (int) session.getAttribute("myNum");
@@ -212,6 +214,7 @@ public class MyInfoRestController {
    		@RequestParam(value="intro", defaultValue="") String intro) {
    	
 	   
+	   
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
 		int myNum = (int) session.getAttribute("myNum");
@@ -245,6 +248,9 @@ public class MyInfoRestController {
    public Map<String, Object> shopaddress(Model model,
    		@RequestParam(value="shopaddress", defaultValue="") String shopaddress) {
    	
+	   if (!regexHelper.isValue(shopaddress))     { return webHelper.getJsonWarning("상점주소를 입력하세요."); }
+       if (!regexHelper.isEngNum(shopaddress))  { return webHelper.getJsonWarning("상점주소는 영어와 숫자로만 가능합니다."); }
+
 	   
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
@@ -285,6 +291,9 @@ public class MyInfoRestController {
    		@RequestParam(value="email", defaultValue="") String email) {
    	
 	   
+	   if (!regexHelper.isValue(email))     { return webHelper.getJsonWarning("이메일을 입력하세요."); }
+       if (!regexHelper.isEmail(email))       { return webHelper.getJsonWarning("이메일 형식이 아닙니다."); }
+
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
 		int myNum = (int) session.getAttribute("myNum");
@@ -322,6 +331,8 @@ public class MyInfoRestController {
    public Map<String, Object> tel(Model model,
    		@RequestParam(value="tel", defaultValue="") String tel) {
    	
+	   if (!regexHelper.isValue(tel))     { return webHelper.getJsonWarning("연락처를 입력하세요."); }
+       if (!regexHelper.isCellPhone(tel))       { return webHelper.getJsonWarning("연락처형식이 아닙니다."); }
 	   
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
@@ -365,6 +376,10 @@ public class MyInfoRestController {
    		@RequestParam(value="password", defaultValue="") String password,
 	   @RequestParam(value="newpassword", defaultValue="") String newpassword) {
    	
+	   
+	   if (!regexHelper.isValue(newpassword))     { return webHelper.getJsonWarning("패스워드를 입력하세요."); }
+       if (!regexHelper.isPassword(newpassword))       { return webHelper.getJsonWarning("비밀번호 형식과 다릅니다."); }
+
 	   
    	//Session에서 내 회원번호 가져오기 
 		HttpSession session = webHelper.getRequest().getSession();
