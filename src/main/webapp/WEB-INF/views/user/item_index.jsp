@@ -188,7 +188,7 @@
               <div class="user_info clearfix">
                 <a class="pull-left" href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}"> 
                 	<c:choose>
-                    	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
+                    	<c:when test="${seller.filepath == null && fn:length(seller.filepath) == 0}">
  			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
                     	</c:when>
                    		<c:otherwise>
