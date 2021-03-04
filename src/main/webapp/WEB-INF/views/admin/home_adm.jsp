@@ -112,7 +112,7 @@
     		month = "0"+month;
     	}
     	if(day.length==1){
-    		month = "0"+month;
+    		day = "0"+day;
     	}
     	return year + '-' + month + '-' + day;
     }
