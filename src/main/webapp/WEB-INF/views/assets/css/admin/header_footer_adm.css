@@ -238,3 +238,9 @@ address {
 .searchInput {
 	margin-left: 0;
 }
+.info-white {
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #ccc;
+}
+

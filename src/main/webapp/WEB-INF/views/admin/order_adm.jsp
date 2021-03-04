@@ -58,7 +58,7 @@
 
               <c:forEach var="item" items="${output}" varStatus="status">
 
-    					<c:url var="viewUrl" value="/item_order.cider">
+    					<c:url var="viewUrl" value="/item_index.cider">
                           <c:param name="prodno" value="${item.prodno}" />                     
                        </c:url>
                <c:set var="num" value="${pageData.totalCount-pageData.listCount*(pageData.nowPage-1)-status.count+1}" /> 
@@ -73,37 +73,37 @@
 		        
 		        <c:choose>
 		        <c:when test="${item.how =='J'}">
-		        <td class="text-center board-group-item">직거래</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-info info-white">직거래</span></td></c:when>
 		        <c:when test="${item.how =='T'}">
-		        <td class="text-center board-group-item">택배</td>
+		        <td class="text-center board-group-item"><span class="label label-info info-white">택배</span></td>
 		    	</c:when>
 		        <c:when test="${item.how =='X'}">
-		        <td class="text-center board-group-item">상관없음</td>
+		        <td class="text-center board-group-item"><span class="label label-info info-white">상관없음</span></td>
 		    	</c:when>		    	
 		    	</c:choose>
 		    	
 		    	<c:choose>
 		    	<c:when test="${item.tradecon =='J'}">
-		        <td class="text-center board-group-item">거래중</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-info">거래중</span></td></c:when>
 		        <c:when test="${item.tradecon =='W'}">
-		        <td class="text-center board-group-item">거래완료</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-success">거래완료</span></td></c:when>
 		        <c:when test="${item.tradecon =='S'}">
-		        <td class="text-center board-group-item">거래정지</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-danger">거래정지</span></td></c:when>
 		        <c:when test="${item.tradecon =='X'}">
-		        <td class="text-center board-group-item">거래취소</td></c:when>		        
+		        <td class="text-center board-group-item"><span class="label label-warning">거래취소</span></td></c:when>		        
 		        <c:when test="${item.tradecon =='A'}">
-		        <td class="text-center board-group-item">정산중</td></c:when>		        
+		        <td class="text-center board-group-item"><span class="label label-success">정산중</span></td></c:when>		        
 		        <c:when test="${item.tradecon =='C'}">
-		        <td class="text-center board-group-item">정산완료</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-success">정산완료</span></td></c:when>
 				</c:choose>
 
 				<c:choose>
 		        <c:when test="${item.refund =='N'}">
-		        <td class="text-center board-group-item">일반</td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-info info-white">일반</span></td></c:when>
 		        <c:when test="${item.refund =='J'}">
-		        <td class="text-center board-group-item">반품중</td></c:when>	
+		        <td class="text-center board-group-item"><span class="label label-danger">반품중</span></td></c:when>	
 		        <c:when test="${item.refund =='W'}">
-		        <td class="text-center board-group-item">반품완료</td></c:when>	
+		        <td class="text-center board-group-item"><span class="label label-danger">반품완료</span></td></c:when>	
 		        </c:choose>
         	</tr>
         	</c:forEach>
