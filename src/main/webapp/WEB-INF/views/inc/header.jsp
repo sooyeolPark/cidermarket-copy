@@ -150,7 +150,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
       	
       </ul>
     </div>
-    <div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>
+    <%--<div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>--%>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/notice/list.cider">공지사항</a></div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/help.cider?selected=faq">헬프센터</a></div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/protection.cider">개인정보처리방침</a></div>

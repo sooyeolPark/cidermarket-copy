@@ -64,8 +64,3 @@
 .table > tbody + tbody {
   border-top: none;
 }
-.info-white {
-  background-color: #fff;
-  color: #666;
-  border: 1px solid #ccc;
-}

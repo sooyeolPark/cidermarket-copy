@@ -36,7 +36,7 @@
 						<ul class="sub-menu">
 							<li><a href="${pageContext.request.contextPath}/admin/notice/list.cider">공지사항</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/question_adm.cider">일반문의</a></li>
-							<li><a href="${pageContext.request.contextPath}/admin/event_adm.cider">이벤트</a></li>
+							<%--<li><a href="${pageContext.request.contextPath}/admin/event_adm.cider">이벤트</a></li>--%>
 						</ul></li>
 					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/member_adm.cider">회원관리</a>
 						<ul class="sub-menu">

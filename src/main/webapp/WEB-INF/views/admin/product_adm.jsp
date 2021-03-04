@@ -81,33 +81,37 @@
 									<fmt:formatNumber value="${item.price}" pattern="#,###" />
 									원
 								</td>
+								<td class="text-center board-group-item">
 								<c:choose>
 									<c:when test="${item.how =='J'}">
-										<td class="text-center board-group-item"><span class="label label-info info-white">직거래</span></td>
+										<span class="label label-info info-white">직거래</span>
 									</c:when>
 									<c:when test="${item.how =='T'}">
-										<td class="text-center board-group-item"><span class="label label-info info-white">택배</span></td>
+										<span class="label label-info info-white">택배</span>
 									</c:when>
 									<c:when test="${item.how =='X'}">
-										<td class="text-center board-group-item"><span class="label label-info info-white">상관없음</span></td>
+										<span class="label label-info info-white">상관없음</span>
 									</c:when>
 								</c:choose>
+								</td>
 								<td class="text-center board-group-item">${item.regdate}</td>
 
+								<td class="text-center board-group-item">
 								<c:choose>
 									<c:when test="${item.tradecon =='J'}">
-										<td class="text-center board-group-item"><span class="label label-info">거래중</span></td>
+										<span class="label label-info">거래중</span>
 									</c:when>
 									<c:when test="${item.tradecon =='W'}">
-										<td class="text-center board-group-item"><span class="label label-success">거래완료</span></td>
+										<span class="label label-success">거래완료</span>
 									</c:when>
 									<c:when test="${item.tradecon =='S'}">
-										<td class="text-center board-group-item"><span class="label label-danger">숨김</span></td>
+										<span class="label label-danger">숨김</span>
 									</c:when>
 									<c:when test="${item.tradecon =='X'}">
-										<td class="text-center board-group-item"><span class="label label-warning">거래중지</span></td>
+										<span class="label label-warning">거래중지</span>
 									</c:when>
 								</c:choose>
+								</td>
 
 							</tr>
 						</c:forEach>
