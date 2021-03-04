@@ -56,6 +56,11 @@
     margin: 0;
     padding: 10px;
 }
+.list-group > p {
+  font-size: 1.2em;
+  font-weight: 900;
+  text-align: center;
+}
 .reply-gray {
 	color: #ccc;
 }

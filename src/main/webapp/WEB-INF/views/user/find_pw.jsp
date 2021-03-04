@@ -83,7 +83,7 @@
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script type="text/javascript">
           $(function() {
-
+        	  
               $("#findpwForm").submit(function(e) {
                 e.preventDefault();
                 /** 연락처 검사 */
@@ -106,7 +106,7 @@
   	    				// json에 포함된 데이터를 활용하여 상세페이지로 이동한다.
   	    				if (json.rt == "OK") {
  	 	    				alert("새로운 비밀번호를 발급받았습니다.");
- 	 	    				var newPass = json.item.password;
+ 	 	    				let newPass = json.item.password;
  	 	    				$("#newPassword").empty();
  	 	    				$("#newPassword").append("신규 비밀번호는 " + newPass + " 입니다.");
   	    				}

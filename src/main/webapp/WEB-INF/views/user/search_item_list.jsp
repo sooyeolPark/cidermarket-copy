@@ -108,7 +108,7 @@
 									</c:if>
 									
 									<%-- 상세페이지로 이동하기 위한 URL --%>
-									<c:url var="viewUrl" value="/product/item_index.cider">
+									<c:url var="viewUrl" value="/item_index.cider">
 										<c:param name="prodno" value="${item.prodno}" />
 									</c:url>
 									

@@ -22,4 +22,16 @@
   margin-bottom: 30px;
   width: 100%;
 }
-/* ----------------------------------------- */
+.list-group > p {
+  font-size: 1.2em;
+  font-weight: 900;
+  text-align: center;
+}
+.list-group-item {
+  padding: 0;
+  text-align: center;
+}
+.list-group-item > p {
+  margin: 0;
+  padding: 10px;
+}

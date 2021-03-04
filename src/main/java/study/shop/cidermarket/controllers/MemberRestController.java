@@ -141,13 +141,14 @@ public class MemberRestController {
 			output = memberService.getMemberEmailItem(input);
 			int temp = output.getMembno();
 			// 랜덤비밀번호 값 생성 후 데이터 업데이트
-			newPass = String.format("%d%d%s", temp, System.currentTimeMillis(), "c#");
+			newPass = String.format("%d%s%d", System.currentTimeMillis(), "c#", temp).substring(8, 16);
 			output.setPassword(newPass);
 			int result = memberService.editPassMember(output);
 			if (result != 1) {
 				return webHelper.getJsonError("비밀번호 신규발행에 실패했습니다. 관리자에게 문의해 주세요.");
 			} else {
 				output = memberService.getMemberEmailItem(input);
+				output.setPassword(newPass);
 			}
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
