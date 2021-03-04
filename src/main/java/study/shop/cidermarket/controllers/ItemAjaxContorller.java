@@ -169,6 +169,7 @@ public class ItemAjaxContorller {
        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
        Product input_03 = new Product();
        input_03.setSeller(output_02.getSeller());
+       input_03.setTradecon("J");
 
        // 조회결과를 저장할 객체 선언
        int output_03 = 0;
