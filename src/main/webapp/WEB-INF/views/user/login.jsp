@@ -128,6 +128,7 @@
               var check_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
               var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
+              // 이메일 졍규표현식 검사
               $('#email').keyup(function(){
                 var msg = '', val = this.value;
                 if(!check_email.test(val)){
@@ -138,6 +139,7 @@
                 };
               });
 
+              // 비밀번호 정규표현식 검사
               $('#password').keyup(function(){
                 var msg = '', val = this.value;
                 msg = GetAjaxPW(val);
