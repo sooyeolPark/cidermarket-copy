@@ -35,7 +35,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 			<if test="subject != null and subject != ''">
 				subject LIKE concat('%', #{subject}, '%') OR 
@@ -60,7 +60,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 			<if test="subject != null and subject != ''">
 				subject LIKE concat('%', #{subject}, '%') OR 
@@ -85,7 +85,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 				p.how="J"
 			<if test="subject != null and subject != ''">
@@ -111,7 +111,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 				p.how="T"
 			<if test="subject != null and subject != ''">
@@ -137,7 +137,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 				p.tradecon="J"
 			<if test="subject != null and subject != ''">
@@ -163,7 +163,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 				p.tradecon="W"
 			<if test="subject != null and subject != ''">
@@ -189,7 +189,7 @@
 			(SELECT filepath FROM files WHERE fileno=(SELECT fileno FROM files WHERE refid=p.prodno AND reftable='product' order by fname asc limit 0, 1)) AS filepath
 		FROM product p 
 		INNER JOIN category c ON c.cateno=p.cateno
-		INNER JOIN RECORD R on p.prodno=r.prodno
+		INNER JOIN record r on p.prodno=r.prodno
 		<where>
 			<if test="subject != null and subject != ''">
 				subject LIKE concat('%', #{subject}, '%') OR 
