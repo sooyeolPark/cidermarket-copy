@@ -64,6 +64,7 @@ public class ItemAjaxContorller {
 		   @PathVariable("cateno") int cateno,
 		   // 검색어
 	       @RequestParam(value="keyword", required=false) String keyword,
+	       
 	       // 페이지 구현에서 사용할 현재 페이지 번호
 	       @RequestParam(value="page", defaultValue="1") int nowPage,
 	       @RequestParam(value = "sort", defaultValue = "") String sort) {
@@ -77,7 +78,7 @@ public class ItemAjaxContorller {
 	      /** 2) 데이터 조회하기 */
 	      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 	      Product input = new Product();
-	      input.setCateno(cateno);
+	      input.setProdno(cateno);
 	      input.setSubject(keyword);
 	      
 	      List<Product> output = null;

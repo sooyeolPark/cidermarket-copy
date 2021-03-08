@@ -101,9 +101,7 @@ public class MyInfoRestController {
 		
 		   int origin_image1 = Integer.parseInt(origin_image0);
 		   
-	    //실제 파일 삭제 구현
-			//for문으로 삭제할 파일 불러와서 List에 담기
-
+		   //실제 파일 삭제 구현
 			Files temp = new Files();
 			Files temp_output=null;
 			//String 상태이므로 숫자형으로 바꿔준다.

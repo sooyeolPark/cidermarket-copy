@@ -28,8 +28,8 @@
     <!-- 탭 화면 시작 -->
       <div id="myreview">
         <div id="myreview_subject">
-          <h1>${user.rate}</h1>
-          <fmt:parseNumber var="rate" type="number" value="${user.rate}" />
+          <h1><fmt:formatNumber value="${user.rate}" pattern="0.0" /></h1>
+          <fmt:parseNumber var="rate" type="number" value="${user.rate}" pattern="0.0"/>
           <c:choose>                  	
         				<c:when test="${rate < 1}">
         				<div id="user_star">

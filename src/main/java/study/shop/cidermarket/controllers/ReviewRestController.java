@@ -185,16 +185,11 @@ public class ReviewRestController {
 
 		/** 파일 Path 입력 */
 		// 파일이 있으면 ArrayList에 담는다.
-		
-		
 		  List<MultipartFile> files= new ArrayList<MultipartFile>(); 
 			if(image0!=null) {files.add(image0);}
 			if(image1!=null) {files.add(image1);}
 			if(image2!=null) {files.add(image2);}
 			if(image3!=null) {files.add(image3);}
-
-		 
-		 
 
 			if(files.size()>0) {
 				//for문으로 데이터 입력 처리
