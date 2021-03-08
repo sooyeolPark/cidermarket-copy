@@ -26,7 +26,7 @@ public class DeleteMsgboxServiceImpl implements DeleteMsgboxService {
 		int result_02 = 0;
 		try {
 			result_01 = sqlSession.delete("ReceiverMsgboxMapper.deleteItem", null);
-			result_02 = sqlSession.delete("ReceiverMsgboxMapper.deleteItem2", null);
+			result_02 = sqlSession.delete("ReceiverMsgboxMapper.deleteItemAfter50days", null);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 삭제에 실패했습니다.");

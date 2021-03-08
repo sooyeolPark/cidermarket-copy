@@ -81,7 +81,7 @@
 	</delete>
 	
 	<!-- sendersave=null, receiversave=null, senderdelete=null, receiverdelete=null일때 50일이 넘은 데이터 삭제를 위한 기능 정의 -->
-	<delete id="deleteItem2"
+	<delete id="deleteItemAfter50days"
 		parameterType="study.shop.cidermarket.model.Msgbox">
 		DELETE FROM msgbox WHERE sendersave IS NULL AND receiversave IS NULL AND senderdelete IS NULL AND receiverdelete IS NULL 
 		AND regdate &lt; date_add(now(), INTERVAL -50 DAY)
