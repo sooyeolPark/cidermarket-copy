@@ -94,7 +94,10 @@
         </if>
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
-        </if>       
+        </if>
+        <if test="prodno == 1100">
+            AND prodcon='U' or prodcon='A'
+        </if>               
         
         <if test="prodno == 20">
             AND tradecon='T'
@@ -195,7 +198,9 @@
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
         </if>       
-        
+        <if test="prodno == 1100">
+            AND prodcon='U' or prodcon='A'
+        </if>           
         <if test="prodno == 20">
             AND tradecon='T'
         </if>
@@ -295,7 +300,9 @@
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
         </if>       
-        
+         <if test="prodno == 1100">
+            AND prodcon='U' or prodcon='A'
+        </if>          
         <if test="prodno == 20">
             AND tradecon='T'
         </if>
@@ -392,7 +399,9 @@
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
         </if>       
-        
+        <if test="prodno == 1100">
+            AND prodcon='U' or prodcon='A'
+        </if>           
         <if test="prodno == 20">
             AND tradecon='T'
         </if>
