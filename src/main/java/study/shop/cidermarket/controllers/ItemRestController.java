@@ -943,7 +943,7 @@ public class ItemRestController {
 				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
 				            String thumbnailPath = null;
 				            try {
-				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, true);
 				            } catch (Exception e) {
 				                e.printStackTrace();
 				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
@@ -991,7 +991,7 @@ public class ItemRestController {
 				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
 				            String thumbnailPath = null;
 				            try {
-				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, true);
 				            } catch (Exception e) {
 				                e.printStackTrace();
 				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");

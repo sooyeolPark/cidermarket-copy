@@ -12,6 +12,7 @@
 <!-- noto sans 웹 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/common/font.css"/>
 <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 <!-- 반응형 웹을 지원하지 않을 경우 -->
 <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/non-responsive.css" /> -->
 <!-- IE8 이하 버전 지원 -->

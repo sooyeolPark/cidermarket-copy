@@ -11,7 +11,6 @@
     <title>탈퇴회원관리 - 사이다마켓</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/outmember_adm.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header&footer_adm.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
     <!-- 반응형 웹을 지원하지 않을 경우 -->
     <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->

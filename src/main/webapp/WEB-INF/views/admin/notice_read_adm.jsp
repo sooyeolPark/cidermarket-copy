@@ -63,7 +63,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <!-- jQeury Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <!-- ajax-helper -->

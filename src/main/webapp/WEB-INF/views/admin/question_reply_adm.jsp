@@ -128,8 +128,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     <script type="text/javascript">
     

@@ -22,15 +22,22 @@ div.navbar-default {
   font-weight: 400;
 }
 
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
   background-color: transparent;
   font-weight: 900;
   font-size: 1.1em;
   transition: all .3 ease;
   color: #fff;
+  background-color: #3a4a5a;
 }
-
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+	color: #fff;
+}
+.dropdown-menu > li > a {
+	line-height: 2;
+}
 .logo {
   position: relative;
   height: 150px;
@@ -65,7 +72,7 @@ div.navbar-default {
   width: 20%;
 }
 
-#nav_bar_menu_a {
+.nav_bar_menu_a {
   width: 100%;
 }
 

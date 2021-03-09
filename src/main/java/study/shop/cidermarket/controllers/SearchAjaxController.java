@@ -1,7 +1,5 @@
 package study.shop.cidermarket.controllers;
 
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -17,18 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
-
-import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.CookieModel;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.ItemListService;
-import study.shop.cidermarket.service.ProductService;
 
-@Slf4j
 @Controller
 public class SearchAjaxController {
 	/** Helper 주입 */
