@@ -62,11 +62,9 @@ public class ItemAjaxContorller {
    @RequestMapping(value="/item_list.cider/{cateno}", method=RequestMethod.GET)
    public ModelAndView list(Model model,
 		   @PathVariable("cateno") int cateno,
-		   // 검색어
 	       @RequestParam(value="keyword", required=false) String keyword,
-	       
-	       // 페이지 구현에서 사용할 현재 페이지 번호
 	       @RequestParam(value="page", defaultValue="1") int nowPage,
+	       @RequestParam(value="filter", defaultValue="0") int filter,
 	       @RequestParam(value = "sort", defaultValue = "") String sort) {
 	      
 	      /** 1) 페이지 구현에 필요한 변수값 생성 */
@@ -78,7 +76,10 @@ public class ItemAjaxContorller {
 	      /** 2) 데이터 조회하기 */
 	      // 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 	      Product input = new Product();
-	      input.setProdno(cateno);
+	      input.setCateno(cateno);
+	      if(filter!=0) {
+			  input.setProdno(filter);
+		  }
 	      input.setSubject(keyword);
 	      
 	      List<Product> output = null;
@@ -119,11 +120,12 @@ public class ItemAjaxContorller {
       model.addAttribute("output", output);
       model.addAttribute("pageData", pageData);
       model.addAttribute("category", category);
+      model.addAttribute("filter", filter);
       
       return new ModelAndView("user/item_list");
    }
    
-   /** 목록 페이지 */
+   /** 상세 페이지 */
    @RequestMapping(value="/item_index.cider", method=RequestMethod.GET)
    public ModelAndView get_index(Model model,
 		   @RequestParam(value="prodno", defaultValue="0") int prodno) {

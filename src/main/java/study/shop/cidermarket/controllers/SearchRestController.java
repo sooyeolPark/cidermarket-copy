@@ -17,7 +17,7 @@ import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Product;
-import study.shop.cidermarket.service.ProductService;
+import study.shop.cidermarket.service.ItemListService;
 
 @Slf4j
 @RestController
@@ -28,14 +28,16 @@ public class SearchRestController {
 	
 	/** Service 패턴 구현체 주입 */
 	@Autowired
-	@Qualifier("productService")
-	ProductService productService;
+	@Qualifier("itemlistService")
+	ItemListService itemListService;
 	
 	/** 검색 페이지 */
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public Map<String, Object> search(Model model,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
-			@RequestParam(value="keyword", required=false) String keyword) {
+			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="filter", defaultValue="0") int filter,
+			@RequestParam(value = "sort", defaultValue = "") String sort) {
 		                	
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
 		int totalCount = 0;		// 전체 게시글 수
@@ -46,13 +48,16 @@ public class SearchRestController {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Product input = new Product();
 		input.setSubject(keyword);
+		if(filter!=0) {
+			input.setProdno(filter);
+		}
 		
 		List<Product> output = null;
 		PageData pageData = null;
 		
 		try {
 			// 전체 게시글 수 조회
-			totalCount = productService.getProductCount(input);
+			totalCount = itemListService.getItemListCount(input);
 			// 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
 			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 			
@@ -61,7 +66,13 @@ public class SearchRestController {
 			Product.setListCount(pageData.getListCount());
 
 			// 데이터 조회하기
-			output = productService.getProductList(input);		
+			if (sort.equals("lowprice")) {
+				output = itemListService.selectListByPriceAsc(input);  // 저가순
+			} else if(sort.equals("highprice")) {
+				output = itemListService.selectListByPriceDesc(input);  // 고가순
+			} else {
+				output = itemListService.selectListByRegdate(input);  // 최신순 조회(기본값)			
+			}
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
@@ -71,6 +82,8 @@ public class SearchRestController {
 		data.put("keyword", keyword);
 		data.put("item", output);
 		data.put("pageData", pageData);
+		data.put("sort", sort);
+		data.put("filter", filter);
 		
 		return webHelper.getJsonData(data);
 	}

@@ -25,6 +25,7 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.CookieModel;
 import study.shop.cidermarket.model.Product;
+import study.shop.cidermarket.service.ItemListService;
 import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
@@ -36,15 +37,16 @@ public class SearchAjaxController {
 	
 	/** Service 패턴 구현체 주입 */
 	@Autowired
-	@Qualifier("productService")
-	ProductService productService;
+	@Qualifier("itemlistService")
+	ItemListService itemListService;
 	
 	/** 검색 페이지 */
 	@RequestMapping(value = "/search.cider", method = RequestMethod.GET)
 	public ModelAndView search(Model model, HttpServletResponse response, HttpServletRequest request,
 			@RequestParam(value="page", defaultValue="1") int nowPage,
 			@RequestParam(value="keyword", defaultValue="") String keyword,
-			@RequestParam(value="orderby", defaultValue="default") String orderby) {
+			@RequestParam(value="filter", defaultValue="0") int filter,
+			@RequestParam(value = "sort", defaultValue = "") String sort) {
 
 		Cookie[] chk_cookies = request.getCookies();
 		//쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
@@ -82,14 +84,16 @@ public class SearchAjaxController {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Product input = new Product();
 		input.setSubject(keyword);
-		input.setSort(orderby);
+		if(filter!=0) {
+			input.setProdno(filter);
+		}
 		
 		List<Product> output = null;
 		PageData pageData = null;
 		
 		try {
 			// 전체 게시글 수 조회
-			totalCount = productService.getProductCount(input);
+			totalCount = itemListService.getItemListCount(input);
 			// 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
 			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
 			
@@ -98,7 +102,14 @@ public class SearchAjaxController {
 			Product.setListCount(pageData.getListCount());
 
 			// 데이터 조회하기
-			output = productService.getProductList(input);		
+			// 데이터 조회하기
+			if (sort.equals("lowprice")) {
+				output = itemListService.selectListByPriceAsc(input);  // 저가순
+			} else if(sort.equals("highprice")) {
+				output = itemListService.selectListByPriceDesc(input);  // 고가순
+			} else {
+				output = itemListService.selectListByRegdate(input);  // 최신순 조회(기본값)			
+			}
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
@@ -107,7 +118,8 @@ public class SearchAjaxController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("output", output);
 		model.addAttribute("pageData", pageData);
-		model.addAttribute("orderby", orderby);
+		model.addAttribute("sort", sort);
+		model.addAttribute("filter", filter);
 		
 		return new ModelAndView("user/search_item_list");
 	}

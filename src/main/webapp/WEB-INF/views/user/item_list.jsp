@@ -57,10 +57,10 @@
 								</div>
 								<div class="filter_sort">
 									<h5>판매방법</h5>
-									<button id="button3" name="prodcon" class="btn btn-tag" value="20">
+									<button id="button3" name="how" class="btn btn-tag" value="20">
 										<span class="glyphicon glyphicon-ok"></span> 직거래
 									</button>
-									<button id="button4" name="prodcon" class="btn btn-tag" value="200">
+									<button id="button4" name="how" class="btn btn-tag" value="200">
 										<span class="glyphicon glyphicon-ok"></span> 택배거래
 									</button>
 								</div>
@@ -200,6 +200,7 @@
 			
 			
 			$("#item-select").change(function() {
+				filter =0; //filter값 초기화
 				sort = this.value; // 선택한 셀렉트 값 가져오기
 				$("#item-list").empty(); // 기존 상품 호출 지우기
 				isEnd = false; // 무한스크롤 초기화
@@ -211,18 +212,17 @@
 					}
 				}
 				getProduct(sort,filter);// sort값을 기준으로 상품 다시 가져오기
-				filter =0; //filter값 초기화 
 			});
 
 			// 필터버튼 눌렀을때 
 			$("#applyFilter").click(function() {
+				filter =0; //filter값 초기화
 			
 				for (var i = 0; i < 5; i++) {
 					if ($("#button" + i + "").hasClass("active")) {
 					var int_val = Number($("#button" + i + "").val());
 					filter+=int_val;
 					}
-					
 				}
 				
 				sort = this.value; // 선택한 셀렉트 값 가져오기
@@ -230,8 +230,7 @@
 				isEnd = false; // 무한스크롤 초기화
 				nowPage = 1; // 현재 페이지 1로 초기화
 				getProduct(sort,filter); // sort값을 기준으로 상품 다시 가져오기
-				filter =0; //filter값 초기화
-				});
+			});
 
 
 			/* 스크롤 이벤트 */

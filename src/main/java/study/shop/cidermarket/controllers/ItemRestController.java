@@ -71,7 +71,7 @@ public class ItemRestController {
 			@RequestParam(value="cateno", defaultValue = "1") int cateno,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int nowPage,
-			 @RequestParam(value="filter", defaultValue="0") int filter,
+			@RequestParam(value="filter", defaultValue="0") int filter,
 			@RequestParam(value = "sort", defaultValue = "") String sort) {
 
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
@@ -84,7 +84,7 @@ public class ItemRestController {
 		Product input = new Product();
 		input.setCateno(cateno);
 		if(filter!=0) {
-		input.setProdno(filter);
+			input.setProdno(filter);
 		}
 		List<Product> output = null;
 		PageData pageData = null;

@@ -80,7 +80,7 @@
          <if test="cateno != null and cateno != ''">
             AND cateno = #{cateno}
          </if>
- <if test="prodno == 10">
+ 		<if test="prodno == 10">
             AND prodcon='N'
         </if>
         <if test="prodno == 100">
@@ -96,69 +96,80 @@
             AND (prodcon='U'or prodcon='N')
         </if>
         <if test="prodno == 1100">
-            AND prodcon='U' or prodcon='A'
+            AND (prodcon='U' or prodcon='A')
+        </if> 
+        <if test="prodno == 1110">
+            AND (prodcon='U' or prodcon='A' or prodcon='N')
         </if>               
         
         <if test="prodno == 20">
-            AND tradecon='T'
+            AND how='J'
         </if>
         <if test="prodno == 200">
-            AND prodcon='J'
+            AND how='T'
         </if>
         <if test="prodno == 30">
-            AND (prodcon='N' and how="T")
+            AND (prodcon='N' and how="J")
         </if>
         <if test="prodno == 210">
-            AND (prodcon='N' and how="J")
+            AND (prodcon='N' and how="T")
         </if>
         <if test="prodno == 230">
             AND (prodcon='N' and (how="T" or how="J")) 
         </if>
         <if test="prodno == 120">
-            AND (prodcon='A' and how="T")
+            AND (prodcon='A' and how="J")
         </if>
         <if test="prodno == 300">
-            AND (prodcon='A' and how="J")
+            AND (prodcon='A' and how="T")
         </if>
         <if test="prodno == 320">
             AND (prodcon='A' and (how="T" or how="J"))
         </if>
         <if test="prodno == 1020">
-            AND (prodcon='U' and how="T")
+            AND (prodcon='U' and how="J")
         </if>
         <if test="prodno == 1200">
-            AND (prodcon='U' and how="J")
+            AND (prodcon='U' and how="T")
         </if>
         <if test="prodno == 1220">
             AND (prodcon='U' and (how="T" or how="J") )
         </if>
+        <if test="prodno == 1120">
+            AND (how='J' and (prodcon="A" or prodcon="U") )
+        </if>
         <if test="prodno == 130">
-            AND (prodcon='N' and (how="A" or how="T"))
+            AND (how='J' and (prodcon="A" or prodcon="N"))
         </if>
         <if test="prodno == 310">
-            AND (prodcon='N' and (how="A" or how="J"))
+            AND (how='T' and (prodcon="N" or prodcon="A"))
         </if>       
         <if test="prodno == 330">
             AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
         </if>
         <if test="prodno == 1030">
-            AND ((prodcon='N' or prodcon="U") and (how="T"))
+            AND ((prodcon='N' or prodcon="U") and how="J")
         </if>
         <if test="prodno == 1210">
-            AND ((prodcon='N' or prodcon="U") and how="J")
+            AND ((prodcon='N' or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1230">
             AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
         </if>               
         <if test="prodno == 1130">
-            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-        </if>
-        <if test="prodno ==1310">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1330">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
         </if>         
+        <if test="subject != null and subject != ''">
+			AND ((subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
+		</if>
          
       </where>
       
@@ -197,71 +208,82 @@
         </if>
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
-        </if>       
+        </if>
         <if test="prodno == 1100">
-            AND prodcon='U' or prodcon='A'
-        </if>           
+            AND (prodcon='U' or prodcon='A')
+        </if> 
+        <if test="prodno == 1110">
+            AND (prodcon='U' or prodcon='A' or prodcon='N')
+        </if>               
+        
         <if test="prodno == 20">
-            AND tradecon='T'
+            AND how='J'
         </if>
         <if test="prodno == 200">
-            AND prodcon='J'
+            AND how='T'
         </if>
         <if test="prodno == 30">
-            AND (prodcon='N' and how="T")
+            AND (prodcon='N' and how="J")
         </if>
         <if test="prodno == 210">
-            AND (prodcon='N' and how="J")
+            AND (prodcon='N' and how="T")
         </if>
         <if test="prodno == 230">
             AND (prodcon='N' and (how="T" or how="J")) 
         </if>
         <if test="prodno == 120">
-            AND (prodcon='A' and how="T")
+            AND (prodcon='A' and how="J")
         </if>
         <if test="prodno == 300">
-            AND (prodcon='A' and how="J")
+            AND (prodcon='A' and how="T")
         </if>
         <if test="prodno == 320">
             AND (prodcon='A' and (how="T" or how="J"))
         </if>
         <if test="prodno == 1020">
-            AND (prodcon='U' and how="T")
+            AND (prodcon='U' and how="J")
         </if>
         <if test="prodno == 1200">
-            AND (prodcon='U' and how="J")
+            AND (prodcon='U' and how="T")
         </if>
         <if test="prodno == 1220">
             AND (prodcon='U' and (how="T" or how="J") )
         </if>
+        <if test="prodno == 1120">
+            AND (how='J' and (prodcon="A" or prodcon="U") )
+        </if>
         <if test="prodno == 130">
-            AND (prodcon='N' and (how="A" or how="T"))
+            AND (how='J' and (prodcon="A" or prodcon="N"))
         </if>
         <if test="prodno == 310">
-            AND (prodcon='N' and (how="A" or how="J"))
+            AND (how='T' and (prodcon="N" or prodcon="A"))
         </if>       
         <if test="prodno == 330">
             AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
         </if>
         <if test="prodno == 1030">
-            AND ((prodcon='N' or prodcon="U") and (how="T"))
+            AND ((prodcon='N' or prodcon="U") and how="J")
         </if>
         <if test="prodno == 1210">
-            AND ((prodcon='N' or prodcon="U") and how="J")
+            AND ((prodcon='N' or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1230">
             AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
         </if>               
         <if test="prodno == 1130">
-            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-        </if>
-        <if test="prodno ==1310">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1330">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
-        </if>         
-         
+        </if>       
+        <if test="subject != null and subject != ''">
+			AND ((subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
+		</if>
       </where>
       
       ORDER BY price DESC
@@ -299,70 +321,82 @@
         </if>
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
-        </if>       
-         <if test="prodno == 1100">
-            AND prodcon='U' or prodcon='A'
-        </if>          
+        </if>
+        <if test="prodno == 1100">
+            AND (prodcon='U' or prodcon='A')
+        </if> 
+        <if test="prodno == 1110">
+            AND (prodcon='U' or prodcon='A' or prodcon='N')
+        </if>               
+        
         <if test="prodno == 20">
-            AND tradecon='T'
+            AND how='J'
         </if>
         <if test="prodno == 200">
-            AND prodcon='J'
+            AND how='T'
         </if>
         <if test="prodno == 30">
-            AND (prodcon='N' and how="T")
+            AND (prodcon='N' and how="J")
         </if>
         <if test="prodno == 210">
-            AND (prodcon='N' and how="J")
+            AND (prodcon='N' and how="T")
         </if>
         <if test="prodno == 230">
             AND (prodcon='N' and (how="T" or how="J")) 
         </if>
         <if test="prodno == 120">
-            AND (prodcon='A' and how="T")
+            AND (prodcon='A' and how="J")
         </if>
         <if test="prodno == 300">
-            AND (prodcon='A' and how="J")
+            AND (prodcon='A' and how="T")
         </if>
         <if test="prodno == 320">
             AND (prodcon='A' and (how="T" or how="J"))
         </if>
         <if test="prodno == 1020">
-            AND (prodcon='U' and how="T")
+            AND (prodcon='U' and how="J")
         </if>
         <if test="prodno == 1200">
-            AND (prodcon='U' and how="J")
+            AND (prodcon='U' and how="T")
         </if>
         <if test="prodno == 1220">
             AND (prodcon='U' and (how="T" or how="J") )
         </if>
+        <if test="prodno == 1120">
+            AND (how='J' and (prodcon="A" or prodcon="U") )
+        </if>
         <if test="prodno == 130">
-            AND (prodcon='N' and (how="A" or how="T"))
+            AND (how='J' and (prodcon="A" or prodcon="N"))
         </if>
         <if test="prodno == 310">
-            AND (prodcon='N' and (how="A" or how="J"))
+            AND (how='T' and (prodcon="N" or prodcon="A"))
         </if>       
         <if test="prodno == 330">
             AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
         </if>
         <if test="prodno == 1030">
-            AND ((prodcon='N' or prodcon="U") and (how="T"))
+            AND ((prodcon='N' or prodcon="U") and how="J")
         </if>
         <if test="prodno == 1210">
-            AND ((prodcon='N' or prodcon="U") and how="J")
+            AND ((prodcon='N' or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1230">
             AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
         </if>               
         <if test="prodno == 1130">
-            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-        </if>
-        <if test="prodno ==1310">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1330">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
-        </if>         
+        </if>
+        <if test="subject != null and subject != ''">
+			AND ((subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
+		</if>
       </where>
       
       ORDER BY regdate DESC
@@ -398,70 +432,82 @@
         </if>
         <if test="prodno == 1010">
             AND (prodcon='U'or prodcon='N')
-        </if>       
+        </if>
         <if test="prodno == 1100">
-            AND prodcon='U' or prodcon='A'
-        </if>           
+            AND (prodcon='U' or prodcon='A')
+        </if> 
+        <if test="prodno == 1110">
+            AND (prodcon='U' or prodcon='A' or prodcon='N')
+        </if>               
+        
         <if test="prodno == 20">
-            AND tradecon='T'
+            AND how='J'
         </if>
         <if test="prodno == 200">
-            AND prodcon='J'
+            AND how='T'
         </if>
         <if test="prodno == 30">
-            AND (prodcon='N' and how="T")
+            AND (prodcon='N' and how="J")
         </if>
         <if test="prodno == 210">
-            AND (prodcon='N' and how="J")
+            AND (prodcon='N' and how="T")
         </if>
         <if test="prodno == 230">
             AND (prodcon='N' and (how="T" or how="J")) 
         </if>
         <if test="prodno == 120">
-            AND (prodcon='A' and how="T")
+            AND (prodcon='A' and how="J")
         </if>
         <if test="prodno == 300">
-            AND (prodcon='A' and how="J")
+            AND (prodcon='A' and how="T")
         </if>
         <if test="prodno == 320">
             AND (prodcon='A' and (how="T" or how="J"))
         </if>
         <if test="prodno == 1020">
-            AND (prodcon='U' and how="T")
+            AND (prodcon='U' and how="J")
         </if>
         <if test="prodno == 1200">
-            AND (prodcon='U' and how="J")
+            AND (prodcon='U' and how="T")
         </if>
         <if test="prodno == 1220">
             AND (prodcon='U' and (how="T" or how="J") )
         </if>
+        <if test="prodno == 1120">
+            AND (how='J' and (prodcon="A" or prodcon="U") )
+        </if>
         <if test="prodno == 130">
-            AND (prodcon='N' and (how="A" or how="T"))
+            AND (how='J' and (prodcon="A" or prodcon="N"))
         </if>
         <if test="prodno == 310">
-            AND (prodcon='N' and (how="A" or how="J"))
+            AND (how='T' and (prodcon="N" or prodcon="A"))
         </if>       
         <if test="prodno == 330">
             AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
         </if>
         <if test="prodno == 1030">
-            AND ((prodcon='N' or prodcon="U") and (how="T"))
+            AND ((prodcon='N' or prodcon="U") and how="J")
         </if>
         <if test="prodno == 1210">
-            AND ((prodcon='N' or prodcon="U") and how="J")
+            AND ((prodcon='N' or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1230">
             AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
         </if>               
         <if test="prodno == 1130">
-            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-        </if>
-        <if test="prodno ==1310">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
+        </if>
+        <if test="prodno == 1310">
+            AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
         </if>
         <if test="prodno == 1330">
             AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
-        </if>         
+        </if>
+        <if test="subject != null and subject != ''">
+			AND ((subject LIKE concat('%', #{subject}, '%') OR 
+			seller=(SELECT membno FROM member WHERE membno=seller AND nickname LIKE concat('%', #{subject}, '%'))
+			OR prodno in (SELECT DISTINCT prodno FROM hashtag WHERE tagname LIKE concat('%', #{subject}, '%'))))
+		</if>  
       </where>
    </select>
    
