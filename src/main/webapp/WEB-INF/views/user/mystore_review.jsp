@@ -151,21 +151,26 @@
 				      <p class="review_item_subject">${item.subject}</p>
 				    </div>
 				    <div class="clearfix review_user_rpl">
-				      <p>${item.content}
+				      <p>  <a href="${pageContext.request.contextPath}/review_view.cider?revino=${item.revino}">${item.content}</a>
 				      </p>
 				
 				    </div>
+				    
+				    
 				    <div class="review_img">
 			     			  <c:choose>
 			            	<%-- 조회결과가 없는 경우 --%>
-			           		<c:when test="${item.reviewpic == null || fn:length(item.reviewpic) == 0}">
+			           		<c:when test="${item.filepathlist == null || fn:length(item.filepathlist) == 0}">
 			                	<h1></h1>
 			                </c:when>
 			                <%-- 조회결과가 있는 경우 --%>
-			                <c:otherwise>				    
-								      <a href="#">
-								      <img id="reviewpic" src="${pageContext.request.contextPath}/assets/img${item.reviewpic}">
-								    </a>
+			                <c:otherwise>
+			                 <c:forEach var="item1" items="${item.filepathlist}" varStatus="status">
+			                   
+								      <img id="reviewpic" src="${pageContext.request.contextPath}/assets/img${item1}">
+								     
+							 </c:forEach>
+							
 						    </c:otherwise>
 						    </c:choose>
 				    </div>
