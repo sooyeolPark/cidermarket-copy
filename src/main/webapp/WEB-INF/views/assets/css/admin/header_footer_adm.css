@@ -17,9 +17,14 @@ div.navbar-default {
 
 .navbar-default .navbar-nav > li > a {
   text-align: center;
-  color: #eee;
+  color: #fff;
   font-size: 16px;
   font-weight: 400;
+  padding: 15px 0;
+}
+.navbar-default .navbar-nav > li > a:hover, 
+.navbar-default .navbar-nav > li > a:focus {
+	color: #1dd1a1;	
 }
 
 .navbar-default .navbar-nav > .open > a, 
@@ -33,10 +38,16 @@ div.navbar-default {
   background-color: #3a4a5a;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-	color: #fff;
+	color: #eee;
 }
 .dropdown-menu > li > a {
 	line-height: 2;
+	text-align: center;
+	padding: 5px 0;
+	color: #fff;
+}
+.dropdown-menu {
+	left: 15px;
 }
 .logo {
   position: relative;
@@ -68,51 +79,9 @@ div.navbar-default {
   width: 100%;
 }
 
-.nav_menu {
-  width: 20%;
-}
-
 .nav_bar_menu_a {
-  width: 100%;
-}
-
-/* 서브메뉴 hover 이벤트 */
-.sub-menu {
-  position: absolute;
-  background-color: #fff;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.15s ease-in;
-  width: 100%;
-  padding: 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-}
-.sub-menu > li {
-  width: 100%;
-}
-
-.sub-menu > li > a {
-  display: block;
-  height: 50px;
-  color: #555;
-  text-align: center;
-  width: 100%;
-  border-bottom: 1px solid #eee;
-  font-size: 1em;
-  padding-top: 12px;
-}
-
-#nav_bar_menu > li:hover .sub-menu {
-  opacity: 1;
-  visibility: visible;
-  z-index: 10;
-}
-
-.sub-menu > li > a:hover {
-  background: rgba(78, 93, 108, 0.1);
-  font-weight: 900;
+  width: 90%;
+  background-color: #3a4a5a;
 }
 /* ----------------------------------------------------- */
 
