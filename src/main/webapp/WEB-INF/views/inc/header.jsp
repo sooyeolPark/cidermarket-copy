@@ -44,7 +44,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 	<div class="container">
 		<div id="logo" class="text-center">
 			<a href="${pageContext.request.contextPath}">
-				<img src="${pageContext.request.contextPath}/assets/img/logo.png" width="100%" alt="사이다마켓 로고" />
+				<img src="${pageContext.request.contextPath}/upload/logo.png" width="100%" alt="사이다마켓 로고" />
 			</a>
 		</div>
 		<div class="ico-wrap">
@@ -56,7 +56,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 			<div id="btnAlarm">
 			<c:if test="${myId != null}">
 				<a href="${pageContext.request.contextPath}/alarm.cider">
-					<span class="newAlarm"></span><img src="${pageContext.request.contextPath}/assets/img/ico_bell.png" width="100%" alt="알림" />
+					<span class="newAlarm"></span><img src="${pageContext.request.contextPath}/upload/ico_bell.png" width="100%" alt="알림" />
 				</a>
 			</c:if>
 			</div>
@@ -105,7 +105,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 <!-- 사이드바 시작 -->
 <div class="aside">
 	<div class="aside-header">
-		<img src="${pageContext.request.contextPath}/assets/img/logo2.png" alt="로고" width="100%" />
+		<img src="${pageContext.request.contextPath}/upload/logo2.png" alt="로고" width="100%" />
 		<div>
 			<h5 class="btnn-login">
 			<c:choose>
@@ -191,7 +191,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
   {{#each item}}
     <li>
     	<a href="${pageContext.request.contextPath}/item_list.cider/{{cateno}}">
-			<span><img src="${pageContext.request.contextPath}/assets/img{{filepath}}" />{{name}}</span>
+			<span><img src="${pageContext.request.contextPath}/upload{{filepath}}" />{{name}}</span>
 		</a>
     </li>
   {{/each}}
