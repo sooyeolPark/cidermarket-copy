@@ -11,6 +11,9 @@ ul {
 }
 
 /* 네비게이션 */
+.navbar-nav {
+	margin: 0;
+}
 div.navbar-default {
 	background-color: #4e5d6c;
 }
@@ -27,7 +30,7 @@ div.navbar-default {
 	color: #1dd1a1;	
 }
 
-.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
   background-color: transparent;
@@ -39,6 +42,10 @@ div.navbar-default {
 }
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
 	color: #eee;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+	color: #3a4a5a;
 }
 .dropdown-menu > li > a {
 	line-height: 2;
