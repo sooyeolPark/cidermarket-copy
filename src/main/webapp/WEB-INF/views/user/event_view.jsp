@@ -28,7 +28,7 @@
                             <span class="boardDate boardDate-view">2021-01-01</span>
                         </div>
                         <div class="panel-body">
-                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/assets/img/banner_01.jpg" alt="사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!"></div>
+                            <div class="boardImg-view"><img src="${pageContext.request.contextPath}/upload/banner_01.jpg" alt="사이다마켓 그랜드오픈 기념이벤트 에어팟 맥스 100분께 쏩니다!"></div>
                             <p>오픈을 기념해 100분께 애플 에어팟 맥스를 드립니다.<br><br>
                               응모기간 : 2021-01-01 ~ 2021-01-31<br>
                               응모대상 : 거래건수 상위 100분 추첨하여 증정<br>
