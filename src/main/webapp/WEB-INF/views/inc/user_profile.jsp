@@ -8,10 +8,10 @@
     <a class="pull-left" href="#">
 	  <c:choose>
 	    	<c:when test="${user.filepath == null && fn:length(user.filepath) == 0}">
-	      		<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="110" height="110" alt="${user.nickname}" />
+	      		<img class="media-object img-circle" src="${pageContext.request.contextPath}/upload/default_profile.jpg" width="110" height="110" alt="${user.nickname}" />
 	    	</c:when>
 	   		<c:otherwise>
-	      		<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${user.filepath}" width="110" height="110" alt="${user.nickname}" />
+	      		<img class="media-object img-circle" src="${pageContext.request.contextPath}/upload${user.filepath}" width="110" height="110" alt="${user.nickname}" />
 	   		</c:otherwise>
 	  </c:choose>
     </a>

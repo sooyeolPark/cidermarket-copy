@@ -37,7 +37,7 @@
                         <c:forEach var="item" items="${output}" varStatus="status">	
                             <td class="cate_td">
                             	<input id="del" type="checkbox" name="chkRow" value="${item.cateno}">
-                            	<img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${item.name}" />
+                            	<img src="${pageContext.request.contextPath}/upload${item.filepath}" alt="${item.name}" />
                             	${item.name}
                             </td>
 						</c:forEach>	
@@ -125,7 +125,7 @@
                 var ok = confirm("사진을 삭제하시겠습니까?");
                 if (ok) {
                     $(this).css('display', 'none');
-                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/assets/img/img_plus.png")');
+                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/upload/img_plus.png")');
                     var $input = $(this).prev();
                     resetInputFile($input);
                 }

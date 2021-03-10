@@ -15,7 +15,7 @@
 		<div class="logo ">
 
 			<a class="logo_img_a" href="${pageContext.request.contextPath}/admin/home_adm.cider">
-				<img src="${pageContext.request.contextPath}/assets/img/logo.png" />
+				<img src="${pageContext.request.contextPath}/upload/logo.png" />
 			</a>
 			<button id="log-out" class="btn btn-default log_out" type="submit">로그아웃</button>
 			<a class="nav_top_a btn btn-danger" href="${pageContext.request.contextPath}" target="_blank">
