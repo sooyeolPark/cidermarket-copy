@@ -48,19 +48,19 @@
 					<!-- 항목 (1) -->
 					<div class="item active">
 						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=76">
-							<img src="${pageContext.request.contextPath}/assets/img/banner_01.jpg" alt="그랜드오픈 기념이벤트 에어팟맥스 100분 추첨 증정" width="100%">
+							<img src="${pageContext.request.contextPath}/upload/banner_01.jpg" alt="그랜드오픈 기념이벤트 에어팟맥스 100분 추첨 증정" width="100%">
 						</a>
 					</div>
 					<!-- 항목 (2) -->
 					<div class="item">
 						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=73">
-							<img src="${pageContext.request.contextPath}/assets/img/banner_02.jpg" alt="쿨하게 거래하자! 사이다마켓!" width="100%">
+							<img src="${pageContext.request.contextPath}/upload/banner_02.jpg" alt="쿨하게 거래하자! 사이다마켓!" width="100%">
 						</a>
 					</div>
 					<!-- 항목 (3) -->
 					<div class="item">
 						<a href="${pageContext.request.contextPath}/notice/view.cider?bbsno=75">
-							<img src="${pageContext.request.contextPath}/assets/img/banner_03.jpg" alt="쉽고 간편하게 사고 팔고 관리해요" width="100%">
+							<img src="${pageContext.request.contextPath}/upload/banner_03.jpg" alt="쉽고 간편하게 사고 팔고 관리해요" width="100%">
 						</a>
 					</div>
 				</div>
@@ -97,10 +97,10 @@
 				                    <div class="sorting thumbnail">
 			                        	<c:choose>
 				                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-				                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+				                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
 				                        	</c:when>
 			                        		<c:otherwise>
-			                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
+			                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.thumbnailPath}" />
 			                        		</c:otherwise>
 			                        	</c:choose>
 				                        <div class="caption">
@@ -133,9 +133,9 @@
              <a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
              	<div class="sorting thumbnail">
 					{{#if filepath}}
-			        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{thumbnailPath}}" />
+			        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/upload{{thumbnailPath}}" />
 			        {{else}}
-				        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+				        <img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
 					{{/if}}
                     <div class="caption">
                        	<h5>{{subject}}</h5>

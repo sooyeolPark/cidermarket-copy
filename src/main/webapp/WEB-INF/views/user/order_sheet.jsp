@@ -27,7 +27,7 @@
 				<div class="order_name">주문내용</div>
 				<div class="media clearfix">
 					<div class="pull-left">
-						<img class="media-object" src="${pageContext.request.contextPath}/assets/img${product.filepath}" width="80" height="80" alt="Generic placeholder image">
+						<img class="media-object" src="${pageContext.request.contextPath}/upload${product.filepath}" width="80" height="80" alt="Generic placeholder image">
 					</div>
 					<div class="media-body">
 						<div class="clearfix">

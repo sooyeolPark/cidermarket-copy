@@ -54,7 +54,7 @@ public class SearchAjaxController {
 					Cookie search = new Cookie(chk_cookies[i].getName(), null);
 					chk_cookies[i].setMaxAge(-1);
 					search.setPath("/");
-					search.setDomain("localhost");
+					search.setDomain("itproject.ezenac.co.kr/cidermarket");
 					response.addCookie(search);
 				}
 			}
@@ -66,7 +66,7 @@ public class SearchAjaxController {
 			Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword.trim());	// 쿠키 생성 (이름, 값 설정)
 			search.setMaxAge(60*60*24*7);			// 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
 			search.setPath("/");			// 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
-			search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
+			search.setDomain("itproject.ezenac.co.kr/cidermarket"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
 			response.addCookie(search);	// 쿠키 저장하기
 		}
 
