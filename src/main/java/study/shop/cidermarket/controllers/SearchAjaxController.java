@@ -39,6 +39,10 @@ public class SearchAjaxController {
 			@RequestParam(value="keyword", defaultValue="") String keyword,
 			@RequestParam(value="filter", defaultValue="0") int filter,
 			@RequestParam(value = "sort", defaultValue = "") String sort) {
+		
+		keyword = keyword.replace(",", "");
+        keyword = keyword.replace(";", "");
+        keyword = keyword.replace(" ", "");
 
 		Cookie[] chk_cookies = request.getCookies();
 		//쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
@@ -59,7 +63,7 @@ public class SearchAjaxController {
 		
 		if (keyword != null) {
 			/** 입력값이 존재할 경우 쿠키 저장*/
-			Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword);	// 쿠키 생성 (이름, 값 설정)
+			Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword.trim());	// 쿠키 생성 (이름, 값 설정)
 			search.setMaxAge(60*60*24*7);			// 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
 			search.setPath("/");			// 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
 			search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함

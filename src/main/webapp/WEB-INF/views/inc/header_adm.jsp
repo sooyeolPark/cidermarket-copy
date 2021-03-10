@@ -40,23 +40,23 @@
 			<div class="collapse navbar-collapse" id="gnb">
 				<ul id="nav_bar_menu" class="nav navbar-nav">
 
-					<li class="nav_menu"><a href="${pageContext.request.contextPath}/admin/home_adm.cider">Home</a></li>
-					<li class="nav_menu"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/order_adm.cider">주문관리</a></li>
-					<li class="nav_menu dropdown">
+					<li class="col-sm-2"><a href="${pageContext.request.contextPath}/admin/home_adm.cider">Home</a></li>
+					<li class="col-sm-2"><a class="nav_menu_a" href="${pageContext.request.contextPath}/admin/order_adm.cider">주문관리</a></li>
+					<li class="col-sm-3 dropdown">
 			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판관리 <span class="caret"></span></a>
 			        	<ul class="dropdown-menu nav_bar_menu_a" role="menu">
 							<li><a href="${pageContext.request.contextPath}/admin/notice/list.cider">공지사항</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/question_adm.cider">일반문의</a></li>
 						</ul>
 					</li>
-					<li class="nav_menu dropdown">
+					<li class="col-sm-2 dropdown">
 			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">회원관리 <span class="caret"></span></a>
 			        	<ul class="dropdown-menu nav_bar_menu_a" role="menu">
 							<li><a href="${pageContext.request.contextPath}/admin/member_adm.cider">회원정보조회</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/outmember_adm.cider">탈퇴회원관리</a></li>
 						</ul>
 					</li>
-					<li class="nav_menu dropdown">
+					<li class="col-sm-3 dropdown">
 			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">상품관리 <span class="caret"></span></a>
 			        	<ul class="dropdown-menu nav_bar_menu_a" role="menu">
 							<li><a href="${pageContext.request.contextPath}/admin/product_adm.cider">상품목록</a></li>
