@@ -352,4 +352,16 @@ public class ItemIndexServiceImpl implements ItemIndexService {
 		return result;
 	}
 
+	@Override
+	public int editProductItemHits(Product input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.update("ProductMapper.updateItemHits", input);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 수정에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

@@ -124,4 +124,10 @@ public class BbsInquiryServiceImpl implements BbsService {
 		return result;
 	}
 
+	@Override
+	public int editBbsItemHits(Bbs input) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

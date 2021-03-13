@@ -2,6 +2,9 @@ package study.shop.cidermarket.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,15 +50,15 @@ public class ItemAjaxContorller {
    @Qualifier("categoryService")
    CategoryService categoryService;
    
-	/** Service 패턴 구현체 주입 */
-	@Qualifier("productService")
-	@Autowired
-	ProductService productService;
+   /** Service 패턴 구현체 주입 */
+   @Qualifier("productService")
+   @Autowired
+   ProductService productService;
 
-	   /** Service 패턴 구현체 주입 */
-	   @Autowired
-	   @Qualifier("itemindexService")
-	   ItemIndexService itemindexService;
+   /** Service 패턴 구현체 주입 */
+   @Autowired
+   @Qualifier("itemindexService")
+   ItemIndexService itemindexService;
    
    
    /** 목록 페이지 */
@@ -127,7 +130,7 @@ public class ItemAjaxContorller {
    
    /** 상세 페이지 */
    @RequestMapping(value="/item_index.cider", method=RequestMethod.GET)
-   public ModelAndView get_index(Model model,
+   public ModelAndView get_index(Model model, HttpServletRequest request, HttpServletResponse response,
 		   @RequestParam(value="prodno", defaultValue="0") int prodno) {
       
 	   /** 1) 유효성 검사 */
@@ -162,6 +165,33 @@ public class ItemAjaxContorller {
        Product output_02 = null;
 
        try {
+    	  // 쿠키 불러오기. 조회수 중복 누적 방지하며 조회수 1 누적
+ 	   	  Cookie[] cookies = request.getCookies();
+ 	   	  int visitor = 0;
+ 	   	  
+ 	   	  for (Cookie cookie : cookies) {
+ 	   		  System.out.println(cookie.getName());
+ 	   		  if (cookie.getName().equals("prodno")) {
+ 	   		   visitor = 1;
+ 	   		   
+ 	   		   System.out.println("prodno통과");
+ 	   		   
+ 	   		   if(cookie.getValue().contains(request.getParameter("prodno"))) {
+ 	   			   System.out.println("prodno if 통과");
+ 	   		   } else {
+ 	   			   cookie.setValue(cookie.getValue() + "_" + request.getParameter("prodno"));
+ 	   			   response.addCookie(cookie);
+ 	   			itemindexService.editProductItemHits(input_02);
+ 	   		   }
+ 	   	     }
+ 	   	   }
+ 	   	  
+ 	   	   if (visitor == 0) {
+ 	   	     Cookie cookie1 = new Cookie("prodno", request.getParameter("prodno"));
+ 	   	     response.addCookie(cookie1);
+ 	   	     itemindexService.editProductItemHits(input_02);
+ 	   	   }
+ 	   	 
            // 데이터 조회
            output_02 = itemindexService.getProductItem(input_02);
        } catch (Exception e) {

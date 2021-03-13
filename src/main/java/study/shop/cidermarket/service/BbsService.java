@@ -52,7 +52,13 @@ public interface BbsService {
 	 * @throws Exception
 	 */
 	public int deleteBbs(Bbs input) throws Exception;
-
-
+	
+	/**
+	 * 조회수 1 누적하기
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public int editBbsItemHits(Bbs input) throws Exception;
 
 }

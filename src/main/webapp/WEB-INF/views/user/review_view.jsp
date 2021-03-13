@@ -28,16 +28,22 @@
                         <div class="panel-heading boardTitle-view" id="user-write">
                             <span class="boardImg"><img src="${pageContext.request.contextPath}/upload${output.filepath}" alt="${output.subject}"></span>
                             <span class="boardTitle">${output.subject}</span>
-                            <span class="boardDate">${output.price}원</span>
+                            <span class="boardDate"><fmt:formatNumber value="${output.price}" pattern="#,###" />원</span>
                         </div>
                         <div class="panel-body">
-                          <div class="foryou">To. <b>${output.nickname}</b>님께 따뜻한 후기를 보냈어요.</div>
+                          <div class="foryou">To. <b>${output.nickname}</b>님께 
+                          <c:if test="${output.rate == 5}">쌍따봉과 함께 칭찬을</c:if>
+                          <c:if test="${output.rate == 4}">따뜻한 후기를</c:if>
+                          <c:if test="${output.rate == 3}">솔직한 후기를</c:if>
+                          <c:if test="${output.rate == 2}">아쉬운 마음을</c:if>
+                          <c:if test="${output.rate == 1}">상처입은 마음을</c:if> 
+                          보냈어요.</div>
                             <p>${output.content}<br></p>
                             <div id="review_img" class="review_img">
                              <c:forEach var="item" items="${fileimages}" varStatus="status">
                                 <img class="userreview_img" src="${pageContext.request.contextPath}/upload${item.filepath}" alt="리뷰이미지">
                             </c:forEach>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                     <!-- button -->

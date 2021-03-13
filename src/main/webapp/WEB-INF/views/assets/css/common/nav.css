@@ -133,7 +133,10 @@
   width: 100%;
   height: auto;
 }
-
+.nav_bar > a:hover,
+.nav_bar > a:focus {
+	text-decoration: none;
+}
 .btnn-temp .btn-danger,
 .btnn-temp .btn-primary {
   margin: 8px 0 0 8px;
