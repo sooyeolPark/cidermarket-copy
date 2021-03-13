@@ -12,6 +12,6 @@
 </head>
 
 <body>
-    <div class="error"><img src="${pageContext.request.contextPath}/assets/img/error404.jpg" alt="404 페이지를 찾을 수 없습니다." /></div>
+    <div class="error"><img src="${pageContext.request.contextPath}/upload/error404.jpg" alt="404 페이지를 찾을 수 없습니다." /></div>
 </body>
 </html>

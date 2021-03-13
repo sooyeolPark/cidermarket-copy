@@ -104,6 +104,24 @@ public class BbsNoticeServiceImpl implements BbsService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int editBbsItemHits(Bbs input) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.update("BbsNoticeMapper.updateHits", input);
+			if(result == 0) {
+				throw new NullPointerException("result=0");
+			}
+		} catch (NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("조회된 데이터가 없습니다.");
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
+		}
+		return result;
+	}
 
 	@Override
 	public int deleteBbs(Bbs input) throws Exception {

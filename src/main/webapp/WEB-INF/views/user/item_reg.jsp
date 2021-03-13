@@ -285,7 +285,7 @@
                 var ok = confirm("사진을 삭제하시겠습니까?");
                 if (ok) {
                     $(this).css('display', 'none');
-                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/assets/img/img_plus.png")');
+                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/upload/img_plus.png")');
                     var $input = $(this).prev();
                     resetInputFile($input);
                 }
@@ -368,6 +368,13 @@
             $("#tag_cancle").click(function (e) {
                 $("#tag_input").val('');
                 $("#background").fadeOut(300);
+            });
+            
+            $("#tag_input").keydown(function(e){
+            	e.preventDefault();
+            	if(e.keyCode==13){
+            		$("#tag_ok").click();
+            	}
             });
             
          // #item_img_group에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.

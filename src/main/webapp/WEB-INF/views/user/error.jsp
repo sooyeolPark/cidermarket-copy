@@ -12,6 +12,6 @@
 </head>
 
 <body>
-    <div class="error"><img src="${pageContext.request.contextPath}/assets/img/error.jpg" alt="에러" /></div>
+    <div class="error"><img src="${pageContext.request.contextPath}/upload/error.jpg" alt="에러" /></div>
 </body>
 </html>

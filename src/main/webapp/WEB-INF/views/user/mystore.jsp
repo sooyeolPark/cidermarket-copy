@@ -88,10 +88,10 @@
                                         <div class="sorting thumbnail">
                                             <c:choose>
                                                 <c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
+                                                    <img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.thumbnailPath}" />
                                                 </c:otherwise>
                                             </c:choose>
                                             <div class="caption">

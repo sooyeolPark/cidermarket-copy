@@ -44,32 +44,33 @@ public class SearchAjaxController {
         keyword = keyword.replace(";", "");
         keyword = keyword.replace(" ", "");
 
-      Cookie[] chk_cookies = request.getCookies();
-      //쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
-      if(chk_cookies!=null && keyword != "") {      
-         for(int i =0; i<chk_cookies.length; i++) {
-            if(keyword.trim().equals(chk_cookies[i].getValue().trim())) {
-               // 유효시간을 과거 시점으로 지정하면 즉시 삭제된다.
-               // 그 밖의 정보(유효경로, 도메인)는 저장시에 설정한 값과 동일해야 한다.
-               Cookie search = new Cookie(chk_cookies[i].getName(), null);
-               chk_cookies[i].setMaxAge(-1);
-               search.setPath("/");
-               search.setDomain("localhost");
-               response.addCookie(search);
-            }
-         }
-      }
-      
-      
-      if (keyword != null) {
-         /** 입력값이 존재할 경우 쿠키 저장*/
-         Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword.trim());   // 쿠키 생성 (이름, 값 설정)
-         search.setMaxAge(60*60*24*7);         // 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
-         search.setPath("/");         // 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
-         search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
-         response.addCookie(search);   // 쿠키 저장하기
-      }
-
+		Cookie[] chk_cookies = request.getCookies();
+		//쿠키값이 null이 아니고 키워드가 있을경우 기존에 중복되는 쿠키들을 삭제
+		if(chk_cookies!=null && keyword != "") {		
+			for(int i =0; i<chk_cookies.length; i++) {
+				if(keyword.trim().equals(chk_cookies[i].getValue().trim())) {
+					// 유효시간을 과거 시점으로 지정하면 즉시 삭제된다.
+					// 그 밖의 정보(유효경로, 도메인)는 저장시에 설정한 값과 동일해야 한다.
+					Cookie search = new Cookie(chk_cookies[i].getName(), null);
+					chk_cookies[i].setMaxAge(-1);
+					search.setPath("/");
+					//search.setDomain("itproject.ezenac.co.kr/cidermarket");
+					search.setDomain("localhost");
+					response.addCookie(search);
+				}
+			}
+		}
+		
+		
+		if (keyword != null) {
+			/** 입력값이 존재할 경우 쿠키 저장*/
+			Cookie search = new Cookie("mySearch"+String.format("%d", System.currentTimeMillis()), keyword.trim());	// 쿠키 생성 (이름, 값 설정)
+			search.setMaxAge(60*60*24*7);			// 쿠키의 유효시간(초) - 지정하지 않을 경우 브라우저를 닫으면 즉시 삭제
+			search.setPath("/");			// 쿠키가 유효한 경로 설정 - 사이트 최상단 디렉토리 지정(사이트 전역에서 유효)
+			search.setDomain("localhost"); // 쿠카가 유효한 도메인 설정 --> 상용화시에는 사이트에 맞게 수정해야 함
+			//search.setDomain("itproject.ezenac.co.kr/cidermarket");
+			response.addCookie(search);	// 쿠키 저장하기
+		}
       
       /** 1) 페이지 구현에 필요한 변수값 생성 */
       int totalCount = 0;      // 전체 게시글 수

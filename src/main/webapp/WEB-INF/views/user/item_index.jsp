@@ -86,8 +86,8 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           <c:forEach var="item" items="${fileimages}" varStatus="status">
-          	<div class="swiper-slide"><a href="${pageContext.request.contextPath}/assets/img${item.filepath}" data-lightbox="my-gallery">
-              <img src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="100%" /></a></div>
+          	<div class="swiper-slide"><a href="${pageContext.request.contextPath}/upload${item.filepath}" data-lightbox="my-gallery">
+              <img src="${pageContext.request.contextPath}/upload${item.filepath}" width="100%" /></a></div>
           </c:forEach>
         </div>
         <!-- If we need pagination -->
@@ -189,10 +189,10 @@
                 <a class="pull-left" href="${pageContext.request.contextPath}/mystore/${seller.shopaddress}"> 
                 	<c:choose>
                     	<c:when test="${seller.filepath == null && fn:length(seller.filepath) == 0}">
- 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/upload/default_profile.jpg" width="50" height="50" alt="Generic placeholder image"> 
                     	</c:when>
                    		<c:otherwise>
- 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${seller.filepath}" width="50" height="50" alt="Generic placeholder image"> 
+ 			               	<img class="media-object img-circle" src="${pageContext.request.contextPath}/upload${seller.filepath}" width="50" height="50" alt="Generic placeholder image"> 
                    		</c:otherwise>
                    	</c:choose>
                 </a>
@@ -223,61 +223,61 @@
                   <c:choose>                  	
         				<c:when test="${rate < 1}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
         				<c:when test="${rate >= 1 && rate < 2}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
         				<c:when test="${rate >= 2 && rate < 3}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
         				<c:when test="${rate >= 3 && rate < 4}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
         				<c:when test="${rate >= 4 && rate < 5}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
         				<c:when test="${rate == 5}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
       				  	</div>
                   		<div id="user_string">${seller.rate}</div>
         				</c:when>
@@ -332,7 +332,7 @@
         						<c:choose>
         						<c:when test="${rere.outmember=='N'}">
         						<div class="media">
-      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/upload<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
           								width="60" height="60" alt="Generic placeholder image"> </div>
       								<div class="media-body">
         								<div class="clearfix">
@@ -374,7 +374,7 @@
 						<c:otherwise>
 						<c:choose>
 						<c:when test="${item.outmember=='N'}">
-						<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${item.filepath!=null}">${item.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+						<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/upload<c:choose><c:when test="${item.filepath!=null}">${item.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
           						width="60" height="60" alt="Generic placeholder image"> </div>
       					<div class="media-body">
         					<div class="clearfix">
@@ -410,7 +410,7 @@
         						<c:choose>
         						<c:when test="${rere.outmember=='N'}">
         						<div class="media">
-      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/upload<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
           								width="60" height="60" alt="Generic placeholder image"> </div>
       								<div class="media-body">
         								<div class="clearfix">
@@ -483,7 +483,7 @@
         						<c:choose>
         						<c:when test="${rere.outmember=='N'}">
         						<div class="media">
-      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
+      								<div class="pull-left"> <img class="media-object img-circle" src="${pageContext.request.contextPath}/upload<c:choose><c:when test="${rere.filepath!=null}">${rere.filepath}</c:when><c:otherwise>/default_profile.jpg</c:otherwise></c:choose>"
           								width="60" height="60" alt="Generic placeholder image"> </div>
       								<div class="media-body">
         								<div class="clearfix">
@@ -551,7 +551,7 @@
 								</c:url>								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.thumbnailPath}">
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4>${item.price}원</h4>
@@ -587,7 +587,7 @@
 								</c:url>								
 				                <a href="${viewUrl}">
 				                    <div class="sorting thumbnail">
-			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}">
+			                        	<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.thumbnailPath}">
 				                        <div class="caption">
 				                            <h5>${item.subject}</h5>
 				                            <h4>${item.price}원</h4>

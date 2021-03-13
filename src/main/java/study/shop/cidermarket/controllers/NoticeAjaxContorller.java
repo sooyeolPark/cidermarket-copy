@@ -2,6 +2,10 @@ package study.shop.cidermarket.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -84,9 +88,9 @@ public class NoticeAjaxContorller {
    
    /** 상세 페이지 */
    @RequestMapping(value="/notice/view.cider", method=RequestMethod.GET)
-   public ModelAndView view(Model model,
+   public ModelAndView view(Model model, HttpServletRequest request, HttpServletResponse response,
          @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
-      
+	   
       /** 1) 유효성 검사 */
       if(bbsno == 0) {
          return webHelper.redirect(null, "글이 없습니다.");
@@ -104,6 +108,33 @@ public class NoticeAjaxContorller {
       // 조회 결과를 저장할 객체 선언
       Bbs output = null;
       try {
+    	  // 쿠키 불러오기. 조회수 중복 누적 방지
+	   	  Cookie[] cookies = request.getCookies();
+	   	  int visitor = 0;
+	   	  
+	   	  for (Cookie cookie : cookies) {
+	   		  System.out.println(cookie.getName());
+	   		  if (cookie.getName().equals("visit")) {
+	   		   visitor = 1;
+	   		   
+	   		   System.out.println("visit통과");
+	   		   
+	   		   if(cookie.getValue().contains(request.getParameter("bbsno"))) {
+	   			   System.out.println("visit if 통과");
+	   		   } else {
+	   			   cookie.setValue(cookie.getValue() + "_" + request.getParameter("bbsno"));
+	   			   response.addCookie(cookie);
+	   			   bbsNoticeService.editBbsItemHits(input);
+	   		   }
+	   	     }
+	   	 }
+	   	  
+	   	 if (visitor == 0) {
+	   	   Cookie cookie1 = new Cookie("visit", request.getParameter("bbsno"));
+	   	   response.addCookie(cookie1);
+	   	   bbsNoticeService.editBbsItemHits(input);
+	   	 }
+	   	 
          // 데이터 조회
          output = bbsNoticeService.getBbsItem(input);
          files = filesBbsService.getRefFilesList(f);
@@ -166,7 +197,7 @@ public class NoticeAjaxContorller {
    
    /** 관리자 공지사항 상세 페이지 */
    @RequestMapping(value="/admin/notice/view.cider", method=RequestMethod.GET)
-   public ModelAndView view_adm(Model model,
+   public ModelAndView view_adm(Model model, HttpServletRequest request, HttpServletResponse response,
          @RequestParam(value="bbsno", defaultValue="0") int bbsno) {
       
       /** 1) 유효성 검사 */
@@ -186,6 +217,33 @@ public class NoticeAjaxContorller {
       Bbs output = null;
       List<Files> files = null;
       try {
+    	  // 쿠키 불러오기. 조회수 중복 누적 방지하며 조회수 1 누적
+	   	  Cookie[] cookies = request.getCookies();
+	   	  int visitor = 0;
+	   	  
+	   	  for (Cookie cookie : cookies) {
+	   		  System.out.println(cookie.getName());
+	   		  if (cookie.getName().equals("visit")) {
+	   		   visitor = 1;
+	   		   
+	   		   System.out.println("visit통과");
+	   		   
+	   		   if(cookie.getValue().contains(request.getParameter("bbsno"))) {
+	   			   System.out.println("visit if 통과");
+	   		   } else {
+	   			   cookie.setValue(cookie.getValue() + "_" + request.getParameter("bbsno"));
+	   			   response.addCookie(cookie);
+	   			   bbsNoticeService.editBbsItemHits(input);
+	   		   }
+	   	     }
+	   	 }
+	   	  
+	   	 if (visitor == 0) {
+	   	   Cookie cookie1 = new Cookie("visit", request.getParameter("bbsno"));
+	   	   response.addCookie(cookie1);
+	   	   bbsNoticeService.editBbsItemHits(input);
+	   	 }
+    	  
          // 데이터 조회
          output = bbsNoticeService.getBbsItem(input);
          files = filesBbsService.getRefFilesList(f);

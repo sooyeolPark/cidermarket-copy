@@ -20,27 +20,27 @@
 	<div class='gray_layer' id='background'></div>
 	<div class='over_layer' id='front'>
 		<ul>
-			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_1.png" width="70" height="70">
+			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_1.png" width="70" height="70">
 				<div class="media-body">
 					<div class="grade_color">화이트 등급</div>
 					<div>기본등급</div>
 				</div></li>
-			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_2.png" width="70" height="70">
+			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_2.png" width="70" height="70">
 				<div class="media-body">
 					<div class="grade_color">블루 등급</div>
 					<div>최근 90일간 거래 1건 이상</div>
 				</div></li>
-			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_3.png" width="70" height="70">
+			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_3.png" width="70" height="70">
 				<div class="media-body">
 					<div class="grade_color">브론즈</div>
 					<div>최근 90일간 거래 3건 이상</div>
 				</div></li>
-			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_4.png" width="70" height="70">
+			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_4.png" width="70" height="70">
 				<div class="media-body">
 					<div class="grade_color">실버</div>
 					<div>최근 90일간 거래 7건 이상</div>
 				</div></li>
-			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_5.png" width="70" height="70">
+			<li class="media clearfix"><img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_5.png" width="70" height="70">
 				<div class="media-body">
 					<div class="grade_color">골드 등급</div>
 					<div>최근 90일간 거래 15건 이상</div>
@@ -65,7 +65,7 @@
 					<c:set var="totalCount" value="${output_sell.month+output_sell.lastmonth+output_sell.lasttwomonth+output_buy.month+output_buy.lastmonth+output_buy.lasttwomonth}" />
 					<c:choose>
 						<c:when test="${totalCount < 1}">
-							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_1.png" width="70" height="70">
+							<img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_1.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
 									이번달 ${user.nickname}님은 <b>화이트 등급</b>입니다.
@@ -78,7 +78,7 @@
 
 						</c:when>
 						<c:when test="${totalCount > 0 && totalCount < 3}">
-							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_2.png" width="70" height="70">
+							<img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_2.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
 									이번달 ${output.nickname}님은 <b>블루 등급</b>입니다.
@@ -90,7 +90,7 @@
 							</div>
 						</c:when>
 						<c:when test="${totalCount > 2 && totalCount < 7}">
-							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_3.png" width="70" height="70">
+							<img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_3.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
 									이번달 ${output.nickname}님은 <b>브론즈 등급</b>입니다.
@@ -102,7 +102,7 @@
 							</div>
 						</c:when>
 						<c:when test="${totalCount > 6 && totalCount < 15}">
-							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_4.png" width="70" height="70">
+							<img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_4.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
 									이번달 ${output.nickname}님은 <b>실버 등급</b>입니다.
@@ -114,7 +114,7 @@
 							</div>
 						</c:when>
 						<c:when test="${totalCount > 14}">
-							<img class="media-object pull-left" src="${pageContext.request.contextPath}/assets/img/grade_5.png" width="70" height="70">
+							<img class="media-object pull-left" src="${pageContext.request.contextPath}/upload/grade_5.png" width="70" height="70">
 							<div class="media-body">
 								<div id="user_grade_now">
 									이번달 ${output.nickname}님은 <b>골드 등급</b>입니다.

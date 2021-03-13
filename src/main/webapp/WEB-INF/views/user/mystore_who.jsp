@@ -128,11 +128,11 @@
               <div id="myreview_subject">
                 <h1>5.0</h1>
                 <div id="user_star">
-                  <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                  <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                  <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                  <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-                  <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+                  <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+                  <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+                  <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+                  <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+                  <img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
                   <span class="badge">3</span>
                 </div>
               </div>

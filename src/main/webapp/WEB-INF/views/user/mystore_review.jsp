@@ -33,61 +33,61 @@
           <c:choose>                  	
         				<c:when test="${rate < 1}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
         				<c:when test="${rate >= 1 && rate < 2}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
         				<c:when test="${rate >= 2 && rate < 3}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
         				<c:when test="${rate >= 3 && rate < 4}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
         				<c:when test="${rate >= 4 && rate < 5}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점 0점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점 0점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
         				<c:when test="${rate == 5}">
         				<div id="user_star">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
-      				  	<img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
+      				  	<img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점 1점">
       				  	<span class="badge">${pageData.totalCount}</span>
       				  	</div>
         				</c:when>
@@ -109,15 +109,15 @@
 				  <a class="pull-left" href="#"> 
 				  	<c:choose>
                     	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-                    		<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50">
+                    		<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/upload/default_profile.jpg" width="50" height="50">
                     	</c:when>
                    		<c:otherwise>
                    			<c:choose>
                    			<c:when test="${item.outmember=='N'}">
-                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${item.filepath}" width="50" height="50">
+                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/upload${item.filepath}" width="50" height="50">
                    			</c:when>
                    			<c:otherwise>
-                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="50" height="50">
+                   			<img alt="${item.subject}" class="media-object img-circle" src="${pageContext.request.contextPath}/upload/default_profile.jpg" width="50" height="50">
                    			</c:otherwise>
                    			</c:choose>
                    			
@@ -167,7 +167,7 @@
 			                <c:otherwise>
 			                 <c:forEach var="item1" items="${item.filepathlist}" varStatus="status">
 			                   
-								      <img id="reviewpic" src="${pageContext.request.contextPath}/assets/img${item1}">
+								      <img id="reviewpic" src="${pageContext.request.contextPath}/upload${item1}">
 								     
 							 </c:forEach>
 							
