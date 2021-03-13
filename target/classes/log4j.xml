@@ -15,9 +15,9 @@
     <appender name="rollingFile" class="org.apache.log4j.RollingFileAppender">
         <!-- 로그 파일 생성위치 -->
 
-<!--         <param name="file" value="/usr/local/tomcat9/webapps/cidermarket/log/web.log" /> -->
+		<param name="file" value="/usr/local/tomcat9/webapps/cidermarket/log/web.log" />
 
-        <param name="file" value="D:/workspace/cidermarket/log/web.log" />
+<!--         <param name="file" value="D:/workspace/cidermarket/log/web.log" /> -->
 
         <param name="Append" value="true" />
         <!-- 로그 파일 하나당 사이즈 100m -->
@@ -36,9 +36,9 @@
         <param name="Threshold" value="ERROR" />
         <!-- 로그 파일 생성위치 -->
 
-<!--         <param name="File" value="/usr/local/tomcat9/webapps/cidermarket/log/error.log" /> -->
+         <param name="File" value="/usr/local/tomcat9/webapps/cidermarket/log/error.log" />
 
-        <param name="File" value="D:/workspace/cidermarket/log/error.log" />
+<!--         <param name="File" value="D:/workspace/cidermarket/log/error.log" /> -->
 
         <!-- 하루에 한 개씩 날짜를 적용하며 파일이름이 생성되도록 함 -->
         <param name="Append" value="true" />

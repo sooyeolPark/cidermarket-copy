@@ -371,8 +371,8 @@
             });
             
             $("#tag_input").keydown(function(e){
-            	e.preventDefault();
             	if(e.keyCode==13){
+            		e.preventDefault();
             		$("#tag_ok").click();
             	}
             });
