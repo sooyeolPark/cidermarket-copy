@@ -29,8 +29,10 @@
 				<option value="default" <c:if test="${orderby=='default'}">selected</c:if>>기본정렬</option>
 				<option value="payAsc" <c:if test="${orderby=='payAsc'}">selected</c:if>>구매액(낮음)</option>
 				<option value="payDesc" <c:if test="${orderby=='payDesc'}">selected</c:if>>구매액(높음)</option>
-				<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>거래중</option>
-				<option value="W" <c:if test="${orderby=='W'}">selected</c:if>>거래완료</option>				
+				<option value="J" <c:if test="${orderby=='J'}">selected</c:if>>직거래</option>
+				<option value="T" <c:if test="${orderby=='T'}">selected</c:if>>택배거래</option>	
+				<option value="tradeconJ" <c:if test="${orderby=='tradeconJ'}">selected</c:if>>거래중</option>
+				<option value="tradeconW" <c:if test="${orderby=='tradeconW'}">selected</c:if>>거래완료</option>				
 			</select>
 		</div>
 
@@ -72,13 +74,14 @@
 		        
 		        <c:choose>
 		        <c:when test="${item.how =='J'}">
-		        <td class="text-center board-group-item"><span class="label label-info info-white">직거래</span></td></c:when>
+		        <td class="text-center board-group-item"><span class="label label-info info-white">직거래</span></td>
+		        </c:when>
 		        <c:when test="${item.how =='T'}">
 		        <td class="text-center board-group-item"><span class="label label-info info-white">택배</span></td>
 		    	</c:when>
-		        <c:when test="${item.how =='X'}">
+		        <c:otherwise>
 		        <td class="text-center board-group-item"><span class="label label-info info-white">상관없음</span></td>
-		    	</c:when>		    	
+		    	</c:otherwise>		    	
 		    	</c:choose>
 		    	
 		    	<c:choose>
