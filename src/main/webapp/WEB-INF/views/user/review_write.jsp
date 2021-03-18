@@ -30,7 +30,7 @@
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
                           <a href="${pageContext.request.contextPath}/item_index.cider?prodno=${output.prodno}" class="clearfix">
-                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img/${output.filepath}" alt="${output.subject}"></span>
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/upload/${output.filepath}" alt="${output.subject}"></span>
                             <span class="boardTitle">${output.subject}</span>
                             <span class="boardDate"><fmt:formatNumber value="${output.price}" pattern="#,###" />원</span>
                           </a>                            
@@ -42,11 +42,11 @@
                           <!-- Review-from POST로 보내기  -->
                           <form id="review-form" action="${pageContext.request.contextPath}/reviewWrite" enctype=“multipart/form-data” role="form">
                             <div class="reviewStar text-center">
-                              <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점" data-star="1">
-                              <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점" data-star="2">
-                              <img src="${pageContext.request.contextPath}/assets/img/star_full.png" alt="별점" data-star="3">
-                              <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점" data-star="4">
-                              <img src="${pageContext.request.contextPath}/assets/img/star_blank.png" alt="별점" data-star="5">
+                              <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점" data-star="1">
+                              <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점" data-star="2">
+                              <img src="${pageContext.request.contextPath}/upload/star_full.png" alt="별점" data-star="3">
+                              <img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점" data-star="4">
+                              <img src="${pageContext.request.contextPath}/upload/star_blank.png" alt="별점" data-star="5">
                               <input type="hidden" id="rate" name="rate" value=""/>
                               <input type="hidden" id="regdate" name="regdate" value="${output.confirmdate}"/>
                               <input type="hidden" id="prodno" name="prodno" value="${output.prodno }"/>
@@ -128,8 +128,8 @@
 
                 // 별점확인 
                 $(".reviewStar > img").click(function(){
-                  $(this).parent().children('img').attr('src', '${pageContext.request.contextPath}/assets/img/star_blank.png');
-                  $(this).attr('src', '${pageContext.request.contextPath}/assets/img/star_full.png').prevAll('img').attr('src', '${pageContext.request.contextPath}/assets/img/star_full.png');
+                  $(this).parent().children('img').attr('src', '${pageContext.request.contextPath}/upload/star_blank.png');
+                  $(this).attr('src', '${pageContext.request.contextPath}/upload/star_full.png').prevAll('img').attr('src', '${pageContext.request.contextPath}/upload/star_full.png');
                   let target = $(this);
                   let rate = target.data("star");
                   $("#rate").val(rate);
@@ -190,7 +190,7 @@
                     var ok = confirm("사진을 삭제하시겠습니까?");
                     if (ok) {
                         $(this).css('display', 'none');
-                        $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/assets/img/img_plus.png")');
+                        $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/upload/img_plus.png")');
                         var $input = $(this).prev();
                         resetInputFile($input);
                     }

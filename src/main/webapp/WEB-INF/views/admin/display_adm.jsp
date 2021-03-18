@@ -10,7 +10,6 @@
 <title>관리자 진열관리 - 사이다마켓</title>
 <!-- 나눔고딕 웹 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/display_adm.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 </head>
 
@@ -189,8 +188,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
 	<!-- Javascript -->
-	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- ajax-helper -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>

@@ -39,11 +39,11 @@
 					<span> 
 					<c:choose>
                     	<c:when test="${output.filepath == null && fn:length(output.filepath) == 0}">
-							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img/default_profile.jpg" width="110" height="110" alt="${output.nickname}">
+							<img id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/upload/default_profile.jpg" width="110" height="110" alt="${output.nickname}">
                     	</c:when>
                    		<c:otherwise>
                    			<input type="hidden" name="origin_image0" value="${output_01.fileno}">
-							<img name="origin_img" id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/assets/img${output.filepath}" width="110" height="110" alt="${output.nickname}" >
+							<img name="origin_img" id="image_section" class="media-object img-circle" src="${pageContext.request.contextPath}/upload${output.filepath}" width="110" height="110" alt="${output.nickname}" >
                    		</c:otherwise>
                    	</c:choose>
                    	<input name="image0" type="file" id="imgInput" class="image_plus" accept="image/*"/>

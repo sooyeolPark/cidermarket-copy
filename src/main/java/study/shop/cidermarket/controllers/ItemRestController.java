@@ -71,7 +71,7 @@ public class ItemRestController {
 			@RequestParam(value="cateno", defaultValue = "1") int cateno,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", defaultValue = "1") int nowPage,
-			 @RequestParam(value="filter", defaultValue="0") int filter,
+			@RequestParam(value="filter", defaultValue="0") int filter,
 			@RequestParam(value = "sort", defaultValue = "") String sort) {
 
 		/** 1) 페이지 구현에 필요한 변수값 생성 */
@@ -84,7 +84,7 @@ public class ItemRestController {
 		Product input = new Product();
 		input.setCateno(cateno);
 		if(filter!=0) {
-		input.setProdno(filter);
+			input.setProdno(filter);
 		}
 		List<Product> output = null;
 		PageData pageData = null;
@@ -943,7 +943,7 @@ public class ItemRestController {
 				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
 				            String thumbnailPath = null;
 				            try {
-				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, true);
 				            } catch (Exception e) {
 				                e.printStackTrace();
 				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");
@@ -991,7 +991,7 @@ public class ItemRestController {
 				            // 필요한 이미지 사이즈로 썸네일을 생성할 수 있다.
 				            String thumbnailPath = null;
 				            try {
-				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, false);
+				                thumbnailPath = webHelper.createThumbnail(f.getFilepath(), 600, 600, true);
 				            } catch (Exception e) {
 				                e.printStackTrace();
 				                return webHelper.getJsonWarning("썸네일 이미지 생성에 실패했습니다.");

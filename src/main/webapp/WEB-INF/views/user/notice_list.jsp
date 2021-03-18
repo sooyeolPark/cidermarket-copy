@@ -52,7 +52,7 @@
 							</c:url>
 							
 							<a href="${viewUrl}" class="list-group-item clearfix">
-					        	<span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${item.title}"></span>
+					        	<span class="boardImg"><img src="${pageContext.request.contextPath}/upload${item.filepath}" alt="${item.title}"></span>
 					            <p class="boardTitle">${title}</p>
 					            <span class="boardDate">${item.regdate}</span>
 					        </a>

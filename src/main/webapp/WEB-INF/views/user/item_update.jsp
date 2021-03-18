@@ -262,7 +262,7 @@
         		
         	for(var i = 0 ; i<8 ; i++){
         			if(str[i]!="X"){
-        				$("#image"+i+"").css('background-image', 'url(\"${pageContext.request.contextPath}/assets/img' + str[i] + '\")');
+        				$("#image"+i+"").css('background-image', 'url(\"${pageContext.request.contextPath}/upload' + str[i] + '\")');
         				$("#image"+i+"").next().css('display', 'block');  
         				
         			}
@@ -354,7 +354,7 @@
                 var ok = confirm("사진을 삭제하시겠습니까?");
                 if (ok) {
                     $(this).css('display', 'none');
-                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/assets/img/img_plus.png")');
+                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/upload/img_plus.png")');
                     var $input = $(this).prev();
                     resetInputFile($input);
                     

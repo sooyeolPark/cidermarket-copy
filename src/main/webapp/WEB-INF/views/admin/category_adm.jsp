@@ -12,10 +12,7 @@
 <title>관리자 카테고리 - 사이다마켓</title>
     <!-- 나눔고딕 웹 폰트 적용 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/category_adm.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
-    
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 </head>
 
 <body>
@@ -40,7 +37,7 @@
                         <c:forEach var="item" items="${output}" varStatus="status">	
                             <td class="cate_td">
                             	<input id="del" type="checkbox" name="chkRow" value="${item.cateno}">
-                            	<img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${item.name}" />
+                            	<img src="${pageContext.request.contextPath}/upload${item.filepath}" alt="${item.name}" />
                             	${item.name}
                             </td>
 						</c:forEach>	
@@ -73,7 +70,6 @@
     <!--/.container-->
     <!-- Javascript -->
 
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
@@ -129,7 +125,7 @@
                 var ok = confirm("사진을 삭제하시겠습니까?");
                 if (ok) {
                     $(this).css('display', 'none');
-                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/assets/img/img_plus.png")');
+                    $(this).prev().css('background-image', 'url("${pageContext.request.contextPath}/upload/img_plus.png")');
                     var $input = $(this).prev();
                     resetInputFile($input);
                 }

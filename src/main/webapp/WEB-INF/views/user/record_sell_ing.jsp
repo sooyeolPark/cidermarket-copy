@@ -60,10 +60,10 @@
 							                <div class="sorting itemList">
 								                <c:choose>
 						                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-						                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+						                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
 						                        	</c:when>
 					                        		<c:otherwise>
-					                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.filepath}" />
+					                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.filepath}" />
 					                        		</c:otherwise>
 					                        	</c:choose>
 							                    <div class="caption">
@@ -194,7 +194,7 @@
 						</select>
 					</div>
                     <div class="modal-footer">
-                        <button type="summit" id="buyerConfirm" class="btn btn-primary btn-block">확인</button>
+                        <button type="submit" id="buyerConfirm" class="btn btn-primary btn-block">확인</button>
                     </div>
                 </div>
             </div>
@@ -212,6 +212,8 @@
 	        /****************************** 직거래 구매자 확정 모달 *****************************/
 	        $(document).on("click", ".recordJConfirm", function(e) {
 	            e.preventDefault();
+	            $("#myModal").empty();
+	            
 	            let ts = $(this)
 	            
 	            // data를 통해 거래 정보 가져오기
@@ -236,16 +238,12 @@
                 });
 	            
             });
-	        // 모달창 닫으면 데이터 비우기
-	        $(document).on("click", ".close", function(e) {
-	        	$("#myModal").empty();
-	        });
-	        
+
         
 	        /****************************** 직거래 거래확정 모달 ********************************/
 	        $(document).on("click", "#buyerConfirm", function(e) {
 	            e.preventDefault();
-	            let ts = $("#buy_user option:selected")
+	            let ts = $("#buy_user option:selected");
 	            
 	            // data를 통해 거래 정보 가져오기
 	            let seller = ts.data("receiver");

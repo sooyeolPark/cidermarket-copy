@@ -1,5 +1,6 @@
 package study.shop.cidermarket.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,18 +73,6 @@ public class ReviewAjaxContorller {
 	      
 	       //이미지 파일 경로 불러오기
 	       // 데이터 조회에 필요한 조건값을 Beans에 저장하기
-	       Files input_01 = new Files();
-	       input_01.setRefid(revino);
-
-	       // 조회결과를 저장할 객체 선언
-	       List<Files> output_01 = null;
-
-	       try {
-	           // 데이터 조회
-	           output_01 = itemindexService.getFilesListItem(input_01);
-	       } catch (Exception e) {
-	           return webHelper.redirect(null, e.getLocalizedMessage());
-	       }
  
       
           /** 2) 데이터 조회하기 */
@@ -104,6 +93,8 @@ public class ReviewAjaxContorller {
 	      input.setReceiver(outputM.getMembno());
 	      List<Review> output = null;
 	      PageData pageData = null;
+	      
+
       
       try {
     	  // 전체 게시글 수 조회
@@ -121,12 +112,50 @@ public class ReviewAjaxContorller {
          return webHelper.redirect(null, e.getLocalizedMessage());
       }
       
+      // output = 3 -> 23,24 refid 
+      //for문 output 23,24
 
+      
+      
+      for (int i=0; i<output.size(); i++) {
+    	  
+    	  List<Files> output_02 =new ArrayList<Files>();
+    	  output.get(i).getRevino();
+    	  Files input_02 = new Files();
+    	  input_02.setRefid( output.get(i).getRevino());
+    	  
+      
+      
+      try {
+          // 데이터 조회하기
+          output_02 = itemindexService.getFilesReviewListItem(input_02);
+          //output_02=23,24refid에 대한 filepath가 담긴 리스트 
+          
+      } catch (Exception e) {
+         return webHelper.redirect(null, e.getLocalizedMessage());
+      }
+      
+      //23에 대한 파일path 1,2가 있다고 가정 
+      //24에 대한 파일path 3,4가 있다고 가정 
+      //output은 리뷰번호 있는 리스트 
+      
+      ArrayList<String> filepath_02= new ArrayList<String>();
+      	
+      
+      //23,24 refid에 filepath가 담긴리스트를 반복 돌려서 
+      		for (int j=0; j<output_02.size(); j++) {
+      			filepath_02.add(output_02.get(j).getFilepath());
+    	  
+      }
+      		//ouput은 Review빈즈객체 거기에 set 파일패스리스트로 filepath_02리스트를 씌운다
+      		output.get(i).setFilepathlist(filepath_02);
+      }
       /** 3) View 처리 */
       model.addAttribute("user", outputM);
       model.addAttribute("keyword", keyword);
       model.addAttribute("output", output);
       model.addAttribute("pageData", pageData);
+      
    
       
       return new ModelAndView("user/mystore_review");

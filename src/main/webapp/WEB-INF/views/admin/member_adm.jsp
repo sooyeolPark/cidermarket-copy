@@ -183,7 +183,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
 	<!-- Javascript -->
-	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- ajax-helper -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>

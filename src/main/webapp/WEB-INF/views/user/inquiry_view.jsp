@@ -57,7 +57,7 @@
 							<c:otherwise>
 								<%-- 조회 결과에 따른 반복 처리 --%>
 								<c:forEach var="item" items="${files}" varStatus="status">
-		                    		<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${output.title}" /></div>
+		                    		<div class="text-center first_img"><img src="${pageContext.request.contextPath}/upload${item.filepath}" alt="${output.title}" /></div>
 		                    	</c:forEach>
 							</c:otherwise>
                     	</c:choose>

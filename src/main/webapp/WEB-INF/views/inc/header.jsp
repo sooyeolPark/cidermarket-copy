@@ -44,7 +44,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 	<div class="container">
 		<div id="logo" class="text-center">
 			<a href="${pageContext.request.contextPath}">
-				<img src="${pageContext.request.contextPath}/assets/img/logo.png" width="100%" alt="사이다마켓 로고" />
+				<img src="${pageContext.request.contextPath}/upload/logo.png" width="100%" alt="사이다마켓 로고" />
 			</a>
 		</div>
 		<div class="ico-wrap">
@@ -54,9 +54,11 @@ pageContext.setAttribute("cookie_10", cookie_10);
 				</a>
 			</div>
 			<div id="btnAlarm">
+			<c:if test="${myId != null}">
 				<a href="${pageContext.request.contextPath}/alarm.cider">
-					<span class="newAlarm"></span><img src="${pageContext.request.contextPath}/assets/img/ico_bell.png" width="100%" alt="알림" />
+					<span class="newAlarm"></span><img src="${pageContext.request.contextPath}/upload/ico_bell.png" width="100%" alt="알림" />
 				</a>
+			</c:if>
 			</div>
 			<div id="btnSearch">
 				<a href="#">
@@ -67,7 +69,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 	</div>
 	<div id="searchBox" class="container">
 		<form id="searchForm" action="${pageContext.request.contextPath}/search.cider">
-			<input type="search" class="form-control" name="keyword" id="keyword" value="${cookie.mySearch.value}" placeholder="키워드를 입력해 주세요." />
+			<input type="search" class="form-control" name="keyword" id="keyword" placeholder="키워드를 입력해 주세요." />
 			<button id="searchBtn" class="btn btnSearch-s" type="submit">
 				<i class="glyphicon glyphicon-search"></i>
 			</button>
@@ -103,7 +105,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
 <!-- 사이드바 시작 -->
 <div class="aside">
 	<div class="aside-header">
-		<img src="${pageContext.request.contextPath}/assets/img/logo2.png" alt="로고" width="100%" />
+		<img src="${pageContext.request.contextPath}/upload/logo2.png" alt="로고" width="100%" />
 		<div>
 			<h5 class="btnn-login">
 			<c:choose>
@@ -138,7 +140,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
       			<a href="${pageContext.request.contextPath}/mystore/${shop}" class="btn btn-info">내상점</a>
       			<div class="btnn-temp">
 	      			<a href="${pageContext.request.contextPath}/itemreg.cider" class="btn btn-primary">상품등록</a>
-					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" class="btn btn-danger templogin">관리자</a>
+					<a href="${pageContext.request.contextPath}/admin/login_adm.cider" target="_blank" class="btn btn-danger templogin">관리자</a>
 				</div>
     		</div>			
 		</c:otherwise>
@@ -150,7 +152,6 @@ pageContext.setAttribute("cookie_10", cookie_10);
       	
       </ul>
     </div>
-    <%--<div class="nav_bar"><a href="${pageContext.request.contextPath}/user/event_list.cider">이벤트</a></div>--%>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/notice/list.cider">공지사항</a></div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/help.cider?selected=faq">헬프센터</a></div>
     <div class="nav_bar"><a href="${pageContext.request.contextPath}/help/protection.cider">개인정보처리방침</a></div>
@@ -190,7 +191,7 @@ pageContext.setAttribute("cookie_10", cookie_10);
   {{#each item}}
     <li>
     	<a href="${pageContext.request.contextPath}/item_list.cider/{{cateno}}">
-			<span><img src="${pageContext.request.contextPath}/assets/img{{filepath}}" />{{name}}</span>
+			<span><img src="${pageContext.request.contextPath}/upload{{filepath}}" />{{name}}</span>
 		</a>
     </li>
   {{/each}}

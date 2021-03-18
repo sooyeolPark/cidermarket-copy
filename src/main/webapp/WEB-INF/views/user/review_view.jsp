@@ -26,7 +26,7 @@
                     <div class="panel panel-default user-write">
                         <!-- Default panel contents -->
                         <div class="panel-heading boardTitle-view" id="user-write">
-                            <span class="boardImg"><img src="${pageContext.request.contextPath}/assets/img${output.filepath}" alt="${output.subject}"></span>
+                            <span class="boardImg"><img src="${pageContext.request.contextPath}/upload${output.filepath}" alt="${output.subject}"></span>
                             <span class="boardTitle">${output.subject}</span>
                             <span class="boardDate">${output.price}원</span>
                         </div>
@@ -35,7 +35,7 @@
                             <p>${output.content}<br></p>
                             <div id="review_img" class="review_img">
                              <c:forEach var="item" items="${fileimages}" varStatus="status">
-                                <img class="userreview_img" src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="리뷰이미지">
+                                <img class="userreview_img" src="${pageContext.request.contextPath}/upload${item.filepath}" alt="리뷰이미지">
                             </c:forEach>
                             </div> 
                         </div>

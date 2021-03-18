@@ -51,19 +51,29 @@
                             <div class="filter_category_sort">
                                 <div class="filter_sort">
                                     <h5>상품상태</h5>
-                                    <button class="btn btn-tag"><span class="glyphicon glyphicon-ok"></span> 새상품</button>
-                                    <button class="btn btn-tag"><span class="glyphicon glyphicon-ok"></span> 거의새것</button>
-                                    <button class="btn btn-tag"><span class="glyphicon glyphicon-ok"></span> 중고</button>
+                                    <button id="button0" name="prodcon" class="btn btn-tag" value="10">
+										<span class="glyphicon glyphicon-ok"></span> 새상품
+									</button>
+									<button id="button1" name="prodcon" class="btn btn-tag" value="100">
+										<span class="glyphicon glyphicon-ok"></span> 거의새것
+									</button>
+									<button id="button2" name="prodcon" class="btn btn-tag" value="1000">
+										<span class="glyphicon glyphicon-ok"></span> 중고
+									</button>
                                 </div>
                                 <div class="filter_sort">
                                     <h5>판매방법</h5>
-                                    <button class="btn btn-tag"><span class="glyphicon glyphicon-ok"></span> 직거래</button>
-                                    <button class="btn btn-tag"><span class="glyphicon glyphicon-ok"></span> 택배거래</button>
+                                    <button id="button3" name="prodcon" class="btn btn-tag" value="20">
+										<span class="glyphicon glyphicon-ok"></span> 직거래
+									</button>
+									<button id="button4" name="prodcon" class="btn btn-tag" value="200">
+										<span class="glyphicon glyphicon-ok"></span> 택배거래
+									</button>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">선택적용</button>
+                            <button id="applyFilter" type="button" class="btn btn-primary" data-dismiss="modal">선택적용</button>
                         </div>
                         </div>
                     </div>
@@ -71,9 +81,9 @@
 
                 <div class="item-row">
                     <select class="form-control" id="item-select">
-                        <option value="default" <c:if test="${orderby=='default'}">selected</c:if>>최신순</option>
-						<option value="priceAsc" <c:if test="${orderby=='priceAsc'}">selected</c:if>>저가순</option>
-						<option value="priceDesc" <c:if test="${orderby=='priceDesc'}">selected</c:if>>고가순</option>
+                        <option value="fastest">최신순</option>
+						<option value="lowprice">저가순</option>
+						<option value="highprice">고가순</option>
                     </select>
                     <div class="btn-group">
                         <button id="sortList" type="button" class="btn btn-default btn-list"><span class="glyphicon glyphicon glyphicon-th-list"></span><span class="sr-only">썸네일로 보기</span></button>
@@ -116,10 +126,10 @@
 					                    <div class="sorting thumbnail">
 				                        	<c:choose>
 					                        	<c:when test="${item.filepath == null && fn:length(item.filepath) == 0}">
-					                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+					                        		<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
 					                        	</c:when>
 				                        		<c:otherwise>
-				                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" />
+				                        			<img alt="${item.subject}" class="img-rounded" src="${pageContext.request.contextPath}/upload${item.thumbnailPath}" />
 				                        		</c:otherwise>
 				                        	</c:choose>
 					                        <div class="caption">
@@ -145,12 +155,12 @@
         <script id="prod-item-tmpl" type="text/x-handlebars-template">
 			{{#each item}}
 			<div class="col-xs-6 col-sm-4 col-lg-3 item-list">
-             	<a href="${pageContext.request.contextPath}/product/item_index.cider?prodno={{prodno}}">
+             	<a href="${pageContext.request.contextPath}/item_index.cider?prodno={{prodno}}">
              		<div class="sorting thumbnail">
                 		{{#if filepath}}
-			        		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img{{thumbnailPath}}" />
+			        		<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/upload{{thumbnailPath}}" />
 			        	{{else}}
-				        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/assets/img/default_product.jpg" />
+				        	<img alt="{{subject}}" class="img-rounded" src="${pageContext.request.contextPath}/upload/default_product.jpg" />
 						{{/if}}
                     	<div class="caption">
                        		<h5>{{subject}}</h5>
@@ -190,14 +200,58 @@
             let nowPage = 1;	// 현재 페이지의 기본값
             let isEnd = false;  // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
             
-            /** 스크롤이벤트 정의 */
     		$(function() {
+    			/* 정렬하기 기능 value 값 가져오기 */
+    			let sort = $('#item-select option:selected').val(); // 셀렉트 된 값 가져오기(기본값)
+    			var filter = 0;
+    			
+    			
+    			$("#item-select").change(function() {
+    				filter =0; //filter값 초기화
+    				sort = this.value; // 선택한 셀렉트 값 가져오기
+    				$("#item-list").empty(); // 기존 상품 호출 지우기
+    				isEnd = false; // 무한스크롤 초기화
+    				nowPage = 1; // 현재 페이지 1로 초기화
+    				for (var i = 0; i < 5; i++) {
+    					if ($("#button" + i + "").hasClass("active")) {
+    					var int_val = Number($("#button" + i + "").val());
+    					filter+=int_val;
+    					}
+    				}
+    				getProduct(sort,filter);// sort값을 기준으로 상품 다시 가져오기
+    			});
+
+    			// 필터버튼 눌렀을때 
+    			$("#applyFilter").click(function() {
+    				filter =0; //filter값 초기화
+    			
+    				for (var i = 0; i < 5; i++) {
+    					if ($("#button" + i + "").hasClass("active")) {
+    					var int_val = Number($("#button" + i + "").val());
+    					filter+=int_val;
+    					}
+    				}
+    				
+    				sort = this.value; // 선택한 셀렉트 값 가져오기
+    				$("#item-list").empty(); // 기존 상품 호출 지우기
+    				isEnd = false; // 무한스크롤 초기화
+    				nowPage = 1; // 현재 페이지 1로 초기화
+    				getProduct(sort,filter); // sort값을 기준으로 상품 다시 가져오기
+    			});
+    			
+    			/** 스크롤이벤트 정의 */
                 $(window).scroll(function(e) {
+                	let totalPage = "${pageData.totalPage}";
                     if ($(window).height() + $(window).scrollTop() == $(document).height()) {
     					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
-        				nowPage++;
-            			getProduct();
-            			get_sort();
+        				// 현재페이지 체크 후 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+						if (totalPage <= nowPage) {
+							isEnd = true;
+						} else {
+							nowPage++;
+							getProduct(sort,filter);
+							get_sort();
+						}
                     }
                 })
     		
@@ -210,7 +264,10 @@
         			let keyword = $('#keyword2').val();
         			// Restful API에 GET 방식 요청
         			$.get("${pageContext.request.contextPath}/search", {
-        				"page": nowPage, "keyword":keyword   // 페이지 번호는 GET 파라미터로 전송한다.
+        				"page": nowPage, 
+        				"keyword":keyword,
+        				"sort" : sort,
+    					"filter":filter
         			}, function(json) {
         				var source = $("#prod-item-tmpl").html();	// 템플릿 코드 가져오기
         				var template = Handlebars.compile(source);  // 템플릿 코드 컴파일
@@ -224,16 +281,7 @@
 
         			});
         		}
-                
-                /* 정렬 드롭다운의 변경이벤트 */
-        	    $("#item-select").change(function(){
-                    let orderby = $(this).val(); //사용자선택값 가져오기
-                    let listCount = "${pageData.listCount}";
-                    let keyword = "${keyword}";
-                    window.location = "${pageContext.request.contextPath}/search.cider?"+
-                    		"orderby="+orderby+"&listCount="+listCount+"&keyword="+keyword;
-        	    });
-                
+                             
             	
                 /* 상품필터 */
                 $(".btn-tag").click(function() {

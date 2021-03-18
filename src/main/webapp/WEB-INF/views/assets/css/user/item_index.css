@@ -434,3 +434,9 @@ textarea {
 select {
   margin-bottom: 10px;
 }
+.swiper-slide {
+	margin: auto;
+}
+.swiper-container {
+	background-color: #333;
+}

@@ -64,7 +64,7 @@
 									</c:when>	
 									<c:otherwise>
 										<c:forEach var="item" items="${files}" varStatus="status">
-				                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.thumbnailPath}" alt="${output.title}" /></div>
+				                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/upload${item.thumbnailPath}" alt="${output.title}" /></div>
 				                    	</c:forEach>
 									</c:otherwise>
 			                   	</c:choose>
@@ -89,7 +89,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <!-- jQeury Ajax Form plugin CDN -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>

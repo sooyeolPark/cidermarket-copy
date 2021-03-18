@@ -311,86 +311,7 @@
       FROM product p,category c
       
       <where>
-      	c.cateno=p.cateno and tradecon="J"
-      
-
-      	<if test="cateno == 10">
-      		AND prodcon='N'
-      	</if>
-      	<if test="cateno == 100">
-      		AND prodcon='A' 
-      	</if>
-      	<if test="cateno == 110">
-      		AND (prodcon='A' or prodcon='N')
-      	</if>      	
-      	<if test="cateno == 1000">
-      		AND prodcon='U'
-      	</if>
-      	<if test="cateno == 1010">
-      		AND (prodcon='U'or prodcon='N')
-      	</if>      	
-      	
-      	<if test="cateno == 20">
-      		AND tradecon='T'
-      	</if>
-      	<if test="cateno == 200">
-      		AND prodcon='J'
-      	</if>
-      	<if test="cateno == 30">
-      		AND (prodcon='N' and how="T")
-      	</if>
-      	<if test="cateno == 210">
-      		AND (prodcon='N' and how="J")
-      	</if>
-      	<if test="cateno == 230">
-      		AND (prodcon='N' and (how="T" or how="J")) 
-      	</if>
-      	<if test="cateno == 120">
-      		AND (prodcon='A' and how="T")
-      	</if>
-      	<if test="cateno == 300">
-      		AND (prodcon='A' and how="J")
-      	</if>
-      	<if test="cateno == 320">
-      		AND (prodcon='A' and (how="T" or how="J"))
-      	</if>
-      	<if test="cateno == 1020">
-      		AND (prodcon='U' and how="T")
-      	</if>
-      	<if test="cateno == 1200">
-      		AND (prodcon='U' and how="J")
-      	</if>
-      	<if test="cateno == 1220">
-      		AND (prodcon='U' and (how="T" or how="J") )
-      	</if>
-      	<if test="cateno == 130">
-      		AND (prodcon='N' and (how="A" or how="T"))
-      	</if>
-      	<if test="cateno == 310">
-      		AND (prodcon='N' and (how="A" or how="J"))
-      	</if>      	
-      	<if test="cateno == 330">
-      		AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
-      	</if>
-      	<if test="cateno == 1030">
-      		AND ((prodcon='N' or prodcon="U") and (how="T"))
-      	</if>
-      	<if test="cateno == 1210">
-      		AND ((prodcon='N' or prodcon="U") and how="J")
-      	</if>
-      	<if test="cateno == 1230">
-      		AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
-      	</if>      	      	
-      	<if test="cateno == 1130">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-      	</if>
-      	<if test="cateno ==1310">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
-      	</if>
-      	<if test="cateno == 1330">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
-      	</if> 	      	
-      	      	      	      	      	
+      	c.cateno=p.cateno and tradecon="J"	      	      	      	
       </where>
 
       ORDER BY regdate Desc
@@ -405,90 +326,11 @@
 		parameterType="study.shop.cidermarket.model.Product"
 		resultType="int">
 		SELECT COUNT(*) 
-		      FROM product p,category c
+	    FROM product p,category c
 		
 		<where>
-      	c.cateno=p.cateno and tradecon="J"
-      
-
-      	<if test="cateno == 10">
-      		AND prodcon='N'
-      	</if>
-      	<if test="cateno == 100">
-      		AND prodcon='A' 
-      	</if>
-      	<if test="cateno == 110">
-      		AND (prodcon='A' or prodcon='N')
-      	</if>      	
-      	<if test="cateno == 1000">
-      		AND prodcon='U'
-      	</if>
-      	<if test="cateno == 1010">
-      		AND (prodcon='U'or prodcon='N')
-      	</if>      	
-      	
-      	<if test="cateno == 20">
-      		AND tradecon='T'
-      	</if>
-      	<if test="cateno == 200">
-      		AND prodcon='J'
-      	</if>
-      	<if test="cateno == 30">
-      		AND (prodcon='N' and how="T")
-      	</if>
-      	<if test="cateno == 210">
-      		AND (prodcon='N' and how="J")
-      	</if>
-      	<if test="cateno == 230">
-      		AND (prodcon='N' and (how="T" or how="J")) 
-      	</if>
-      	<if test="cateno == 120">
-      		AND (prodcon='A' and how="T")
-      	</if>
-      	<if test="cateno == 300">
-      		AND (prodcon='A' and how="J")
-      	</if>
-      	<if test="cateno == 320">
-      		AND (prodcon='A' and (how="T" or how="J"))
-      	</if>
-      	<if test="cateno == 1020">
-      		AND (prodcon='U' and how="T")
-      	</if>
-      	<if test="cateno == 1200">
-      		AND (prodcon='U' and how="J")
-      	</if>
-      	<if test="cateno == 1220">
-      		AND (prodcon='U' and (how="T" or how="J") )
-      	</if>
-      	<if test="cateno == 130">
-      		AND (prodcon='N' and (how="A" or how="T"))
-      	</if>
-      	<if test="cateno == 310">
-      		AND (prodcon='N' and (how="A" or how="J"))
-      	</if>      	
-      	<if test="cateno == 330">
-      		AND ((prodcon='N' or prodcon="A") and (how="T" or how="J")) 
-      	</if>
-      	<if test="cateno == 1030">
-      		AND ((prodcon='N' or prodcon="U") and (how="T"))
-      	</if>
-      	<if test="cateno == 1210">
-      		AND ((prodcon='N' or prodcon="U") and how="J")
-      	</if>
-      	<if test="cateno == 1230">
-      		AND ((prodcon='N' or prodcon="U") and (how="T" or how="J" ))
-      	</if>      	      	
-      	<if test="cateno == 1130">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="T")
-      	</if>
-      	<if test="cateno ==1310">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and how="J")
-      	</if>
-      	<if test="cateno == 1330">
-      		AND ((prodcon='N' or prodcon="A" or prodcon="U") and (how="T" or how="J"))
-      	</if> 	 
-      	      	
-      </where>
+      		c.cateno=p.cateno and tradecon="J"
+      	</where>
 		ORDER BY regdate Desc
       
       <if test="listCount > 0">

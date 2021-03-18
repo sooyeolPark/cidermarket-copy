@@ -1,5 +1,7 @@
 package study.shop.cidermarket.model;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data
@@ -27,6 +29,7 @@ public class Review {
 	private String nickname;
 	private String outmember;
 	private String shopaddress;
+	private ArrayList<String> filepathlist;
 	
 	
 

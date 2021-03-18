@@ -11,7 +11,6 @@
 <title>일반문의 - 사이다마켓</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/question_adm.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/header_footer_adm.css" />
 </head>
 
 <body>

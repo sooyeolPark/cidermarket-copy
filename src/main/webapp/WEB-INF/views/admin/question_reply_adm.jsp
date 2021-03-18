@@ -66,7 +66,7 @@
 						</c:when>	
 						<c:otherwise>
 							<c:forEach var="item" items="${files}" varStatus="status">
-	                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/assets/img${item.filepath}" alt="${output.title}" /></div>
+	                    	<div class="text-center first_img"><img src="${pageContext.request.contextPath}/upload${item.filepath}" alt="${output.title}" /></div>
 	                    	</c:forEach>
 						</c:otherwise>
                    	</c:choose>
@@ -128,8 +128,6 @@
 	<%@ include file="/WEB-INF/views/inc/footer_adm.jsp"%>
 
     <!-- Javascript -->
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <!-- ajax-helper -->
     <script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
     <script type="text/javascript">
     
