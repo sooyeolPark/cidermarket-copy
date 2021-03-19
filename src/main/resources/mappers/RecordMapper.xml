@@ -278,7 +278,7 @@
     <update id="updateBuyTradeconTWItem"
         parameterType="study.shop.cidermarket.model.Record">
         UPDATE record SET
-            tradecon='A', confirmdate=now()
+            tradecon='C', confirmdate=now()
         WHERE recono=#{recono} AND tradecon='J' AND not refund='J'
     </update>
     

@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import study.shop.cidermarket.service.MemberService;
-import study.shop.cidermarket.service.MyInfoService;
 import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.service.MyInfoService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
 // -> import org.springframework.stereotype.Service;

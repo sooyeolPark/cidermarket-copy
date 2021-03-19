@@ -191,6 +191,8 @@
 
 		let nowPage = 1; // 현재페이지 위치 설정
 		let isEnd = false; // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
+		let isConnect = false;  // Ajax 호출 중복 방지
+		
 		$(function() {
 			const cateno = $('#category-title').data('cateno');
 
@@ -234,27 +236,31 @@
 
 
 			/* 스크롤 이벤트 */
-			$(window).scroll(
-					function(e) {
-						let totalPage = "${pageData.totalPage}";
-						if ($(window).height() + $(window).scrollTop() == $(
-								document).height()) {
-							// 현재페이지 체크 후 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
-							if (totalPage <= nowPage) {
-								isEnd = true;
-							} else {
-								nowPage++;
-								getProduct(sort,filter);
-								get_sort();
-							}
-						}
-					})
+			$(window).scroll(function(e) {
+				if (isConnect) {
+					return false;
+				}
+				
+				let totalPage = "${pageData.totalPage}";
+				if ($(window).height() + $(window).scrollTop() + 60 >= $(document).height()) {
+					// 현재페이지 체크 후 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+					if (totalPage <= nowPage) {
+						isEnd = true;
+					} else {
+						nowPage++;
+						getProduct(sort,filter);
+						get_sort();
+					}
+				}
+			})
 
 			/** 화면 하단에 스크롤이 도달할 때 일어날 이벤트 정의 */
 			let getProduct = function(sort,filter) {
 				if (isEnd == true) {
 					return;
 				}
+				
+				isConnect = true;
 
 				// Restful API에 GET 방식 요청
 				$.get("${pageContext.request.contextPath}/Item_list", {
@@ -274,6 +280,8 @@
 						isEnd = true;
 					}
 				});
+				
+				isConnect = false;
 			}
 
 			/* 필터정렬 */

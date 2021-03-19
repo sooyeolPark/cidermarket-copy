@@ -370,6 +370,13 @@
                 $("#background").fadeOut(300);
             });
             
+            $("#tag_input").keydown(function(e){
+            	if(e.keyCode==13){
+            		e.preventDefault();
+            		$("#tag_ok").click();
+            	}
+            });
+            
          // #item_img_group에 대한 submit이벤트를 가로채서 Ajax요청을 전송한다.
             $("#item_img_group").ajaxForm({
                 // 전송 메서드 지정

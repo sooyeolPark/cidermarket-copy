@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Category;
@@ -22,7 +21,6 @@ import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.FilesService;
 
-@Slf4j
 @RestController
 public class AdmCategoryRestController {
 	/** WebHelper 주입 */

@@ -199,6 +199,7 @@
             
             let nowPage = 1;	// 현재 페이지의 기본값
             let isEnd = false;  // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
+            let isConnect = false;  // Ajax 호출 중복 방지
             
     		$(function() {
     			/* 정렬하기 기능 value 값 가져오기 */
@@ -241,8 +242,12 @@
     			
     			/** 스크롤이벤트 정의 */
                 $(window).scroll(function(e) {
+                	if (isConnect) {
+    					return false;
+    				}
+                	
                 	let totalPage = "${pageData.totalPage}";
-                    if ($(window).height() + $(window).scrollTop() == $(document).height()) {
+                    if ($(window).height() + $(window).scrollTop() + 60 >= $(document).height()) {
     					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
         				// 현재페이지 체크 후 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
 						if (totalPage <= nowPage) {
@@ -261,6 +266,8 @@
         				return;
         			}
         			
+        			isConnect = true;
+        			
         			let keyword = $('#keyword2').val();
         			// Restful API에 GET 방식 요청
         			$.get("${pageContext.request.contextPath}/search", {
@@ -278,8 +285,9 @@
         				if (json.pageData.totalPage <= nowPage) {
         					isEnd = true;
         				}
-
         			});
+        			
+        			isConnect = false;
         		}
                              
             	

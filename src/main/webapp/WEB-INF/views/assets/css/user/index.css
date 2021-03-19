@@ -45,7 +45,7 @@
 }
 .thumbnail img {
   width: 100%;
-  min-height: 222px;
+  border: 1px solid #eee;
 }
 .thumbnail .caption {
   padding: 0;
@@ -61,10 +61,6 @@
 .thumbnail .caption h4 {
   font-weight: bold;
   letter-spacing: -0.8px;
-}
-.thumbnail img {
-  width: 100%;
-  border: 1px solid #eee;
 }
 .item-list a:hover img {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);

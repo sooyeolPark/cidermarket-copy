@@ -432,6 +432,13 @@
             	   }
                }
             });
+            
+            $("#tag_input").keydown(function(e){
+            	if(e.keyCode==13){
+            		e.preventDefault();
+            		$("#tag_ok").click();
+            	}
+            });
 
             $(document).on("click", ".remove_tag", function (e) {
                 e.preventDefault();

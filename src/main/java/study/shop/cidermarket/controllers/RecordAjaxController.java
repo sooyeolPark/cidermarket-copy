@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
-import study.shop.cidermarket.model.Bbs;
 import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.service.MemberService;
 import study.shop.cidermarket.service.ProductService;

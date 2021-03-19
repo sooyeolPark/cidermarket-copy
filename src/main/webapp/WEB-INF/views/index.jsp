@@ -161,23 +161,53 @@
 	<script>
 		let nowPage = 1;  // 현재 페이지의 기본값
 		let isEnd = false;  // 데이터를 모두 불러온 후 무한스크롤 종료를 위한 전역변수
-		
-        /** 스크롤이벤트 정의 */
-		$(function() {
+		let isConnect = false;  // 무한스크롤 Ajax 중복 호출 방지
+        
+        $(function() {
             $(window).scroll(function(e) {
-                if ($(window).height() + $(window).scrollTop() == $(document).height()) {
+            	if (isConnect) {
+            		return false;
+            	}
+            	
+                if ($(window).height() + $(window).scrollTop() + 60 >= $(document).height()) {
 					// 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+					isConnect = true;
     				nowPage++;
         			getProduct();
+        			isConnect = false;
                 }
             })
 		});
+		
+		/** 스크롤 이벤트 변경 후 */
+		/* $(function(){
+            $(window).scroll(function(e) {
+               let scrollHeight = $(window).height() + $(window).scrollTop();
+               let varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기                
+                if ( varUA.indexOf('android') > -1) {
+                   if (scrollHeight + 57 >= $(document).height()) {
+                  console.log("안드로이드~~~~~~~");
+                  // 다음 페이지를 요청하기 위해 페이지 변수 1 증가 후 실행
+                   nowPage++;
+                    getProduct();
+                   }
+                } else {
+                   if (scrollHeight == $(document).height()) {
+                  console.log("안드로이드 아님~~~~~~~");
+                   nowPage++;
+                    getProduct();
+                   }
+                }
+            })
+        }); */
 		
 		/** Ajax와 Handlebars를 이용해 상품 불러오는 기능 정의 */
 		let getProduct = function(){
 			if (isEnd == true) {
 				return;
 			}
+			
+			isConnect = true;
 			
 			// Restful API에 GET 방식 요청
 			$.get("${pageContext.request.contextPath}/product", {
@@ -193,6 +223,8 @@
 					isEnd = true;
 				}
         	});
+			
+			isConnect = false;
 		}
 	</script>
 </body>

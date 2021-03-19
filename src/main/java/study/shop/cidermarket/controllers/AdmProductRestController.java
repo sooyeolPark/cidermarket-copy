@@ -18,8 +18,8 @@ import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.FilesService;
-import study.shop.cidermarket.service.ProductService;
 import study.shop.cidermarket.service.ItemIndexService;
+import study.shop.cidermarket.service.ProductService;
 
 @Slf4j
 @RestController

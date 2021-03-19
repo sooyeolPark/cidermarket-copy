@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.model.Bbs;
-import study.shop.cidermarket.model.Files;
 import study.shop.cidermarket.service.BbsService;
 
 /** 교수 데이터 관리 기능을 제공하기 위한 Service 계층에 대한 구현체 */
@@ -122,6 +121,12 @@ public class BbsInquiryServiceImpl implements BbsService {
 			throw new Exception("데이터 삭제에 실패했습니다.");
 		}
 		return result;
+	}
+
+	@Override
+	public int editBbsItemHits(Bbs input) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

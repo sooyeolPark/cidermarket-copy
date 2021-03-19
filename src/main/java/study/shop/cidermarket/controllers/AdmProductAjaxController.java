@@ -14,11 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import study.shop.cidermarket.helper.PageData;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Product;
 import study.shop.cidermarket.service.AdmProductService;
 import study.shop.cidermarket.service.ProductService;
-import study.shop.cidermarket.service.RecordService;
-import study.shop.cidermarket.model.Product;
-import study.shop.cidermarket.model.Record;
 
 @Controller
 public class AdmProductAjaxController {

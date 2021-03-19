@@ -144,6 +144,14 @@
 		WHERE prodno=#{prodno}
 	</update>
 	
+	<!-- 상품 조회수 1 누적 기능 정의 -->
+	<update id="updateItemHits"
+		parameterType="study.shop.cidermarket.model.Product">
+		UPDATE product SET
+			 hits = hits+1
+		WHERE prodno=#{prodno}
+	</update>
+	
 	<!-- 주문 완료했을때 판매 완료로 바꿔주는 기능 위한 기능 정의 -->
 	<update id="orderOkItem"
 		parameterType="study.shop.cidermarket.model.Product">

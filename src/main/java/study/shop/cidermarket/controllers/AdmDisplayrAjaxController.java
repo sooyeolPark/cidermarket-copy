@@ -16,7 +16,6 @@ import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
 import study.shop.cidermarket.model.Category;
 import study.shop.cidermarket.model.Product;
-import study.shop.cidermarket.model.Record;
 import study.shop.cidermarket.service.CategoryService;
 import study.shop.cidermarket.service.ProductService;
 

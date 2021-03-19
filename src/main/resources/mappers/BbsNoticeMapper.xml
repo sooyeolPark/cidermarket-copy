@@ -94,5 +94,13 @@
 			title=#{title}, content=#{content}, editdate=now()
 		WHERE bbsno=#{bbsno}
 	</update>
+	
+	<!-- 조회수 1 누적을 위한 기능 정의 -->
+	<update id="updateHits"
+		parameterType="study.shop.cidermarket.model.Bbs">
+		UPDATE bbs SET
+			hits=hits+1
+		WHERE bbsno=#{bbsno}
+	</update>
 
 </mapper>

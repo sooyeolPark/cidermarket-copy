@@ -1,11 +1,8 @@
 package study.shop.cidermarket.controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import study.shop.cidermarket.model.Member;
-import study.shop.cidermarket.model.Record;
-import study.shop.cidermarket.service.AdmHomeService;
-import study.shop.cidermarket.service.ItemIndexService;
 import lombok.extern.slf4j.Slf4j;
 import study.shop.cidermarket.helper.RegexHelper;
 import study.shop.cidermarket.helper.WebHelper;
+import study.shop.cidermarket.model.Member;
+import study.shop.cidermarket.model.Record;
+import study.shop.cidermarket.service.AdmHomeService;
 
 @Slf4j
 @Controller

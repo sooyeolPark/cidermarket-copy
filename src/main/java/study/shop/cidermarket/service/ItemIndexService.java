@@ -164,6 +164,15 @@ public interface ItemIndexService {
 	 * @throws Exception
 	 */
 	public int editProduct(Product input) throws Exception;
+	
+	/**
+	 * 조회수 1 누적하기
+	 * @param input
+	 * @return
+	 * @throws Exception
+	 */
+	public int editProductItemHits(Product input) throws Exception;
+	
 	public List<Files> getFilesReviewListItem(Files input) throws Exception;
 	public Files getFilesMemberListItem(Files input) throws Exception;
 }

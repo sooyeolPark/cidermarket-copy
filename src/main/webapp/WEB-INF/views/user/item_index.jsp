@@ -852,7 +852,7 @@
     		  } else{
     		  return false;
     		  }
-    	  }
+    	  } else {
        	 var input = $("#content").val();
          if (!input || input.trim() == "") {
            alert("댓글 내용을 작성해 주세요.");
@@ -879,7 +879,7 @@
        			}
                });
          }
-          
+    	  }
           
         });
       
@@ -893,7 +893,7 @@
     		  } else{
     		  return false;
     		  }
-    	  }
+    	  } else {
        	 var input = $(this).find(".rereply_content").val();
          if (!input || input.trim() == "") {
            alert("댓글 내용을 작성해 주세요.");
@@ -919,8 +919,8 @@
        				}
        			}
                });
-         }
-          
+         	}
+    	}
           
         });
       
